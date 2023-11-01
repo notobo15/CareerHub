@@ -1,0 +1,57 @@
+﻿@model List<ApplyPost>
+@{
+    ViewData["Title"] = "Danh sách";
+    int count = 0;
+}
+<h2>@ViewData["Title"]</h2>
+<partial name="_StatusMessage"></partial>
+<p>Tổng số thành viên: @Model.Count</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Tên Post</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th>File</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var post in Model)
+        {
+            <tr>
+                <td>@(count++)</td>
+                <td>@post.PostID</td>
+                <td>
+                    @post.Name
+                </td>
+                <td>@post.ApplyDate</td>
+                <td>
+                    <a href="~/contents/file-CV/@post.FileName">Xem</a>
+                </td>
+                <td>
+                    @post.Description
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.table').dataTable({
+                "fnDrawCallback": function (oSettings) {
+                    if ($('.table tr').length < 11) {
+                        $('.dataTables_paginate').hide();
+                    }
+                }
+            });
+        })
+
+    </script>
+}

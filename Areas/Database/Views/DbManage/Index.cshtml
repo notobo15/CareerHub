@@ -1,0 +1,50 @@
+@using Microsoft.EntityFrameworkCore
+@using System.Data
+@inject AppDbContext dbContext
+@{
+    ViewData["Title"] = "Database Info";
+    var connect = dbContext.Database.GetDbConnection();
+    var dbName = connect.Database;
+    var can_connect = dbContext.Database.CanConnect();
+
+    dbContext.Database.GetPendingMigrations();
+}
+<partial  name="_StatusMessage"/>
+<div class="container" >
+    <h2>Info Database</h2>
+    <p>Name Database : @dbName</p>
+    <p>Source : @connect.DataSource</p>
+    <p>State : @connect.State</p>
+    <hr />
+    <a class="btn btn-danger" asp-action="DeleteDbAsync">DeleteDbAsync</a>
+    <a class="btn btn-danger" asp-action="Migrate">Migrate</a>
+    @foreach(var m in dbContext.Database.GetAppliedMigrations())
+    {
+        <p>@m</p>
+    }
+    <hr />
+    @foreach (var m in dbContext.Database.GetPendingMigrations())
+    {
+        <p>@m (pending)</p>
+    }
+
+    <a class="btn btn-danger" asp-action="SeedData">Seed Data</a>
+    <a class="btn btn-danger" asp-action="SeedDataDefault">SeedDataDefault</a>
+
+    @if (!can_connect)
+    {
+        <p class="alert alert-danger">Cant connect db</p>
+    }else
+    {
+        <h3>Tables</h3>
+        await dbContext.Database.OpenConnectionAsync();
+        var tables = dbContext.Database.GetDbConnection().GetSchema("Tables");
+        <ul>
+            @foreach(System.Data.DataRow row in tables.Rows)
+            {
+                <li>@row["TABLE_NAME"]</li>
+            }
+        </ul>
+    }
+    
+</div>

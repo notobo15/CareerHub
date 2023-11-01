@@ -1,0 +1,122 @@
+﻿@model RecruitmentApp.Areas.Companies.Models.CreateCompany
+
+@{
+    ViewData["Title"] = "Create";
+    var list = ViewData["list"] as MultiSelectList;
+}
+
+<h1>Create</h1>
+
+<h4>Company</h4>
+<hr />
+<div class="row">
+    <div class="col-md-10">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="w-100">
+                <label asp-for="SkillIds" class="control-label"></label>
+                <select class="w-100" asp-for="SkillIds" asp-items="@list" multiple="multiple">
+                    <span asp-validation-for="SkillIds" class="text-danger"></span>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Slug" class="control-label"></label>
+                <input asp-for="Slug" class="form-control" />
+                <span asp-validation-for="Slug" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Size" class="control-label"></label>
+                <input asp-for="Size" class="form-control" />
+                <span asp-validation-for="Size" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reason" class="control-label"></label>
+                <input asp-for="Reason" class="form-control" />
+                <span asp-validation-for="Reason" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Type" class="control-label"></label>
+                <input asp-for="Type" class="form-control" />
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nation" class="control-label"></label>
+                <input asp-for="Nation" class="form-control" />
+                <span asp-validation-for="Nation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OverTime" class="control-label"></label>
+                <input asp-for="OverTime" class="form-control" />
+                <span asp-validation-for="OverTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkingTime" class="control-label"></label>
+                <input asp-for="WorkingTime" class="form-control" />
+                <span asp-validation-for="WorkingTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LogoImage" class="control-label"></label>
+                <input asp-for="LogoImage" class="form-control" />
+                <span asp-validation-for="LogoImage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CompanyUrl" class="control-label"></label>
+                <input asp-for="CompanyUrl" class="form-control" />
+                <span asp-validation-for="CompanyUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CompanyFbUrl" class="control-label"></label>
+                <input asp-for="CompanyFbUrl" class="form-control" />
+                <span asp-validation-for="CompanyFbUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+@{
+    var summernote = new RecruitmentApp.Models.Summernote("#Description");
+}
+@section Scripts {
+    <script>
+
+           $(document).ready(function () {
+               $("#SkillIds").select2({
+                   placeholder: "Tất Cả Kĩ Năng",
+                   theme: "bootstrap4",
+                   allowClear: true
+               });
+           })
+
+    </script>
+    <partial name="_Summernote" model="summernote" />
+
+}
+

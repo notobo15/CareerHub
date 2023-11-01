@@ -1,0 +1,108 @@
+﻿@using System.Collections.Generic
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Authentication
+@model LoginViewModel
+@inject SignInManager<AppUser> SignInManager
+
+@{
+    ViewData["Title"] = "Đăng nhập";
+}
+
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <h1 class="text-center">@ViewData["Title"]</h1>
+        <p>
+            Bằng việc đăng nhập, bạn đồng ý với các <a class="" asp-area="" asp-controller="Home" asp-action="Privacy">Điều khoản dịch vụ</a> và <a class="" asp-area="" asp-controller="Home" asp-action="Condition">Chính sách quyền riêng tư</a> liên quan đến thông tin riêng tư của bạn.
+        </p>
+        <section>
+            <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="UserNameOrEmail" class="control-label"></label>
+                    <div class="">
+                        <input asp-for="UserNameOrEmail" class="form-control" />
+                        <span asp-validation-for="UserNameOrEmail" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label"></label>
+                    <div class="">
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2">
+                        <div class="checkbox">
+                            <label asp-for="RememberMe">
+                                <input asp-for="RememberMe" />
+                                @Html.DisplayNameFor(m => m.RememberMe)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2">
+                        <button type="submit" class="btn btn-primary w-100 font-weight-bold py-2">Đăng nhập</button>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between py-2  mb-2">
+                    <p>Chưa có tài khoản?<a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]"> Đăng ký Ngay</a></p>
+                    
+                    <a asp-action="ForgotPassword">Quên mật khẩu?</a>
+                </div>
+            </form>
+        </section>
+        @{
+            var schemes = await SignInManager.GetExternalAuthenticationSchemesAsync();
+            var loginProviders = schemes.ToList();
+            if (loginProviders.Count == 0)
+            {
+            }
+            else
+            {
+                <form asp-controller="Account" asp-action="ExternalLogin" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
+                    <div>
+                        @{
+                            var icon = "";
+                            string background = "";
+                        }
+                        @foreach (var provider in loginProviders)
+                        {
+                            if(provider.Name == "Google")
+                            {
+                                icon = "fab fa-google";
+                                background = "#e8483c";
+                            }
+                            else if (provider.Name == "Facebook")
+                            {
+                                icon = "fab fa-facebook";
+                                background = "#0872f0";
+                            }else
+                            {
+                                background = "";
+                            }
+                            <button type="submit" style="background-color: @background" class="btn btn-primary w-100 mb-3 py-2 border-0" name="provider" value="@provider.Name" title="Log in using your @provider.Name account"><i class="@icon mr-2"></i><b>@provider.Name</b></button>
+                        }
+                    </div>
+                </form>
+            }
+        }
+    </div>
+    <div class="ml-5 col">
+        <h4 class="font-weight-bold">Đăng nhập để truy cập ngay vào hàng ngàn đánh giá và dữ liệu lương thị trường IT</h4>
+        <ul class="font-weight">
+
+            <li>Xem trước mức lương để có thể lợi thế khi thoả thuận lương</li>
+            <li>Tìm hiểu về phúc lợi, con người, văn hóa công ty qua các đánh giá chân thật</li>
+            <li>Dễ dàng ứng tuyển chỉ với một thao tác</li>
+            <li>Quản lý hồ sơ và quyền riêng tư của bạn</li>
+        </ul>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

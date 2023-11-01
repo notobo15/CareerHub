@@ -1,0 +1,56 @@
+﻿@model List<Company>
+@inject SignInManager<AppUser> SignInManager
+@using Microsoft.AspNetCore.Identity
+@using RecruitmentApp.Models
+@inject UserManager<AppUser> UserManager
+@inject AppDbContext appDbContext
+<h3>Đang Follow</h3>
+<div class="row">
+
+
+    @foreach (var item in Model)
+    {
+
+        <div class="col-sm-12 border p-2 align-items-center">
+            <div class="row">
+                <div class="col-sm-2 my-auto">
+                    <img src="@item.LogoImage" class="w-100" />
+                </div>
+                <div class="col-sm-8">
+
+                    <a asp-action="ViewCompany" asp-controller="Home" asp-route-id="@item.Slug"> <h5>@item.Name</h5></a>
+
+                    <div>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <small>@string.Join(" - ", item.Addresses.Select(p => p.City.Name))</small>
+                    </div>
+                   <!--
+
+
+                         <div class="row">
+
+                         <div class="col-lg-6">
+                             <i class="fas fa-map-marker-alt"></i>
+                             <small></small>
+                         </div>
+                         <div class="col-lg-6">
+                             <i class="far fa-calendar-alt"></i>
+                             <small></small>
+                         </div>
+                     </div>
+                   -->
+
+                </div>
+                <div class="p-2 text-center col-sm-2 my-auto">
+                    <form method="POST" asp-action="UnFollow" asp-area="Companies" asp-controller="Company">
+                        <input type="hidden" name="UserId" value="@UserManager.GetUserId(User)" />
+                        <input type="hidden" name="CompanyId" value="@item.CompanyId" />
+                        <button type="submit" class="btn btn-sm btn-outline-danger ">Huỷ Theo Dõi</button>
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+    }
+</div>

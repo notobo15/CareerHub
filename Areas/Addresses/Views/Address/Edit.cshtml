@@ -1,0 +1,127 @@
+@model RecruitmentApp.Models.Address
+@inject AppDbContext appDbContext
+@{
+    var listCompany = new SelectList(appDbContext.Companies.ToList(), "CompanyId", "Name", Model.CompanyId.ToString());
+    var listProvince = new SelectList(appDbContext.provinces.ToList(), "Code", "FullName", Model.ProvinceCode.ToString());
+    var listDistrict = new SelectList(appDbContext.districts.Where(p => p.ProvinceId == Model.ProvinceCode).ToList(), "Code", "FullName", Model.DistrictCode.ToString());
+    var listWard = new SelectList(appDbContext.wards.Where(p => p.DistrictId == Model.DistrictCode).ToList(), "Code", "FullName", Model.WardCode.ToString());
+}
+<h4>Skill</h4>
+<hr />
+<div class="row">
+    <div class="col-md-10">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="AddressId" />
+            <div class="form-group">
+                <label asp-for="CompanyId" class="control-label"></label>
+                <select asp-for="CompanyId" class="form-control" asp-items="listCompany">
+                </select>
+                <span asp-validation-for="CompanyId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProvinceCode" class="control-label"></label>
+                <select asp-for="ProvinceCode" class="form-control" asp-items="listProvince">
+                </select>
+                <span asp-validation-for="ProvinceCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DistrictCode" class="control-label"></label>
+                <select asp-for="DistrictCode" class="form-control" asp-items="listDistrict">
+                </select>
+                <span asp-validation-for="DistrictCode" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="WardCode" class="control-label"></label>
+                <select asp-for="WardCode" class="form-control" asp-items="listWard">
+                </select>
+                <span asp-validation-for="WardCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DetailPosition" class="control-label"></label>
+                <input asp-for="DetailPosition" class="form-control" />
+                <span asp-validation-for="DetailPosition" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nation" class="control-label"></label>
+                <select asp-for="Nation" class="form-control"></select>
+                <span asp-validation-for="Nation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GgMapSrc" class="control-label"></label>
+                <input asp-for="GgMapSrc" class="form-control" />
+                <span asp-validation-for="GgMapSrc" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+          
+            $.ajax({
+                url: 'https://restcountries.com/v3.1/all',
+             
+                success: function (data) {
+                    console.log(data)
+                    data = data.sort((a, b) => a.name.common.localeCompare(b.name.common))
+                    for (let i = 0; i < data.length; i++) {
+                        // Assuming data[i].Id and data[i].Name represent the properties of each district
+                        $('#Nation').append($('<option>', {
+                            value: data[i].name.common,
+                            text: data[i].name.common
+                        }));
+                    }
+                },
+
+            })
+            $("#ProvinceCode").change(function () {
+                const province = $('#ProvinceCode').val();
+                $.ajax({
+                    url: '@Url.Action("districts", "Address")' + '?province=' + province,
+                    success: function (data) {
+                        $('#DistrictCode').empty();
+                        console.log(data)
+                        for (let i = 0; i < data.length; i++) {
+                            // Assuming data[i].Id and data[i].Name represent the properties of each district
+                            $('#DistrictCode').append($('<option>', {
+                                value: data[i].code,
+                                text: data[i].fullName
+                            }));
+                        }
+                    },
+                    
+                })
+            })
+            $("#DistrictCode").change(function () {
+                const district = $('#DistrictCode').val();
+                $.ajax({
+                    url: '@Url.Action("wards", "Address")' + '?district=' + district,
+                    success: function (data) {
+                        $('#WardCode').empty();
+                        console.log(data)
+                        for (let i = 0; i < data.length; i++) {
+                            $('#WardCode').append($('<option>', {
+                                value: data[i].code,
+                                text: data[i].fullName
+                            }));
+                        }
+                    },
+
+                })
+            })
+
+        })
+       
+
+    </script>
+}

@@ -1,0 +1,553 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = RecruitmentApp
+build_property.RootNamespace = RecruitmentApp
+build_property.ProjectDir = C:\Users\notobo\source\repos\RecruitmentApp\RecruitmentApp\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\notobo\source\repos\RecruitmentApp\RecruitmentApp
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Addresses/Views/Address/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRkcmVzc2VzXFZpZXdzXEFkZHJlc3NcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Addresses/Views/Address/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRkcmVzc2VzXFZpZXdzXEFkZHJlc3NcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Addresses/Views/Address/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRkcmVzc2VzXFZpZXdzXEFkZHJlc3NcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Addresses/Views/Address/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRkcmVzc2VzXFZpZXdzXEFkZHJlc3NcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Addresses/Views/Address/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRkcmVzc2VzXFZpZXdzXEFkZHJlc3NcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Addresses/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRkcmVzc2VzXFZpZXdzXF9WaWV3SW1wb3J0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Addresses/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRkcmVzc2VzXFZpZXdzXF9WaWV3U3RhcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Admin/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Companies/Views/Company/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29tcGFuaWVzXFZpZXdzXENvbXBhbnlcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Companies/Views/Company/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29tcGFuaWVzXFZpZXdzXENvbXBhbnlcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Companies/Views/Company/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29tcGFuaWVzXFZpZXdzXENvbXBhbnlcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Companies/Views/Company/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29tcGFuaWVzXFZpZXdzXENvbXBhbnlcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Companies/Views/Company/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29tcGFuaWVzXFZpZXdzXENvbXBhbnlcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Companies/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29tcGFuaWVzXFZpZXdzXF9WaWV3SW1wb3J0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Companies/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29tcGFuaWVzXFZpZXdzXF9WaWV3U3RhcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Contact/Views/Contact/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29udGFjdFxWaWV3c1xDb250YWN0XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Contact/Views/Contact/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29udGFjdFxWaWV3c1xDb250YWN0XERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Contact/Views/Contact/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29udGFjdFxWaWV3c1xDb250YWN0XERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Contact/Views/Contact/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29udGFjdFxWaWV3c1xDb250YWN0XEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Contact/Views/Contact/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29udGFjdFxWaWV3c1xDb250YWN0XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Contact/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29udGFjdFxWaWV3c1xfVmlld0ltcG9ydHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Contact/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29udGFjdFxWaWV3c1xfVmlld1N0YXJ0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Database/Views/DbManage/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcRGF0YWJhc2VcVmlld3NcRGJNYW5hZ2VcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Database/Views/_StatusMessage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcRGF0YWJhc2VcVmlld3NcX1N0YXR1c01lc3NhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Database/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcRGF0YWJhc2VcVmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Database/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcRGF0YWJhc2VcVmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Files/Views/FileManager/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcRmlsZXNcVmlld3NcRmlsZU1hbmFnZXJcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Files/Views/Shared/_LayoutFileManager.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcRmlsZXNcVmlld3NcU2hhcmVkXF9MYXlvdXRGaWxlTWFuYWdlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Files/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcRmlsZXNcVmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Files/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcRmlsZXNcVmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Account/AccessDenied.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcQWNjb3VudFxBY2Nlc3NEZW5pZWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Account/ConfirmEmail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcQWNjb3VudFxDb25maXJtRW1haWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Account/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcQWNjb3VudFxFcnJvci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Account/ErrorConfirmEmail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcQWNjb3VudFxFcnJvckNvbmZpcm1FbWFpbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Account/ExternalLoginConfirmation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcQWNjb3VudFxFeHRlcm5hbExvZ2luQ29uZmlybWF0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Account/ExternalLoginFailure.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcQWNjb3VudFxFeHRlcm5hbExvZ2luRmFpbHVyZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Account/ForgotPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcQWNjb3VudFxGb3Jnb3RQYXNzd29yZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Account/ForgotPasswordConfirmation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcQWNjb3VudFxGb3Jnb3RQYXNzd29yZENvbmZpcm1hdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Account/Lockout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcQWNjb3VudFxMb2Nrb3V0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Account/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Account/RegisterConfirmation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcQWNjb3VudFxSZWdpc3RlckNvbmZpcm1hdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Account/ResetPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcQWNjb3VudFxSZXNldFBhc3N3b3JkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Account/ResetPasswordConfirmation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcQWNjb3VudFxSZXNldFBhc3N3b3JkQ29uZmlybWF0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Account/SendCode.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcQWNjb3VudFxTZW5kQ29kZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Account/UseRecoveryCode.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcQWNjb3VudFxVc2VSZWNvdmVyeUNvZGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Account/VerifyAuthenticatorCode.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcQWNjb3VudFxWZXJpZnlBdXRoZW50aWNhdG9yQ29kZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Account/VerifyCode.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcQWNjb3VudFxWZXJpZnlDb2RlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Account/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcQWNjb3VudFxfVmlld1N0YXJ0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Manage/AddPhoneNumber.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcTWFuYWdlXEFkZFBob25lTnVtYmVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Manage/ChangePassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcTWFuYWdlXENoYW5nZVBhc3N3b3JkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Manage/DisplayRecoveryCodes.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcTWFuYWdlXERpc3BsYXlSZWNvdmVyeUNvZGVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Manage/EditCv.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcTWFuYWdlXEVkaXRDdi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Manage/EditProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcTWFuYWdlXEVkaXRQcm9maWxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Manage/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcTWFuYWdlXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Manage/FavouritePost.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcTWFuYWdlXEZhdm91cml0ZVBvc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Manage/FollowCompany.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcTWFuYWdlXEZvbGxvd0NvbXBhbnkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Manage/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcTWFuYWdlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Manage/ManageLogins.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcTWFuYWdlXE1hbmFnZUxvZ2lucy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Manage/SetPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcTWFuYWdlXFNldFBhc3N3b3JkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Manage/VerifyPhoneNumber.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcTWFuYWdlXFZlcmlmeVBob25lTnVtYmVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Manage/_LayoutUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcTWFuYWdlXF9MYXlvdXRVc2VyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Manage/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcTWFuYWdlXF9WaWV3U3RhcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Role/AddRoleClaim.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcUm9sZVxBZGRSb2xlQ2xhaW0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Role/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcUm9sZVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Role/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcUm9sZVxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Role/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcUm9sZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Role/EditRoleClaim.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcUm9sZVxFZGl0Um9sZUNsYWltLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/Role/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcUm9sZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/User/AddClaim.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcVXNlclxBZGRDbGFpbS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/User/AddRole.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcVXNlclxBZGRSb2xlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/User/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcVXNlclxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/User/ManageApplyJob.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcVXNlclxNYW5hZ2VBcHBseUpvYi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/User/SetPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcVXNlclxTZXRQYXNzd29yZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Identity/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcVmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Levels/Views/Level/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTGV2ZWxzXFZpZXdzXExldmVsXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Levels/Views/Level/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTGV2ZWxzXFZpZXdzXExldmVsXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Levels/Views/Level/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTGV2ZWxzXFZpZXdzXExldmVsXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Levels/Views/Level/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTGV2ZWxzXFZpZXdzXExldmVsXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Levels/Views/Level/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTGV2ZWxzXFZpZXdzXExldmVsXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Levels/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTGV2ZWxzXFZpZXdzXF9WaWV3SW1wb3J0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Levels/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTGV2ZWxzXFZpZXdzXF9WaWV3U3RhcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Posts/Views/Post/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUG9zdHNcVmlld3NcUG9zdFxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Posts/Views/Post/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUG9zdHNcVmlld3NcUG9zdFxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Posts/Views/Post/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUG9zdHNcVmlld3NcUG9zdFxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Posts/Views/Post/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUG9zdHNcVmlld3NcUG9zdFxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Posts/Views/Post/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUG9zdHNcVmlld3NcUG9zdFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Posts/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUG9zdHNcVmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Posts/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUG9zdHNcVmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Recruiters/Views/ManageApply/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVjcnVpdGVyc1xWaWV3c1xNYW5hZ2VBcHBseVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Recruiters/Views/ManageInfo/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVjcnVpdGVyc1xWaWV3c1xNYW5hZ2VJbmZvXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Recruiters/Views/ManageInfo/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVjcnVpdGVyc1xWaWV3c1xNYW5hZ2VJbmZvXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Recruiters/Views/ManagePost/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVjcnVpdGVyc1xWaWV3c1xNYW5hZ2VQb3N0XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Recruiters/Views/ManagePost/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVjcnVpdGVyc1xWaWV3c1xNYW5hZ2VQb3N0XERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Recruiters/Views/ManagePost/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVjcnVpdGVyc1xWaWV3c1xNYW5hZ2VQb3N0XERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Recruiters/Views/ManagePost/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVjcnVpdGVyc1xWaWV3c1xNYW5hZ2VQb3N0XEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Recruiters/Views/ManagePost/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVjcnVpdGVyc1xWaWV3c1xNYW5hZ2VQb3N0XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Recruiters/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVjcnVpdGVyc1xWaWV3c1xfVmlld0ltcG9ydHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Recruiters/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcUmVjcnVpdGVyc1xWaWV3c1xfVmlld1N0YXJ0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Skills/Views/Skill/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcU2tpbGxzXFZpZXdzXFNraWxsXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Skills/Views/Skill/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcU2tpbGxzXFZpZXdzXFNraWxsXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Skills/Views/Skill/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcU2tpbGxzXFZpZXdzXFNraWxsXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Skills/Views/Skill/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcU2tpbGxzXFZpZXdzXFNraWxsXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Skills/Views/Skill/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcU2tpbGxzXFZpZXdzXFNraWxsXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Skills/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcU2tpbGxzXFZpZXdzXF9WaWV3SW1wb3J0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Skills/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcU2tpbGxzXFZpZXdzXF9WaWV3U3RhcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Titles/Views/Title/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVGl0bGVzXFZpZXdzXFRpdGxlXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Titles/Views/Title/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVGl0bGVzXFZpZXdzXFRpdGxlXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Titles/Views/Title/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVGl0bGVzXFZpZXdzXFRpdGxlXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Titles/Views/Title/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVGl0bGVzXFZpZXdzXFRpdGxlXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Titles/Views/Title/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVGl0bGVzXFZpZXdzXFRpdGxlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Titles/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVGl0bGVzXFZpZXdzXF9WaWV3SW1wb3J0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Areas/Titles/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVGl0bGVzXFZpZXdzXF9WaWV3U3RhcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Views/Home/AboutMe.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBYm91dE1lLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Views/Home/ApplyJob.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBcHBseUpvYi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Views/Home/Condition.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDb25kaXRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Views/Home/Search.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTZWFyY2guY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Views/Home/ViewCompany.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxWaWV3Q29tcGFueS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Views/Home/ViewPost.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxWaWV3UG9zdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Views/Shared/_AdminLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZG1pbkxheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Views/Shared/_AlertMessage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BbGVydE1lc3NhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Views/Shared/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Views/Shared/_MenuManagePartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9NZW51TWFuYWdlUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Views/Shared/_PagingXTL.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9QYWdpbmdYVEwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Views/Shared/_StatusMessage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9TdGF0dXNNZXNzYWdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Views/Shared/_Summernote.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9TdW1tZXJub3RlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/notobo/source/repos/RecruitmentApp/RecruitmentApp/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 

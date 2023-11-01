@@ -1,0 +1,85 @@
+﻿@model Post
+@inject SignInManager<AppUser> SignInManager
+@using Microsoft.AspNetCore.Identity
+@using RecruitmentApp.Models
+@inject UserManager<AppUser> UserManager
+@inject AppDbContext appDbContext
+@{
+    ViewData["Title"] = "Home Page";
+}
+<partial name="_StatusMessage" />
+<div class="row">
+    <div class="col-md-8 mx-auto rounded border shadow mt-4 p-5">
+        <form method="POST" asp-action="ApplyCV" enctype="multipart/form-data" asp-route-id="@Model.Slug">
+            <h2 class="text-center mb-3">Gửi CV Ngay</h2>
+            <h5 class="text-center">@Model.Title</h5>
+            <input type="hidden" class="form-control" name="userId" value="@UserManager.GetUserId(User)">
+            <div class="form-group">
+                <label for="Name">Họ Và Tên</label>
+                <input type="text" class="form-control" name="Name" id="Name" placeholder="Họ và tên của bạn">
+            </div>
+
+            <div>
+                <div class="select-sv form-group border p-3 rounded">
+                    <div for="exampleFormControlFile1">Sử dụng CV hiện tại</div>
+                    <a asp-action="">abc.pdf <i class="fa fa-eye ml-2"></i></a>
+                </div>
+                <label class="select-sv d-block form-group border p-3 rounded" for="file">
+                    Tải lên CV khác
+                    <input type="file" name="file" hidden class="form-control-file" id="file">
+                        <br/>
+                    <small class="text-secondary">Hỗ trợ định dạng .doc .docx .pdf, không chứa mật khẩu bảo vệ, &#x3c; 3MB</small>
+                    </label>
+                  
+
+            </div>
+          
+            <div class="form-group">
+                <label for="Description">Thư xin việc *</label>
+                <br/>
+                <small>
+                    Những kỹ năng, dự án hay thành tựu nào chứng tỏ bạn là một ứng viên tiềm năng cho vị trí ứng tuyển này?
+                </small>
+                <textarea name="Description" id="Description" placeholder="Nêu nhiều ví dụ cụ thể để làm hồ sơ ứng tuyển của bạn thuyết phục hơn..." class="form-control" rows="5" style="resize: none;"></textarea>
+                <button type="submit" class="btn-lg btn-danger w-100 border-0 p-2 mt-3">Gửi CV</button>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            function removeClassSelectSV() {
+                $(".select-sv").each(function (index, el) {
+                    $(el).removeClass("border-danger");
+                })
+            }
+            $(".select-sv").each(function (index, el) {
+                $(el).click(function () {
+                    console.log($(el))
+                    removeClassSelectSV();
+                    $(el).addClass("border-danger");
+                });
+            })
+           /*
+             Toastify({
+                 text: "This is a toast",
+                 duration: 3000,
+                 destination: "https://github.com/apvarun/toastify-js",
+                 newWindow: true,
+                 close: true,
+                 gravity: "top", // `top` or `bottom`
+                 position: "right", // `left`, `center` or `right`
+                 stopOnFocus: true, // Prevents dismissing of toast on hover
+                 style: {
+                     background: "linear-gradient(to right, #00b09b, #96c93d)",
+                 },
+                 onClick: function () { } // Callback after click
+             }).showToast();
+           */
+        })
+
+    </script>
+       
+}

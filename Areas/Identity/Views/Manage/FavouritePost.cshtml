@@ -1,0 +1,55 @@
+﻿@model List<Post>
+@inject SignInManager<AppUser> SignInManager
+@using Microsoft.AspNetCore.Identity
+@using RecruitmentApp.Models
+@inject UserManager<AppUser> UserManager
+@inject AppDbContext appDbContext
+<h4>Việc làm đã lưu</h4>
+<div class="row">
+
+
+    @foreach(var item in Model)
+    {
+        
+        <div class="col-sm-12 border p-2 align-items-center">
+            <div class="row">
+                <div class="col-sm-2 my-auto">
+                    <img src="@item.Company.LogoImage" class="w-100"/>
+                </div>
+                <div class="col-sm-8">
+
+                    <a asp-action="ViewPost" asp-controller="Home" asp-route-id="@item.PostId"><h5>@item.Title</h5></a>
+                    <a asp-action="ViewCompany" asp-controller="Home" asp-route-id="@item.Company.Slug"> <span>@item.Company.Name</span></a>
+                  
+                    <div>
+                        <i class="fas fa-hand-holding-usd"></i>
+                        <small>@item.salaryToString()</small>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-lg-6">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <small>@item.Address?.City?.FullName</small>
+                        </div>
+                        <div class="col-lg-6">
+                            <i class="far fa-calendar-alt"></i>
+                            <small>@item.Expired.ToString("dd/M/yyyy")</small>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="p-2 text-center col-sm-2 my-auto">
+                    <form method="POST" asp-action="UnFavourite" asp-area="Posts" asp-controller="Post">
+                        <input type="hidden" name="UserId" value="@UserManager.GetUserId(User)" />
+                        <input type="hidden" name="postId" value="@item.PostId" />
+                        <button  type="submit" class="border-0 bg-transparent">
+                            <i class="fs4 fa fa-heart text-danger" style="font-size: 1.2rem;"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+          
+            
+        </div>
+    }
+</div>

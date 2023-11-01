@@ -1,0 +1,227 @@
+﻿
+@inject SignInManager<AppUser> SignInManager
+@using Microsoft.AspNetCore.Identity
+@using RecruitmentApp.Models
+@inject UserManager<AppUser> UserManager
+@inject AppDbContext appDbContext
+@model Post
+@{
+    ViewData["Title"] = "Home Page";
+}
+<style>
+   
+</style>
+<div class="row">
+        <nav aria-label="breadcrumb" class="w-100">
+        <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
+                <li class="breadcrumb-item"><a asp-action="ViewCompany" asp-route-id="@Model.Company.Slug">@Model.Company.Name</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.Title</li>
+            </ol>
+        </nav>
+</div>
+<div class="my-4 row p-2 bg-light shadow-sm">
+    <div class="col-sm-2">
+        <img class="w-100" src="@Model.Company.LogoImage" />
+    </div>
+    <div class="col">
+        <div class="d-flex align-items-center justify-content-between">
+            <h5>@Model.Company.Name</h5>
+            <span><i class="far fa-eye mr-2"></i>Lượt xem: @Model.ViewTotal</span>
+        </div>
+        <h4>@Model.Title</h4>
+        <div class="d-flex align-items-center">
+            <span class="mr-4 w-md-25"><i class="fas fa-hand-holding-usd mr-2"></i>Mức lương : @Model.salaryToString()</span>
+            <span><i class="fas fa-clock mr-2"></i>Hạn nộp hồ sơ : 04/10/2023</span>
+        </div>
+        <div class="d-flex align-items-center">
+            <span class="mr-4 w-md-25"><i class="fas fa-map-marker-alt mr-2"></i>Khu vực tuyển : Hà Nội</span>
+            <span><i class="fas fa-globe mr-2"></i>Country : @Model.Company.Nation</span>
+        </div>
+        <div class="pt-3 d-flex align-items-center">
+
+            <a asp-action="ApplyJob" asp-route-id="@Model.Slug" class="btn btn-primary px-4 py-2 mr-4"><i class="fas fa-paper-plane mr-2"></i>Nộp hồ sơ</a>
+            @{
+                var favourite = appDbContext.Favourites.FirstOrDefault(e => e.PostID == @Model.PostId && e.UserID == @UserManager.GetUserId(User));
+            }
+            @if (favourite != null)
+            {
+                <form method="POST" asp-action="UnFavourite" asp-area="Posts" asp-controller="Post">
+                    <input type="hidden" name="UserId" value="@UserManager.GetUserId(User)" />
+                    <input type="hidden" name="postId" value="@Model.PostId" />
+                    <button type="submit"  class="btn btn-danger"><i class="far fa-heart pt-1" style="font-size: 1.2rem;"></i></button>
+                </form>
+
+            }
+            else
+            {
+                <form method="POST" asp-action="Favourite" asp-area="Posts" asp-controller="Post">
+                    <input type="hidden" name="UserId" value="@UserManager.GetUserId(User)" />
+                    <input type="hidden" name="postId" value="@Model.PostId" />
+                    <button type="submit" class="btn btn-light border-info"><i class="far fa-heart pt-1" style="font-size: 1.2rem;"></i></button>
+                </form>
+
+            }
+           
+        </div>
+    </div>
+</div>
+
+<div class="row ">
+    <div class="col-lg-8 px-4 bg-mb-0 rounded shadow">
+        <h4 class="py-3 font-weight-bold">Thông tin chung</h4>
+        <div class="row bg-light rounded  border-bottom">
+            <div class="col-sm-4 py-2 d-flex align-items-center">
+                <div class="mr-3 " style="font-size: 1.3rem;">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="">
+                    <div>Ngày đăng</div>
+                    <div>@Model.PostDate.ToString("dd/MM/yyyy")</div>
+                </div>
+            </div>
+            <div class="col-sm-4 d-flex align-items-center">
+                <div class="mr-3 " style="font-size: 1.3rem;">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="">
+                    <div>Số lượng tuyển</div>
+                    <div>@Model.Quantity</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row bg-light rounded border-bottom">
+            <div class="col-sm-4 py-2 d-flex align-items-center">
+                <div class="mr-3" style="font-size: 1.3rem;">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+
+                <div class="">
+                    <div>Yêu cầu bằng cấp</div>
+                    <div>@Model.PostDate.ToString("dd/MM/yyyy")</div>
+                </div>
+            </div>
+            <div class="col-sm-4 d-flex align-items-center">
+                <div class="mr-3 " style="font-size: 1.3rem;">
+                    <i class="fas fa-medal"></i>
+                </div>
+                <div class="">
+                    <div>Vị Trí</div>
+                    <div>
+                        @if (@Model.PostLevels.Any())
+                        {
+                            List<string> levelsName = new List<string>(); 
+                            foreach(var level in Model.PostLevels)
+                            {
+                                levelsName.Add(level.Level.Name);
+                            }
+                            <span>@String.Join(",", levelsName.Select(x => x.ToString()).ToArray())</span>
+                        }
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row bg-light rounded">
+            <div class="col-sm-4 py-2 d-flex align-items-center">
+                <div class="mr-3" style="font-size: 1.3rem;">
+                    <i class="fas fa-location-arrow mr-2"></i>
+                </div>
+
+                <div class="">
+                    <div>Nơi Làm Việc</div>
+                    <div>@Model.WorkSpace</div>
+                </div>
+            </div>
+            <div class="col-sm-4 d-flex align-items-center">
+                <div class="mr-3 " style="font-size: 1.3rem;">
+                    <i class="fas fa-clock mr-2"></i>
+                </div>
+                <div class="">
+                    <div>Ngày Đăng</div>
+                    <div>@Model.PostDate.ToString("dd/MM/yyyy")</div>
+                </div>
+            </div>
+        </div>
+
+        
+        
+        <h4 class="py-1 font-weight-bold">Kĩ Năng</h4>
+
+        <div class="w-100">
+            @if (Model.PostSkills.Any())
+            {
+                foreach (var skill in Model.PostSkills)
+                {
+                    <span class="badge p-2 rounded-pill border m-1">@skill.Skill.Name</span>
+                }
+            }
+        </div>
+
+        <h4 class="py-3 font-weight-bold">Mô tả công việc</h4>
+
+        <div class="w-100">
+            @Html.Raw(Model.Description)
+        </div>
+        <!-- 
+
+         <ul>
+            <li>Tiếp nhận thông tin tuyển dụng từng tháng của công ty</li>
+            <li>Tiếp nhận thông tin tuyển dụng từng tháng của công ty</li>
+            <li>Tiếp nhận thông tin tuyển dụng từng tháng của công ty</li>
+            <li>Tiếp nhận thông tin tuyển dụng từng tháng của công ty</li>
+        </ul>
+
+
+        -->
+        <h4 class="py-3 font-weight-bold">Yêu cầu công việc</h4>
+        <div class="w-100">
+            @Html.Raw(Model.JobRequirement)
+        </div>
+        <h4 class="py-3 font-weight-bold">Quyền lợi</h4>
+        <div class="w-100">
+            @Html.Raw(Model.Benifit)
+        </div>
+        <h4 class="py-3 font-weight-bold">Địa điểm làm việc</h4>
+        <div class="w-100 mb-3">
+            <i class="fas fa-map-marker-alt mr-2"></i><span>Tầng 17 số 18 Tôn Thất Thuyết, Nam Tu Liem, Ha Noi</span>
+        </div>
+
+    </div>
+    <div class="col mt-4 mt-lg-0 px-0 d-lg-block ml-lg-4">
+        <div class="position-sticky shadow bg-white border p-3" style="top: 10px;">
+            <div class="w-100 text-center">
+                <img class="w-75" src="@Model.Company.LogoImage" />
+            </div>
+            <h6 class="py-3"><b>@Model.Company.Name</b></h6>
+            <div class="d-flex justify-content-between align-items-center border-bottom  py-2">
+                <span>Mô hình công ty</span>
+                <span>@Model.Company.Type</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center border-bottom  py-2">
+                <span>Quy mô công ty</span>
+                <span>@Model.Company.Size</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center border-bottom  py-2">
+                <span>Quốc gia</span>
+                <span>@Model.Company.Nation</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center border-bottom  py-2">
+                <span>Thời gian làm việc</span>
+                <span>@Model.Company.WorkingTime</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center border-bottom  py-2">
+                <span>Làm việc ngoài giờ</span>
+                <span>@Model.Company.OverTime</span>
+            </div>
+       </div>
+     
+       
+     
+       
+       
+       
+       
+    </div>
+</div>

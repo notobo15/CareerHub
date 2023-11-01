@@ -1,0 +1,89 @@
+﻿@model RecruitmentApp.Models.Post
+
+
+<h4>Post</h4>
+@{
+    var list = @ViewData["list"] as MultiSelectList;
+}
+<hr />
+<div class="row">
+    <div class="col-md-10">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="w-100">
+                <label asp-for="SkillIds" class="control-label"></label>
+                <select class="w-100" asp-for="SkillIds" asp-items="@list" multiple="multiple">
+                    <span asp-validation-for="SkillIds" class="text-danger"></span>
+                </select>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsHot" /> @Html.DisplayNameFor(model => model.IsHot)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Salary" class="control-label"></label>
+                <input asp-for="Salary" class="form-control" />
+                <span asp-validation-for="Salary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Expired" class="control-label"></label>
+                <input type="date" asp-for="Expired" class="form-control" />
+                <span asp-validation-for="Expired" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkSpace" class="control-label"></label>
+                <input asp-for="WorkSpace" class="form-control" />
+                <span asp-validation-for="WorkSpace" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="JobRequirement" class="control-label"></label>
+                <input asp-for="JobRequirement" class="form-control" />
+                <span asp-validation-for="JobRequirement" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Benifit" class="control-label"></label>
+                <input asp-for="Benifit" class="form-control" />
+                <span asp-validation-for="Benifit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+@{
+    var summernote = new RecruitmentApp.Models.Summernote("#Description");
+    var JobRequirement = new RecruitmentApp.Models.Summernote("#JobRequirement");
+    var Benifit = new RecruitmentApp.Models.Summernote("#Benifit");
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#SkillIds").select2({
+                placeholder: "Tất Cả Kĩ Năng",
+                theme: "bootstrap4",
+                allowClear: true
+            });
+        })
+
+    </script>
+    <partial name="_Summernote" model="summernote" />
+    <partial name="_Summernote" model="JobRequirement" />
+    <partial name="_Summernote" model="Benifit" />
+}

@@ -1,0 +1,43 @@
+@model EditExtraProfileModel
+@{
+    ViewData["Title"] = "Hồ sơ cá nhân";
+}
+
+
+
+<partial name="_StatusMessage" />
+
+<div class="row p-3">
+    <h3 class="ml-3 mb-4">@ViewData["Title"]</h3>
+    <div class="col-md-12">
+        <form id="profile-form" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <label class="select-sv d-block form-group border p-3 rounded d-flex align-items-center" for="file">
+                <i class="far fa-file-alt mr-4" style="font-size: 2rem;"></i>
+                <div>
+                Tải lên CV của bạn(Mặt định)
+                <input type="file" name="file" hidden class="form-control-file" id="file">
+                <br />
+                <small class="text-secondary">Hỗ trợ định dạng .doc .docx .pdf, không chứa mật khẩu bảo vệ, &#x3c; 3MB</small>
+                </div>
+            </label>
+
+            <div class="form-group">
+                <label for="Description">Thư xin việc *</label>
+                <br />
+                <small>
+                    Những kỹ năng, dự án hay thành tựu nào chứng tỏ bạn là một ứng viên tiềm năng cho vị trí ứng tuyển này?
+                </small>
+                <textarea name="Description" id="Description" placeholder="Nêu nhiều ví dụ cụ thể để làm hồ sơ ứng tuyển của bạn thuyết phục hơn..." class="form-control" rows="5"></textarea>
+               </div>
+                <button type="submit" class="btn btn-danger border-0 p-2 mt-3">Lưu dữ liệu</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+
+

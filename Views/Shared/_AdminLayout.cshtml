@@ -1,0 +1,344 @@
+﻿@using RecruitmentApp.Models
+@using RecruitmentApp.Data
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>@ViewData["Title"] - RecruitmentApp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/lib/select2/css/select2.css" />
+    <link rel="stylesheet" href="~/lib/select2/css/select2-bootstrap4.min.css" />
+    <link rel="stylesheet" href="~/lib/Swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"   />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" href="~/lib/multiple-select/multiple-select.min.css" />
+
+    <link rel="stylesheet" href="~/lib/summernote/summernote-bs4.min.css" />
+    
+    <link rel="stylesheet" href="~/lib/jqueryui/themes/base/theme.css" />
+    <link rel="stylesheet" href="~/lib/jqueryui/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" href="~/lib/elfinder/css/elfinder.full.css" />
+    <link rel="stylesheet" href="~/lib/elfinder/css/theme.min.css" />
+
+
+    <style>
+
+        .dropdown-menu.navbar-menu-child {
+            transform: none !important;
+            will-change: unset  !important;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .nav-menu-item {
+            color: #000;
+        }
+        .btn-group:hover .list-group-item,
+        .dropdown-item:hover,
+        .btn-group:hover .nav-menu-item {
+            background: #5046e5;
+            color: #fff;    
+        }
+
+        .dropdown-item:active {
+            color: unset;
+        }
+        h1,h2,h3,h4,h5,h6 {
+            margin: 0;
+        }
+        a:hover {
+            text-decoration: none;
+        }
+        .header-navbar {
+            background: #5046e5;
+        }
+
+        .nav-item  a,
+        .nav-item  button {
+            color: #fff;
+        }
+
+        .btn-link:hover {
+            color: #ccc;
+        }
+    </style>
+
+</head>
+<body>
+    <header>
+        <nav class="header-navbar navbar navbar-expand-sm navbar-toggleable-sm">
+            <div class="container">
+                <a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index">Admin Tuyển Dụng</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Trang Chủ</a>
+                        </li>
+                      
+                    </ul>
+
+                    <partial name="_LoginPartial" />
+                    
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main class="min-vh-100 d-flex">
+            <div class="" style="min-width: 270px">
+                <div class= "p-3 h-100">
+                    <ul class="list-group">
+                        <li class="btn-group w-100">
+                        <div class="list-group-item py-2 text-center mb-3 w-100 rounded-lg " style="background: #5046e5;">
+                            @if(User.IsInRole(RoleName.Administrator))
+                            {
+                                <a class="text-light" style="font-size: 1.2rem" asp-area="Admin" asp-controller="Home" asp-action="Index"><i class="fas fa-home mr-2"></i>Trang Chủ</a>
+
+                            }
+                            @if (User.IsInRole(RoleName.Recuiter))
+                            {
+                                <a class="text-light" style="font-size: 1.2rem" asp-area="Recruiters" asp-controller="ManageInfo" asp-action="Index"><i class="fas fa-home mr-2"></i>Trang Chủ</a>
+
+                            }
+                        </div>
+                        </li>
+                        <li class="dropdown-divider"></li>
+                    @if(User.IsInRole(RoleName.Administrator))
+                    {
+                        
+                  
+                    <!--  User  -->
+                    <li class="btn-group w-100 mt-3">
+                        <div role="button" class="w-100">
+                            <div class="list-group-item text-center d-flex justify-content-between align-items-center rounded-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span><i class="fas fa-user mr-2"></i>Quản Lý User</span>
+                                <span><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="p-0 m-0 dropdown-menu navbar-menu-child position-relative w-100" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item py-2 border-bottom" asp-action="Index" asp-controller="User" asp-area="Identity"><i class="fas fa-list text-secondary mr-2"></i>Danh Mục User</a>
+                            </div>
+                        </div>
+                    </li>
+                    <!--  ROLE  -->
+                    <li class="btn-group w-100 mt-3">
+                        <div role="button" class="w-100">
+                            <div class="list-group-item text-center d-flex justify-content-between align-items-center rounded-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span><i class="fas fa-user-alt-slash mr-2"></i>Quản Lý Role</span>
+                                <span><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="p-0 m-0 dropdown-menu navbar-menu-child position-relative w-100" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item py-2 border-bottom" asp-action="Index" asp-controller="Role" asp-area="Identity"><i class="fas fa-list text-secondary mr-2"></i>Danh Mục Role</a>
+                                <a class="dropdown-item py-2 border-bottom" asp-action="Create" asp-controller="Role" asp-area="Identity"><i class="fas fa-plus-circle text-success mr-2"></i> Thêm Mới</a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!--  CONTACT  -->
+                    <li class="btn-group w-100 mt-3">
+                        <div role="button" class="w-100">
+                            <div class="list-group-item text-center d-flex justify-content-between align-items-center rounded-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span><i class="fas fa-address-book mr-2"></i>Quản Lý Contact</span>
+                                <span><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="p-0 m-0 dropdown-menu navbar-menu-child position-relative w-100" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item py-2 border-bottom" asp-action="Index" asp-controller="Contact" asp-area="Contact"><i class="fas fa-list text-secondary mr-2"></i>Danh Mục Contact</a>
+                                <a class="dropdown-item py-2 border-bottom" asp-action="Create" asp-controller="Contact" asp-area="Contact"><i class="fas fa-plus-circle text-success mr-2"></i> Thêm Mới</a>
+                            </div>
+                        </div>
+                    </li>
+                    <!--  Company  -->
+
+                    <li class="btn-group w-100 mt-3">
+                        <div role="button" class="w-100">
+                            <div class="list-group-item text-center d-flex justify-content-between align-items-center rounded-lg" data-toggle="dropdown">
+                                <span><i class="fas fa-building mr-2"></i>Quản Lý Công Ty</span>
+                                <span><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="p-0 m-0 dropdown-menu navbar-menu-child position-relative w-100" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item py-2 border-bottom" asp-action="Index" asp-controller="Company" asp-area="Companies"><i class="fas fa-list text-secondary mr-2"></i>Danh Mục Công Ty</a>
+                                <a class="dropdown-item py-2 border-bottom" asp-action="Create" asp-controller="Company" asp-area="Companies"><i class="fas fa-plus-circle text-success mr-2"></i> Thêm Mới</a>
+                            </div>
+                        </div>
+                    </li>
+                    <!--  Title  -->
+
+                    <li class="btn-group w-100 mt-3">
+                        <div role="button" class="w-100">
+                            <div class="list-group-item text-center d-flex justify-content-between align-items-center rounded-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span><i class="fas fa-paperclip mr-2"></i>Quản Lý Title</span>
+                                <span><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="p-0 m-0 dropdown-menu navbar-menu-child position-relative w-100" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item py-2 border-bottom" asp-action="Index" asp-controller="Title" asp-area="Titles"><i class="fas fa-list text-secondary mr-2"></i>Danh Mục Title</a>
+                                <a class="dropdown-item py-2 border-bottom" asp-action="Create" asp-controller="Title" asp-area="Titles"><i class="fas fa-plus-circle text-success mr-2"></i> Thêm Mới</a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!--  Level  -->
+                    <li class="btn-group w-100 mt-3">
+                        <div role="button" class="w-100">
+                            <div class="list-group-item text-center d-flex justify-content-between align-items-center rounded-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span><i class="fas fa-tasks mr-2"></i>Quản Lý Level</span>
+                                <span><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="p-0 m-0 dropdown-menu navbar-menu-child position-relative w-100" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item py-2 border-bottom" asp-action="Index" asp-controller="Level" asp-area="Levels"><i class="fas fa-list text-secondary mr-2"></i>Danh Mục Level</a>
+                                <a class="dropdown-item py-2 border-bottom" asp-action="Create" asp-controller="Level" asp-area="Levels"><i class="fas fa-plus-circle text-success mr-2"></i> Thêm Mới</a>
+                            </div>
+                        </div>
+                    </li>
+
+
+                    <!--  Post  -->
+                    <li class="btn-group w-100 mt-3">
+                        <div role="button" class="w-100">
+                            <div class="list-group-item text-center d-flex justify-content-between align-items-center rounded-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span><i class="far fa-newspaper mr-2"></i>Quản Lý Post</span>
+                                <span><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="p-0 m-0 dropdown-menu navbar-menu-child position-relative w-100" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item py-2 border-bottom" asp-action="Index" asp-controller="Post" asp-area="Posts"><i class="fas fa-list text-secondary mr-2"></i>Danh Mục Post</a>
+                                <a class="dropdown-item py-2 border-bottom" asp-action="Create" asp-controller="Post" asp-area="Posts"><i class="fas fa-plus-circle text-success mr-2"></i> Thêm Mới</a>
+                            </div>
+                        </div>
+                    </li>
+                    <!--  Skill  -->
+                    <li class="btn-group w-100 mt-3">
+                        <div role="button" class="w-100">
+                            <div class="list-group-item text-center d-flex justify-content-between align-items-center rounded-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span><i class="fas fa-allergies mr-2"></i>Quản Lý Skill</span>
+                                <span><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="p-0 m-0 dropdown-menu navbar-menu-child position-relative w-100" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item py-2 border-bottom" asp-action="Index" asp-controller="Skill" asp-area="Skills"><i class="fas fa-list text-secondary mr-2"></i>Danh Mục Skill</a>
+                                <a class="dropdown-item py-2 border-bottom" asp-action="Create" asp-controller="Skill" asp-area="Skills"><i class="fas fa-plus-circle text-success mr-2"></i> Thêm Mới</a>
+                            </div>
+                        </div>
+                    </li>
+                    <!--  Address  -->
+                    <li class="btn-group w-100 mt-3">
+                        <div role="button" class="w-100">
+                            <div class="list-group-item text-center d-flex justify-content-between align-items-center rounded-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span><i class="fas fa-allergies mr-2"></i>Quản Lý Address</span>
+                                <span><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="p-0 m-0 dropdown-menu navbar-menu-child position-relative w-100" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item py-2 border-bottom" asp-action="Index" asp-controller="Address" asp-area="Addresses"><i class="fas fa-list text-secondary mr-2"></i>Danh Mục Address</a>
+                                <a class="dropdown-item py-2 border-bottom" asp-action="Create" asp-controller="Address" asp-area="Addresses"><i class="fas fa-plus-circle text-success mr-2"></i> Thêm Mới</a>
+                            </div>
+                        </div>
+                    </li>
+                    <!--  File  -->
+                    <li class="btn-group w-100 mt-3">
+                        <div role="button" class="w-100">
+                            <div class="list-group-item text-center d-flex justify-content-between align-items-center rounded-lg ">
+                                <a  class="nav-menu-item" asp-area="Files" asp-action="Index" asp-controller="FileManager">
+                                    <span><i class="fas fa-folder mr-2 text-warning"></i>Quản Lý File</span>
+
+                                </a>
+                            </div>
+                        
+                        </div>
+                    </li>
+                    <!--  Database  -->
+                    <li class="btn-group w-100 mt-3">
+                        <div role="button" class="w-100">
+                            <div class="list-group-item text-center d-flex justify-content-between align-items-center rounded-lg">
+                                <a class="nav-menu-item" asp-area="Database" asp-action="Index" asp-controller="DbManage">
+                                    <span><i class="fas fa-database  text-danger mr-2"></i>Quản Lý Database</span>
+
+                                </a>
+                            </div>
+
+                        </div>
+                    </li>
+                    }
+                    @if (User.IsInRole(RoleName.Recuiter))
+                    {
+                          
+                        
+                    <!-- Role Tuyen Dung-->
+                    <li class="btn-group w-100 mt-3">
+                        <div role="button" class="w-100">
+                            <div class="list-group-item text-center d-flex justify-content-between align-items-center rounded-lg">
+                                <a class="nav-menu-item" asp-area="Recruiters" asp-action="Index" asp-controller="ManageInfo">
+                                    <span><i class="fas fa-building  text-secondary mr-2"></i>Thông Tin</span>
+
+                                </a>
+                            </div>
+
+                        </div>
+                    </li>
+                    <li class="btn-group w-100 mt-3">
+                        <div role="button" class="w-100">
+                            <div class="list-group-item text-center d-flex justify-content-between align-items-center rounded-lg">
+                                <a class="nav-menu-item" asp-area="Recruiters" asp-action="Index" asp-controller="ManagePost">
+                                        <span><i class="fas fa-folder-open text-warning mr-2"></i>Quản Lý Bài Đăng</span>
+
+                                </a>
+                            </div>
+
+                        </div>
+                    </li>
+                    <li class="btn-group w-100 mt-3">
+                        <div role="button" class="w-100">
+                            <div class="list-group-item text-center d-flex justify-content-between align-items-center rounded-lg">
+                                <a class="nav-menu-item" asp-area="Recruiters" asp-action="Index" asp-controller="ManageApply">
+                                        <span><i class="fas fa-user-plus  text-primary mr-2"></i>Quản Lý Đơn Apply</span>
+
+                                </a>
+                            </div>
+
+                        </div>
+                    </li>
+                        }
+                    </ul>
+                </div>
+
+            </div>
+            <div class="p-3 w-100">
+            <div class="rounded h-100 px-2 py-3">
+                @RenderBody()
+                </div>
+            </div>
+    </main>
+
+    <footer class="border-top text-muted py-5 mt-3" style="background-color: #363d46;">
+        <div class="container text-white text-right">
+            &copy; 2023 - RecruitmentApp - <a class="text-primary" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="/_framework/aspnetcore-browser-refresh.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="~/lib/jqueryui/jquery-ui.min.js"></script>
+
+    <script src="~/lib/summernote/summernote-bs4.min.js"></script>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/select2/js/select2.js"></script>
+    <script src="~/lib/Swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/lib/multiple-select/multiple-select.min.js"></script>
+  
+   
+    <script src="~/lib/elfinder/js/elfinder.min.js"></script>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

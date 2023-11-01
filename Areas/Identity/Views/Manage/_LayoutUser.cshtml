@@ -1,0 +1,26 @@
+﻿
+@{
+    Layout = "_Layout";
+}
+<div class="row min-vh-100">
+
+    <div class="col-sm-3 p-3 border-right">
+        <ul class=" list-group ">
+            <a asp-controller="Manage" asp-action="Index" class="list-group-item rounded text-center mb-3">
+                <span>Thông Tin Cá Nhân</span>
+            </a>
+            <a  asp-action="EditCv" class="list-group-item rounded text-center mb-3">
+                <span>Hồ Sơ Của Bạn</span>
+            </a>
+            <a asp-action="FavouritePost" class="list-group-item rounded text-center mb-3">
+                <span>Việc Làm Đã Lưu</span>
+            </a>
+            <a asp-action="FollowCompany" class="list-group-item rounded text-center mb-3">
+                <span>Đang Follow Công Ty</span>
+            </a>
+        </ul>
+
+    </div>
+    <div class="col-sm-9">@RenderBody()</div>
+</div>
+@await RenderSectionAsync("Scripts", required: false)
