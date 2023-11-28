@@ -34,7 +34,7 @@ namespace RecruitmentApp.Areas.Recruiters.Controllers
             var userId = _userManager.GetUserId(User);
             var posts =  _context.Posts
                 .Include(p => p.Company)
-                .Where(p => p.Company.UserId == userId)
+                .Where(p => p.Company.RecruiterId == userId)
                 .AsSplitQuery()
                 .ToList();
             return View(posts);

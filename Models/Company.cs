@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RecruitmentApp.Models
 {
@@ -14,6 +15,7 @@ namespace RecruitmentApp.Models
         [Required]
         [DisplayName("Tên Công Ty")]
         public string Name { get; set; }
+        public string FullName { get; set; }
 
         public string Size { get; set; }
         public string Description { get; set; }
@@ -38,7 +40,8 @@ namespace RecruitmentApp.Models
         public string CompanyUrl { get; set; }
         public string CompanyFbUrl { get; set; }
 
-        public string UserId { get; set; }
+        [ForeignKey("Id")]
+        public string RecruiterId { get; set; }
         public AppUser Recruiter { get; set; }
 
         public ICollection<Post> Posts  { get; set; }

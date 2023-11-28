@@ -80,13 +80,9 @@
                         </select>
                     </div>
 
-                   
                     <div class="form-group">
                         <button type="submit" class="w-100 btn btn-primary"><b>TÌM NGAY</b></button>
-
                     </div>
-                  
-                  
                 </form>
             </div>
         </div>
@@ -102,13 +98,33 @@
                 <div class="col-sm-6 col-lg-4 mb-4" style="min-height: 340px">
                     <div class="card shadow h-100" >
                         <a asp-route-id="@com.Slug" asp-action="ViewCompany" class="card-img p-2">
-                            <img class="w-100" src="@com.LogoImage" alt="Card image cap">
+                            <div style="min-height: 200px" class="my-auto">
+                                <img  class="w-100" src="~/company-logo/@com.LogoImage" alt="Card image cap">
+
+                            </div>
                         </a>
                         <div class="card-body text-center">
-                            <a asp-action="ViewCompany" class="d-block mb-2">
+                            <a asp-route-id="@com.Slug" asp-action="ViewCompany" class="d-block mb-2">
                                 <h5 class="card-text">@com.Name</h5>
                             </a>
-                            <p>Ha Noi - Ho Chi Minh</p>
+                            <p>
+                                @if (com.Addresses.Any())
+                                {
+                                    List<string> listAddresses = new List<string>();
+                                    foreach (var address in com.Addresses)
+                                    {
+                                        listAddresses.Add(address.City.FullName);
+                                    }
+                                    if (listAddresses.Count > 0)
+                                    {
+                                        @string.Join(" - ", listAddresses)
+                                    }
+                                    else
+                                    {
+                                        listAddresses.First().ToString();
+                                    }
+                                }
+                            </p>
                             <div class="my-3">
                                 @if (com.CompanySkills.Any())
                                 {
@@ -167,7 +183,7 @@
                             </a>
                         <div class="d-flex align-items-center">
                             <div class="w-25 ">
-                                <img class="card-img" src="@post?.Company?.LogoImage" alt="Card image cap">
+                                <img class="card-img" src="~/company-logo/@post?.Company?.LogoImage" alt="Card image cap">
                             </div>
                             <div class="w-75 px-2">
                                @post?.Company?.Name
@@ -195,7 +211,7 @@
                         </div>
                         <div class="d-flex align-items-center">
                             <span class="mr-2"><i class="fas fa-map-marker-alt"></i></span>
-                            <span>Ho Chi Minh</span>
+                            <span>@post.Address?.City?.FullName</span>
                         </div>
                         <div class="my-3">
                             @if (post.PostSkills.Any())

@@ -42,6 +42,14 @@
     {
       "library": "toastify-js@1.12.0",
       "destination": "wwwroot/lib/toastify-js"
+    },
+    {
+      "library": "Chart.js@4.4.0",
+      "destination": "wwwroot/lib/chartjs"
+    },
+    {
+      "library": "countup.js@2.8.0",
+      "destination": "wwwroot/lib/countupjs"
     }
   ]
 }

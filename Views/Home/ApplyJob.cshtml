@@ -6,6 +6,7 @@
 @inject AppDbContext appDbContext
 @{
     ViewData["Title"] = "Home Page";
+    var hadCv = appDbContext.applyPosts.OrderByDescending(p => p.ApplyDate).FirstOrDefault(p => p.UserID == UserManager.GetUserId(User));
 }
 <partial name="_StatusMessage" />
 <div class="row">
@@ -22,7 +23,7 @@
             <div>
                 <div class="select-sv form-group border p-3 rounded">
                     <div for="exampleFormControlFile1">Sử dụng CV hiện tại</div>
-                    <a asp-action="">abc.pdf <i class="fa fa-eye ml-2"></i></a>
+                    <a href="~/contents/file-CV/@hadCv.FileName">@hadCv.OriginFileName<i class="fa fa-eye ml-2"></i></a>
                 </div>
                 <label class="select-sv d-block form-group border p-3 rounded" for="file">
                     Tải lên CV khác
@@ -40,7 +41,9 @@
                 <small>
                     Những kỹ năng, dự án hay thành tựu nào chứng tỏ bạn là một ứng viên tiềm năng cho vị trí ứng tuyển này?
                 </small>
-                <textarea name="Description" id="Description" placeholder="Nêu nhiều ví dụ cụ thể để làm hồ sơ ứng tuyển của bạn thuyết phục hơn..." class="form-control" rows="5" style="resize: none;"></textarea>
+                <textarea name="Description" id="Description" 
+                    placeholder="Nêu nhiều ví dụ cụ thể để làm hồ sơ ứng tuyển của bạn thuyết phục hơn..." class="form-control" rows="5" style="resize: none;"
+                    >@hadCv?.Description</textarea>
                 <button type="submit" class="btn-lg btn-danger w-100 border-0 p-2 mt-3">Gửi CV</button>
             </div>
         </form>
@@ -61,6 +64,10 @@
                     removeClassSelectSV();
                     $(el).addClass("border-danger");
                 });
+                @if (hadCv !=null)
+                {
+                    @:$(".select-sv")[0].click();
+                }
             })
            /*
              Toastify({

@@ -65,13 +65,19 @@ namespace RecruitmentApp.Areas.Addresses.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CompanyId,ProvinceCode,DistrictCode,WardCode,DetailPosition,Nation,GgMapSrc")] Address address)
+        public async Task<IActionResult> Create([Bind("CompanyId,ProvinceCode,DistrictCode,WardCode,DetailPosition,GgMapSrc")] Address address)
         {
-        //   address.GgMapSrc = address.GgMapSrc.Replace("\"", "'");
+          
             if (ModelState.IsValid)
             {
-             //   address.GgMapSrc = GetSrcGgMap(address.GgMapSrc);
-                 _context.Add(address);
+
+                address.GgMapSrc = GetSrcGgMap(address.GgMapSrc);
+
+                var ward = _context.wards.FirstOrDefault(w => w.Code == address.WardCode);
+                var district = _context.districts.FirstOrDefault(w => w.Code == address.DistrictCode);
+                var province = _context.provinces.FirstOrDefault(w => w.Code == address.ProvinceCode);
+                address.FullAddress = $"{address.DetailPosition}, {ward.FullName}, {district.FullName}, {province.FullName}";
+                _context.Add(address);
                  await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -99,7 +105,7 @@ namespace RecruitmentApp.Areas.Addresses.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AddressId,CompanyId,ProvinceCode,DistrictCode,WardCode,DetailPosition,Nation,GgMapSrc")] Address address)
+        public async Task<IActionResult> Edit(int id, [Bind("AddressId,CompanyId,ProvinceCode,DistrictCode,WardCode,DetailPosition,GgMapSrc")] Address address)
         {
             if (id != address.AddressId)
             {
@@ -193,7 +199,7 @@ namespace RecruitmentApp.Areas.Addresses.Controllers
             return Json(_context.wards.ToList());
         }
 
-        private string GetSrcGgMap(string str)
+        private  static string GetSrcGgMap(string str)
         {
             string srcAttributeValue = "";
             HtmlDocument doc = new HtmlDocument();

@@ -12,8 +12,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
+using System;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace App.Areas.Identity.Controllers
 {
@@ -28,11 +31,17 @@ namespace App.Areas.Identity.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ILogger<ManageController> _logger;
         private readonly AppDbContext  _appDbContext;
+
+        private readonly IWebHostEnvironment env;
+        [TempData]
+        public string StatusMessage { get; set; }
+
         public ManageController(
         UserManager<AppUser> userManager,
         SignInManager<AppUser> signInManager,
         IEmailSender emailSender,
         ILogger<ManageController> logger,
+        IWebHostEnvironment webHostEnvironment,
         AppDbContext appDbContext)
         {
             _userManager = userManager;
@@ -40,6 +49,7 @@ namespace App.Areas.Identity.Controllers
             _emailSender = emailSender;
             _logger = logger;
             _appDbContext = appDbContext;
+            env = webHostEnvironment;
         }
 
         //
@@ -407,15 +417,78 @@ namespace App.Areas.Identity.Controllers
         [HttpGet]
         public IActionResult EditCv()
         {
-            return View();
+            string id = _userManager.GetUserId(this.User);
+            var applyPost = _appDbContext.applyPosts.FirstOrDefault(a => a.UserID == id);
+            return View(applyPost);
         }
+        [HttpPost]
+        public IActionResult UpdateCv( [Bind("Id, Description")] ApplyPost applyPost, IFormFile file)
+        {
+            if(applyPost.Id != 0)
+            {
+                int maxFileSize = 5;
+                var ap = _appDbContext.applyPosts.OrderByDescending(p => p.ApplyDate).FirstOrDefault(a => a.Id == applyPost.Id);
+           
+                ap.Description = applyPost.Description;
+
+                if (file != null)
+                {
+
+                    // 1024 * 1024 ~ 1 MB
+                    if (file.Length > (maxFileSize * 1024 * 1024))
+                    {
+                        StatusMessage = "Filesize of image is too large. Maximum file size permitted is " + maxFileSize + "KB";
+                        return Redirect(Request.Headers["Referer"].ToString());
+                    }
+                    string ext = Path.GetExtension(file.FileName);
+                    string[] acceptedFileTypes = new string[7];
+                    acceptedFileTypes[0] = ".pdf";
+                    acceptedFileTypes[1] = ".doc";
+                    acceptedFileTypes[2] = ".docx";
+                    acceptedFileTypes[3] = ".jpg";
+                    acceptedFileTypes[4] = ".jpeg";
+                    acceptedFileTypes[5] = ".gif";
+                    acceptedFileTypes[6] = ".json";
+
+                    bool IsAccceptExt = false;
+                    //should we accept the file?
+                    for (int i = 0; i <= 6; i++)
+                    {
+                        if (ext == acceptedFileTypes[i])
+                        {
+                            IsAccceptExt = true;
+                        }
+                    }
+                    if (!IsAccceptExt)
+                    {
+                        StatusMessage = "The file you are trying to upload is not a permitted file type!";
+                        return Redirect(Request.Headers["Referer"].ToString());
+                    }
+                    var root = env.ContentRootPath;
+                    var fileName = ap.UserID + "_" + Guid.NewGuid().ToString("N") + ext;
+                    // full path to file in temp location
+                    var filePath = Path.Combine(root, "Uploads", "file-CV", fileName); //we are using Temp file name just for the example. Add your own file path.
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                        ap.ApplyDate = DateTime.Now;
+                        ap.FileName = fileName;
+                        ap.OriginFileName = file.FileName;
+                        _appDbContext.Update(ap);
+                        _appDbContext.SaveChanges();
+                    }
+                }
+
+             
+            }
+
+            return RedirectToAction("EditCv");
+        }
+
+
         [HttpGet]
         public async Task<IActionResult> FavouritePost()
         {
-            /*
-             
-          
-            */
             var userId = _userManager.GetUserId(User);
             List<Post> result = await _appDbContext.Posts
                 .Include(e => e.Company)

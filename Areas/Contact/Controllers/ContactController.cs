@@ -12,6 +12,7 @@ using RecruitmentApp.Models;
 namespace RecruitmentApp.Areas.Contact.Controllers
 {
     [Area("Contact")]
+    
     public class ContactController : Controller
     {
         [TempData]

@@ -22,13 +22,11 @@ namespace RecruitmentApp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly AppDbContext _appDbContext;
- 
-
-        private readonly IHostingEnvironment env;
+        private readonly IWebHostEnvironment env;
         [TempData]
         public string StatusMessage {  get; set; } 
 
-        public HomeController(ILogger<HomeController> logger, AppDbContext appDbContext, IHostingEnvironment environment)
+        public HomeController(ILogger<HomeController> logger, AppDbContext appDbContext, IWebHostEnvironment environment)
         {
             _appDbContext = appDbContext;
             _logger = logger;
@@ -55,6 +53,8 @@ namespace RecruitmentApp.Controllers
             ViewData["provices"] = provices;
             var posts = _appDbContext.Posts
                 .Include(p => p.Company)
+                .Include(p => p.Address)
+                .ThenInclude(e => e.City)
                 .Include(p => p.PostSkills)
                 .OrderBy(c => c.PostId)
                 .Take(8)
@@ -110,15 +110,21 @@ namespace RecruitmentApp.Controllers
         public IActionResult ViewPost(int id)
         {
             var post = _appDbContext.Posts
+                
+                
                 .Include(p => p.Company)
                 .Include(p => p.PostSkills)
                 .ThenInclude(e => e.Skill)
-
+                
                 .Include(e => e.PostLevels)
                 .ThenInclude(e=> e.Level)
+
+                .Include(p => p.Address)
+
                 .AsSplitQuery()
                 .FirstOrDefault(p => p.PostId == id);
 
+            post.Address = _appDbContext.Addresses.FirstOrDefault(a => a.AddressId == post.AddId);
             post.ViewTotal++;
             _appDbContext.SaveChanges();
 
@@ -128,8 +134,10 @@ namespace RecruitmentApp.Controllers
         public IActionResult ApplyJob(string id)
         {
             var post = _appDbContext.Posts.FirstOrDefault(e => e.Slug == id);
-            if (post == null) return NotFound();
-
+            if (post == null) 
+                return NotFound();
+            
+                    
             return View(post);
         }
         [HttpPost]
@@ -182,6 +190,7 @@ namespace RecruitmentApp.Controllers
 
                     _appDbContext.applyPosts.Add(new ApplyPost()
                     {
+                        OriginFileName = file.FileName,
                         ApplyDate = DateTime.Now,
                         Description = Description,
                         FileName = fileName,
@@ -196,7 +205,8 @@ namespace RecruitmentApp.Controllers
 
 
             StatusMessage = "Tải CV Thành Công";
-            return Redirect(Request.Headers["Referer"].ToString());
+           // return Redirect(Request.Headers["Referer"].ToString());
+              return RedirectToAction("Index", "Home");
         }
         public IActionResult Search(string key, string city, string[] level, string[] type, string salary, string[] workspace)
         {
@@ -255,8 +265,9 @@ namespace RecruitmentApp.Controllers
                 
                 if (city != "-1")
                 {
-                    result = result.Where(p => p.Company.Addresses.Select(a => a.City.Code).Contains(city));
-                
+                    // result = result.Where(p => p.Company.Addresses.Select(a => a.City.Code).Contains(city));
+                    result = result.Where(p => p.Address.City.Code == city);
+
                 }
             }
             if (!string.IsNullOrEmpty(salary))
@@ -316,7 +327,11 @@ namespace RecruitmentApp.Controllers
         {
             return View();
         }
-
+        [Route("/contact-us")]
+        public IActionResult ContactUs()
+        {
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

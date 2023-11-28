@@ -45,7 +45,7 @@ namespace RecruitmentApp
             services.AddRazorPages();
             // Đăng ký AppDbContext, sử dụng kết nối đến MS SQL Server
             services.AddDbContext<AppDbContext>(options => {
-                string connectstring = Configuration.GetConnectionString("MyBlogContext");
+               string connectstring = Configuration.GetConnectionString("MyBlogContext");
                 options.UseSqlServer(connectstring);
             });
             // Đăng ký các dịch vụ của Identity
@@ -82,7 +82,7 @@ namespace RecruitmentApp
             // Cấu hình Cookie
             services.ConfigureApplicationCookie(options => {
                 // options.Cookie.HttpOnly = true;  
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                options.ExpireTimeSpan = TimeSpan.FromDays(30);
                 options.LoginPath = $"/login/";                                 // Url đến trang đăng nhập
                 options.LogoutPath = $"/logout/";
                 options.AccessDeniedPath = $"/Account/AccessDenied";   // Trang khi User bị cấm truy cập
@@ -169,7 +169,7 @@ namespace RecruitmentApp
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "/{controller=Home}/{action=Index}/{id?}");
               
               //  endpoints.MapControllerRoute(
                //    name: "Recruiters",

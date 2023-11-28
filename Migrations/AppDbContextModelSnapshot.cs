@@ -199,6 +199,9 @@ namespace RecruitmentApp.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("AcademicLevel")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
@@ -215,6 +218,9 @@ namespace RecruitmentApp.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<byte>("Gender")
+                        .HasColumnType("TINYINT");
 
                     b.Property<string>("HomeAdress")
                         .HasMaxLength(400)
@@ -235,6 +241,9 @@ namespace RecruitmentApp.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PersonLink")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
@@ -268,14 +277,10 @@ namespace RecruitmentApp.Migrations
 
             modelBuilder.Entity("RecruitmentApp.Models.ApplyPost", b =>
                 {
-                    b.Property<string>("UserID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("PostID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FileName")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("ApplyDate")
                         .HasColumnType("datetime2");
@@ -283,12 +288,26 @@ namespace RecruitmentApp.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("UserID", "PostID", "FileName");
+                    b.Property<string>("OriginFileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PostID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("PostID");
+
+                    b.HasIndex("UserID");
 
                     b.ToTable("applyPosts");
                 });
@@ -313,6 +332,9 @@ namespace RecruitmentApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -351,9 +373,6 @@ namespace RecruitmentApp.Migrations
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("WorkingTime")
                         .HasColumnType("nvarchar(max)");
@@ -511,6 +530,9 @@ namespace RecruitmentApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("AddId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("AddressId")
                         .HasColumnType("int");
 
@@ -520,7 +542,7 @@ namespace RecruitmentApp.Migrations
                     b.Property<string>("Benifit")
                         .HasColumnType("ntext");
 
-                    b.Property<int?>("CompanyId")
+                    b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
@@ -846,9 +868,7 @@ namespace RecruitmentApp.Migrations
 
                     b.HasOne("RecruitmentApp.Models.AppUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserID");
 
                     b.Navigation("Post");
 
@@ -942,7 +962,9 @@ namespace RecruitmentApp.Migrations
 
                     b.HasOne("RecruitmentApp.Models.Company", "Company")
                         .WithMany("Posts")
-                        .HasForeignKey("CompanyId");
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("RecruitmentApp.Models.Title", null)
                         .WithMany("Posts")

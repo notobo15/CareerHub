@@ -8,6 +8,8 @@ namespace RecruitmentApp.Utilities
   {
         public static string GenerateSlug(string str, bool hierarchical = true)
         {
+            if(str == null || str.Length == 0)  
+                str = string.Empty;
             var slug = str.Trim().ToLower();
 
             string[] decomposed = new string[] { "à","á","ạ","ả","ã","â","ầ","ấ","ậ","ẩ","ẫ","ă",

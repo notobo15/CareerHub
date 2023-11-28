@@ -12,25 +12,40 @@
     <a class="btn btn-secondary" asp-action="Index" asp-controller="User">Quản lý thành viên</a>
 </div>
 
-<table class="table">
-    <tr>
-        <th>Tên Role (vai trò)</th>
-        <th>Tác vụ</th>
-    </tr>
-    @foreach (var role in Model)
-    {
+<table class="table table-bordered">
+    <thead>
         <tr>
-            <td>
-                <p>@role.Name</p>
-                @foreach (var claim in @role.Claims)
-                {
-                    <small>@claim</small><br>
-                }
-            </td>
-            <td>
-                <a class="btn btn-success btn-sm" asp-action="Edit" asp-route-roleid="@role.Id">Cập nhật</a>
-                <a class="btn btn-success btn-sm" asp-action="Delete" asp-route-roleid="@role.Id">Xóa</a>
-            </td>
+            <th>Tên Role (vai trò)</th>
+            <th>Tác vụ</th>
         </tr>
-    }
+    </thead>
+   <tbody>
+        @foreach (var role in Model)
+        {
+            <tr>
+                <td>
+                    <p>@role.Name</p>
+                    @foreach (var claim in @role.Claims)
+                    {
+                        <small>@claim</small>
+
+                        <br>
+                    }
+                </td>
+                <td>
+                    <a class="btn btn-success btn-sm" asp-action="Edit" asp-route-roleid="@role.Id">Cập nhật</a>
+                    <a class="btn btn-success btn-sm" asp-action="Delete" asp-route-roleid="@role.Id">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            new DataTable('.table').dataTable({
+            });
+        })
+
+    </script>
+}

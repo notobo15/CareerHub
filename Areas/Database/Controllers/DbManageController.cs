@@ -16,7 +16,7 @@ using RecruitmentApp.Services;
 namespace RecruitmentApp.Areas.Database.Controllers
 {
     [Area("Database")]
-    [Route("/database-manage/[action]")]
+    [Route("/admin/database/[action]")]
 
     public class DbManageController : Controller
 
@@ -85,7 +85,7 @@ namespace RecruitmentApp.Areas.Database.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> SeedData()
+        public async Task<IActionResult> SeedDataUser()
         {
             var rolesName = typeof(RoleName).GetFields().ToList();
             foreach (var item in rolesName)
@@ -110,13 +110,22 @@ namespace RecruitmentApp.Areas.Database.Controllers
                 await _userManager.CreateAsync(userAdmin, "123456");
                 await _userManager.AddToRoleAsync(userAdmin, RoleName.Administrator);
             }
+           
+
+        
+            // POST
+            var user = _userManager.GetUserAsync(this.User).Result;
+            await _appDbContext.SaveChangesAsync();
+            StatusMessage = "Send data success";
+            return RedirectToAction("Index");
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SeedDataTitle()
+        {
             // CLEAR DATA
             _appDbContext.Titles.RemoveRange(_appDbContext.Titles.ToList());
-            _appDbContext.Levels.RemoveRange(_appDbContext.Levels.ToList());
-            _appDbContext.Skills.RemoveRange(_appDbContext.Skills.ToList());
-            _appDbContext.Companies.RemoveRange(_appDbContext.Companies.ToList());
-            _appDbContext.Posts.RemoveRange(_appDbContext.Posts.ToList());
-
             // Title
             List<Title> titles = new List<Title>() {
               new (){ Name = ".NET Developer",},
@@ -200,7 +209,17 @@ namespace RecruitmentApp.Areas.Database.Controllers
                 new (){ Name = "Wordpress",},
                 };
             await _appDbContext.Titles.AddRangeAsync(titles.ToList());
+      
+            await _appDbContext.SaveChangesAsync();
+            StatusMessage = "Send data title thanh cong";
+            return RedirectToAction("Index");
 
+        }
+
+        public async Task<IActionResult> SeedDataLevel()
+        {
+
+            _appDbContext.Levels.RemoveRange(_appDbContext.Levels.ToList());
             // Level
             var levels = new List<Level>() {
                 new ()
@@ -226,6 +245,14 @@ namespace RecruitmentApp.Areas.Database.Controllers
 
                 };
             await _appDbContext.Levels.AddRangeAsync(levels.ToList());
+            await _appDbContext.SaveChangesAsync();
+            StatusMessage = "Send data title thanh cong";
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> SendDataSkill()
+        {
+            _appDbContext.Skills.RemoveRange(_appDbContext.Skills.ToList());
 
             // Skill
             List<Skill> skills = new List<Skill>() {
@@ -312,11 +339,15 @@ namespace RecruitmentApp.Areas.Database.Controllers
 
                 };
             await _appDbContext.Skills.AddRangeAsync(skills.ToList());
-            // POST
-            var user = _userManager.GetUserAsync(this.User).Result;
-          
-
-            // Company
+            await _appDbContext.SaveChangesAsync();
+            StatusMessage = "Send data title thanh cong";
+            return RedirectToAction("Index");
+        }
+        public async Task<IActionResult> SendDataCompany()
+        {
+            _appDbContext.Companies.RemoveRange(_appDbContext.Companies.ToList());
+            /*
+               // Company
             Faker<Company> FakerCompany = new Faker<Company>();
             FakerCompany.RuleFor(p => p.Name, f => f.Lorem.Sentence(1, 3).Trim('.'));
             FakerCompany.RuleFor(p => p.Slug, f => f.Lorem.Slug());
@@ -328,65 +359,47 @@ namespace RecruitmentApp.Areas.Database.Controllers
             FakerCompany.RuleFor(p => p.WorkingTime, "Thứ 2 - Thứ 6");
             FakerCompany.RuleFor(p => p.OverTime, f => "Không");
             FakerCompany.RuleFor(p => p.Type, f => "Product");
-         
-           
 
-
-            ///
-            Faker<Post> FakerPosts = new Faker<Post>();
-            FakerPosts.RuleFor(p => p.Title, f => f.Lorem.Sentence(3, 4).Trim('.'));
-            FakerPosts.RuleFor(p => p.Benifit, f => "Benifit");
-            FakerPosts.RuleFor(p => p.IsHot, f => false);
-            FakerPosts.RuleFor(p => p.Salary, f => "1000 - 2000$");
-            FakerPosts.RuleFor(p => p.WorkSpace, f => "Văn Phòng");
-            FakerPosts.RuleFor(p => p.PostDate, f => f.Date.Between(new DateTime(2023, 01, 01), DateTime.Now));
-            FakerPosts.RuleFor(p => p.AppUser, user);
-
-            /*
-             
-
-             for (int i = 0; i < 50; i++)
+              for (int i = 0; i < 50; i++)
             {
                 var newCompany = FakerCompany.Generate();
                 newCompany.Name = $"Cong ty {i}";
                 _appDbContext.Companies.Add(newCompany);
             }
-             
-             
-            for (int i = 0; i < 50; i++)
-            {
-                var newPost = FakerPosts.Generate();
-                _appDbContext.Posts.Add(newPost);
-            }
-
-            // SAVE 
-            
              */
+            var companies = _excelService.ReadExcelAndAddToDatabase();
 
-            await _appDbContext.SaveChangesAsync();
-            StatusMessage = "Send data success";
-            return RedirectToAction("Index");
 
-        }
-        public IActionResult UploadExcel()
-        {
-              var companies = _excelService.ReadExcelAndAddToDatabase();
-                
-            _appDbContext.Companies.AddRange(companies);
-             // Do something with the list of companies if needed
-             StatusMessage = "Send data success";
-
-            return RedirectToAction("Index");
-        }
-
-        public IActionResult UploadExcelPost()
-        {
-            var companies = _excelService.ReadExcelPostAndAddToDatabase();
-
-            //_appDbContext.Companies.AddRange(companies);
+            
+            await _appDbContext.Companies.AddRangeAsync(companies);
             // Do something with the list of companies if needed
-            StatusMessage = "Send data success";
+            await _appDbContext.SaveChangesAsync();
+            StatusMessage = "Send data title thanh cong";
+            return RedirectToAction("Index");
+        }
 
+        public async Task<IActionResult> SeedDataPost()
+        {
+            _appDbContext.Posts.RemoveRange(_appDbContext.Posts.ToList());
+            var posts = _excelService.ReadExcelPostAndAddToDatabase();
+            /*
+          Faker<Post> FakerPosts = new Faker<Post>();
+          FakerPosts.RuleFor(p => p.Title, f => f.Lorem.Sentence(3, 4).Trim('.'));
+          FakerPosts.RuleFor(p => p.Benifit, f => "Benifit");
+          FakerPosts.RuleFor(p => p.IsHot, f => false);
+          FakerPosts.RuleFor(p => p.Salary, f => "1000 - 2000$");
+          FakerPosts.RuleFor(p => p.WorkSpace, f => "Văn Phòng");
+          FakerPosts.RuleFor(p => p.PostDate, f => f.Date.Between(new DateTime(2023, 01, 01), DateTime.Now));
+          FakerPosts.RuleFor(p => p.AppUser, user);
+          for (int i = 0; i < 50; i++)
+          {
+              var newPost = FakerPosts.Generate();
+              _appDbContext.Posts.Add(newPost);
+          }
+            */
+            await _appDbContext.Posts.AddRangeAsync(posts);
+            await _appDbContext.SaveChangesAsync();
+            StatusMessage = "Send data posts thanh cong";
             return RedirectToAction("Index");
         }
     }

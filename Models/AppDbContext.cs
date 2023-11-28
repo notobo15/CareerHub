@@ -73,13 +73,15 @@ namespace RecruitmentApp.Models
                 entity.HasKey(c => new { c.UserID, c.PostID });
             });
 
+
+            /*
             modelBuilder.Entity<ApplyPost>(entity => {
                 entity.HasKey(c => new { c.UserID, c.PostID, c.FileName });
             });
 
 
 
-            /*
+            
 
            modelBuilder.Entity<ApplyPost>(entity => {
                 entity.HasKey(c => new { c.UserID, c.PostID, c.FileName });

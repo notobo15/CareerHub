@@ -52,7 +52,7 @@ namespace RecruitmentApp.Areas.Posts.Controllers
         // GET: Post/Create
         public IActionResult Create()
         {
-         
+            
             var listSkill = _context.Skills.ToList();
             ViewData["list"] = new MultiSelectList(listSkill, "SkillId", "Name");
             return View();
@@ -63,7 +63,7 @@ namespace RecruitmentApp.Areas.Posts.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PostId,Title,IsHot,Salary,Expired,WorkSpace,Description,JobRequirement,Benifit,SkillIds, LevelIds")]Post post)
+        public async Task<IActionResult> Create([Bind("PostId,AddressId,Title,IsHot,Salary,Expired,WorkSpace,Description,JobRequirement,Benifit,SkillIds, LevelIds")]Post post)
         {
             if (ModelState.IsValid)
             {
@@ -95,6 +95,8 @@ namespace RecruitmentApp.Areas.Posts.Controllers
             {
                 return NotFound();
             }
+            var addressList = _context.Addresses.Where(a => a.CompanyId == id).ToList();
+            ViewData["address"] = new SelectList(addressList, "AddressId", "FullAddress");
             var listSkill = _context.Skills.ToList();
             ViewData["list"] = new MultiSelectList(listSkill, "SkillId", "Name");
             ViewData["listLevel"] = new MultiSelectList(_context.Levels.ToList(), "LevelId", "Name");
@@ -106,7 +108,7 @@ namespace RecruitmentApp.Areas.Posts.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PostId,Title,IsHot,MinSalary,MaxSalary,WorkSpace,Description,JobRequirement,Benifit, SkillIds, LevelIds")] Post newPost)
+        public async Task<IActionResult> Edit(int id, [Bind("PostId,AddressId,Title,IsHot,MinSalary,MaxSalary,WorkSpace,Description,JobRequirement,Benifit, SkillIds, LevelIds")] Post newPost)
         {
             if (id != newPost.PostId)
             {
@@ -127,6 +129,7 @@ namespace RecruitmentApp.Areas.Posts.Controllers
             {
                 try
                 {
+                    post.AddId = newPost.AddId;
                     post.CreatedAt = DateTime.Now;
                     post.Title = newPost.Title;
                     post.IsHot = newPost.IsHot;

@@ -22,7 +22,7 @@
 </div>
 <div class="my-4 row p-2 bg-light shadow-sm">
     <div class="col-sm-2">
-        <img class="w-100" src="@Model.Company.LogoImage" />
+        <img class="w-100" src="~/company-logo/@Model.Company.LogoImage" />
     </div>
     <div class="col">
         <div class="d-flex align-items-center justify-content-between">
@@ -185,14 +185,25 @@
         </div>
         <h4 class="py-3 font-weight-bold">Địa điểm làm việc</h4>
         <div class="w-100 mb-3">
-            <i class="fas fa-map-marker-alt mr-2"></i><span>Tầng 17 số 18 Tôn Thất Thuyết, Nam Tu Liem, Ha Noi</span>
+            <i class="fs4-5 text-danger fas fa-map-marker-alt mr-2"></i><span>@Model.Address.FullAddress</span>
+        </div>
+
+        <div class="row mt-3">
+
+            <div class="col-sm-12">
+                <iframe id="ggmap" style="height:500px;width:100%;border:0; border-radius: 0.8rem" frameborder="0"
+                        src="@Model.Address?.GgMapSrc">
+                </iframe>
+
+            </div>
+           
         </div>
 
     </div>
     <div class="col mt-4 mt-lg-0 px-0 d-lg-block ml-lg-4">
         <div class="position-sticky shadow bg-white border p-3" style="top: 10px;">
             <div class="w-100 text-center">
-                <img class="w-75" src="@Model.Company.LogoImage" />
+                <img class="w-75" src="~/company-logo/@Model.Company.LogoImage" />
             </div>
             <h6 class="py-3"><b>@Model.Company.Name</b></h6>
             <div class="d-flex justify-content-between align-items-center border-bottom  py-2">

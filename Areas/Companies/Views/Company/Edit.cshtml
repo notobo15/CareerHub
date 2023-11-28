@@ -79,7 +79,7 @@
                 <label asp-for="LogoImage" class="control-label"></label>
 
                 <div class="form-group">
-                    <img src="@Model.LogoImage" />
+                    <img src="~/company-logo/@Model.LogoImage" />
                 </div>
                 <input type="file" asp-for="File" class="form-control" />
                 <span asp-validation-for="File" class="text-danger"></span>

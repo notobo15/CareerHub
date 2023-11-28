@@ -57,12 +57,76 @@
       "PackagePath": "staticwebassets\\company-logo\\VUIAPP.png"
     },
     {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\company-logo\\asia-plus-inc-6.jpg",
+      "PackagePath": "staticwebassets\\company-logo\\asia-plus-inc-6.jpg"
+    },
+    {
       "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\company-logo\\asilla.jpg",
       "PackagePath": "staticwebassets\\company-logo\\asilla.jpg"
     },
     {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\company-logo\\cong-ty-co-phan-chung-khoan-ky-thuong-techcom-securities-tcbs-17.png",
+      "PackagePath": "staticwebassets\\company-logo\\cong-ty-co-phan-chung-khoan-ky-thuong-techcom-securities-tcbs-17.png"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\company-logo\\cong-ty-co-phan-propertyguru-viet-nam-8.png",
+      "PackagePath": "staticwebassets\\company-logo\\cong-ty-co-phan-propertyguru-viet-nam-8.png"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\company-logo\\cong-ty-phan-mem-tower-hanoitohsoft-4.png",
+      "PackagePath": "staticwebassets\\company-logo\\cong-ty-phan-mem-tower-hanoitohsoft-4.png"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\company-logo\\cong-ty-tnhh-cong-nghe-asilla-viet-nam-11.jpg",
+      "PackagePath": "staticwebassets\\company-logo\\cong-ty-tnhh-cong-nghe-asilla-viet-nam-11.jpg"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\company-logo\\cong-ty-tnhh-isb-viet-nam-7.png",
+      "PackagePath": "staticwebassets\\company-logo\\cong-ty-tnhh-isb-viet-nam-7.png"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\company-logo\\dich-vu-cong-nghe-ryte-viet-nam-16.png",
+      "PackagePath": "staticwebassets\\company-logo\\dich-vu-cong-nghe-ryte-viet-nam-16.png"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\company-logo\\maple-labs-3.png",
+      "PackagePath": "staticwebassets\\company-logo\\maple-labs-3.png"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\company-logo\\nab-innovation-centre-vietnam-14.jpg",
+      "PackagePath": "staticwebassets\\company-logo\\nab-innovation-centre-vietnam-14.jpg"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\company-logo\\nano-technologies-12.png",
+      "PackagePath": "staticwebassets\\company-logo\\nano-technologies-12.png"
+    },
+    {
       "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\company-logo\\necessitatibus-natus-ut-31.png",
       "PackagePath": "staticwebassets\\company-logo\\necessitatibus-natus-ut-31.png"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\company-logo\\ngan-hang-thuong-mai-co-phan-phat-trien-thanh-pho-ho-chi-minh-10.jpg",
+      "PackagePath": "staticwebassets\\company-logo\\ngan-hang-thuong-mai-co-phan-phat-trien-thanh-pho-ho-chi-minh-10.jpg"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\company-logo\\ngan-hang-tmcp-ky-thuong-viet-nam-15.png",
+      "PackagePath": "staticwebassets\\company-logo\\ngan-hang-tmcp-ky-thuong-viet-nam-15.png"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\company-logo\\nha-cung-cap-dich-vu-so-dsp-digital-service-provider-2.png",
+      "PackagePath": "staticwebassets\\company-logo\\nha-cung-cap-dich-vu-so-dsp-digital-service-provider-2.png"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\company-logo\\ntt-data-vds-5.jpg",
+      "PackagePath": "staticwebassets\\company-logo\\ntt-data-vds-5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\company-logo\\scandinavian-software-park-9.png",
+      "PackagePath": "staticwebassets\\company-logo\\scandinavian-software-park-9.png"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\company-logo\\sungrove-tech-viet-nam-13.jpg",
+      "PackagePath": "staticwebassets\\company-logo\\sungrove-tech-viet-nam-13.jpg"
     },
     {
       "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\company-logo\\techombank.png",
@@ -235,6 +299,122 @@
     {
       "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\chartjs\\chart.cjs.map",
+      "PackagePath": "staticwebassets\\lib\\chartjs\\chart.cjs.map"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\chartjs\\chart.js",
+      "PackagePath": "staticwebassets\\lib\\chartjs\\chart.js"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\chartjs\\chart.js.map",
+      "PackagePath": "staticwebassets\\lib\\chartjs\\chart.js.map"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\chartjs\\chart.min.js",
+      "PackagePath": "staticwebassets\\lib\\chartjs\\chart.min.js"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\chartjs\\chart.umd.js",
+      "PackagePath": "staticwebassets\\lib\\chartjs\\chart.umd.js"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\chartjs\\chart.umd.js.map",
+      "PackagePath": "staticwebassets\\lib\\chartjs\\chart.umd.js.map"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\chartjs\\chart.umd.min.js",
+      "PackagePath": "staticwebassets\\lib\\chartjs\\chart.umd.min.js"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\chartjs\\helpers.cjs.map",
+      "PackagePath": "staticwebassets\\lib\\chartjs\\helpers.cjs.map"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\chartjs\\helpers.js",
+      "PackagePath": "staticwebassets\\lib\\chartjs\\helpers.js"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\chartjs\\helpers.js.map",
+      "PackagePath": "staticwebassets\\lib\\chartjs\\helpers.js.map"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\chartjs\\helpers.min.js",
+      "PackagePath": "staticwebassets\\lib\\chartjs\\helpers.min.js"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\chartjs\\index.d.ts",
+      "PackagePath": "staticwebassets\\lib\\chartjs\\index.d.ts"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\chartjs\\index.umd.d.ts",
+      "PackagePath": "staticwebassets\\lib\\chartjs\\index.umd.d.ts"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\chartjs\\types.d.ts",
+      "PackagePath": "staticwebassets\\lib\\chartjs\\types.d.ts"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\countup\\.gitignore",
+      "PackagePath": "staticwebassets\\lib\\countup\\.gitignore"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\countup\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\countup"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\countup\\README.md",
+      "PackagePath": "staticwebassets\\lib\\countup\\README.md"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\countup\\bower.json",
+      "PackagePath": "staticwebassets\\lib\\countup\\bower.json"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\countup\\gulpfile.js",
+      "PackagePath": "staticwebassets\\lib\\countup\\gulpfile.js"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\countup\\index.html",
+      "PackagePath": "staticwebassets\\lib\\countup\\index.html"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\countup\\jquery.countup.js",
+      "PackagePath": "staticwebassets\\lib\\countup\\jquery.countup.js"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\countup\\jquery.countup.min.js",
+      "PackagePath": "staticwebassets\\lib\\countup\\jquery.countup.min.js"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\countup\\package.json",
+      "PackagePath": "staticwebassets\\lib\\countup\\package.json"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\countupjs\\countUp.js",
+      "PackagePath": "staticwebassets\\lib\\countupjs\\countUp.js"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\countupjs\\countUp.min.js",
+      "PackagePath": "staticwebassets\\lib\\countupjs\\countUp.min.js"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\countupjs\\countUp.umd.js",
+      "PackagePath": "staticwebassets\\lib\\countupjs\\countUp.umd.js"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\countupjs\\countUp.umd.min.js",
+      "PackagePath": "staticwebassets\\lib\\countupjs\\countUp.umd.min.js"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\countupjs\\requestAnimationFrame.polyfill.js",
+      "PackagePath": "staticwebassets\\lib\\countupjs\\requestAnimationFrame.polyfill.js"
+    },
+    {
+      "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\countupjs\\requestAnimationFrame.polyfill.min.js",
+      "PackagePath": "staticwebassets\\lib\\countupjs\\requestAnimationFrame.polyfill.min.js"
     },
     {
       "Id": "C:\\Users\\notobo\\source\\repos\\RecruitmentApp\\RecruitmentApp\\wwwroot\\lib\\elfinder\\css\\elfinder.full.css",

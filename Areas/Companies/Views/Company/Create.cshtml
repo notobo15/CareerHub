@@ -38,12 +38,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
+                <textarea  asp-for="Description" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Reason" class="control-label"></label>
-                <input asp-for="Reason" class="form-control" />
+                <textarea  asp-for="Reason" class="form-control"></textarea>
                 <span asp-validation-for="Reason" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -78,7 +78,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="LogoImage" class="control-label"></label>
-                <input asp-for="LogoImage" class="form-control" />
+                <input type="file" asp-for="LogoImage" class="form-control" />
                 <span asp-validation-for="LogoImage" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -102,7 +102,8 @@
     <a asp-action="Index">Back to List</a>
 </div>
 @{
-    var summernote = new RecruitmentApp.Models.Summernote("#Description");
+    var Description = new RecruitmentApp.Models.Summernote("#Description");
+    var Reason = new RecruitmentApp.Models.Summernote("#Reason");
 }
 @section Scripts {
     <script>
@@ -116,7 +117,8 @@
            })
 
     </script>
-    <partial name="_Summernote" model="summernote" />
+    <partial name="_Summernote" model="Description" />
+    <partial name="_Summernote" model="Reason" />
 
 }
 

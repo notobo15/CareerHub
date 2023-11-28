@@ -12,12 +12,13 @@ namespace RecruitmentApp.Models
         [Required(ErrorMessage = "Phai Nhap {0}")]
         [Column(TypeName = "nvarchar")]
         [StringLength(50)]
-        [Display(Name = "Ho Ten")]
+        [Display(Name = "Họ Và Tên")]
         public string FullName { get; set; }
 
         [StringLength(50)]
         [Phone(ErrorMessage = "Phai La {0}")]
         [Required]
+        [Display(Name = "Số Điện Thoại")]
         public string Phone { get; set; }
 
         [Required]
@@ -26,7 +27,7 @@ namespace RecruitmentApp.Models
         public string Email { get; set; }
         public DateTime? DateSend { get; set; }
 
-
+        [Display(Name = "Lời nhắn")]
         public string Message { get; set; }
     }
 }
