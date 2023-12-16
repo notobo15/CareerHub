@@ -29,7 +29,7 @@ namespace App.Areas.Identity.Controllers
     [Route("/ManageUser/[action]")]
     public class UserController : Controller
     {
-        
+
         private readonly ILogger<RoleController> _logger;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly AppDbContext _context;
@@ -69,7 +69,8 @@ namespace App.Areas.Identity.Controllers
 
             var qr1 = qr.Skip((model.currentPage - 1) * model.ITEMS_PER_PAGE)
                         .Take(model.ITEMS_PER_PAGE)
-                        .Select(u => new UserAndRole() {
+                        .Select(u => new UserAndRole()
+                        {
                             Id = u.Id,
                             UserName = u.UserName,
                         });
@@ -80,10 +81,10 @@ namespace App.Areas.Identity.Controllers
             {
                 var roles = await _userManager.GetRolesAsync(user);
                 user.RoleNames = string.Join(",", roles);
-            } 
-            
+            }
+
             return View(model);
-        } 
+        }
 
         // GET: /ManageUser/AddRole/id
         [HttpGet("{id}")]
@@ -137,24 +138,24 @@ namespace App.Areas.Identity.Controllers
             var addRoles = model.RoleNames.Where(r => !OldRoleNames.Contains(r));
 
             List<string> roleNames = await _roleManager.Roles.Select(r => r.Name).ToListAsync();
-            
-            ViewBag.allRoles = new SelectList(roleNames);            
 
-            var resultDelete = await _userManager.RemoveFromRolesAsync(model.user,deleteRoles);
+            ViewBag.allRoles = new SelectList(roleNames);
+
+            var resultDelete = await _userManager.RemoveFromRolesAsync(model.user, deleteRoles);
             if (!resultDelete.Succeeded)
             {
                 ModelState.AddModelError(resultDelete);
                 return View(model);
             }
-            
-            var resultAdd = await _userManager.AddToRolesAsync(model.user,addRoles);
+
+            var resultAdd = await _userManager.AddToRolesAsync(model.user, addRoles);
             if (!resultAdd.Succeeded)
             {
                 ModelState.AddModelError(resultAdd);
                 return View(model);
             }
 
-            
+
             StatusMessage = $"Vừa cập nhật role cho user: {model.user.UserName}";
 
             return RedirectToAction("Index");
@@ -200,7 +201,7 @@ namespace App.Areas.Identity.Controllers
             {
                 return View(model);
             }
-             
+
             await _userManager.RemovePasswordAsync(user);
 
             var addPasswordResult = await _userManager.AddPasswordAsync(user, model.NewPassword);
@@ -216,13 +217,13 @@ namespace App.Areas.Identity.Controllers
             StatusMessage = $"Vừa cập nhật mật khẩu cho user: {user.UserName}";
 
             return RedirectToAction("Index");
-        }        
+        }
 
 
         [HttpGet("{userid}")]
         public async Task<ActionResult> AddClaimAsync(string userid)
         {
-            
+
             var user = await _userManager.FindByIdAsync(userid);
             if (user == null) return NotFound("Không tìm thấy user");
             ViewBag.user = user;
@@ -233,7 +234,7 @@ namespace App.Areas.Identity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddClaimAsync(string userid, AddUserClaimModel model)
         {
-            
+
             var user = await _userManager.FindByIdAsync(userid);
             if (user == null) return NotFound("Không tìm thấy user");
             ViewBag.user = user;
@@ -248,9 +249,9 @@ namespace App.Areas.Identity.Controllers
 
             await _userManager.AddClaimAsync(user, new Claim(model.ClaimType, model.ClaimValue));
             StatusMessage = "Đã thêm đặc tính cho user";
-                        
-            return RedirectToAction("AddRole", new {id = user.Id});
-        }        
+
+            return RedirectToAction("AddRole", new { id = user.Id });
+        }
 
         [HttpGet("{claimid}")]
         public async Task<IActionResult> EditClaim(int claimid)
@@ -280,14 +281,14 @@ namespace App.Areas.Identity.Controllers
 
             if (!ModelState.IsValid) return View("AddClaim", model);
 
-            if (_context.UserClaims.Any(c => c.UserId == user.Id 
-                && c.ClaimType == model.ClaimType 
-                && c.ClaimValue == model.ClaimValue 
+            if (_context.UserClaims.Any(c => c.UserId == user.Id
+                && c.ClaimType == model.ClaimType
+                && c.ClaimValue == model.ClaimValue
                 && c.Id != userclaim.Id))
-                {
-                    ModelState.AddModelError("Claim này đã có");
-                    return View("AddClaim", model);
-                }
+            {
+                ModelState.AddModelError("Claim này đã có");
+                return View("AddClaim", model);
+            }
 
 
             userclaim.ClaimType = model.ClaimType;
@@ -295,11 +296,11 @@ namespace App.Areas.Identity.Controllers
 
             await _context.SaveChangesAsync();
             StatusMessage = "Bạn vừa cập nhật claim";
-            
+
 
             ViewBag.user = user;
             ViewBag.userclaim = userclaim;
-            return RedirectToAction("AddRole", new {id = user.Id});
+            return RedirectToAction("AddRole", new { id = user.Id });
         }
         [HttpPost("{claimid}")]
         [ValidateAntiForgeryToken]
@@ -313,33 +314,65 @@ namespace App.Areas.Identity.Controllers
             await _userManager.RemoveClaimAsync(user, new Claim(userclaim.ClaimType, userclaim.ClaimValue));
 
             StatusMessage = "Bạn đã xóa claim";
-            
-            return RedirectToAction("AddRole", new {id = user.Id});
+
+            return RedirectToAction("AddRole", new { id = user.Id });
         }
 
         private async Task GetClaims(AddUserRoleModel model)
         {
             var listRoles = from r in _context.Roles
-                join ur in _context.UserRoles on r.Id equals ur.RoleId
-                where ur.UserId == model.user.Id
-                select r;
+                            join ur in _context.UserRoles on r.Id equals ur.RoleId
+                            where ur.UserId == model.user.Id
+                            select r;
 
-            var _claimsInRole  = from c in _context.RoleClaims
-                                 join r in listRoles on c.RoleId  equals r.Id
-                                 select c;
+            var _claimsInRole = from c in _context.RoleClaims
+                                join r in listRoles on c.RoleId equals r.Id
+                                select c;
             model.claimsInRole = await _claimsInRole.ToListAsync();
 
 
-           model.claimsInUserClaim  = await (from c in _context.UserClaims
-            where c.UserId == model.user.Id select c).ToListAsync();
+            model.claimsInUserClaim = await (from c in _context.UserClaims
+                                             where c.UserId == model.user.Id
+                                             select c).ToListAsync();
 
         }
         [HttpGet]
         public IActionResult ManageApplyJob(string id)
         {
-            var result = _context.applyPosts.Where( a => a.UserID == id).ToList();
+            var result = _context.applyPosts.Where(a => a.UserID == id).ToList();
             return View(result);
         }
-        
+        [HttpGet]
+        public IActionResult Details(string id)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Id == _userManager.GetUserId(User));
+            return View(user);
+
+        }
+        [HttpGet]
+        public IActionResult Delete(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+            var user = _context.Users.FirstOrDefault(u => u.Id == id);
+            return View(user);
+         
+        }
+        [HttpPost]
+        public IActionResult DeleteConfirmed(string id)
+        {
+            if(string.IsNullOrEmpty(id))
+            {
+                var user = _context.Users.FirstOrDefault(u => u.Id == id);
+                user.EmailConfirmed = false;
+                _context.SaveChanges();
+               
+            }
+             return RedirectToAction("Index");
+       
+        }
     }
 }

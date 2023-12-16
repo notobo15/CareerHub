@@ -24,8 +24,16 @@ namespace RecruitmentApp.Controllers
         private readonly AppDbContext _appDbContext;
         private readonly IWebHostEnvironment env;
         [TempData]
-        public string StatusMessage {  get; set; } 
+        public string StatusMessage {  get; set; }
+      
+        /*
+        public HomeController(AppDbContext appDbContext)
+        {
+            _appDbContext = appDbContext;
 
+
+        }
+        */
         public HomeController(ILogger<HomeController> logger, AppDbContext appDbContext, IWebHostEnvironment environment)
         {
             _appDbContext = appDbContext;
@@ -34,6 +42,8 @@ namespace RecruitmentApp.Controllers
 
 
         }
+
+    
 
         public IActionResult Index()
         {
