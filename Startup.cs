@@ -45,8 +45,9 @@ namespace RecruitmentApp
             services.AddRazorPages();
             // Đăng ký AppDbContext, sử dụng kết nối đến MS SQL Server
             services.AddDbContext<AppDbContext>(options => {
-               string connectstring = Configuration.GetConnectionString("MyBlogContext");
+               string connectstring = Configuration.GetConnectionString("DbContext");
                 options.UseSqlServer(connectstring);
+                //options.UseMySql(connectstring, ServerVersion.AutoDetect(connectstring));
             });
             // Đăng ký các dịch vụ của Identity
             services.AddIdentity<AppUser, IdentityRole>()
