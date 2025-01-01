@@ -9,6 +9,7 @@ namespace RecruitmentApp.Models
     public class Post
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PostId { get; set; }
 
         [Required]
@@ -29,7 +30,7 @@ namespace RecruitmentApp.Models
         public DateTime Expired { get; set; }
         public string WorkSpace { get; set; }
 
-        public int? AddId { get; set; }
+        public int? AddressId { get; set; }
         public Address Address { get; set; }
 
         [Column(TypeName = "ntext")]

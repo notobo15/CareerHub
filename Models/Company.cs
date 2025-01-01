@@ -9,6 +9,8 @@ namespace RecruitmentApp.Models
     public class Company
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+
         public int CompanyId { get; set; }
 
         public string Slug { get; set; }
