@@ -129,7 +129,7 @@ namespace RecruitmentApp.Areas.Posts.Controllers
             {
                 try
                 {
-                    post.AddId = newPost.AddId;
+                    post.AddressId = newPost.AddressId;
                     post.CreatedAt = DateTime.Now;
                     post.Title = newPost.Title;
                     post.IsHot = newPost.IsHot;
