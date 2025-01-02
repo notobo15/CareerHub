@@ -134,7 +134,7 @@ namespace RecruitmentApp.Controllers
                 .AsSplitQuery()
                 .FirstOrDefault(p => p.PostId == id);
 
-            post.Address = _appDbContext.Addresses.FirstOrDefault(a => a.AddressId == post.AddId);
+            post.Address = _appDbContext.Addresses.FirstOrDefault(a => a.AddressId == post.AddressId);
             post.ViewTotal++;
             _appDbContext.SaveChanges();
 
