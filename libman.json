@@ -50,6 +50,10 @@
     {
       "library": "countup.js@2.8.0",
       "destination": "wwwroot/lib/countupjs"
+    },
+    {
+      "library": "feather-icons@4.29.2",
+      "destination": "wwwroot/lib/feather-icons"
     }
   ]
 }
