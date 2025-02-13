@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RecruitmentApp.Models;
 
 namespace RecruitmentApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250109061931_posts")]
+    partial class posts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -341,12 +343,6 @@ namespace RecruitmentApp.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsShowCompanyFbUrl")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsShowCompanyUrl")
-                        .HasColumnType("bit");
-
                     b.Property<string>("LogoImage")
                         .HasColumnType("nvarchar(max)");
 
@@ -484,7 +480,7 @@ namespace RecruitmentApp.Migrations
                     b.ToTable("Districts");
                 });
 
-            modelBuilder.Entity("RecruitmentApp.Models.Favorite", b =>
+            modelBuilder.Entity("RecruitmentApp.Models.Favourite", b =>
                 {
                     b.Property<string>("UserID")
                         .HasColumnType("nvarchar(450)");
@@ -496,7 +492,7 @@ namespace RecruitmentApp.Migrations
 
                     b.HasIndex("PostID");
 
-                    b.ToTable("Favorites");
+                    b.ToTable("Favourites");
                 });
 
             modelBuilder.Entity("RecruitmentApp.Models.Follower", b =>
@@ -512,21 +508,6 @@ namespace RecruitmentApp.Migrations
                     b.HasIndex("CompanyID");
 
                     b.ToTable("Followers");
-                });
-
-            modelBuilder.Entity("RecruitmentApp.Models.Industry", b =>
-                {
-                    b.Property<int>("IndustryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("IndustryId");
-
-                    b.ToTable("Industries");
                 });
 
             modelBuilder.Entity("RecruitmentApp.Models.Level", b =>
@@ -609,12 +590,6 @@ namespace RecruitmentApp.Migrations
                     b.Property<string>("Salary")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SalaryText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SalaryType")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Slug")
                         .HasColumnType("nvarchar(max)");
 
@@ -625,9 +600,6 @@ namespace RecruitmentApp.Migrations
 
                     b.Property<int?>("TitleId")
                         .HasColumnType("int");
-
-                    b.Property<string>("TopReason")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -681,36 +653,6 @@ namespace RecruitmentApp.Migrations
                     b.ToTable("PostSkills");
                 });
 
-            modelBuilder.Entity("RecruitmentApp.Models.PostView", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("IpAddress")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("ViewedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("PostId", "UserId", "IpAddress")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL AND [IpAddress] IS NOT NULL");
-
-                    b.ToTable("PostViews");
-                });
-
             modelBuilder.Entity("RecruitmentApp.Models.Province", b =>
                 {
                     b.Property<string>("Code")
@@ -748,24 +690,6 @@ namespace RecruitmentApp.Migrations
                     b.HasKey("Code");
 
                     b.ToTable("Provinces");
-                });
-
-            modelBuilder.Entity("RecruitmentApp.Models.RecruitmentApp.Models.CompanyIndustry", b =>
-                {
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IndustryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("CompanyId", "IndustryId");
-
-                    b.HasIndex("IndustryId");
-
-                    b.ToTable("CompanyIndustries");
                 });
 
             modelBuilder.Entity("RecruitmentApp.Models.Skill", b =>
@@ -988,16 +912,16 @@ namespace RecruitmentApp.Migrations
                     b.Navigation("Province");
                 });
 
-            modelBuilder.Entity("RecruitmentApp.Models.Favorite", b =>
+            modelBuilder.Entity("RecruitmentApp.Models.Favourite", b =>
                 {
                     b.HasOne("RecruitmentApp.Models.Post", "Post")
-                        .WithMany("Favorites")
+                        .WithMany("Favourites")
                         .HasForeignKey("PostID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("RecruitmentApp.Models.AppUser", "User")
-                        .WithMany("Favorites")
+                        .WithMany("Favourites")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1029,9 +953,8 @@ namespace RecruitmentApp.Migrations
             modelBuilder.Entity("RecruitmentApp.Models.Post", b =>
                 {
                     b.HasOne("RecruitmentApp.Models.Address", "Address")
-                        .WithMany("Posts")
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .WithMany()
+                        .HasForeignKey("AddressId");
 
                     b.HasOne("RecruitmentApp.Models.AppUser", "AppUser")
                         .WithMany("Posts")
@@ -1039,8 +962,7 @@ namespace RecruitmentApp.Migrations
 
                     b.HasOne("RecruitmentApp.Models.Company", "Company")
                         .WithMany("Posts")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CompanyId");
 
                     b.HasOne("RecruitmentApp.Models.Title", null)
                         .WithMany("Posts")
@@ -1091,42 +1013,6 @@ namespace RecruitmentApp.Migrations
                     b.Navigation("Skill");
                 });
 
-            modelBuilder.Entity("RecruitmentApp.Models.PostView", b =>
-                {
-                    b.HasOne("RecruitmentApp.Models.Post", "Post")
-                        .WithMany()
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RecruitmentApp.Models.AppUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("Post");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("RecruitmentApp.Models.RecruitmentApp.Models.CompanyIndustry", b =>
-                {
-                    b.HasOne("RecruitmentApp.Models.Company", "Company")
-                        .WithMany("CompanyIndustries")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RecruitmentApp.Models.Industry", "Industry")
-                        .WithMany("CompanyIndustries")
-                        .HasForeignKey("IndustryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
-
-                    b.Navigation("Industry");
-                });
-
             modelBuilder.Entity("RecruitmentApp.Models.Ward", b =>
                 {
                     b.HasOne("RecruitmentApp.Models.District", "District")
@@ -1136,14 +1022,9 @@ namespace RecruitmentApp.Migrations
                     b.Navigation("District");
                 });
 
-            modelBuilder.Entity("RecruitmentApp.Models.Address", b =>
-                {
-                    b.Navigation("Posts");
-                });
-
             modelBuilder.Entity("RecruitmentApp.Models.AppUser", b =>
                 {
-                    b.Navigation("Favorites");
+                    b.Navigation("Favourites");
 
                     b.Navigation("Followers");
 
@@ -1153,8 +1034,6 @@ namespace RecruitmentApp.Migrations
             modelBuilder.Entity("RecruitmentApp.Models.Company", b =>
                 {
                     b.Navigation("Addresses");
-
-                    b.Navigation("CompanyIndustries");
 
                     b.Navigation("CompanySkills");
 
@@ -1168,11 +1047,6 @@ namespace RecruitmentApp.Migrations
                     b.Navigation("Wards");
                 });
 
-            modelBuilder.Entity("RecruitmentApp.Models.Industry", b =>
-                {
-                    b.Navigation("CompanyIndustries");
-                });
-
             modelBuilder.Entity("RecruitmentApp.Models.Level", b =>
                 {
                     b.Navigation("PostLevels");
@@ -1180,7 +1054,7 @@ namespace RecruitmentApp.Migrations
 
             modelBuilder.Entity("RecruitmentApp.Models.Post", b =>
                 {
-                    b.Navigation("Favorites");
+                    b.Navigation("Favourites");
 
                     b.Navigation("PostLevels");
 
