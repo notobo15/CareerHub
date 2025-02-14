@@ -2,8 +2,8 @@
 @inject AppDbContext appDbContext
 @{
     var listCompany = new SelectList(appDbContext.Companies.ToList(), "CompanyId", "Name");
-    var listProvince = new SelectList(appDbContext.provinces.ToList(), "Code", "FullName");
-    var listDistrict = new SelectList(appDbContext.districts.Where(p => p.ProvinceId == "01").ToList(), "Code", "FullName");
+    var listProvince = new SelectList(appDbContext.Provinces.ToList(), "Code", "FullName");
+    var listDistrict = new SelectList(appDbContext.Districts.Where(p => p.ProvinceId == "01").ToList(), "Code", "FullName");
    // var listWard = new SelectList(appDbContext.wards.Where(p => p.DistrictId == Model.DistrictCode).ToList(), "Code", "FullName", Model.WardCode.ToString());
 }
 <h4>Create New Address</h4>

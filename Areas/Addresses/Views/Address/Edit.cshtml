@@ -2,9 +2,9 @@
 @inject AppDbContext appDbContext
 @{
     var listCompany = new SelectList(appDbContext.Companies.ToList(), "CompanyId", "Name", Model.CompanyId.ToString());
-    var listProvince = new SelectList(appDbContext.provinces.ToList(), "Code", "FullName", Model.ProvinceCode.ToString());
-    var listDistrict = new SelectList(appDbContext.districts.Where(p => p.ProvinceId == Model.ProvinceCode).ToList(), "Code", "FullName", Model.DistrictCode.ToString());
-    var listWard = new SelectList(appDbContext.wards.Where(p => p.DistrictId == Model.DistrictCode).ToList(), "Code", "FullName", Model.WardCode.ToString());
+    var listProvince = new SelectList(appDbContext.Provinces.ToList(), "Code", "FullName", Model.ProvinceCode.ToString());
+    var listDistrict = new SelectList(appDbContext.Districts.Where(p => p.ProvinceId == Model.ProvinceCode).ToList(), "Code", "FullName", Model.DistrictCode.ToString());
+    var listWard = new SelectList(appDbContext.Wards.Where(p => p.DistrictId == Model.DistrictCode).ToList(), "Code", "FullName", Model.WardCode.ToString());
 }
 <h4>Skill</h4>
 <hr />

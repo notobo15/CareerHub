@@ -73,9 +73,9 @@ namespace RecruitmentApp.Areas.Addresses.Controllers
 
                 address.GgMapSrc = GetSrcGgMap(address.GgMapSrc);
 
-                var ward = _context.wards.FirstOrDefault(w => w.Code == address.WardCode);
-                var district = _context.districts.FirstOrDefault(w => w.Code == address.DistrictCode);
-                var province = _context.provinces.FirstOrDefault(w => w.Code == address.ProvinceCode);
+                var ward = _context.Wards.FirstOrDefault(w => w.Code == address.WardCode);
+                var district = _context.Districts.FirstOrDefault(w => w.Code == address.DistrictCode);
+                var province = _context.Provinces.FirstOrDefault(w => w.Code == address.ProvinceCode);
                 address.FullAddress = $"{address.DetailPosition}, {ward.FullName}, {district.FullName}, {province.FullName}";
                 _context.Add(address);
                  await _context.SaveChangesAsync();
@@ -119,9 +119,9 @@ namespace RecruitmentApp.Areas.Addresses.Controllers
 
                     address.GgMapSrc = GetSrcGgMap(address.GgMapSrc);
 
-                    var ward = _context.wards.FirstOrDefault(w => w.Code == address.WardCode);
-                    var district = _context.districts.FirstOrDefault(w => w.Code == address.DistrictCode);
-                    var province = _context.provinces.FirstOrDefault(w => w.Code == address.ProvinceCode);
+                    var ward = _context.Wards.FirstOrDefault(w => w.Code == address.WardCode);
+                    var district = _context.Districts.FirstOrDefault(w => w.Code == address.DistrictCode);
+                    var province = _context.Provinces.FirstOrDefault(w => w.Code == address.ProvinceCode);
                     address.FullAddress = $"{address.DetailPosition}, {ward.FullName}, {district.FullName}, {province.FullName}";
 
                     _context.Update(address);
@@ -183,9 +183,9 @@ namespace RecruitmentApp.Areas.Addresses.Controllers
         {
             if (!string.IsNullOrEmpty(province))
             {
-                return Json(_context.districts.Where(d => d.ProvinceId == province));
+                return Json(_context.Districts.Where(d => d.ProvinceId == province));
             }
-            return Json(_context.districts.ToList());
+            return Json(_context.Districts.ToList());
         }
 
         [HttpGet]
@@ -194,9 +194,9 @@ namespace RecruitmentApp.Areas.Addresses.Controllers
         {
             if (!string.IsNullOrEmpty(district))
             {
-                return Json(_context.wards.Where(d => d.DistrictId == district));
+                return Json(_context.Wards.Where(d => d.DistrictId == district));
             }
-            return Json(_context.wards.ToList());
+            return Json(_context.Wards.ToList());
         }
 
         private  static string GetSrcGgMap(string str)
