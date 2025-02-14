@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -10,12 +13,15 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using OfficeOpenXml;
 using RecruitmentApp.Data;
 using RecruitmentApp.Models;
+using RecruitmentApp.Seed;
 using RecruitmentApp.Services;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -34,8 +40,26 @@ namespace RecruitmentApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
-			  services.AddOptions();
+
+            services.AddLocalization(o => { o.ResourcesPath = "Resources"; });
+            services.AddControllersWithViews()
+                    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                    .AddDataAnnotationsLocalization();
+
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[]
+                {
+                    new CultureInfo("en-US"),
+                    new CultureInfo("vi"),
+                };
+
+                options.DefaultRequestCulture = new RequestCulture(supportedCultures.First());
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+            });
+
+            services.AddOptions();
             var mailsetting = Configuration.GetSection("MailSettings");
             services.Configure<MailSettings>(mailsetting);
             services.AddSingleton<IEmailSender, SendMailService>();
@@ -131,8 +155,14 @@ namespace RecruitmentApp
             // Lowercase routes
             // services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
-            services.AddScoped<ExcelService>();
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            var serviceProvider = services.BuildServiceProvider();
+            using var scope = serviceProvider.CreateScope();
+            var scopedServices = scope.ServiceProvider;
+
+            var dbContext = scopedServices.GetRequiredService<AppDbContext>();
+
+            SeedDefault.SeedAsync(dbContext).Wait();
+
 
         }
 
@@ -161,6 +191,21 @@ namespace RecruitmentApp
                   Path.Combine(Directory.GetCurrentDirectory(), "Uploads")
               ),
                 RequestPath = "/contents"
+            });
+
+            var localizationOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>().Value;
+            app.UseRequestLocalization(localizationOptions);
+
+            app.Use(async (context, next) =>
+            {
+                var cultureQuery = context.Request.Query["culture"];
+                if (!string.IsNullOrWhiteSpace(cultureQuery))
+                {
+                    var culture = new CultureInfo(cultureQuery);
+                    CultureInfo.CurrentCulture = culture;
+                    CultureInfo.CurrentUICulture = culture;
+                }
+                await next();
             });
 
             app.UseAuthentication();
