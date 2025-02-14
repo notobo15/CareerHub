@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using RecruitmentApp.Models.RecruitmentApp.Models;
 
 namespace RecruitmentApp.Models
 {
@@ -42,6 +43,9 @@ namespace RecruitmentApp.Models
         public string CompanyUrl { get; set; }
         public string CompanyFbUrl { get; set; }
 
+        public bool IsShowCompanyUrl { get; set; }
+        public bool IsShowCompanyFbUrl { get; set; }
+
         [ForeignKey("Id")]
         public string RecruiterId { get; set; }
         public AppUser Recruiter { get; set; }
@@ -58,14 +62,11 @@ namespace RecruitmentApp.Models
         public bool IsDeleted { get; set; } = false;
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; }
-    
 
-      
+        public ICollection<CompanyIndustry> CompanyIndustries { get; set; }
+
+
     }
 
-    public enum CompanyType
-    {
-        PRODUCT, OUTSOURCE
-    }
 
 }

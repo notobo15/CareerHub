@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -34,6 +35,8 @@ namespace RecruitmentApp.Models
         [ForeignKey("CompanyId")]
         public int CompanyId { get; set; }
         public Company Company { get; set; }
+
+        public ICollection<Post> Posts { get; set; }
 
     }
 }

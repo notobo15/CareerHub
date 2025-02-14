@@ -27,6 +27,6 @@ namespace RecruitmentApp.Models
             //public virtual ICollection<Post> Favourates { get; set; }
           public ICollection<Follower> Followers { get; set; }
 
-        public ICollection<Favourite> Favourites { get; set; }
+        public ICollection<Favorite> Favorites { get; set; }
     }
 }

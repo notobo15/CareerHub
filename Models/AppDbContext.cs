@@ -1,5 +1,6 @@
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using RecruitmentApp.Models.RecruitmentApp.Models;
 using System.Linq;
 namespace RecruitmentApp.Models 
 {
@@ -69,7 +70,7 @@ namespace RecruitmentApp.Models
                 entity.HasKey(c => new { c.UserID, c.CompanyID });
             });
 
-            modelBuilder.Entity<Favourite>(entity => {
+            modelBuilder.Entity<Favorite>(entity => {
                 entity.HasKey(c => new { c.UserID, c.PostID });
             });
 
@@ -118,12 +119,54 @@ namespace RecruitmentApp.Models
                 .WithMany(e => e.Favourites);
 
              */
+
+            modelBuilder.Entity<CompanyIndustry>()
+           .HasKey(ci => new { ci.CompanyId, ci.IndustryId });
+
+            modelBuilder.Entity<CompanyIndustry>()
+                .HasOne(ci => ci.Company)
+                .WithMany(c => c.CompanyIndustries)
+                .HasForeignKey(ci => ci.CompanyId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<CompanyIndustry>()
+                .HasOne(ci => ci.Industry)
+                .WithMany(i => i.CompanyIndustries)
+                .HasForeignKey(ci => ci.IndustryId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+
+            // Thiết lập quan hệ Company - Address (1:N)
+            modelBuilder.Entity<Address>()
+                .HasOne(a => a.Company)
+                .WithMany(c => c.Addresses)
+                .HasForeignKey(a => a.CompanyId)
+                .OnDelete(DeleteBehavior.Cascade); // Xóa công ty sẽ xóa địa chỉ
+
+            // Thiết lập quan hệ Address - Post (1:N)
+            modelBuilder.Entity<Post>()
+                .HasOne(p => p.Address)
+                .WithMany(a => a.Posts)
+                .HasForeignKey(p => p.AddressId)
+                .OnDelete(DeleteBehavior.Restrict); // Không xóa địa chỉ nếu có bài đăng sử dụng nó
+
+            // Thiết lập quan hệ Company - Post (1:N)
+            modelBuilder.Entity<Post>()
+                .HasOne(p => p.Company)
+                .WithMany(c => c.Posts)
+                .HasForeignKey(p => p.CompanyId)
+                .OnDelete(DeleteBehavior.Cascade); // Xóa công ty sẽ xóa bài đăng
+
+
+            modelBuilder.Entity<PostView>()
+              .HasIndex(pv => new { pv.PostId, pv.UserId, pv.IpAddress }) // Tạo index tránh trùng lặp
+              .IsUnique();
         }
         // db provices
 
-        public DbSet<Province> provinces { get; set; }
-        public DbSet<District> districts { get; set; }
-        public DbSet<Ward> wards { get; set; }
+        public DbSet<Province> Provinces { get; set; }
+        public DbSet<District> Districts { get; set; }
+        public DbSet<Ward> Wards { get; set; }
 
 
         public DbSet<Contact> Contact { get; set; }
@@ -138,7 +181,12 @@ namespace RecruitmentApp.Models
         public DbSet<PostSkills> PostSkills { get; set; }
         public DbSet<PostLevel> PostLevels { get; set; }
         public DbSet<Follower> Followers { get; set; }
-        public DbSet<Favourite> Favourites { get; set; }
+        public DbSet<Favorite> Favorites { get; set; }
         public DbSet<ApplyPost> applyPosts { get; set; }
+        public DbSet<Industry> Industries { get; set; }
+
+        public DbSet<CompanyIndustry> CompanyIndustries { get; set; }
+
+        public DbSet<PostView> PostViews { get; set; }
     }
 }

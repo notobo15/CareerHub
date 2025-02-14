@@ -26,6 +26,10 @@ namespace RecruitmentApp.Models
         public double MinSalary { get; set; }
         [ValidateMaxSalary]
         public double MaxSalary { get; set; }
+
+        public string SalaryType { get; set; }
+        public string SalaryText { get; set; }
+
         public DateTime PostDate { get; set; }
         public DateTime Expired { get; set; }
         public string WorkSpace { get; set; }
@@ -42,7 +46,7 @@ namespace RecruitmentApp.Models
         [Column(TypeName = "ntext")]
         public string Benifit {  get; set; }
 
-        public int CompanyId { get; set; }
+        public int? CompanyId { get; set; }
         public Company Company { get; set; }
 
         public string RecruiterId { get; set; }
@@ -51,6 +55,7 @@ namespace RecruitmentApp.Models
         public bool IsShow { get; set; } = true;
         public bool IsClose { get; set; }
 
+        public string TopReason { get; set; }
         public string DegreeRequirement { get; set; }
         
         public int Quantity { get; set; }
@@ -62,7 +67,7 @@ namespace RecruitmentApp.Models
 
         public ICollection<PostSkills> PostSkills { get; set; }
         public ICollection<PostLevel> PostLevels { get; set; }
-        public ICollection<Favourite> Favourites { get; set; }
+        public ICollection<Favorite> Favorites { get; set; }
 
 
         // public virtual ICollection<AppUser> Favourites { get; set; }

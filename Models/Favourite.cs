@@ -2,7 +2,7 @@
 
 namespace RecruitmentApp.Models
 {
-    public class Favourite
+    public class Favorite
     {
         public string UserID { get; set; }
         public int PostID { get; set; }
