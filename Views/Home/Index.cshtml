@@ -4,18 +4,18 @@
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
 
-@{
-    ViewData["Title"] = "Home Page";
-    var companies = ViewData["companies"] as List<Company>;
-    var posts = ViewData["posts"] as List<Post>;
-
-    var levels = ViewData["levels"] as List<Level>;
-    SelectList list = new SelectList(levels, "LevelId", "Name");
-
-    var provices = ViewData["provices"] as List<Province>;
-    var listProvices = new SelectList(provices, "Code", "FullName");
-    // bool val1 = 
-}
+@* @{ *@
+@*     ViewData["Title"] = "Home Page"; *@
+@*     var companies = ViewData["companies"] as List<Company>; *@
+@*     var posts = ViewData["posts"] as List<Post>; *@
+@* *@
+@*     var levels = ViewData["levels"] as List<Level>; *@
+@*     SelectList list = new SelectList(levels, "LevelId", "Name"); *@
+@* *@
+@*     var provices = ViewData["provices"] as List<Province>; *@
+@*     var listProvices = new SelectList(provices, "Code", "FullName"); *@
+@*     // bool val1 =  *@
+@* } *@
 
 <style>
     .select2-container--bootstrap4 .select2-dropdown .select2-results__option[aria-selected="true"] {
@@ -37,344 +37,347 @@
             background: rgba(255, 255, 255, 0.7);
             width: 35%;
             }    
-        
     }
    
 </style>
+    <partial name="_SearchForm" />
+    <partial name="_Recruitment" />
+    <partial name="_TopJobs" />
+    <partial name="_Blogs" />
 
-@section Search {
-    <partial name="_StatusMessage" />
-    <!-- Slider main container -->
-    <div class="position-relative">
-        <div class="swiper ">
-            <!-- Additional required wrapper -->
-            <div class="swiper-wrapper">
-                <!-- Slides -->
-                <div class="swiper-slide"><img class="w-100" src="~/files/background-1.webp" /></div>
-                <div class="swiper-slide"><img class="w-100" src="~/files/background-2.webp" /></div>
-                <div class="swiper-slide"><img class="w-100" src="~/files/background-3.webp" /></div>
-                <div class="swiper-slide"><img class="w-100" src="~/files/background-4.webp" /></div>
-            </div>
-            <!-- If we need pagination -->
-            <div class="swiper-pagination"></div>
-
-            <!-- If we need navigation buttons 
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
-            -->
-        </div>
-        <div class="home-search container rounded border my-4 my-lg-0">
-            <div class="p-3">
-                <h5>
-                    Đón lấy thành công với
-                </h5>
-                <h4> <b class="font-weight-bold">18,523</b> cơ hội nghề nghiệp</h4>
-                <form asp-action="Search" method="get">
-
-                    <div class="form-group">
-                        <input name="key" type="text" placeholder="kỹ năng, chức vụ, công ty..." class="form-control w-100">
-                    </div>
-                    <div class="form-group">
-                        <select name="city" class="city" asp-items="listProvices">
-                            <option value="-1">--- Chọn Tỉnh Thành(Tất Cả) ---</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <button type="submit" class="w-100 btn btn-primary"><b>TÌM NGAY</b></button>
-                    </div>
-                </form>
-            </div>
-        </div>
-   </div>
-   
-}
-<div class="container">
-    <h2 class="text-center py-4">Nhà Tuyển Dụng Hàng Đầu</h2>
-    <div class="row justify-content-around">
-        @{
-            foreach (var com in companies)
-            {
-                <div class="col-sm-6 col-lg-4 mb-4" style="min-height: 340px">
-                    <div class="card shadow h-100" >
-                        <a asp-route-id="@com.Slug" asp-action="ViewCompany" class="card-img p-2">
-                            <div style="min-height: 200px" class="my-auto">
-                                <img  class="w-100" src="~/company-logo/@com.LogoImage" alt="Card image cap">
-
-                            </div>
-                        </a>
-                        <div class="card-body text-center">
-                            <a asp-route-id="@com.Slug" asp-action="ViewCompany" class="d-block mb-2">
-                                <h5 class="card-text">@com.Name</h5>
-                            </a>
-                            <p>
-                                @if (com.Addresses.Any())
-                                {
-                                    List<string> listAddresses = new List<string>();
-                                    foreach (var address in com.Addresses)
-                                    {
-                                        listAddresses.Add(address.City.FullName);
-                                    }
-                                    if (listAddresses.Count > 0)
-                                    {
-                                        @string.Join(" - ", listAddresses)
-                                    }
-                                    else
-                                    {
-                                        listAddresses.First().ToString();
-                                    }
-                                }
-                            </p>
-                            <div class="my-3">
-                                @if (com.CompanySkills.Any())
-                                {
-
-                                    foreach (var t in com.CompanySkills)
-                                    {
-                                        <span class="badge p-2 rounded-pill bg-light border m-1">@t.Skill.Name</span>
-                                    }
-                                }
-                            </div>
-                            <a asp-action="ViewCompany" asp-route-id="@com.Slug" class="w-100 d-block text-primary text-center">@com.Posts.Count Việc làm</a>
-                        </div>
-                    </div>
-                </div>
-
-            }
-           /*
-            *    <div class="w-100 text-center py-4">
-            <a class="px-5 py-2 btn border-danger text-danger" asp-action="Search"><span>Xem Thêm 126 Công Việc Khác&nbsp;&nbsp;&nbsp;</span><i class="fas fa-chevron-right"></i></a>
-            </div>
-            *
-            */
-         
-        }
-        
-    </div>
-</div>
-
-<hr />
-
-<div class="container">
-    <h2 class="text-center mt-5">@ViewData["totalPosts"] Việc làm IT cho Developer "Chất"</h2>
-    <div class="row justify-content-between">
-        @{
-            foreach (var post in posts)
-            {
-                <div class="col-sm-6 col-lg-3 mb-4">
-                    <div class="card shadow  p-3 position-relative">
-                        @{
-                            DateTime now = DateTime.Now;
-                            TimeSpan timeDifference = (now - post.PostDate);
-                            string time;
-                            if (timeDifference.TotalHours < 24)
-                            {
-                                // Less than 24 hours, count hours
-                                time = $"{(int)timeDifference.TotalHours} giờ";
-                            }
-                            else
-                            {
-                                time = $"{(int)timeDifference.TotalDays} ngày";
-                            }
-                        }
-                        <h6 class="text-muted"> Đăng @time trước</h6>
-                        <a asp-action="ViewPost" asp-route-id="@post?.PostId" class="d-block">
-                                <h5 class="card-title">@post?.Title</h5>
-                            </a>
-                        <div class="d-flex align-items-center">
-                            <div class="w-25 ">
-                                <img class="card-img" src="~/company-logo/@post?.Company?.LogoImage" alt="Card image cap">
-                            </div>
-                            <div class="w-75 px-2">
-                               @post?.Company?.Name
-                            </div>
-                           
-                        </div>
-
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            <div class="d-flex align-items-center mt-3" style="color: #008563 !important; min-height: 2.8rem;">
-                                <h6 class="mr-2"><i class="fas fa-dollar-sign"></i></h6>
-                                <h6>Lương: @post.salaryToString()</h6>
-                            </div>
-                        }else
-                        {
-                            <a asp-action="Login" asp-controller="Account" asp-area="Identity" class="d-flex align-items-center mt-3 text-success">
-                                <span class="mr-2"><i class="fas fa-dollar-sign"></i></span>
-                                <span>Lương: Đăng nhập Để Xem Chi Tiết</span>
-                            </a>
-                        }
-                        <hr />
-                        <div class="d-flex align-items-center">
-                            <span class="mr-2"><i class="fas fa-building"></i></span>
-                            <span>@post.WorkSpace</span>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <span class="mr-2"><i class="fas fa-map-marker-alt"></i></span>
-                            <span>@post.Address?.City?.FullName</span>
-                        </div>
-                        <div class="my-3">
-                            @if (post.PostSkills.Any())
-                            {
-
-                                foreach (var t in post.PostSkills)
-                                {
-                               //     <span class="badge p-2 rounded-pill bg-light border m-1">@t.Skill.Name</span>
-                                }
-                            }
-                        </div>
-                      
-                    </div>
-                    @if(post.IsHot)
-                    {
-                        <div class="ilabel position-absolute bg-danger py-1 px-2 text-white rounded-left" style="top: 10px; right: 0;width: 100px;">
-                            <i class="fas fa-burn mr-2"></i>HOT
-                        </div>
-                    }
-                </div>
-            }
-        }
-        <div class="w-100 text-center py-4">
-            <a class="px-5 py-2 btn border-danger text-danger shadow-none" asp-action="Search"><span>Xem Thêm 50+ Công Việc Khác&nbsp;&nbsp;&nbsp;</span><i class="fas fa-chevron-right"></i></a>
-        </div>
-    </div>
-
-    <!--             
-    <div class="d-flex justify-content-center justify-content-between">
-        <h1 class="">Bài viết nổi bật</h1>
-        <a class="" href="https://itviec.com/blog/">
-            Xem tất cả
-        </a>
-    </div>
-    <div class="row">
-        <div class="col-12 col-md-6">
-            <div class="card blog-card">
-                <a target="_blank" href="https://itviec.com/blog/khao-sat-luong-it-2023-thong-cao-bao-chi?itm_campaign=featuredpost&amp;itm_medium=footer&amp;itm_source=itviec.com">
-                    <picture>
-                        <source data-srcset="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMXRJUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--f071e48b4b4159a80ce8823358ad169a950664ba/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBPZ2wzWldKd09oSnlaWE5wZW1WZmRHOWZabWwwV3dkcEFwSUNNQT09IiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--d4dc962f8dfd42219a41803be77916f56a123c1e/khao-sat-luong-it-2023-thumbnail-vn-vippro-01.png" srcset="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMXRJUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--f071e48b4b4159a80ce8823358ad169a950664ba/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBPZ2wzWldKd09oSnlaWE5wZW1WZmRHOWZabWwwV3dkcEFwSUNNQT09IiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--d4dc962f8dfd42219a41803be77916f56a123c1e/khao-sat-luong-it-2023-thumbnail-vn-vippro-01.png">
-                        <img class="w-100 blog-card-image lazyloaded" data-controller="lazyload" data-src="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMXRJUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--f071e48b4b4159a80ce8823358ad169a950664ba/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RW5KbGMybDZaVjkwYjE5bWFYUmJCMmtDa2dJdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--3263d723c11323cc2b0c9cde4ba89f4324662a03/khao-sat-luong-it-2023-thumbnail-vn-vippro-01.png" src="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMXRJUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--f071e48b4b4159a80ce8823358ad169a950664ba/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RW5KbGMybDZaVjkwYjE5bWFYUmJCMmtDa2dJdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--3263d723c11323cc2b0c9cde4ba89f4324662a03/khao-sat-luong-it-2023-thumbnail-vn-vippro-01.png">
-                    </picture>
-                </a><div class="card-body blog-card-title p-0 imt-3">
-                    <h5 class="card-title text-start im-md-3">
-                        <a class="text-rich-grey" target="_blank" href="https://itviec.com/blog/khao-sat-luong-it-2023-thong-cao-bao-chi?itm_campaign=featuredpost&amp;itm_medium=footer&amp;itm_source=itviec.com">ITviec ra mắt Khảo sát lương IT 2023 nhằm giúp cung cấp thông tin về thị trường IT tại Việt Nam</a>
-                    </h5>
-                    <p class="card-text im-md-3 imb-5 paragraph text-start text-rich-grey opacity-75">Read English version here. ITviec, website tuyển dụng hàng đầu tập trung 100% các vị trí đăng tuyển chất lượng ngành IT, chính thức ra...</p>
-                </div>
-            
-            </div>
-        </div>
-        <div class="col-12 col-md-6 blog-others">
-            <div class="row">
-                <div class="col-12 col-md-6 blog-item imb-md-7">
-                    <div class="card blog-card ip-md-0 ipy-4">
-                        <a target="_blank" href="https://itviec.com/blog/best-developers-in-vietnam-2023?itm_campaign=featuredpost&amp;itm_medium=footer&amp;itm_source=itviec.com">
-                            <picture>
-                                <source data-srcset="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNGlqUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--b7e46db2b9174b6ef6a95ba738de1c1f35c4911d/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBPZ2wzWldKd09oSnlaWE5wZW1WZmRHOWZabWwwV3dkcEFwSUNNQT09IiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--d4dc962f8dfd42219a41803be77916f56a123c1e/3PTC-Blog-vippro.png" srcset="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNGlqUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--b7e46db2b9174b6ef6a95ba738de1c1f35c4911d/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBPZ2wzWldKd09oSnlaWE5wZW1WZmRHOWZabWwwV3dkcEFwSUNNQT09IiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--d4dc962f8dfd42219a41803be77916f56a123c1e/3PTC-Blog-vippro.png">
-                                <img class="w-100 blog-card-image lazyloaded" data-controller="lazyload" data-src="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNGlqUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--b7e46db2b9174b6ef6a95ba738de1c1f35c4911d/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RW5KbGMybDZaVjkwYjE5bWFYUmJCMmtDa2dJdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--3263d723c11323cc2b0c9cde4ba89f4324662a03/3PTC-Blog-vippro.png" src="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNGlqUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--b7e46db2b9174b6ef6a95ba738de1c1f35c4911d/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RW5KbGMybDZaVjkwYjE5bWFYUmJCMmtDa2dJdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--3263d723c11323cc2b0c9cde4ba89f4324662a03/3PTC-Blog-vippro.png">
-                            </picture>
-                        </a><div class="card-body blog-card-title ip-0 imt-0 text-start">
-                            <h5 class="card-title normal-text im-md-4 imb-0">
-                                <a class="text-rich-grey text-clamp-2" target="_blank" href="https://itviec.com/blog/best-developers-in-vietnam-2023?itm_campaign=featuredpost&amp;itm_medium=footer&amp;itm_source=itviec.com">Cuộc thi “Best Developers In Vietnam 2023” – Thử thách hấp dẫn cho lập trình viên tài năng</a>
-                            </h5>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 blog-item imb-md-7">
-                    <div class="card blog-card ip-md-0 ipy-4">
-                        <a target="_blank" href="https://itviec.com/blog/workshop-khai-pha-suc-manh-doi-ngu?itm_campaign=featuredpost&amp;itm_medium=footer&amp;itm_source=itviec.com">
-                            <picture>
-                                <source data-srcset="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBLzlmUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--b850b8a73995c1d8456f8782b70d037a381678ec/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBPZ2wzWldKd09oSnlaWE5wZW1WZmRHOWZabWwwV3dkcEFwSUNNQT09IiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--d4dc962f8dfd42219a41803be77916f56a123c1e/Workshop-recap-thumb-vippro.png" srcset="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBLzlmUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--b850b8a73995c1d8456f8782b70d037a381678ec/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBPZ2wzWldKd09oSnlaWE5wZW1WZmRHOWZabWwwV3dkcEFwSUNNQT09IiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--d4dc962f8dfd42219a41803be77916f56a123c1e/Workshop-recap-thumb-vippro.png">
-                                <img class="w-100 blog-card-image lazyloaded" data-controller="lazyload" data-src="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBLzlmUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--b850b8a73995c1d8456f8782b70d037a381678ec/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RW5KbGMybDZaVjkwYjE5bWFYUmJCMmtDa2dJdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--3263d723c11323cc2b0c9cde4ba89f4324662a03/Workshop-recap-thumb-vippro.png" src="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBLzlmUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--b850b8a73995c1d8456f8782b70d037a381678ec/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RW5KbGMybDZaVjkwYjE5bWFYUmJCMmtDa2dJdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--3263d723c11323cc2b0c9cde4ba89f4324662a03/Workshop-recap-thumb-vippro.png">
-                            </picture>
-                        </a><div class="card-body blog-card-title ip-0 imt-0 text-start">
-                            <h5 class="card-title normal-text im-md-4 imb-0">
-                                <a class="text-rich-grey text-clamp-2" target="_blank" href="https://itviec.com/blog/workshop-khai-pha-suc-manh-doi-ngu?itm_campaign=featuredpost&amp;itm_medium=footer&amp;itm_source=itviec.com">4 thành công nổi bật của Workshop “Khai phá sức mạnh đội ngũ” dành cho nhà tuyển dụng</a>
-                            </h5>
-                        </div>
-                     
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 blog-item imb-md-7">
-                    <div class="card blog-card ip-md-0 ipy-4">
-                        <a target="_blank" href="https://itviec.com/blog/it-salary-survey-2023-press-release?itm_campaign=featuredpost&amp;itm_medium=footer&amp;itm_source=itviec.com">
-                            <picture>
-                                <source data-srcset="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeUpMUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--eea4182080be1f38a32eae651dd6680769df8227/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBPZ2wzWldKd09oSnlaWE5wZW1WZmRHOWZabWwwV3dkcEFwSUNNQT09IiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--d4dc962f8dfd42219a41803be77916f56a123c1e/it-salary-survey-2023-thumbnail-en-vippro-01.png" srcset="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeUpMUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--eea4182080be1f38a32eae651dd6680769df8227/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBPZ2wzWldKd09oSnlaWE5wZW1WZmRHOWZabWwwV3dkcEFwSUNNQT09IiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--d4dc962f8dfd42219a41803be77916f56a123c1e/it-salary-survey-2023-thumbnail-en-vippro-01.png">
-                                <img class="w-100 blog-card-image lazyloaded" data-controller="lazyload" data-src="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeUpMUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--eea4182080be1f38a32eae651dd6680769df8227/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RW5KbGMybDZaVjkwYjE5bWFYUmJCMmtDa2dJdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--3263d723c11323cc2b0c9cde4ba89f4324662a03/it-salary-survey-2023-thumbnail-en-vippro-01.png" src="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeUpMUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--eea4182080be1f38a32eae651dd6680769df8227/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RW5KbGMybDZaVjkwYjE5bWFYUmJCMmtDa2dJdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--3263d723c11323cc2b0c9cde4ba89f4324662a03/it-salary-survey-2023-thumbnail-en-vippro-01.png">
-                            </picture>
-                        </a><div class="card-body blog-card-title ip-0 imt-0 text-start">
-                            <h5 class="card-title normal-text im-md-4 imb-0">
-                                <a class="text-rich-grey text-clamp-2" target="_blank" href="https://itviec.com/blog/it-salary-survey-2023-press-release?itm_campaign=featuredpost&amp;itm_medium=footer&amp;itm_source=itviec.com">ITviec Has Released IT Salary Survey 2023 To Help Provide Vietnam’s IT Market Insights</a>
-                            </h5>
-                        </div>
-                      
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 blog-item imb-md-7">
-                    <div class="card blog-card ip-md-0 ipy-4">
-                        <a target="_blank" href="https://itviec.com/blog/prototype-chain-la-gi?itm_campaign=featuredpost&amp;itm_medium=footer&amp;itm_source=itviec.com">
-                            <picture>
-                                <source data-srcset="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNjBpUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--5e112ab713cb4f0a9d4aedffcc3c30e4b52aaf49/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBPZ2wzWldKd09oSnlaWE5wZW1WZmRHOWZabWwwV3dkcEFwSUNNQT09IiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--d4dc962f8dfd42219a41803be77916f56a123c1e/prototype-chain-la-gi-blog-vippro.jpg" srcset="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNjBpUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--5e112ab713cb4f0a9d4aedffcc3c30e4b52aaf49/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBPZ2wzWldKd09oSnlaWE5wZW1WZmRHOWZabWwwV3dkcEFwSUNNQT09IiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--d4dc962f8dfd42219a41803be77916f56a123c1e/prototype-chain-la-gi-blog-vippro.jpg">
-                                <img class="w-100 blog-card-image lazyloaded" data-controller="lazyload" data-src="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNjBpUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--5e112ab713cb4f0a9d4aedffcc3c30e4b52aaf49/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RW5KbGMybDZaVjkwYjE5bWFYUmJCMmtDa2dJdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--0d0971c472f8c38d24f257fd923ba9aed334bd75/prototype-chain-la-gi-blog-vippro.jpg" src="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNjBpUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--5e112ab713cb4f0a9d4aedffcc3c30e4b52aaf49/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RW5KbGMybDZaVjkwYjE5bWFYUmJCMmtDa2dJdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--0d0971c472f8c38d24f257fd923ba9aed334bd75/prototype-chain-la-gi-blog-vippro.jpg">
-                            </picture>
-                        </a><div class="card-body blog-card-title ip-0 imt-0 text-start">
-                            <h5 class="card-title normal-text im-md-4 imb-0">
-                                <a class="text-rich-grey text-clamp-2" target="_blank" href="https://itviec.com/blog/prototype-chain-la-gi?itm_campaign=featuredpost&amp;itm_medium=footer&amp;itm_source=itviec.com">Prototype chain là gì?</a>
-                            </h5>
-                        </div>
-                     
-                    </div>
-                </div>
-            </div>
-        </div>
-        <a class="d-flex d-md-none justify-content-center align-items-center hyperlink imt-3 imb-6" href="https://itviec.com/blog/">
-            Xem tất cả
-            <svg class="feather-icon icon-md">
-                <use href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#chevron-right"></use>
-            </svg>
-        </a>
-    </div>
-        -->
-</div>
-@section Scripts {
-    <script type="text/javascript">
-        $(".home-search").hide()
-        $(document).ready(function () {
-            $(".city").select2({
-                placeholder: "Tìm Thành Phố",
-                theme: "bootstrap4",
-                allowClear: true
-            });
-           /*
-          
-           */
-          
-            const swiper = new Swiper('.swiper', {
-                // speed: 400,
-                /*
-                navigation: {
-                    nextEl: ".swiper-button-next",
-                    prevEl: ".swiper-button-prev",
-                },
-                
-                */
-                autoplay: {
-                    delay: 5000,
-                },
-                pagination: {
-                    el: ".swiper-pagination",
-                    dynamicBullets: true,
-                },
-                loop: true,
-                
-            });
-
-
-            $(".home-search").show();
-        })
-
-    </script>
-}
+@* @section Search { *@
+@*     <partial name="_StatusMessage" /> *@
+@*     <!-- Slider main container --> *@
+@*     <div class="position-relative"> *@
+@*         <div class="swiper "> *@
+@*             <!-- Additional required wrapper --> *@
+@*             <div class="swiper-wrapper"> *@
+@*                 <!-- Slides --> *@
+@*                 <div class="swiper-slide"><img class="w-100" src="~/files/background-1.webp" /></div> *@
+@*                 <div class="swiper-slide"><img class="w-100" src="~/files/background-2.webp" /></div> *@
+@*                 <div class="swiper-slide"><img class="w-100" src="~/files/background-3.webp" /></div> *@
+@*                 <div class="swiper-slide"><img class="w-100" src="~/files/background-4.webp" /></div> *@
+@*             </div> *@
+@*             <!-- If we need pagination --> *@
+@*             <div class="swiper-pagination"></div> *@
+@* *@
+@*             <!-- If we need navigation buttons  *@
+@*             <div class="swiper-button-prev"></div> *@
+@*             <div class="swiper-button-next"></div> *@
+@*             --> *@
+@*         </div> *@
+@*         <div class="home-search container rounded border my-4 my-lg-0"> *@
+@*             <div class="p-3"> *@
+@*                 <h5> *@
+@*                     Đón lấy thành công với *@
+@*                 </h5> *@
+@*                 <h4> <b class="font-weight-bold">18,523</b> cơ hội nghề nghiệp</h4> *@
+@*                 <form asp-action="Search" method="get"> *@
+@* *@
+@*                     <div class="form-group"> *@
+@*                         <input name="key" type="text" placeholder="kỹ năng, chức vụ, công ty..." class="form-control w-100"> *@
+@*                     </div> *@
+@*                     <div class="form-group"> *@
+@*                         <select name="city" class="city" asp-items="listProvices"> *@
+@*                             <option value="-1">--- Chọn Tỉnh Thành(Tất Cả) ---</option> *@
+@*                         </select> *@
+@*                     </div> *@
+@* *@
+@*                     <div class="form-group"> *@
+@*                         <button type="submit" class="w-100 btn btn-primary"><b>TÌM NGAY</b></button> *@
+@*                     </div> *@
+@*                 </form> *@
+@*             </div> *@
+@*         </div> *@
+@*    </div> *@
+@*     *@
+@* } *@
+@* <div class="container"> *@
+@*     <h2 class="text-center py-4">Nhà Tuyển Dụng Hàng Đầu</h2> *@
+@*     <div class="row justify-content-around"> *@
+@*         @{ *@
+@*             foreach (var com in companies) *@
+@*             { *@
+@*                 <div class="col-sm-6 col-lg-4 mb-4" style="min-height: 340px"> *@
+@*                     <div class="card shadow h-100" > *@
+@*                         <a asp-route-id="@com.Slug" asp-action="ViewCompany" class="card-img p-2"> *@
+@*                             <div style="min-height: 200px" class="my-auto"> *@
+@*                                 <img  class="w-100" src="~/company-logo/@com.LogoImage" alt="Card image cap"> *@
+@* *@
+@*                             </div> *@
+@*                         </a> *@
+@*                         <div class="card-body text-center"> *@
+@*                             <a asp-route-id="@com.Slug" asp-action="ViewCompany" class="d-block mb-2"> *@
+@*                                 <h5 class="card-text">@com.Name</h5> *@
+@*                             </a> *@
+@*                             <p> *@
+@*                                 @if (com.Addresses.Any()) *@
+@*                                 { *@
+@*                                     List<string> listAddresses = new List<string>(); *@
+@*                                     foreach (var address in com.Addresses) *@
+@*                                     { *@
+@*                                         listAddresses.Add(address.City.FullName); *@
+@*                                     } *@
+@*                                     if (listAddresses.Count > 0) *@
+@*                                     { *@
+@*                                         @string.Join(" - ", listAddresses) *@
+@*                                     } *@
+@*                                     else *@
+@*                                     { *@
+@*                                         listAddresses.First().ToString(); *@
+@*                                     } *@
+@*                                 } *@
+@*                             </p> *@
+@*                             <div class="my-3"> *@
+@*                                 @if (com.CompanySkills.Any()) *@
+@*                                 { *@
+@* *@
+@*                                     foreach (var t in com.CompanySkills) *@
+@*                                     { *@
+@*                                         <span class="badge p-2 rounded-pill bg-light border m-1">@t.Skill.Name</span> *@
+@*                                     } *@
+@*                                 } *@
+@*                             </div> *@
+@*                             <a asp-action="ViewCompany" asp-route-id="@com.Slug" class="w-100 d-block text-primary text-center">@com.Posts.Count Việc làm</a> *@
+@*                         </div> *@
+@*                     </div> *@
+@*                 </div> *@
+@* *@
+@*             } *@
+@*            /* *@
+@*             *    <div class="w-100 text-center py-4"> *@
+@*             <a class="px-5 py-2 btn border-danger text-danger" asp-action="Search"><span>Xem Thêm 126 Công Việc Khác&nbsp;&nbsp;&nbsp;</span><i class="fas fa-chevron-right"></i></a> *@
+@*             </div> *@
+@*             * *@
+@*             */ *@
+@*           *@
+@*         } *@
+@*          *@
+@*     </div> *@
+@* </div> *@
+@* *@
+@* <hr /> *@
+@* *@
+@* <div class="container"> *@
+@*     <h2 class="text-center mt-5">@ViewData["totalPosts"] Việc làm IT cho Developer "Chất"</h2> *@
+@*     <div class="row justify-content-between"> *@
+@*         @{ *@
+@*             foreach (var post in posts) *@
+@*             { *@
+@*                 <div class="col-sm-6 col-lg-3 mb-4"> *@
+@*                     <div class="card shadow  p-3 position-relative"> *@
+@*                         @{ *@
+@*                             DateTime now = DateTime.Now; *@
+@*                             TimeSpan timeDifference = (now - post.PostDate); *@
+@*                             string time; *@
+@*                             if (timeDifference.TotalHours < 24) *@
+@*                             { *@
+@*                                 // Less than 24 hours, count hours *@
+@*                                 time = $"{(int)timeDifference.TotalHours} giờ"; *@
+@*                             } *@
+@*                             else *@
+@*                             { *@
+@*                                 time = $"{(int)timeDifference.TotalDays} ngày"; *@
+@*                             } *@
+@*                         } *@
+@*                         <h6 class="text-muted"> Đăng @time trước</h6> *@
+@*                         <a asp-action="ViewPost" asp-route-id="@post?.PostId" class="d-block"> *@
+@*                                 <h5 class="card-title">@post?.Title</h5> *@
+@*                             </a> *@
+@*                         <div class="d-flex align-items-center"> *@
+@*                             <div class="w-25 "> *@
+@*                                 <img class="card-img" src="~/company-logo/@post?.Company?.LogoImage" alt="Card image cap"> *@
+@*                             </div> *@
+@*                             <div class="w-75 px-2"> *@
+@*                                @post?.Company?.Name *@
+@*                             </div> *@
+@*                             *@
+@*                         </div> *@
+@* *@
+@*                         @if (SignInManager.IsSignedIn(User)) *@
+@*                         { *@
+@*                             <div class="d-flex align-items-center mt-3" style="color: #008563 !important; min-height: 2.8rem;"> *@
+@*                                 <h6 class="mr-2"><i class="fas fa-dollar-sign"></i></h6> *@
+@*                                 <h6>Lương: @post.salaryToString()</h6> *@
+@*                             </div> *@
+@*                         }else *@
+@*                         { *@
+@*                             <a asp-action="Login" asp-controller="Account" asp-area="Identity" class="d-flex align-items-center mt-3 text-success"> *@
+@*                                 <span class="mr-2"><i class="fas fa-dollar-sign"></i></span> *@
+@*                                 <span>Lương: Đăng nhập Để Xem Chi Tiết</span> *@
+@*                             </a> *@
+@*                         } *@
+@*                         <hr /> *@
+@*                         <div class="d-flex align-items-center"> *@
+@*                             <span class="mr-2"><i class="fas fa-building"></i></span> *@
+@*                             <span>@post.WorkSpace</span> *@
+@*                         </div> *@
+@*                         <div class="d-flex align-items-center"> *@
+@*                             <span class="mr-2"><i class="fas fa-map-marker-alt"></i></span> *@
+@*                             <span>@post.Address?.City?.FullName</span> *@
+@*                         </div> *@
+@*                         <div class="my-3"> *@
+@*                             @if (post.PostSkills.Any()) *@
+@*                             { *@
+@* *@
+@*                                 foreach (var t in post.PostSkills) *@
+@*                                 { *@
+@*                                //     <span class="badge p-2 rounded-pill bg-light border m-1">@t.Skill.Name</span> *@
+@*                                 } *@
+@*                             } *@
+@*                         </div> *@
+@*                        *@
+@*                     </div> *@
+@*                     @if(post.IsHot) *@
+@*                     { *@
+@*                         <div class="ilabel position-absolute bg-danger py-1 px-2 text-white rounded-left" style="top: 10px; right: 0;width: 100px;"> *@
+@*                             <i class="fas fa-burn mr-2"></i>HOT *@
+@*                         </div> *@
+@*                     } *@
+@*                 </div> *@
+@*             } *@
+@*         } *@
+@*         <div class="w-100 text-center py-4"> *@
+@*             <a class="px-5 py-2 btn border-danger text-danger shadow-none" asp-action="Search"><span>Xem Thêm 50+ Công Việc Khác&nbsp;&nbsp;&nbsp;</span><i class="fas fa-chevron-right"></i></a> *@
+@*         </div> *@
+@*     </div> *@
+@* *@
+@*     <!--              *@
+@*     <div class="d-flex justify-content-center justify-content-between"> *@
+@*         <h1 class="">Bài viết nổi bật</h1> *@
+@*         <a class="" href="https://itviec.com/blog/"> *@
+@*             Xem tất cả *@
+@*         </a> *@
+@*     </div> *@
+@*     <div class="row"> *@
+@*         <div class="col-12 col-md-6"> *@
+@*             <div class="card blog-card"> *@
+@*                 <a target="_blank" href="https://itviec.com/blog/khao-sat-luong-it-2023-thong-cao-bao-chi?itm_campaign=featuredpost&amp;itm_medium=footer&amp;itm_source=itviec.com"> *@
+@*                     <picture> *@
+@*                         <source data-srcset="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMXRJUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--f071e48b4b4159a80ce8823358ad169a950664ba/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBPZ2wzWldKd09oSnlaWE5wZW1WZmRHOWZabWwwV3dkcEFwSUNNQT09IiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--d4dc962f8dfd42219a41803be77916f56a123c1e/khao-sat-luong-it-2023-thumbnail-vn-vippro-01.png" srcset="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMXRJUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--f071e48b4b4159a80ce8823358ad169a950664ba/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBPZ2wzWldKd09oSnlaWE5wZW1WZmRHOWZabWwwV3dkcEFwSUNNQT09IiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--d4dc962f8dfd42219a41803be77916f56a123c1e/khao-sat-luong-it-2023-thumbnail-vn-vippro-01.png"> *@
+@*                         <img class="w-100 blog-card-image lazyloaded" data-controller="lazyload" data-src="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMXRJUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--f071e48b4b4159a80ce8823358ad169a950664ba/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RW5KbGMybDZaVjkwYjE5bWFYUmJCMmtDa2dJdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--3263d723c11323cc2b0c9cde4ba89f4324662a03/khao-sat-luong-it-2023-thumbnail-vn-vippro-01.png" src="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMXRJUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--f071e48b4b4159a80ce8823358ad169a950664ba/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RW5KbGMybDZaVjkwYjE5bWFYUmJCMmtDa2dJdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--3263d723c11323cc2b0c9cde4ba89f4324662a03/khao-sat-luong-it-2023-thumbnail-vn-vippro-01.png"> *@
+@*                     </picture> *@
+@*                 </a><div class="card-body blog-card-title p-0 imt-3"> *@
+@*                     <h5 class="card-title text-start im-md-3"> *@
+@*                         <a class="text-rich-grey" target="_blank" href="https://itviec.com/blog/khao-sat-luong-it-2023-thong-cao-bao-chi?itm_campaign=featuredpost&amp;itm_medium=footer&amp;itm_source=itviec.com">ITviec ra mắt Khảo sát lương IT 2023 nhằm giúp cung cấp thông tin về thị trường IT tại Việt Nam</a> *@
+@*                     </h5> *@
+@*                     <p class="card-text im-md-3 imb-5 paragraph text-start text-rich-grey opacity-75">Read English version here. ITviec, website tuyển dụng hàng đầu tập trung 100% các vị trí đăng tuyển chất lượng ngành IT, chính thức ra...</p> *@
+@*                 </div> *@
+@*              *@
+@*             </div> *@
+@*         </div> *@
+@*         <div class="col-12 col-md-6 blog-others"> *@
+@*             <div class="row"> *@
+@*                 <div class="col-12 col-md-6 blog-item imb-md-7"> *@
+@*                     <div class="card blog-card ip-md-0 ipy-4"> *@
+@*                         <a target="_blank" href="https://itviec.com/blog/best-developers-in-vietnam-2023?itm_campaign=featuredpost&amp;itm_medium=footer&amp;itm_source=itviec.com"> *@
+@*                             <picture> *@
+@*                                 <source data-srcset="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNGlqUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--b7e46db2b9174b6ef6a95ba738de1c1f35c4911d/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBPZ2wzWldKd09oSnlaWE5wZW1WZmRHOWZabWwwV3dkcEFwSUNNQT09IiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--d4dc962f8dfd42219a41803be77916f56a123c1e/3PTC-Blog-vippro.png" srcset="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNGlqUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--b7e46db2b9174b6ef6a95ba738de1c1f35c4911d/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBPZ2wzWldKd09oSnlaWE5wZW1WZmRHOWZabWwwV3dkcEFwSUNNQT09IiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--d4dc962f8dfd42219a41803be77916f56a123c1e/3PTC-Blog-vippro.png"> *@
+@*                                 <img class="w-100 blog-card-image lazyloaded" data-controller="lazyload" data-src="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNGlqUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--b7e46db2b9174b6ef6a95ba738de1c1f35c4911d/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RW5KbGMybDZaVjkwYjE5bWFYUmJCMmtDa2dJdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--3263d723c11323cc2b0c9cde4ba89f4324662a03/3PTC-Blog-vippro.png" src="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNGlqUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--b7e46db2b9174b6ef6a95ba738de1c1f35c4911d/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RW5KbGMybDZaVjkwYjE5bWFYUmJCMmtDa2dJdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--3263d723c11323cc2b0c9cde4ba89f4324662a03/3PTC-Blog-vippro.png"> *@
+@*                             </picture> *@
+@*                         </a><div class="card-body blog-card-title ip-0 imt-0 text-start"> *@
+@*                             <h5 class="card-title normal-text im-md-4 imb-0"> *@
+@*                                 <a class="text-rich-grey text-clamp-2" target="_blank" href="https://itviec.com/blog/best-developers-in-vietnam-2023?itm_campaign=featuredpost&amp;itm_medium=footer&amp;itm_source=itviec.com">Cuộc thi “Best Developers In Vietnam 2023” – Thử thách hấp dẫn cho lập trình viên tài năng</a> *@
+@*                             </h5> *@
+@*                         </div> *@
+@*                          *@
+@*                     </div> *@
+@*                 </div> *@
+@*                 <div class="col-12 col-md-6 blog-item imb-md-7"> *@
+@*                     <div class="card blog-card ip-md-0 ipy-4"> *@
+@*                         <a target="_blank" href="https://itviec.com/blog/workshop-khai-pha-suc-manh-doi-ngu?itm_campaign=featuredpost&amp;itm_medium=footer&amp;itm_source=itviec.com"> *@
+@*                             <picture> *@
+@*                                 <source data-srcset="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBLzlmUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--b850b8a73995c1d8456f8782b70d037a381678ec/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBPZ2wzWldKd09oSnlaWE5wZW1WZmRHOWZabWwwV3dkcEFwSUNNQT09IiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--d4dc962f8dfd42219a41803be77916f56a123c1e/Workshop-recap-thumb-vippro.png" srcset="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBLzlmUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--b850b8a73995c1d8456f8782b70d037a381678ec/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBPZ2wzWldKd09oSnlaWE5wZW1WZmRHOWZabWwwV3dkcEFwSUNNQT09IiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--d4dc962f8dfd42219a41803be77916f56a123c1e/Workshop-recap-thumb-vippro.png"> *@
+@*                                 <img class="w-100 blog-card-image lazyloaded" data-controller="lazyload" data-src="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBLzlmUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--b850b8a73995c1d8456f8782b70d037a381678ec/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RW5KbGMybDZaVjkwYjE5bWFYUmJCMmtDa2dJdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--3263d723c11323cc2b0c9cde4ba89f4324662a03/Workshop-recap-thumb-vippro.png" src="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBLzlmUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--b850b8a73995c1d8456f8782b70d037a381678ec/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RW5KbGMybDZaVjkwYjE5bWFYUmJCMmtDa2dJdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--3263d723c11323cc2b0c9cde4ba89f4324662a03/Workshop-recap-thumb-vippro.png"> *@
+@*                             </picture> *@
+@*                         </a><div class="card-body blog-card-title ip-0 imt-0 text-start"> *@
+@*                             <h5 class="card-title normal-text im-md-4 imb-0"> *@
+@*                                 <a class="text-rich-grey text-clamp-2" target="_blank" href="https://itviec.com/blog/workshop-khai-pha-suc-manh-doi-ngu?itm_campaign=featuredpost&amp;itm_medium=footer&amp;itm_source=itviec.com">4 thành công nổi bật của Workshop “Khai phá sức mạnh đội ngũ” dành cho nhà tuyển dụng</a> *@
+@*                             </h5> *@
+@*                         </div> *@
+@*                       *@
+@*                     </div> *@
+@*                 </div> *@
+@*                 <div class="col-12 col-md-6 blog-item imb-md-7"> *@
+@*                     <div class="card blog-card ip-md-0 ipy-4"> *@
+@*                         <a target="_blank" href="https://itviec.com/blog/it-salary-survey-2023-press-release?itm_campaign=featuredpost&amp;itm_medium=footer&amp;itm_source=itviec.com"> *@
+@*                             <picture> *@
+@*                                 <source data-srcset="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeUpMUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--eea4182080be1f38a32eae651dd6680769df8227/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBPZ2wzWldKd09oSnlaWE5wZW1WZmRHOWZabWwwV3dkcEFwSUNNQT09IiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--d4dc962f8dfd42219a41803be77916f56a123c1e/it-salary-survey-2023-thumbnail-en-vippro-01.png" srcset="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeUpMUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--eea4182080be1f38a32eae651dd6680769df8227/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBPZ2wzWldKd09oSnlaWE5wZW1WZmRHOWZabWwwV3dkcEFwSUNNQT09IiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--d4dc962f8dfd42219a41803be77916f56a123c1e/it-salary-survey-2023-thumbnail-en-vippro-01.png"> *@
+@*                                 <img class="w-100 blog-card-image lazyloaded" data-controller="lazyload" data-src="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeUpMUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--eea4182080be1f38a32eae651dd6680769df8227/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RW5KbGMybDZaVjkwYjE5bWFYUmJCMmtDa2dJdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--3263d723c11323cc2b0c9cde4ba89f4324662a03/it-salary-survey-2023-thumbnail-en-vippro-01.png" src="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeUpMUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--eea4182080be1f38a32eae651dd6680769df8227/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RW5KbGMybDZaVjkwYjE5bWFYUmJCMmtDa2dJdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--3263d723c11323cc2b0c9cde4ba89f4324662a03/it-salary-survey-2023-thumbnail-en-vippro-01.png"> *@
+@*                             </picture> *@
+@*                         </a><div class="card-body blog-card-title ip-0 imt-0 text-start"> *@
+@*                             <h5 class="card-title normal-text im-md-4 imb-0"> *@
+@*                                 <a class="text-rich-grey text-clamp-2" target="_blank" href="https://itviec.com/blog/it-salary-survey-2023-press-release?itm_campaign=featuredpost&amp;itm_medium=footer&amp;itm_source=itviec.com">ITviec Has Released IT Salary Survey 2023 To Help Provide Vietnam’s IT Market Insights</a> *@
+@*                             </h5> *@
+@*                         </div> *@
+@*                        *@
+@*                     </div> *@
+@*                 </div> *@
+@*                 <div class="col-12 col-md-6 blog-item imb-md-7"> *@
+@*                     <div class="card blog-card ip-md-0 ipy-4"> *@
+@*                         <a target="_blank" href="https://itviec.com/blog/prototype-chain-la-gi?itm_campaign=featuredpost&amp;itm_medium=footer&amp;itm_source=itviec.com"> *@
+@*                             <picture> *@
+@*                                 <source data-srcset="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNjBpUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--5e112ab713cb4f0a9d4aedffcc3c30e4b52aaf49/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBPZ2wzWldKd09oSnlaWE5wZW1WZmRHOWZabWwwV3dkcEFwSUNNQT09IiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--d4dc962f8dfd42219a41803be77916f56a123c1e/prototype-chain-la-gi-blog-vippro.jpg" srcset="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNjBpUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--5e112ab713cb4f0a9d4aedffcc3c30e4b52aaf49/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBPZ2wzWldKd09oSnlaWE5wZW1WZmRHOWZabWwwV3dkcEFwSUNNQT09IiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0=--d4dc962f8dfd42219a41803be77916f56a123c1e/prototype-chain-la-gi-blog-vippro.jpg"> *@
+@*                                 <img class="w-100 blog-card-image lazyloaded" data-controller="lazyload" data-src="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNjBpUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--5e112ab713cb4f0a9d4aedffcc3c30e4b52aaf49/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RW5KbGMybDZaVjkwYjE5bWFYUmJCMmtDa2dJdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--0d0971c472f8c38d24f257fd923ba9aed334bd75/prototype-chain-la-gi-blog-vippro.jpg" src="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNjBpUEE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--5e112ab713cb4f0a9d4aedffcc3c30e4b52aaf49/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RW5KbGMybDZaVjkwYjE5bWFYUmJCMmtDa2dJdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--0d0971c472f8c38d24f257fd923ba9aed334bd75/prototype-chain-la-gi-blog-vippro.jpg"> *@
+@*                             </picture> *@
+@*                         </a><div class="card-body blog-card-title ip-0 imt-0 text-start"> *@
+@*                             <h5 class="card-title normal-text im-md-4 imb-0"> *@
+@*                                 <a class="text-rich-grey text-clamp-2" target="_blank" href="https://itviec.com/blog/prototype-chain-la-gi?itm_campaign=featuredpost&amp;itm_medium=footer&amp;itm_source=itviec.com">Prototype chain là gì?</a> *@
+@*                             </h5> *@
+@*                         </div> *@
+@*                       *@
+@*                     </div> *@
+@*                 </div> *@
+@*             </div> *@
+@*         </div> *@
+@*         <a class="d-flex d-md-none justify-content-center align-items-center hyperlink imt-3 imb-6" href="https://itviec.com/blog/"> *@
+@*             Xem tất cả *@
+@*             <svg class="feather-icon icon-md"> *@
+@*                 <use href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#chevron-right"></use> *@
+@*             </svg> *@
+@*         </a> *@
+@*     </div> *@
+@*         --> *@
+@* </div> *@
+@* @section Scripts { *@
+@*     <script type="text/javascript"> *@
+@*         $(".home-search").hide() *@
+@*         $(document).ready(function () { *@
+@*             $(".city").select2({ *@
+@*                 placeholder: "Tìm Thành Phố", *@
+@*                 theme: "bootstrap4", *@
+@*                 allowClear: true *@
+@*             }); *@
+@*            /* *@
+@*            *@
+@*            */ *@
+@*            *@
+@*             const swiper = new Swiper('.swiper', { *@
+@*                 // speed: 400, *@
+@*                 /* *@
+@*                 navigation: { *@
+@*                     nextEl: ".swiper-button-next", *@
+@*                     prevEl: ".swiper-button-prev", *@
+@*                 }, *@
+@*                  *@
+@*                 */ *@
+@*                 autoplay: { *@
+@*                     delay: 5000, *@
+@*                 }, *@
+@*                 pagination: { *@
+@*                     el: ".swiper-pagination", *@
+@*                     dynamicBullets: true, *@
+@*                 }, *@
+@*                 loop: true, *@
+@*                  *@
+@*             }); *@
+@* *@
+@* *@
+@*             $(".home-search").show(); *@
+@*         }) *@
+@* *@
+@*     </script> *@
+@* } *@
 
 
 <!-- 

@@ -1064,16 +1064,18 @@
                 <ul class="ipy-5 ipy-xl-0 navbar-nav align-items-center">
                     <li>
                         <div class="switch-language d-inline-flex cursor-pointer" data-controller="language"
-                            data-language-locale-value="en" data-language-localed-path-value="/vi">
-                            <a class="active text-it-white" data-action="click->language#switchLanguage">
+                            @* data-language-locale-value="en" data-language-localed-path-value="/vi" *@
+                        >
+                            <a asp-controller="Home" asp-action="ChangeLanguage" asp-route-lang="en-US" class="active text-it-white" data-action="click->language#switchLanguage">
                                 EN
                             </a>
                             <div class="vr mx-2 text-white align-self-center cursor-pointer"></div>
-                            <a class="text-dark-grey" data-action="click->language#switchLanguage">
+                            <a asp-controller="Home" asp-action="ChangeLanguage" asp-route-lang="vi" class="text-dark-grey" data-action="click->language#switchLanguage">
                                 VI
                             </a>
                         </div>
                     </li>
+                   
                 </ul>
 
             </div>

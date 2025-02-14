@@ -1,4 +1,12 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity
+@using RecruitmentApp.Models
+@using System.Web;
+
+@inject SignInManager<AppUser> SignInManager
+
+@inject UserManager<AppUser> UserManager
+@{
     ViewData["Title"] = "Kết quả tìm kiếm";
 
 
@@ -38,13 +46,7 @@
         }
     }
 
-    @using Microsoft.AspNetCore.Identity
-    @using RecruitmentApp.Models
-    @using System.Web;
 
-    @inject SignInManager<AppUser> SignInManager
-
-    @inject UserManager<AppUser> UserManager
 }
 <style>
     .provice {

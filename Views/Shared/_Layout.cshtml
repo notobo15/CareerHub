@@ -1,15 +1,20 @@
-﻿@inject AppDbContext appDbContext;
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="~/images/network.ico" />
+
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <title>@ViewData["Title"] - RecruitmentApp</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+
     <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
     <link rel="stylesheet" href="~/lib/select2/css/select2.css" />
     <link rel="stylesheet" href="~/lib/select2/css/select2-bootstrap4.min.css" />
@@ -17,69 +22,102 @@
     <link rel="stylesheet" href="~/lib/summernote/summernote-bs4.min.css" />
     <link rel="stylesheet" href="~/lib/multiple-select/multiple-select.min.css" />
     <link rel="stylesheet" href="~/lib/toastify-js/toastify.min.css" />
+
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/globals.css" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/feather-icons/feather.js"></script>
+
+
     <style>
-
-       
         /* ============ desktop view ============ */
-    @@media all and (min-width: 992px) {
-	    .dropdown-menu li{ position: relative; 	}
-	    .nav-item .submenu{ 
-		    display: none;
-		    position: absolute;
-		    left:100%; top:-7px;
-	    }
-	    .nav-item .submenu-left{ 
-		    right:100%; left:auto;
-	    }
-	    .dropdown-menu > li:hover{ background-color: #f1f1f1 }
-	    .dropdown-menu > li:hover > .submenu{ display: block; }
-    }	
-    /* ============ desktop view .end// ============ */
+        @@media all and (min-width: 992px) {
+            .dropdown-menu li {
+                position: relative;
+            }
 
-    /* ============ small devices ============ */
-    @@media (max-width: 991px) {
-      .dropdown-menu .dropdown-menu{
-          margin-left:0.7rem; margin-right:0.7rem; margin-bottom: .5rem;
-      }
-    }
+            .nav-item .submenu {
+                display: none;
+                position: absolute;
+                left: 100%;
+                top: -7px;
+            }
+
+            .nav-item .submenu-left {
+                right: 100%;
+                left: auto;
+            }
+
+            .dropdown-menu>li:hover {
+                background-color: #f1f1f1
+            }
+
+            .dropdown-menu>li:hover>.submenu {
+                display: block;
+            }
+        }
+
+        /* ============ desktop view .end// ============ */
+
+        /* ============ small devices ============ */
+        @@media (max-width: 991px) {
+            .dropdown-menu .dropdown-menu {
+                margin-left: 0.7rem;
+                margin-right: 0.7rem;
+                margin-bottom: .5rem;
+            }
+        }
     </style>
 </head>
+
 <body>
+
+
     <div id="map"></div>
-    <header>
-        <nav style="" class="border-bottom navbar navbar-expand-sm navbar-toggleable-sm bg-light shadow-sm py-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Tuyển Dụng IT</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="ContactUs">Liên Hệ Chúng Tôi</a>
-                        </li>
-                    </ul>
+    @* <div> *@
+    @*     <form method="get" asp-controller="Home" asp-action="Index"> *@
+    @*         <button type="submit" name="culture" value="en">@RecruitmentApp.Resources.Resource.en</button> *@
+    @*         <button type="submit" name="culture" value="vi">@RecruitmentApp.Resources.Resource.vi</button> *@
+    @*     </form> *@
+    @* </div> *@
+    @* <header> *@
+    @*     <nav style="" class="border-bottom navbar navbar-expand-sm navbar-toggleable-sm bg-light shadow-sm py-3"> *@
+    @*         <div class="container"> *@
+    @*             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Tuyển Dụng IT</a> *@
+    @*             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent" *@
+    @*                     aria-expanded="false" aria-label="Toggle navigation"> *@
+    @*                 <span class="navbar-toggler-icon"></span> *@
+    @*             </button> *@
+    @*             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between"> *@
+    @*                 <ul class="navbar-nav flex-grow-1"> *@
+    @*                     <li class="nav-item"> *@
+    @*                         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="ContactUs">Liên Hệ Chúng Tôi111</a> *@
+    @*                     </li> *@
+    @*                 </ul> *@
+    @*                    *@
+    @*                 <partial name="_LoginPartial"/> *@
+    @*                 <!--  <partial name="_MenuManagePartial" />--> *@
+    @*             </div> *@
+    @*         </div> *@
+    @* </nav> *@
+    @* </header>/ *@
+    <partial name="_Header" />
+   
+    @RenderBody()
+    @RenderSection("SubLayout", required: false)
+    <partial name="_Footer" />
+    @* @await RenderSectionAsync("Search", required: false) *@
+    @* <main> *@
+    @*     <div class="container"> *@
+    @*         @RenderBody() *@
+    @*     </div> *@
+    @* </main> *@
 
-                    <partial name="_LoginPartial" />
-                    <!--  <partial name="_MenuManagePartial" />-->
-                </div>
-            </div>
-        </nav>
-    </header>
-    @await RenderSectionAsync("Search", required: false)
-    <main>
-        <div class="container">
-            @RenderBody()
-        </div>
-    </main>
-
-    <footer class="border-top py-5 bg-light text-muted mt-5">
-        <div class="container">
-            &copy; 2023 - RecruitmentApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+    @* <footer class="border-top py-5 bg-light text-muted mt-5"> *@
+    @*     <div class="container"> *@
+    @*         &copy; 2023 - RecruitmentApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> *@
+    @*     </div> *@
+    @* </footer> *@
     <script src="/_framework/aspnetcore-browser-refresh.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -126,50 +164,86 @@
             // end if innerWidth
         });
         // DOMContentLoaded  end
-      </script>
+        feather.replace();
+        $(document).ready(function () {
+            $(".menu-title").hover(
+                function () {
+                    // Xóa class active khỏi tất cả các menu-title
+                    $(".menu-title").removeClass("active");
+
+                    // Thêm class active cho phần tử hiện tại
+                    $(this).addClass("active");
+                },
+                function () {
+                    // Nếu muốn giữ class active khi hover xong thì bỏ dòng này
+                    // $(this).removeClass("active");
+                }
+            );
+            $('.hamburger-menu').on('click', function () {
+                $('.left-nav').toggleClass('d-none'); // Thêm hoặc xóa class `d-none`
+            });
+
+            // Đóng menu khi nhấn vào nút Close
+            $('[data-action="click->mobile-menu#closeLeftNav"]').on('click', function () {
+                $('.left-nav').addClass('d-none'); // Thêm lại class `d-none` để ẩn
+            });
+
+            $('[data-action="click->mobile-menu#show"]').on('click', function () {
+                // Tìm menu cùng cấp có class `sub-menu` và thay đổi width
+                $(this).siblings('.sub-menu').css('width', '280px');
+            });
+
+            // Khi nhấn vào nút Back
+            $('[data-action="click->mobile-menu#back"]').on('click', function () {
+                // Tìm menu cha có class `sub-menu` và đặt width = 0
+                $(this).closest('.sub-menu').css('width', '0');
+            });
+        });
+    </script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>
 
 
 <!--
-    <li class="nav-item dropdown" id="myDropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Việc Làm</a>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li >
-                                    <a class="dropdown-item" href="#">Việc Làm Theo Kĩ Năng</a>
-                                    <ul class="submenu dropdown-menu">
+<li class="nav-item dropdown" id="myDropdown">
+    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Việc Làm</a>
+    <ul class="dropdown-menu dropdown-menu-right">
+        <li >
+            <a class="dropdown-item" href="#">Việc Làm Theo Kĩ Năng</a>
+            <ul class="submenu dropdown-menu">
 
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">Việc Làm Theo Cấp Bậc</a>
-                                    <ul class="submenu dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Submenu item 1</a></li>
-                                        <li><a class="dropdown-item" href="#">Submenu item 2</a></li>
-                                        <li><a class="dropdown-item" href="#">Submenu item 3</a></li>
-                                    </ul>
-                                </li>
+            </ul>
+        </li>
+        <li>
+            <a class="dropdown-item" href="#">Việc Làm Theo Cấp Bậc</a>
+            <ul class="submenu dropdown-menu">
+                <li><a class="dropdown-item" href="#">Submenu item 1</a></li>
+                <li><a class="dropdown-item" href="#">Submenu item 2</a></li>
+                <li><a class="dropdown-item" href="#">Submenu item 3</a></li>
+            </ul>
+        </li>
 
-                                  <li>
-                                    <a class="dropdown-item" href="#">Việc Làm Theo Công Ty</a>
-                                    <ul class="submenu dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Submenu item 1</a></li>
-                                        <li><a class="dropdown-item" href="#">Submenu item 2</a></li>
-                                        <li><a class="dropdown-item" href="#">Submenu item 3</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">Việc Làm Theo Thành Phố</a>
-                                    <ul class="submenu dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Submenu item 1</a></li>
-                                        <li><a class="dropdown-item" href="#">Submenu item 2</a></li>
-                                        <li><a class="dropdown-item" href="#">Submenu item 3</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
+        <li>
+            <a class="dropdown-item" href="#">Việc Làm Theo Công Ty</a>
+            <ul class="submenu dropdown-menu">
+                <li><a class="dropdown-item" href="#">Submenu item 1</a></li>
+                <li><a class="dropdown-item" href="#">Submenu item 2</a></li>
+                <li><a class="dropdown-item" href="#">Submenu item 3</a></li>
+            </ul>
+        </li>
+        <li>
+            <a class="dropdown-item" href="#">Việc Làm Theo Thành Phố</a>
+            <ul class="submenu dropdown-menu">
+                <li><a class="dropdown-item" href="#">Submenu item 1</a></li>
+                <li><a class="dropdown-item" href="#">Submenu item 2</a></li>
+                <li><a class="dropdown-item" href="#">Submenu item 3</a></li>
+            </ul>
+        </li>
+    </ul>
+</li>
 
 
 
