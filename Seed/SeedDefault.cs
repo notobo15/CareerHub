@@ -146,27 +146,31 @@ namespace RecruitmentApp.Seed
                 {
                     var company = new Company
                     {
-                        // CompanyId = int.Parse(sheet.Cells[row, 1].Text), // Column 1: CompanyId
+                        //CompanyId = int.Parse(sheet.Cells[row, 1].Text), // Column 1: CompanyId
                         Slug = sheet.Cells[row, 2].Text, // Column 2: Slug
                         Name = sheet.Cells[row, 3].Text, // Column 3: Name
                         FullName = sheet.Cells[row, 4].Text, // Column 4: FullName
                         Size = sheet.Cells[row, 5].Text, // Column 5: Size
-
                         Description = sheet.Cells[row, 6].Text, // Column 6: Description
-                        Reason = sheet.Cells[row, 7].Text, // Column 7: Reason
-                        Phone = sheet.Cells[row, 8].Text, // Column 8: Phone
-                        Email = sheet.Cells[row, 9].Text, // Column 9: Email
-                        Type = sheet.Cells[row, 10].Text, // Column 10: Type
-                        Nation = sheet.Cells[row, 11].Text, // Column 11: Nation
-                        OverTime = sheet.Cells[row, 12].Text, // Column 12: OverTime
-                        WorkingTime = sheet.Cells[row, 13].Text, // Column 13: WorkingTime
-                        LogoImage = sheet.Cells[row, 14].Text, // Column 14: LogoImage
-                        CompanyUrl = sheet.Cells[row, 15].Text, // Column 15: CompanyUrl
-                        CompanyFbUrl = sheet.Cells[row, 16].Text, // Column 16: CompanyFbUrl
+                        //Description = sheet.Cells[row, 6].Text, // Column 6: Description
+                        Reason = sheet.Cells[row, 8].Text, // Column 7: Reason
+                        Phone = sheet.Cells[row, 9].Text, // Column 8: Phone
+                        Email = sheet.Cells[row, 10].Text, // Column 9: Email
+                        Type = sheet.Cells[row, 11].Text, // Column 10: Type
+                        Nation = sheet.Cells[row, 12].Text, // Column 11: Nation
+                        OverTime = sheet.Cells[row, 13].Text, // Column 12: OverTime
+                        WorkingTime = sheet.Cells[row, 14].Text, // Column 13: WorkingTime
+                        LogoImage = sheet.Cells[row, 15].Text, // Column 14: LogoImage
+                        CompanyUrl = sheet.Cells[row, 16].Text, // Column 15: CompanyUrl
+                        CompanyFbUrl = sheet.Cells[row, 17].Text, // Column 16: CompanyFbUrl
                         // RecruiterId = sheet.Cells[row, 17].Text, // Column 17: RecruiterId (nullable)
-                        IsDeleted = sheet.Cells[row, 18].Text == "1", // Column 18: IsDeleted
-                        CreatedAt = DateTime.Parse(sheet.Cells[row, 19].Text), // Column 19: CreatedAt
-                        UpdatedAt = DateTime.Parse(sheet.Cells[row, 20].Text) // Column 20: UpdatedAt
+                        IsDeleted = false,
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now
+                        //IsDeleted = sheet.Cells[row, 18].Text == "1", // Column 18: IsDeleted
+                        //CreatedAt = DateTime.Parse(sheet.Cells[row, 19].Text), // Column 19: CreatedAt
+                        //UpdatedAt = DateTime.Parse(sheet.Cells[row, 20].Text), // Column 20: UpdatedAt
+
                     };
 
                     applicationDbContext.Companies.Add(company);
@@ -201,11 +205,11 @@ namespace RecruitmentApp.Seed
 
         private static async Task SeedPosts(AppDbContext applicationDbContext, ExcelPackage package)
         {
-            var sheet = package.Workbook.Worksheets["Posts"]; // Tên sheet trong Excel
+            var sheet = package.Workbook.Worksheets["Posts"];
             if (sheet != null && !applicationDbContext.Posts.Any())
             {
                 Console.WriteLine("Seeding Posts...");
-                for (int row = 2; row <= sheet.Dimension.Rows; row++) // Bỏ qua hàng tiêu đề
+                for (int row = 2; row <= sheet.Dimension.Rows; row++) 
                 {
                     var post = new Post
                     {
@@ -213,21 +217,22 @@ namespace RecruitmentApp.Seed
                         Slug = sheet.Cells[row, 3].Text,
                         IsHot = sheet.Cells[row, 4].Text == "1",
                         ViewTotal = int.TryParse(sheet.Cells[row, 5].Text, out var viewTotal) ? viewTotal : 0,
-                        // Salary = sheet.Cells[row, 6].Text,
+                        SalaryType = sheet.Cells[row, 6].Text,
                         MinSalary = double.TryParse(sheet.Cells[row, 7].Text, out var minSalary) ? minSalary : 0,
                         MaxSalary = double.TryParse(sheet.Cells[row, 8].Text, out var maxSalary) ? maxSalary : 0,
                         PostDate = DateTime.Parse(sheet.Cells[row, 9].Text),
                         Expired = DateTime.Parse(sheet.Cells[row, 10].Text),
                         WorkSpace = sheet.Cells[row, 11].Text,
                         // AddressId = int.TryParse(sheet.Cells[row, 12].Text, out var addressId) ? (int?)addressId : null,
+                        TopReason = sheet.Cells[row, 12].Text,
                         Description = sheet.Cells[row, 13].Text,
                         JobRequirement = sheet.Cells[row, 14].Text,
                         Benifit = sheet.Cells[row, 15].Text,
-                        CompanyId = int.Parse(sheet.Cells[row, 16].Text),
+                        //CompanyId = int.Parse(sheet.Cells[row, 16].Text),
                         // RecruiterId = sheet.Cells[row, 17].Text,
                         IsShow = sheet.Cells[row, 18].Text == "1",
                         IsClose = sheet.Cells[row, 19].Text == "1",
-                        DegreeRequirement = sheet.Cells[row, 20].Text,
+                        //DegreeRequirement = sheet.Cells[row, 20].Text,
                         Quantity = int.TryParse(sheet.Cells[row, 21].Text, out var quantity) ? quantity : 0,
                         // IsDeleted = sheet.Cells[row, 22].Text == "1",
                         // CreatedAt = DateTime.Parse(sheet.Cells[row, 23].Text),
