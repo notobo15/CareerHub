@@ -494,10 +494,10 @@ namespace App.Areas.Identity.Controllers
                 .Include(e => e.Company)
                 .Include(e => e.Address)
                 .ThenInclude(e => e.City)
-                .Include(e => e.Favourites)
+                .Include(e => e.Favorites)
                 .ThenInclude(e => e.User)
 
-                .Where(e => e.Favourites.Select(f => f.UserID).Contains(userId))
+                .Where(e => e.Favorites.Select(f => f.UserID).Contains(userId))
                 .ToListAsync();
 
             return View(result);

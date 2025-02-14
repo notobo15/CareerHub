@@ -249,7 +249,7 @@ namespace RecruitmentApp.Areas.Posts.Controllers
             }
             if (postId != null)
             {
-                _context.Favourites.Add(new Favourite
+                _context.Favorites.Add(new Favorite
                 {
                     PostID = (int)postId,
                     UserID = userId
@@ -269,8 +269,8 @@ namespace RecruitmentApp.Areas.Posts.Controllers
             }
             if (postId != null)
             {
-                var follower = _context.Favourites.FirstOrDefault(e => e.PostID == postId && e.UserID == userId);
-                _context.Favourites.Remove(follower);
+                var follower = _context.Favorites.FirstOrDefault(e => e.PostID == postId && e.UserID == userId);
+                _context.Favorites.Remove(follower);
             }
             _context.SaveChanges();
             return Redirect(Request.Headers["Referer"].ToString());
