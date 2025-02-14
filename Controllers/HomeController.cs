@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -47,41 +49,41 @@ namespace RecruitmentApp.Controllers
 
         public IActionResult Index()
         {
-            var companies = _appDbContext.Companies
-                .Include(c => c.CompanySkills)
-                .ThenInclude(ck => ck.Skill)
-                .Include(c => c.Posts)
-                .Include(c => c.Addresses)
-                .OrderBy(c => c.CompanyId)
-              .Take(5)
-              .AsSplitQuery()
-              .ToList();
-           var provices = _appDbContext.provinces.ToList();
-           var topProvinces = _appDbContext.provinces.Where(p => p.Code == "01" || p.Code == "48" || p.Code == "79").ToList();
-            provices.RemoveAll(p => topProvinces.Contains(p));
-            provices.InsertRange(0, topProvinces);
-            ViewData["provices"] = provices;
-            var posts = _appDbContext.Posts
-                .Include(p => p.Company)
-                .Include(p => p.Address)
-                .ThenInclude(e => e.City)
-                .Include(p => p.PostSkills)
-                .OrderBy(c => c.PostId)
-                .Take(8)
-                
-                .AsSplitQuery()
-            .ToList();
-
-
-             ViewData["levels"] = _appDbContext.Levels
-                    .ToList();
-
-            var totalPosts = _appDbContext.Posts.Count();
-            ViewData["totalPosts"] = totalPosts;
-
-            ViewData["posts"] = posts;
-         
-            ViewData["companies"] = companies;
+           //  var companies = _appDbContext.Companies
+           //      .Include(c => c.CompanySkills)
+           //      .ThenInclude(ck => ck.Skill)
+           //      .Include(c => c.Posts)
+           //      .Include(c => c.Addresses)
+           //      .OrderBy(c => c.CompanyId)
+           //    .Take(5)
+           //    .AsSplitQuery()
+           //    .ToList();
+           // var provices = _appDbContext.Provinces.ToList();
+           // var topProvinces = _appDbContext.Provinces.Where(p => p.Code == "01" || p.Code == "48" || p.Code == "79").ToList();
+           //  provices.RemoveAll(p => topProvinces.Contains(p));
+           //  provices.InsertRange(0, topProvinces);
+           //  ViewData["provices"] = provices;
+           //  var posts = _appDbContext.Posts
+           //      .Include(p => p.Company)
+           //      .Include(p => p.Address)
+           //      .ThenInclude(e => e.City)
+           //      .Include(p => p.PostSkills)
+           //      .OrderBy(c => c.PostId)
+           //      .Take(8)
+           //      
+           //      .AsSplitQuery()
+           //  .ToList();
+           //
+           //
+           //   ViewData["levels"] = _appDbContext.Levels
+           //          .ToList();
+           //
+           //  var totalPosts = _appDbContext.Posts.Count();
+           //  ViewData["totalPosts"] = totalPosts;
+           //
+           //  ViewData["posts"] = posts;
+           //
+           //  ViewData["companies"] = companies;
            
 
             return View();
@@ -230,8 +232,8 @@ namespace RecruitmentApp.Controllers
             ViewData["workspace"] = workspace;
             //ViewData["level"] = level;
 
-            var listProvices = _appDbContext.provinces.ToList();
-            var topProvinces = _appDbContext.provinces.Where(p => p.Code == "01" || p.Code == "48" || p.Code == "79").ToList();
+            var listProvices = _appDbContext.Provinces.ToList();
+            var topProvinces = _appDbContext.Provinces.Where(p => p.Code == "01" || p.Code == "48" || p.Code == "79").ToList();
             listProvices.RemoveAll(p => topProvinces.Contains(p));
             listProvices.InsertRange(0, topProvinces);
 
@@ -346,6 +348,24 @@ namespace RecruitmentApp.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+
+        public IActionResult ChangeLanguage(string language)
+        {
+            if(!string.IsNullOrEmpty(language))
+            {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(language);
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
+            }
+            else
+            {
+                language = "en-US";
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(language);
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
+            }
+            Response.Cookies.Append("Language", language);
+            return  Redirect(Request.GetTypedHeaders().Referer.ToString());
         }
     }
 }
