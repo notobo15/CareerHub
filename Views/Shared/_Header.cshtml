@@ -1,178 +1,81 @@
-﻿<header class="header">
+﻿@using Microsoft.AspNetCore.Identity
+@using RecruitmentApp.ModelViews
+@using RecruitmentApp.Models
+@using RecruitmentApp.Services
+@using RecruitmentApp.Utilities
+
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+@inject HeaderService headerService
+@{
+    // List<string> jobCategories = new List<string>
+    //     {
+    //         "Java", "PHP", "JavaScript", "HTML5", "Manager", "SQL", "Android", "iOS",
+    //         "MySQL", "Tester", "English", "Ruby", "Python", "Mobile Apps", "Ruby on Rails", "QA QC",
+    //         "Database", ".NET", "Business Analyst", "Linux", "Team Leader", "NodeJS", "System Engineer", "Designer",
+    //         "UI-UX", "Project Manager", "OOP", "Oracle", "MVC", "ReactJS", "Embedded", "J2EE"
+    //     };
+
+
+    // List<string> titleCategories = new List<string>
+    // {   "Java Developer", "PHP Developer", "Javascript Developer", "HTML5 Developer", "SQL Developer", "Android Developer", "iOS Developer", "Tester",
+    //     "Ruby Developer", "Python Developer", "Ruby On Rails Developer", ".NET Developer", "NodeJS Developer", "Linux Developer", "OOP Developer", "Oracle Developer",
+    //     "C++ Developer", "Wordpress Developer", "Designer", "Database Administrator", "Mobile Apps Developer", "Project Manager", "Product Owner", "Bridge Engineer"
+    // };
+    var companies = headerService.GetMenuCompanies();
+    var titles = headerService.GetMenuTitles();
+    var skills = headerService.GetMenuSkills();
+    var provinces = headerService.GetMenuProvinces();
+
+    var splitSkills = ListFormatter.SplitList<SkillDto>(skills, 8);
+    var splitTitles = ListFormatter.SplitList<TitleDto>(titles, 8);
+    var splitCompanies = ListFormatter.SplitList<CompanyDto>(companies, 8);
+
+}
+<header class="header">
     <div class="d-none d-xl-block">
-        <nav class="navbar fixed-top navbar-expand-lg" data-controller="page-header" data-page-header-target="header">
+        <nav class="navbar fixed-top navbar-expand-lg shadow border-bottom">
             <div class="container icontainer-header">
                 <div class="nav-brand ime-8">
-                    <a data-controller="utm-tracking"
-                        href="/?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-
-                        <img class="logo-itviec" alt="logo-itviec"  src="~/images/logo.png" />
+                    <a asp-area="User/Home" asp-controller="Home" asp-action="Index">
+                        <img class="logo-itviec" alt="logo"  src="~/images/logo.png" />
                     </a>
                 </div>
                 <div class="navbar-collapse">
                     <ul class="navbar-nav me-auto igap-2 align-items-center">
                         <li class="nav-item main-menu position-relative">
-                            <a data-controller="utm-tracking" class="text-reset d-flex align-items-center ipx-2"
-                                href="/it-jobs?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
+                            <a class="text-reset d-flex align-items-center ipx-2">
                                 All Jobs
                                 <i class="feather-icon icon-md" data-feather="chevron-down"></i>
-
                             </a>
-                            <div class="position-absolute top-100 bg-it-white text-white box-shadow-normal sub-menu">
+                            <div class="position-absolute top-100 bg-it-white text-white shadow sub-menu">
                                 <ul class="ip-0 im-0 bg-it-white position-relative" data-controller="sub-menu">
                                     <li class="menu-title" data-sub-menu-target="menu">
-                                        <a class="text-dark-grey" data-controller="utm-tracking"
-                                            href="/jobs-skill-index?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
+                                        <a class="text-it-black"
+                                        href="/jobs-skill-index?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
                                             <div
-                                                class="category ipx-4 d-flex align-items-center justify-content-between small-text">
+                                            class="category ipx-4 d-flex align-items-center justify-content-between small-text">
                                                 <span>Jobs by Skill</span>
                                                 <i class="feather-icon icon-md" data-feather="chevron-right"></i>
 
                                             </div>
                                         </a>
-                                        <div class="menu-content bg-it-white small-text position-absolute">
+                                        <div class="menu-content shadow bg-it-white small-text position-absolute">
                                             <div class="row g-1">
-                                                <div class="col d-flex flex-column">
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/java?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Java
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/php?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        PHP
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/javascript?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        JavaScript
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/html5?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        HTML5
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/manager?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Manager
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/sql?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        SQL
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/android?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Android
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/ios?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        iOS
-                                                    </a>
-                                                </div>
-                                                <div class="col d-flex flex-column">
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/mysql?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        MySQL
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/tester?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Tester
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/english?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        English
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/ruby?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Ruby
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/python?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Python
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/mobile-apps?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Mobile Apps
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/ruby-on-rails?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Ruby on Rails
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/qa-qc?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        QA QC
-                                                    </a>
-                                                </div>
-                                                <div class="col d-flex flex-column">
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/database?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Database
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/.net?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        .NET
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/business-analyst?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Business Analyst
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/linux?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Linux
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/team-leader?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Team Leader
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/nodejs?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        NodeJS
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/system-engineer?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        System Engineer
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/designer?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Designer
-                                                    </a>
-                                                </div>
-                                                <div class="col d-flex flex-column">
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/ui-ux?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        UI-UX
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/project-manager?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Project Manager
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/oop?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        OOP
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/oracle?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Oracle
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/mvc?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        MVC
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/reactjs?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        ReactJS
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/embedded?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Embedded
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/j2ee?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        J2EE
-                                                    </a>
-                                                </div>
+                                                @foreach (var categoryGroup in splitSkills)
+                                                {
+                                                    <div class="col d-flex flex-column">
+                                                        @foreach (var category in categoryGroup)
+                                                        {
+                                                            <a class="category-item ips-3" href="/it-jobs/@category.Slug">@category.Name</a>
+                                                        }
+                                                    </div>
+                                                }
                                             </div>
                                             <div class="text-center text-decoration-underline view-all">
-                                                <a data-controller="utm-tracking"
-                                                    class="text-dark-grey align-items-center d-inline-flex w-100 justify-content-center"
-                                                    href="/jobs-skill-index?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
+                                                <a
+                                                class="text-it-black align-items-center d-inline-flex w-100 justify-content-center"
+                                                href="/jobs-skill-index?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
                                                     View all Jobs by skill
                                                     <i class="feather-icon icon-md" data-feather="chevron-right"></i>
 
@@ -181,123 +84,29 @@
                                         </div>
                                     </li>
                                     <li class="menu-title" data-sub-menu-target="menu">
-                                        <a class="text-dark-grey" data-controller="utm-tracking"
-                                            href="/jobs-title-index?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
+                                        <a class="text-it-black"
+                                        href="/jobs-title-index?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
                                             <div
-                                                class="category ipx-4 d-flex align-items-center justify-content-between small-text">
+                                            class="category ipx-4 d-flex align-items-center justify-content-between small-text">
                                                 <span>Jobs by Title</span>
                                                 <i class="feather-icon icon-md" data-feather="chevron-right"></i>
                                             </div>
                                         </a>
-                                        <div class="menu-content bg-it-white small-text position-absolute">
+                                        <div class="menu-content shadow bg-it-white small-text position-absolute">
                                             <div class="row g-1">
-                                                <div class="col d-flex flex-column">
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/java-developer?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Java Developer
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/php-developer?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        PHP Developer
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/javascript-developer?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Javascript Developer
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/html5-developer?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        HTML5 Developer
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/sql-developer?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        SQL Developer
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/android-developer?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Android Developer
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/ios-developer?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        iOS Developer
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/tester?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Tester
-                                                    </a>
-                                                </div>
-                                                <div class="col d-flex flex-column">
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/ruby-developer?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Ruby Developer
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/python-developer?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Python Developer
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/ruby-on-rails-developer?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Ruby On Rails Developer
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/.net-developer?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        .NET Developer
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/nodejs-developer?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        NodeJS Developer
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/linux-developer?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Linux Developer
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/oop-developer?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        OOP Developer
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/oracle-developer?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Oracle Developer
-                                                    </a>
-                                                </div>
-                                                <div class="col d-flex flex-column">
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/c++-developer?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        C++ Developer
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/wordpress-developer?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Wordpress Developer
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/designer?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Designer
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/database-administrator?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Database Administrator
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/mobile-apps-developer?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Mobile Apps Developer
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/project-manager?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Project Manager
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/product-owner?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Product Owner
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/bridge-engineer?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Bridge Engineer
-                                                    </a>
-                                                </div>
+                                                @foreach (var titleGroup in splitTitles)
+                                                {
+                                                    <div class="col d-flex flex-column">
+                                                        @foreach (var title in titleGroup)
+                                                        {
+                                                            <a class="category-item ips-3" asp-area="User/Titles" asp-controller="Title" asp-action="Detail" asp-route-slug="@title.Slug">@title.Name</a>
+                                                        }
+                                                    </div>
+                                                }
                                             </div>
                                             <div class="text-center view-all">
-                                                <a data-controller="utm-tracking"
-                                                    class="text-dark-grey align-items-center d-inline-flex w-100 justify-content-center"
-                                                    href="/jobs-title-index?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
+                                                <a
+                                                class="text-it-black align-items-center d-inline-flex w-100 justify-content-center" asp-area="User/Companies" asp-controller="Title" asp-action="Detail">
                                                     View all Jobs by title
                                                     <i class="feather-icon icon-md" data-feather="chevron-right"></i>
 
@@ -306,155 +115,51 @@
                                         </div>
                                     </li>
                                     <li class="menu-title" data-sub-menu-target="menu">
-                                        <a class="text-dark-grey" data-controller="utm-tracking"
-                                            href="/jobs-company-index?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
+                                        <a class="text-it-black"
+
+                                        href="/jobs-company-index?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
                                             <div
-                                                class="category ipx-4 d-flex align-items-center justify-content-between small-text">
+                                            class="category ipx-4 d-flex align-items-center justify-content-between small-text">
                                                 <span>Jobs by Company</span>
                                                 <i class="feather-icon icon-md" data-feather="chevron-right"></i>
                                             </div>
                                         </a>
-                                        <div class="menu-content bg-it-white small-text position-absolute">
+                                        <div class="menu-content shadow bg-it-white small-text position-absolute">
                                             <div class="row g-1">
-                                                <div class="col d-flex flex-column">
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/companies/tymex?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                        TymeX
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/companies/nab-innovation-centre-vietnam?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                        NAB Innovation Centre Vietnam
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/companies/mb-bank?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                        MB Bank
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/companies/vietinbank?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                        VietinBank
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/companies/capgemini-vietnam?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                        Capgemini Vietnam
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/companies/money-forward-vietnam-co-ltd?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                        MONEY FORWARD VIETNAM CO.,LTD
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/companies/lg-cns-viet-nam?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                        LG CNS Việt Nam
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/companies/blue-belt-technology?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                        Blue Belt Technology
-                                                    </a>
-                                                </div>
-                                                <div class="col d-flex flex-column">
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/companies/wavenet?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                        Wavenet
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/companies/elca?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                        ELCA
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/companies/hybrid-technologies?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                        Hybrid Technologies
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/companies/endava-viet-nam?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                        Endava Việt Nam
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/companies/hitachi-digital-services?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                        Hitachi Digital Services
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/companies/fullerton-health?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                        Fullerton Health
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/companies/hrs-group?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                        HRS Group
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/companies/smg-swiss-marketplace-group?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                        SMG Swiss Marketplace Group
-                                                    </a>
-                                                </div>
-                                                <div class="col d-flex flex-column">
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/companies/hongthai-technical?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                        HONGTHAI Technical
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/companies/cong-ty-tnhh-stack-tech?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                        Công Ty TNHH Stack Tech
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/companies/netcompany?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                        Netcompany
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/companies/bbv-vietnam?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                        bbv Vietnam
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/companies/gene-solutions?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                        Gene Solutions
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/companies/katalon?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                        Katalon
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/companies/trusting-social?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                        Trusting Social
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/companies/flodesk?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                        Flodesk
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="text-center text-decoration-underline view-all">
-                                                <a data-controller="utm-tracking"
-                                                    class="text-dark-grey align-items-center d-inline-flex w-100 justify-content-center"
-                                                    href="/jobs-company-index?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                    View all Jobs by company
-                                                    <i class="feather-icon icon-md" data-feather="chevron-right"></i>
+                                                @foreach (var companyGroup in splitCompanies)
+                                                {
+                                                    <div class="col d-flex flex-column">
+                                                        @foreach (var company in companyGroup)
+                                                        {
+                                                            <a class="category-item ips-3" href="/companies/@company.Slug">@company.Name</a>
+                                                        }
+                                                    </div>
+                                                }
+                                                <div class="text-center text-decoration-underline view-all">
+                                                    <a asp-area="User/Companies" asp-controller="Title" asp-action="Detail"
+                                                    class="text-it-black align-items-center d-inline-flex w-100 justify-content-center">
+                                                        View all Jobs by company
+                                                        <i class="feather-icon icon-md" data-feather="chevron-right"></i>
 
-                                                </a>
+                                                    </a>
+                                                </div>
                                             </div>
-                                        </div>
                                     </li>
                                     <li class="menu-title" data-sub-menu-target="menu">
                                         <div
-                                            class="category ipx-4 d-flex align-items-center justify-content-between small-text">
+                                        class="category text-it-black ipx-4 d-flex align-items-center justify-content-between small-text">
                                             <span>Jobs by City</span>
                                             <i class="feather-icon icon-md" data-feather="chevron-right"></i>
                                         </div>
-                                        <div class="menu-content bg-it-white small-text position-absolute">
+                                        <div class="menu-content shadow bg-it-white small-text position-absolute">
                                             <div class="row g-1">
                                                 <div class="col d-flex flex-column">
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/ho-chi-minh-hcm?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Ho Chi Minh
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/ha-noi?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Ha Noi
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/da-nang?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Da Nang
-                                                    </a>
-                                                    <a class="category-item ips-3" data-controller="utm-tracking"
-                                                        href="/it-jobs/others?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;click_source=Navigation+menu">
-                                                        Others
-                                                    </a>
+                                                    @foreach (var province in provinces)
+                                                    { 
+                                                        <a class="category-item ips-3" asp-area="User/Provinces" asp-controller="Province" asp-action="Detail">
+                                                            @province.Name
+                                                        </a>
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
@@ -469,50 +174,8 @@
                             </div>
                             <div class="position-absolute top-100 bg-it-white sub-menu vbit-menu">
                                 <ul class="ip-0 im-0 bg-it-white position-relative" data-controller="sub-menu">
-                                    <li class="menu-title" data-sub-menu-target="menu">
-                                        <a data-controller="utm-tracking" rel="canonical" class="text-reset"
-                                            href="https://itviec.com/vietnam-best-it-companies?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                            <div
-                                                class="category ipx-4 d-flex align-items-center justify-content-between small-text">
-                                                Vietnam Best IT Companies
-                                                <i class="feather-icon icon-md" data-feather="chevron-right"></i>
-                                            </div>
-                                        </a>
-                                        <div class="menu-content bg-it-white small-text position-absolute">
-                                            <a data-controller="utm-tracking" rel="canonical"
-                                                class="category-item ips-3"
-                                                href="https://itviec.com/vietnam-best-it-companies?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                Best IT Companies 2024
-                                            </a>
-                                            <a data-controller="utm-tracking" rel="canonical"
-                                                class="category-item ips-3"
-                                                href="https://itviec.com/vietnam-best-it-companies-2023?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                Best IT Companies 2023
-                                            </a>
-                                            <a data-controller="utm-tracking" rel="canonical"
-                                                class="category-item ips-3"
-                                                href="https://itviec.com/vietnam-best-it-companies-2022?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                Best IT Companies 2022
-                                            </a>
-                                            <a data-controller="utm-tracking" rel="canonical"
-                                                class="category-item ips-3"
-                                                href="https://itviec.com/vietnam-best-it-companies-2021?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                Best IT Companies 2021
-                                            </a>
-                                            <a data-controller="utm-tracking" rel="canonical"
-                                                class="category-item ips-3"
-                                                href="https://itviec.com/vietnam-best-it-companies-2020?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                Best IT Companies 2020
-                                            </a>
-                                            <a data-controller="utm-tracking" rel="canonical"
-                                                class="category-item ips-3"
-                                                href="https://itviec.com/vietnam-best-it-companies-2019?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                Best IT Companies 2019
-                                            </a>
-                                        </div>
-                                    </li>
                                     <li class="menu-title ipx-4 small-text category">
-                                        <a data-controller="utm-tracking" rel="canonical" class="d-block text-reset"
+                                        <a rel="canonical" class="d-block text-it-black"
                                             href="/companies/review-company?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
                                             Company Reviews
                                         </a>
@@ -520,87 +183,28 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="nav-item main-menu position-relative">
-                            <a data-controller="utm-tracking" class="nav-item-link d-flex align-items-center ipx-2"
-                                target="_blank"
-                                href="https://itviec.com/blog/?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                Blog
-                                <i class="feather-icon icon-md" data-feather="chevron-down"></i>
-                            </a>
-                            <div class="position-absolute top-100 bg-it-white sub-menu vbit-menu">
-                                <ul class="ip-0 im-0 bg-it-white position-relative" data-controller="sub-menu">
-                                    <li class="menu-title ipx-4 small-text category" data-sub-menu-target="menu">
-                                        <a target="_blank" class="d-block text-reset"
-                                            href="https://itviec.com/blog/it-salary-report">
-                                            <div
-                                                class="category d-flex align-items-center justify-content-between small-text">
-                                                IT Salary Report
-                                                <i class="feather-icon icon-md" data-feather="chevron-right"></i>
-
-                                            </div>
-                                        </a>
-                                        <div class="menu-content bg-it-white small-text position-absolute">
-                                            <a data-controller="utm-tracking" rel="canonical"
-                                                class="category-item ips-3"
-                                                href="https://itviec.com/report/vietnam-it-salary-and-recruitment-market?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                IT Salary Report 2024-2025
-                                            </a>
-                                            <a data-controller="utm-tracking" rel="canonical"
-                                                class="category-item ips-3"
-                                                href="https://itviec.com/blog/it-salary-report-2023-2024/?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                IT Salary Report 2023-2024
-                                            </a>
-                                            <a data-controller="utm-tracking" rel="canonical"
-                                                class="category-item ips-3"
-                                                href="https://itviec.com/blog/it-salary-report-2022-2023/?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                                IT Salary Report 2022-2023
-                                            </a>
-                                        </div>
-                                    </li>
-                                    <li class="menu-title ipx-4 small-text category bg-it-white">
-                                        <a target="_blank" class="d-block text-reset"
-                                            href="https://itviec.com/blog/category/su-nghiep-it/">IT Career </a>
-                                    </li>
-                                    <li class="menu-title ipx-4 small-text category bg-it-white">
-                                        <a target="_blank" class="d-block text-reset"
-                                            href="https://itviec.com/blog/category/ung-tuyen-va-thang-tien/">Applying
-                                            &amp; Career Up </a>
-                                    </li>
-                                    <li class="menu-title ipx-4 small-text category bg-it-white">
-                                        <a target="_blank" class="d-block text-reset"
-                                            href="https://itviec.com/blog/category/chuyen-mon-it/">IT Expertise </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
+                       
                     </ul>
                     <ul class="navbar-nav ms-auto igap-6 align-items-center">
                         <ul class="ips-3 ipy-5 menu-item header-nav navbar-nav align-items-xl-center">
                             <li>
-                                <a data-controller="utm-tracking" class="text-hover-underline"
+                                <a class="text-hover-underline text-it-black"
                                     rel="canonical" target="_blank"
-                                    href="/employer?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
+                                    href="/employer">
                                     For Employers
                                 </a>
                             </li>
                         </ul>
-
-                        <li class="nav-item">
-                            <a hreflang="en" rel="nofollow" class="text-hover-underline"
-                                data-controller="utm-tracking"
-                                href="/sign_in?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                                Sign in/Sign up
-                            </a>
-                        </li>
-                        <ul class="ipy-5 ipy-xl-0 navbar-nav align-items-center">
+						<partial name="_HeaderAuthPartial"/>
+                      
+                        <ul class="ipy-5 ipy-xl-0 navbar-nav align-items-center text-it-black">
                             <li>
-                                <div class="switch-language d-inline-flex cursor-pointer" data-controller="language"
-                                    data-language-locale-value="en" data-language-localed-path-value="/vi">
-                                    <a class="active" data-action="click->language#switchLanguage">
+                                <div class="switch-language d-inline-flex cursor-pointer">
+                                    <a class="active">
                                         EN
                                     </a>
-                                    <div class="vr mx-2 text-white align-self-center cursor-pointer"></div>
-                                    <a class="text-dark-grey" data-action="click->language#switchLanguage">
+                                    <div class="vr mx-2 text-white align-self-center cursor-pointer text-it-black"></div>
+                                    <a class="text-dark-grey">
                                         VI
                                     </a>
                                 </div>
@@ -612,16 +216,15 @@
         </nav>
     </div>
     <div class="d-xl-none">
-        <nav class="navbar fixed-top ipx-5 ipy-3 flex-row justify-content-between" data-controller="mobile-menu">
+        <nav class="navbar fixed-top ipx-5 ipy-3 flex-row justify-content-between shadow border-bottom">
             <div class="hamburger-menu">
-                <span class="text-dark-grey cursor-pointer" data-action="click->mobile-menu#openLeftNav">
+                <span class="text-it-black cursor-pointer">
                     <i class="feather-icon icon-md" data-feather="menu"></i>
                 </span>
             </div>
             <div class="d-flex align-items-center">
                 <div class="itviec-logo position-absolute">
-                    <a data-controller="utm-tracking"
-                        href="/?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
+                    <a href="">
                         <img class="logo-itviec" alt="logo-itviec"
                              src="~/images/logo.png" />
                     </a>
@@ -629,45 +232,47 @@
             </div>
             <div class="user-menu text-end">
                 <div class="nav-item">
-                    <a rel="nofollow" class="nav-link ipe-1 text-hover-underline"
-                        data-controller="utm-tracking"
-                        href="/sign_in?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">Sign
-                        In</a>
+
+                @if(SignInManager.IsSignedIn(User)) {
+                        <div class="d-flex align-items-center justify-content-end user-menu-wrapper">
+                        <div class="sign-in-user-avatar" id="">
+                            <img class="user-avatar" alt="user-avatar" src="https://itviec.com/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMHJxTUE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--b5cecf1eda8b9c8f3765505689936c7d750e1ece/AOh14Girjs--Y-qYpkLbFi-MUegt3K0POJrnIoLPj_Ya_hs=s96-c.jpg" width="32" height="32">
+                        </div>
+                        <i class="feather-icon icon-md" data-feather="chevron-down"></i>
+
+                    </div>
+                } else {
+                    <a asp-area="User/Auths" asp-controller="Auth" asp-action="SignIn" class="nav-link ipe-1 text-hover-underline text-it-black">Sign In</a>
+                }
                 </div>
+
             </div>
-            <div class="left-nav d-none position-absolute start-0 bg-it-white text-it-white"
-                data-mobile-menu-target="leftNav">
-                <div class="ips-3 imy-5 d-flex align-items-end justify-content-end text-dark-grey cursor-pointer"
-                    data-action="click->mobile-menu#closeLeftNav">
+            <div class="left-nav d-none position-absolute start-0 bg-it-white text-it-black leftNav shadow">
+                <div class="ips-3 imy-5 d-flex align-items-end justify-content-end cursor-pointer btnCloseLeftNav">
                     <span class="ipe-2">Close</span>
                     <span class="ipe-3 lh-1">
                         <i class="feather-icon icon-md" data-feather="x"></i>
                     </span>
                 </div>
-                <div class="menu-item">
+                <div class="menu-item border-top">
                     <div class="ips-3 ipy-4 d-flex align-items-center">
-                        <a data-controller="utm-tracking" class="text-it-white"
-                            href="/it-jobs?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">All
-                            Jobs</a>
+                        <a class="text-it-black" href="search">All Jobs</a>
                     </div>
                 </div>
                 <div class="menu-item">
-                    <div class="ips-3 ipy-4 d-flex justify-content-between" data-action="click->mobile-menu#show">
+                    <div class="ips-3 ipy-4 d-flex justify-content-between btnShowSubMenu">
                         Jobs by Skill
                         <span class="ipe-3">
                             <i class="feather-icon icon-md" data-feather="chevron-right"></i>
-
                         </span>
                     </div>
-                    <div class="sub-menu bg-it-white position-fixed" data-mobile-menu-target="subMenu">
-                        <div class="ips-3 ipy-5 d-flex align-items-center justify-content-between text-dark-grey">
-                            <div class="d-flex align-items-center" data-action="click->mobile-menu#back">
+                    <div class="sub-menu bg-it-white text-it-black position-fixed">
+                        <div class="ips-3 ipy-5 d-flex align-items-center justify-content-between text-it-black">
+                            <div class="d-flex align-items-center btnBackSubMenu">
                                 <i class="feather-icon icon-md" data-feather="chevron-left"></i>
-
-
                                 <span class="ips-2">Back</span>
                             </div>
-                            <div class="ipe-3 d-flex align-items-end" data-action="click->mobile-menu#closeLeftNav">
+                            <div class="ipe-3 d-flex align-items-end btnCloseSubMenu">
                                 <span class="ipe-2">Close</span>
                                 <span class="lh-1">
                                     <i class="feather-icon icon-md" data-feather="x"></i>
@@ -675,103 +280,36 @@
                             </div>
                         </div>
                         <div class="vstack">
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/java?click_source=Navigation+menu">Java</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/php?click_source=Navigation+menu">PHP</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/javascript?click_source=Navigation+menu">JavaScript</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/html5?click_source=Navigation+menu">HTML5</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/manager?click_source=Navigation+menu">Manager</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/sql?click_source=Navigation+menu">SQL</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/android?click_source=Navigation+menu">Android</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/ios?click_source=Navigation+menu">iOS</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/mysql?click_source=Navigation+menu">MySQL</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/tester?click_source=Navigation+menu">Tester</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/english?click_source=Navigation+menu">English</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/ruby?click_source=Navigation+menu">Ruby</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/python?click_source=Navigation+menu">Python</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/mobile-apps?click_source=Navigation+menu">Mobile Apps</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/ruby-on-rails?click_source=Navigation+menu">Ruby on Rails</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/qa-qc?click_source=Navigation+menu">QA QC</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/database?click_source=Navigation+menu">Database</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/.net?click_source=Navigation+menu">.NET</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/business-analyst?click_source=Navigation+menu">Business Analyst</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/linux?click_source=Navigation+menu">Linux</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/team-leader?click_source=Navigation+menu">Team Leader</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/nodejs?click_source=Navigation+menu">NodeJS</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/system-engineer?click_source=Navigation+menu">System Engineer</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/designer?click_source=Navigation+menu">Designer</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/ui-ux?click_source=Navigation+menu">UI-UX</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/project-manager?click_source=Navigation+menu">Project Manager</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/oop?click_source=Navigation+menu">OOP</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/oracle?click_source=Navigation+menu">Oracle</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/mvc?click_source=Navigation+menu">MVC</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/reactjs?click_source=Navigation+menu">ReactJS</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/embedded?click_source=Navigation+menu">Embedded</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/j2ee?click_source=Navigation+menu">J2EE</a>
+                            @foreach (var category in skills)
+                            {
+                                <a class="ips-4 ipy-2 sub-menu-item text-it-black" href="/">@category.Name</a>
+                            }
                         </div>
                         <div class="text-center">
-                            <a data-controller="utm-tracking"
-                                class="align-items-center d-inline-flex imy-3"
+                            <a
+                                class="align-items-center d-inline-flex imy-3 text-it-black"
                                 href="/jobs-skill-index?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
                                 View all Jobs by skill
-                                <svg class="feather-icon icon-sm">
-                                    <use
-                                        href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#chevron-right">
-                                    </use>
-                                </svg>
-
+                                <i class="feather-icon icon-sm" data-feather="chevron-right">
+                                </i>
                             </a>
                         </div>
                     </div>
                 </div>
                 <div class="menu-item">
-                    <div class="ips-3 ipy-4 d-flex justify-content-between" data-action="click->mobile-menu#show">
+                    <div class="ips-3 ipy-4 d-flex justify-content-between btnShowSubMenu">
                         Jobs by Title
                         <span class="ipe-3">
                             <i class="feather-icon icon-md" data-feather="chevron-right"></i>
-
                         </span>
                     </div>
-                    <div class="sub-menu bg-it-white position-fixed" data-mobile-menu-target="subMenu">
-                        <div class="ips-3 ipy-5 d-flex align-items-center justify-content-between text-dark-grey">
-                            <div class="d-flex align-items-center" data-action="click->mobile-menu#back">
+                    <div class="sub-menu bg-it-white position-fixed">
+                        <div class="ips-3 ipy-5 d-flex align-items-center justify-content-between text-it-black">
+                            <div class="d-flex align-items-center btnBackSubMenu">
                                 <i class="feather-icon icon-md" data-feather="chevron-left"></i>
-
-
                                 <span class="ips-2">Back</span>
                             </div>
-                            <div class="ipe-3 d-flex align-items-end" data-action="click->mobile-menu#closeLeftNav">
+                            <div class="ipe-3 d-flex align-items-end btnCloseLeftNav">
                                 <span class="ipe-2">Close</span>
                                 <span class="lh-1">
                                     <i class="feather-icon icon-md" data-feather="x"></i>
@@ -779,76 +317,23 @@
                             </div>
                         </div>
                         <div class="vstack">
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/java-developer?click_source=Navigation+menu">Java Developer</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/php-developer?click_source=Navigation+menu">PHP Developer</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/javascript-developer?click_source=Navigation+menu">Javascript
-                                Developer</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/html5-developer?click_source=Navigation+menu">HTML5 Developer</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/sql-developer?click_source=Navigation+menu">SQL Developer</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/android-developer?click_source=Navigation+menu">Android Developer</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/ios-developer?click_source=Navigation+menu">iOS Developer</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/tester?click_source=Navigation+menu">Tester</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/ruby-developer?click_source=Navigation+menu">Ruby Developer</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/python-developer?click_source=Navigation+menu">Python Developer</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/ruby-on-rails-developer?click_source=Navigation+menu">Ruby On Rails
-                                Developer</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/.net-developer?click_source=Navigation+menu">.NET Developer</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/nodejs-developer?click_source=Navigation+menu">NodeJS Developer</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/linux-developer?click_source=Navigation+menu">Linux Developer</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/oop-developer?click_source=Navigation+menu">OOP Developer</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/oracle-developer?click_source=Navigation+menu">Oracle Developer</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/c++-developer?click_source=Navigation+menu">C++ Developer</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/wordpress-developer?click_source=Navigation+menu">Wordpress Developer</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/designer?click_source=Navigation+menu">Designer</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/database-administrator?click_source=Navigation+menu">Database
-                                Administrator</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/mobile-apps-developer?click_source=Navigation+menu">Mobile Apps
-                                Developer</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/project-manager?click_source=Navigation+menu">Project Manager</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/product-owner?click_source=Navigation+menu">Product Owner</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/it-jobs/bridge-engineer?click_source=Navigation+menu">Bridge Engineer</a>
+
+							@foreach (var title in titles)
+							{
+                                <a class="ips-4 ipy-2 sub-menu-item text-it-black" href="/">@title.Name</a>
+							}
                         </div>
                         <div class="text-center">
-                            <a data-controller="utm-tracking"
-                                class="align-items-center d-inline-flex imy-3"
-                                href="/jobs-title-index?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
+                            <a class="align-items-center d-inline-flex imy-3 text-it-black" asp-area="User/Titles" asp-controller="Title" asp-action="All">
                                 View all Jobs by title
-                                <svg class="feather-icon icon-sm">
-                                    <use
-                                        href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#chevron-right">
-                                    </use>
-                                </svg>
+                                <i class="feather-icon icon-md" data-feather="chevron-right"></i>
 
                             </a>
                         </div>
                     </div>
                 </div>
                 <div class="menu-item">
-                    <div class="ips-3 ipy-4 d-flex justify-content-between" data-action="click->mobile-menu#show">
+                    <div class="ips-3 ipy-4 d-flex justify-content-between btnShowSubMenu">
                         Jobs by Company
                         <span class="ipe-3">
                             <i class="feather-icon icon-md" data-feather="chevron-right"></i>
@@ -856,14 +341,12 @@
                         </span>
                     </div>
                     <div class="sub-menu bg-it-white position-fixed" data-mobile-menu-target="subMenu">
-                        <div class="ips-3 ipy-5 d-flex align-items-center justify-content-between text-dark-grey">
-                            <div class="d-flex align-items-center" data-action="click->mobile-menu#back">
+                        <div class="ips-3 ipy-5 d-flex align-items-center justify-content-between text-it-black">
+                            <div class="d-flex align-items-center btnBackSubMenu">
                                 <i class="feather-icon icon-md" data-feather="chevron-left"></i>
-
-
                                 <span class="ips-2">Back</span>
                             </div>
-                            <div class="ipe-3 d-flex align-items-end" data-action="click->mobile-menu#closeLeftNav">
+                            <div class="ipe-3 d-flex align-items-end btnCloseLeftNav">
                                 <span class="ipe-2">Close</span>
                                 <span class="lh-1">
                                     <i class="feather-icon icon-md" data-feather="x"></i>
@@ -871,65 +354,23 @@
                             </div>
                         </div>
                         <div class="vstack">
-                            <a class="ips-4 ipy-2 sub-menu-item" href="/companies/tymex">TymeX</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/companies/nab-innovation-centre-vietnam">NAB Innovation Centre Vietnam</a>
-                            <a class="ips-4 ipy-2 sub-menu-item" href="/companies/mb-bank">MB Bank</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/companies/vietinbank">VietinBank</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/companies/capgemini-vietnam">Capgemini Vietnam</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/companies/money-forward-vietnam-co-ltd">MONEY FORWARD VIETNAM CO.,LTD</a>
-                            <a class="ips-4 ipy-2 sub-menu-item" href="/companies/lg-cns-viet-nam">LG CNS
-                                Việt Nam</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/companies/blue-belt-technology">Blue Belt Technology</a>
-                            <a class="ips-4 ipy-2 sub-menu-item" href="/companies/wavenet">Wavenet</a>
-                            <a class="ips-4 ipy-2 sub-menu-item" href="/companies/elca">ELCA</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/companies/hybrid-technologies">Hybrid Technologies</a>
-                            <a class="ips-4 ipy-2 sub-menu-item" href="/companies/endava-viet-nam">Endava
-                                Việt Nam</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/companies/hitachi-digital-services">Hitachi Digital Services</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/companies/fullerton-health">Fullerton Health</a>
-                            <a class="ips-4 ipy-2 sub-menu-item" href="/companies/hrs-group">HRS Group</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/companies/smg-swiss-marketplace-group">SMG Swiss Marketplace Group</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/companies/hongthai-technical">HONGTHAI Technical</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/companies/cong-ty-tnhh-stack-tech">Công Ty TNHH Stack Tech</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/companies/netcompany">Netcompany</a>
-                            <a class="ips-4 ipy-2 sub-menu-item" href="/companies/bbv-vietnam">bbv
-                                Vietnam</a>
-                            <a class="ips-4 ipy-2 sub-menu-item" href="/companies/gene-solutions">Gene
-                                Solutions</a>
-                            <a class="ips-4 ipy-2 sub-menu-item" href="/companies/katalon">Katalon</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="/companies/trusting-social">Trusting Social</a>
-                            <a class="ips-4 ipy-2 sub-menu-item" href="/companies/flodesk">Flodesk</a>
+                            @foreach (var company in companies)
+                             {
+                                <a asp-area="User/Companies" asp-controller="Company" asp-action="Detail" asp-route-slug="@company.Slug" class="ips-4 ipy-2 sub-menu-item  text-it-black">@company.Name</a>
+                             }
                         </div>
                         <div class="text-center">
-                            <a data-controller="utm-tracking"
-                                class="align-items-center d-inline-flex imy-3"
+                            <a class="align-items-center d-inline-flex imy-3 text-it-black"
                                 href="/jobs-company-index?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
                                 View all Jobs by company
-                                <svg class="feather-icon icon-sm">
-                                    <use
-                                        href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#chevron-right">
-                                    </use>
-                                </svg>
+                                <i class="feather-icon icon-md" data-feather="chevron-right"></i>
 
                             </a>
                         </div>
                     </div>
                 </div>
                 <div class="menu-item">
-                    <div class="ips-3 ipy-4 d-flex justify-content-between" data-action="click->mobile-menu#show">
+                    <div class="ips-3 ipy-4 d-flex justify-content-between btnShowSubMenu">
                         Jobs by City
                         <span class="ipe-3">
                             <i class="feather-icon icon-md" data-feather="chevron-right"></i>
@@ -937,12 +378,12 @@
                         </span>
                     </div>
                     <div class="sub-menu bg-it-white position-fixed" data-mobile-menu-target="subMenu">
-                        <div class="ips-3 ipy-5 d-flex align-items-center justify-content-between text-dark-grey">
-                            <div class="d-flex align-items-center" data-action="click->mobile-menu#back">
+                        <div class="ips-3 ipy-5 d-flex align-items-center justify-content-between  text-it-black">
+                            <div class="d-flex align-items-center btnBackSubMenu">
                                 <i class="feather-icon icon-md" data-feather="chevron-left"></i>
                                 <span class="ips-2">Back</span>
                             </div>
-                            <div class="ipe-3 d-flex align-items-end" data-action="click->mobile-menu#closeLeftNav">
+                            <div class="ipe-3 d-flex align-items-end btnCloseLeftNav">
                                 <span class="ipe-2">Close</span>
                                 <span class="lh-1">
                                     <i class="feather-icon icon-md" data-feather="x"></i>
@@ -950,127 +391,29 @@
                             </div>
                         </div>
                         <div class="vstack">
-                            <a class="ips-4 ipy-2 sub-menu-item" href="/it-jobs/ho-chi-minh-hcm">Ho Chi
-                                Minh</a>
-                            <a class="ips-4 ipy-2 sub-menu-item" href="/it-jobs/ha-noi">Ha Noi</a>
-                            <a class="ips-4 ipy-2 sub-menu-item" href="/it-jobs/da-nang">Da Nang</a>
-                            <a class="ips-4 ipy-2 sub-menu-item" href="/it-jobs/others">Others</a>
-                        </div>
+                            @foreach (var province in provinces)
+                            {
+                                <a class="ips-4 ipy-2 sub-menu-item text-it-black" asp-area="User/Provinces" asp-controller="Province" asp-action="Detail">
+                                    @province.Name
+                                </a>
+                            }
+                            </div>
                     </div>
                 </div>
-                <div class="menu-item">
-                    <div class="ips-3 ipy-4 d-flex justify-content-between" data-action="click->mobile-menu#show">
-                        IT Companies
-                        <span class="ipe-3">
-                            <i class="feather-icon icon-md" data-feather="chevron-right"></i>
-
-                        </span>
-                    </div>
-                    <div class="sub-menu bg-it-white position-fixed" data-mobile-menu-target="subMenu">
-                        <div class="ips-3 ipy-5 d-flex align-items-center justify-content-between text-dark-grey">
-                            <div class="d-flex align-items-center" data-action="click->mobile-menu#back">
-                                <i class="feather-icon icon-md" data-feather="chevron-left"></i>
-
-
-                                <span class="ips-2">Back</span>
-                            </div>
-                            <div class="ipe-3 d-flex align-items-end" data-action="click->mobile-menu#closeLeftNav">
-                                <span class="ipe-2">Close</span>
-                                <span class="lh-1">
-                                    <i class="feather-icon icon-md" data-feather="x"></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="vstack">
-                            <a data-controller="utm-tracking" class="ips-4 ipy-2 sub-menu-item"
-                                href="https://itviec.com/vietnam-best-it-companies?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">Best
-                                IT Companies 2024</a>
-                            <a data-controller="utm-tracking" class="ips-4 ipy-2 sub-menu-item"
-                                href="https://itviec.com/vietnam-best-it-companies-2023?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">Best
-                                IT Companies 2023</a>
-                            <a data-controller="utm-tracking" class="ips-4 ipy-2 sub-menu-item"
-                                href="https://itviec.com/vietnam-best-it-companies-2022?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">Best
-                                IT Companies 2022</a>
-                            <a data-controller="utm-tracking" class="ips-4 ipy-2 sub-menu-item"
-                                href="https://itviec.com/vietnam-best-it-companies-2021?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">Best
-                                IT Companies 2021</a>
-                            <a data-controller="utm-tracking" class="ips-4 ipy-2 sub-menu-item"
-                                href="https://itviec.com/vietnam-best-it-companies-2020?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">Best
-                                IT Companies 2020</a>
-                            <a data-controller="utm-tracking" class="ips-4 ipy-2 sub-menu-item"
-                                href="https://itviec.com/vietnam-best-it-companies-2019?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">Best
-                                IT Companies 2019</a>
-                            <a data-controller="utm-tracking" class="ips-4 ipy-2 sub-menu-item"
-                                href="/companies/review-company?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">Company
-                                Reviews</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="ips-3 ipy-4 d-flex justify-content-between" data-action="click->mobile-menu#show">
-                        Blog
-                        <span class="ipe-3">
-                            <i class="feather-icon icon-md" data-feather="chevron-right"></i>
-
-                        </span>
-                    </div>
-                    <div class="sub-menu bg-it-white position-fixed" data-mobile-menu-target="subMenu">
-                        <div class="ips-3 ipy-5 d-flex align-items-center justify-content-between text-dark-grey">
-                            <div class="d-flex align-items-center" data-action="click->mobile-menu#back">
-                                <i class="feather-icon icon-md" data-feather="chevron-left"></i>
-
-
-                                <span class="ips-2">Back</span>
-                            </div>
-                            <div class="ipe-3 d-flex align-items-end" data-action="click->mobile-menu#closeLeftNav">
-                                <span class="ipe-2">Close</span>
-                                <span class="lh-1">
-                                    <i class="feather-icon icon-md" data-feather="x"></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="vstack">
-                            <a data-controller="utm-tracking" rel="canonical"
-                                class="ips-4 ipy-2 sub-menu-item"
-                                href="https://itviec.com/report/vietnam-it-salary-and-recruitment-market?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">IT
-                                Salary Report 2024-2025</a>
-                            <a data-controller="utm-tracking" rel="canonical"
-                                class="ips-4 ipy-2 sub-menu-item"
-                                href="https://itviec.com/blog/it-salary-report-2023-2024/?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">IT
-                                Salary Report 2023-2024</a>
-                            <a data-controller="utm-tracking" rel="canonical"
-                                class="ips-4 ipy-2 sub-menu-item"
-                                href="https://itviec.com/blog/it-salary-report-2022-2023/?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">IT
-                                Salary Report 2022-2023</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="https://itviec.com/blog/category/su-nghiep-it/">IT Career</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="https://itviec.com/blog/category/ung-tuyen-va-thang-tien/">Applying &amp; Career
-                                Up</a>
-                            <a class="ips-4 ipy-2 sub-menu-item"
-                                href="https://itviec.com/blog/category/chuyen-mon-it/">IT Expertise</a>
-                        </div>
-                    </div>
-                </div>
-                <ul class="ips-3 ipy-5 menu-item header-nav navbar-nav align-items-xl-center">
+                <ul class="ips-3 ipy-5 menu-item header-nav navbar-nav align-items-xl-center text-it-black">
                     <li>
-                        <a data-controller="utm-tracking" class="text-hover-underline" rel="canonical"
-                            target="_blank"
-                            href="/employer?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">For
-                            Employers</a>
+                        <a class="text-hover-underline text-it-black" rel="canonical" target="_blank">For Employers</a>
                     </li>
                 </ul>
 
                 <ul class="ipy-5 ipy-xl-0 navbar-nav align-items-center">
                     <li>
-                        <div class="switch-language d-inline-flex cursor-pointer" data-controller="language"
-                            @* data-language-locale-value="en" data-language-localed-path-value="/vi" *@
-                        >
-                            <a asp-controller="Home" asp-action="ChangeLanguage" asp-route-lang="en-US" class="active text-it-white" data-action="click->language#switchLanguage">
+                        <div class="switch-language d-inline-flex cursor-pointer text-it-black">
+                            <a asp-controller="Home" asp-action="ChangeLanguage" asp-route-lang="en-US" class="active" >
                                 EN
                             </a>
-                            <div class="vr mx-2 text-white align-self-center cursor-pointer"></div>
-                            <a asp-controller="Home" asp-action="ChangeLanguage" asp-route-lang="vi" class="text-dark-grey" data-action="click->language#switchLanguage">
+                            <div class="vr mx-2 text-white align-self-center cursor-pointer text-it-black"></div>
+                            <a asp-controller="Home" asp-action="ChangeLanguage" asp-route-lang="vi" class="text-dark-grey">
                                 VI
                             </a>
                         </div>
@@ -1079,113 +422,73 @@
                 </ul>
 
             </div>
-            <div class="right-nav d-none position-absolute end-0 bg-it-white text-it-white"
-                data-mobile-menu-target="rightNav">
-                <div class="ipe-3 imy-5 d-flex align-items-end justify-content-end text-dark-grey cursor-pointer"
-                    data-action="click->mobile-menu#closeRightNav">
+            <div class="right-nav d-none position-absolute end-0 bg-it-white shadow">
+                <div class="ipe-3 imy-5 d-flex align-items-end justify-content-end text-it-black cursor-pointer btnCloseRightNav">
                     <span class="ipe-2">Close</span>
                     <span class="ipe-3 lh-1">
-                        <svg class="feather-icon icon-sm">
-                            <use
-                                href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#x">
-                            </use>
-                        </svg>
+                        <i class="feather-icon icon-md" data-feather="x"></i>
                     </span>
                 </div>
-                <ul class="header-nav navbar-nav">
+                <ul class="header-nav navbar-nav border-top">
                     <li class="profile-menu-item d-flex">
-                        <a data-controller="utm-tracking" class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4"
+                        <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-it-black"
                             href="/profile-dashboard?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                            <svg class="feather-icon icon-md">
-                                <use
-                                    href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#grid">
-                                </use>
-                            </svg>
-
+                            <i class="feather-icon icon-md" data-feather="grid"></i>
                             <span class="ims-2">Dashboard</span>
                         </a>
                     </li>
                     <li class="profile-menu-item d-flex">
-                        <a data-controller="utm-tracking" class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4"
+                        <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-it-black"
                             href="/profile-cv/manage-cv?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                            <svg class="feather-icon icon-md">
-                                <use
-                                    href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#file-text">
-                                </use>
-                            </svg>
-
+                            <i class="feather-icon icon-md" data-feather="file-text"></i>
                             <span class="ims-2">CV Attachment</span>
                         </a>
                     </li>
                     <li class="profile-menu-item d-flex">
-                        <a data-controller="utm-tracking" class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4"
+                        <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-it-black"
                             href="/profile-cv?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                            <svg class="feather-icon icon-md">
-                                <use
-                                    href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#user">
-                                </use>
-                            </svg>
+                            <i class="feather-icon icon-md" data-feather="user"></i>
 
                             <span class="ims-2">ITviec Profile</span>
                         </a>
                     </li>
                     <li class="profile-menu-item d-flex">
-                        <a data-controller="utm-tracking" class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4"
+                        <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-it-black"
                             href="/my-jobs?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                            <svg class="feather-icon icon-md">
-                                <use
-                                    href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#briefcase">
-                                </use>
-                            </svg>
+                            <i class="feather-icon icon-md" data-feather="briefcase"></i>
 
                             <span class="ims-2">My Jobs</span>
                         </a>
                     </li>
                     <li class="profile-menu-item d-flex">
-                        <a data-controller="utm-tracking" class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4"
+                        <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-it-black"
                             href="/job-invitation?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                            <svg class="feather-icon icon-md">
-                                <use
-                                    href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#inbox">
-                                </use>
-                            </svg>
+                            <i class="feather-icon icon-md" data-feather="inbox"></i>
 
                             <span class="ims-2">Job Invitation</span>
                         </a>
                     </li>
                     <li class="profile-menu-item d-flex">
-                        <a data-controller="utm-tracking" class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4"
+                        <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-it-black"
                             href="/subscription?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                            <svg class="feather-icon icon-md">
-                                <use
-                                    href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#mail">
-                                </use>
-                            </svg>
+                        
+                            <i class="feather-icon icon-md" data-feather="mail"></i>
 
                             <span class="ims-2">Email Subscriptions</span>
                         </a>
                     </li>
                     <li class="profile-menu-item d-flex">
-                        <a data-controller="utm-tracking" class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4"
+                        <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-it-black"
                             href="/settings?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
-                            <svg class="feather-icon icon-md">
-                                <use
-                                    href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#settings">
-                                </use>
-                            </svg>
+                            <i class="feather-icon icon-md" data-feather="settings"></i>
 
                             <span class="ims-2">Settings</span>
                         </a>
                     </li>
                     <li class="profile-menu-item d-flex">
-                        <a data-turbo="false" class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4"
+                        <a data-turbo="false" class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-it-black"
                             rel="nofollow" data-method="delete" href="/sign_out">
-                            <svg class="feather-icon icon-md">
-                                <use
-                                    href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#log-out">
-                                </use>
-                            </svg>
-
+                            <i class="feather-icon icon-md" data-feather="log-out"></i>
                             <span class="ims-2">Sign Out</span>
                         </a>
                     </li>
@@ -1193,7 +496,61 @@
                 </ul>
             </div>
         </nav>
-
     </div>
-
 </header>
+<script>
+	$(document).ready(function () {
+        $(".menu-title").hover(
+            function () {
+                $(".menu-title").removeClass("active");
+                $(this).addClass("active");
+            },
+            function () {
+                // Nếu muốn giữ class active khi hover xong thì bỏ dòng này
+                // $(this).removeClass("active");
+            }
+        );
+
+        $('.hamburger-menu').on('click', function () {
+            $('.left-nav').toggleClass('d-none'); // Thêm hoặc xóa class `d-none`
+        });
+
+        // Đóng menu khi nhấn vào nút Close
+        $('.btnCloseLeftNav').on('click', function () {
+            $('.left-nav').addClass('d-none'); // Thêm lại class `d-none` để ẩn
+        });
+
+        $('.btnShowSubMenu').on('click', function () {
+            // Tìm menu cùng cấp có class `sub-menu` và thay đổi width
+            $(this).siblings('.sub-menu').css('width', '280px');
+        });
+        $(".btnCloseSubMenu").on('click', function () {
+            $('.left-nav').addClass('d-none'); // Thêm lại class `d-none` để ẩn
+        })
+        // Khi nhấn vào nút Back
+        $('.btnBackSubMenu').on('click', function () {
+            // Tìm menu cha có class `sub-menu` và đặt width = 0
+            $(this).closest('.sub-menu').css('width', '0');
+        });
+        $(".user-menu-wrapper").click(function () {
+			$(".right-nav").toggleClass("d-none");
+		});
+
+        $(".btnCloseRightNav").click(function() {
+            $(".right-nav").addClass("d-none");
+        })
+
+
+        $(document).click(function (event) {
+        console.log(event.target)
+        if (!$(event.target).closest('.right-nav, .user-menu-wrapper').length) {
+            $(".right-nav").addClass("d-none");
+        }
+        if (!$(event.target).closest('.left-nav, .hamburger-menu').length) {
+            $(".left-nav").addClass("d-none");
+        }
+    });
+	});
+
+
+</script>

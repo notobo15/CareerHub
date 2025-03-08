@@ -1,0 +1,375 @@
+﻿@{
+    var industries = ViewData["industries"] as List<Industry>;
+}
+
+<div
+    class="bg-it-white box-shadow-normal irounded-lg ip-4 imy-4 d-none d-xl-flex align-items-center justify-content-center filter-wrapper">
+    <div class="flex-1">
+        <form class="d-flex align-items-center igap-2" action="/viec-lam-it" accept-charset="UTF-8" method="get">
+            <input type="hidden" name="query" id="query" value="" autocomplete="off" />
+            <input type="hidden" name="city" id="city" autocomplete="off" />
+            <input type="hidden" name="inline_filter" id="inline_filter" value="true" autocomplete="off" />
+            <section data-jobs--filter-target="inlineJobLevel">
+                <div class="job-level dropdown">
+                    <div class="itag itag-lg itag-light dropdown-model" id="dropdown-job-level">
+                        <span class="labelText">
+                            Cấp bậc
+                        </span>
+                        <span class="d-flex align-items-center chevronDownIcon">
+                            <i class="feather-icon icon-md" data-feather="chevron-down"></i>
+                        </span>
+                        <span class="d-flex align-items-center clearIcon d-none">
+                            <i class="feather-icon icon-md" data-feather="x"></i>
+                        </span>
+                    </div>
+                    <div aria-labelledby="dropdown-job-level"
+                        class="dropdown-menu mw-320 ipx-4 ipt-1 ipb-4 irounded-lg box-shadow-medium"
+                        data-jobs--inline-filter-target="dropDownMenu">
+                        <label class="icheckbox imt-3 d-block">
+                            <input name="job_level_names[]" type="checkbox" value="Fresher" />
+                            <span>Fresher</span>
+                        </label>
+                        <label class="icheckbox imt-3 d-block">
+                            <input name="job_level_names[]" type="checkbox" value="Junior" />
+                            <span>Junior</span>
+                        </label>
+                        <label class="icheckbox imt-3 d-block">
+                            <input name="job_level_names[]" type="checkbox" value="Senior" />
+                            <span>Senior</span>
+                        </label>
+                        <label class="icheckbox imt-3 d-block">
+                            <input name="job_level_names[]" type="checkbox" value="Manager" />
+                            <span>Manager</span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="working-model dropdown">
+                    <div aria-expanded="false" class="itag itag-lg itag-light dropdown-model"
+                        id="dropdown-working-model">
+                        <span class="labelText">
+                            Hình thức làm việc
+                        </span>
+                        <span class="d-flex align-items-center chevronDownIcon">
+                            <i class="feather-icon icon-md" data-feather="chevron-down"></i>
+                        </span>
+                        <span class="d-flex align-items-center clearIcon d-none">
+                            <i class="feather-icon icon-md" data-feather="x"></i>
+
+                        </span>
+                    </div>
+                    <div class="dropdown-menu mw-320 ipx-4 ipt-1 ipb-4 irounded-lg box-shadow-medium dropDownMenu">
+                        <label class="icheckbox imt-3 d-block">
+                            <input name="working_models[]" type="checkbox" value="onsite" />
+                            <span>Tại văn phòng</span>
+                        </label>
+                        <label class="icheckbox imt-3 d-block">
+                            <input type="checkbox" value="remote" />
+                            <span>Làm từ xa</span>
+                        </label>
+                        <label class="icheckbox imt-3 d-block">
+                            <input name="working_models[]" type="checkbox" value="hybrid" />
+                            <span>Linh hoạt</span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="salary dropdown">
+                    <div class="itag itag-lg itag-light dropdown-model" id="dropdown-salary">
+                        <span>Mức lương</span>
+                        <span class="d-flex align-items-center chevronDownIcon">
+                            <i class="feather-icon icon-md" data-feather="chevron-down"></i>
+                        </span>
+                        <span class="d-flex align-items-center clearIcon d-none">
+                            <i class="feather-icon icon-md" data-feather="x"></i>
+                    </div>
+                    <div class="dropdown-menu mw-320 ipx-4 ipt-1 ipb-4 irounded-lg box-shadow-medium dropDownMenu">
+                        <div class="ipt-4 ipb-2">
+                            <label class="form-label" for="customRange2">
+                                <span>500$ - 10,000$</span>
+                            </label>
+                        </div>
+                        <div class="range-border">
+                            <div class="range-slider">
+                                <span class="range-selected" data-input-range-target="rangeSelected"
+                                    data-position="inline"
+                                    style="--min-salary-value: 500; --max-salary-value: 10000;"></span>
+                            </div>
+                            <div class="range-input">
+                                <input type="hidden" name="salary_ranges_changed" id="salary_ranges_changed"
+                                    value="true" autocomplete="off" />
+                                <input class="min" max="10000" min="500" name="salary_ranges[]" step="500" type="range"
+                                    value="500" />
+                                <input class="max" max="10000" min="500" name="salary_ranges[]" step="500" type="range"
+                                    value="10000" />
+                            </div>
+                        </div>
+                        <div class="ibtn ibtn-sm ibtn-secondary w-100 imt-4 cursor-pointer"
+                            data-action="click->jobs--counter-filter#submitFormInline">
+                            Áp dụng
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section data-jobs--filter-target="inlineIndustry">
+                <div class="industry dropdown">
+                    <div aria-expanded="false" class="itag itag-lg itag-light dropdown-model" id="dropdown-industry">
+                        <span class="labelText">
+                            Lĩnh vực
+                        </span>
+                        <span class="d-flex align-items-center chevronDownIcon">
+                            <i class="feather-icon icon-md" data-feather="chevron-down"></i>
+
+                        </span>
+                        <span class="d-flex align-items-center clearIcon d-none">
+                            <i class="feather-icon icon-md" data-feather="x"></i>
+
+                        </span>
+                    </div>
+                    <div aria-labelledby="dropdown-industry"
+                        class="dropdown-menu ipy-0 mw-320 irounded-lg box-shadow-medium dropDownMenu">
+                        <div class="ipx-4 ipt-4 ipb-1">
+                            <input type="text" name="" id="" value="" class="form-control"
+                                placeholder="Tìm kiếm lĩnh vực" autocomplete="on" />
+                        </div>
+                        <div class="imt-1 ips-4 imb-4 ime-4 filter-scrollbar overflow-auto items mh-200">
+
+                            @foreach (var industry in industries)
+                            {
+                                <label class="icheckbox d-block imt-3" data-jobs--search-selection-target="item">
+                                    <input name="company_industry_ids[]" type="checkbox" value="@industry.IndustryId" />
+                                    <span>@industry.Name</span>
+                                </label>
+                            }
+
+                            <p class="text-dark-grey d-none imt-4" data-jobs--search-selection-target="noResult">
+                                Không tìm thấy kết quả
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section data-jobs--filter-target="inlineCompanyType"></section>
+            <section class="clear-inline-filter d-none" data-jobs--filter-target="clearInlineFilter">
+                <a class="text-rich-grey text-clear-underline ips-2" data-jobs--counter-filter-target="clearAll"
+                    href="/viec-lam-it">Xoá</a>
+            </section>
+        </form>
+    </div>
+    <div class="justify-content-end subscription-filter-btn-wrapper">
+        <button
+            class="position-relative button-filter w-100 bg-it-white irounded-sm border-dark-grey d-flex align-items-center text-it-black"
+            type="button">
+            <i class="feather-icon icon-md" data-feather="filter"></i>
+            <span class="ips-1 normal-text">Bộ lọc</span>
+            <span class="ilabel-warning position-absolute small-text text-it-white filter-number"></span>
+        </button>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".dropdown").click(function (event) {
+            event.stopPropagation(); // Ngăn chặn sự kiện click lan ra ngoài
+
+            let $dropdownModel = $(this).find(".itag");
+            let $dropdownMenu = $(this).find(".dropdown-menu");
+
+            // Kiểm tra nếu dropdown đã mở
+            let isOpen = $dropdownModel.hasClass("show");
+
+            // Xóa class "show" khỏi tất cả dropdown khác
+            $(".dropdown .itag, .dropdown .dropdown-menu").removeClass("show");
+
+            // Nếu chưa mở thì thêm class "show"
+            if (!isOpen) {
+                $dropdownModel.addClass("show");
+                $dropdownMenu.addClass("show");
+            }
+        });
+
+        // Khi click vào bất kỳ chỗ nào trên document ngoài dropdown thì đóng dropdown
+        $(document).click(function () {
+            $(".dropdown .itag, .dropdown .dropdown-menu").removeClass("show");
+        });
+
+        // Khi click vào bên trong .dropdown-menu, không đóng dropdown
+        $(".dropdown-menu").click(function (event) {
+            event.stopPropagation(); // Ngăn chặn sự kiện đóng dropdown
+        });
+
+        // Click ngoài dropdown thì đóng lại
+        $(document).click(function () {
+            $(".dropdown .itag, .dropdown .dropdown-menu").removeClass("show");
+        });
+
+        $(".dropdown input[type='checkbox']").change(function () {
+            let $dropdown = $(this).closest(".dropdown");
+            let $dropdownModel = $dropdown.find(".dropdown-model");
+            let $labelText = $dropdownModel.find(".labelText");
+            let $chevronIcon = $dropdownModel.find(".chevronDownIcon");
+            let $clearIcon = $dropdownModel.find(".clearIcon");
+
+            // Lấy danh sách checkbox được chọn
+            let selectedLabels = $dropdown.find("input[type='checkbox']:checked")
+                .map(function () {
+                    return $(this).siblings("span").text(); // Lấy nội dung của label
+                }).get();
+
+
+            console.log("selectedLabels", selectedLabels)
+            if (selectedLabels.length > 0) {
+                if (selectedLabels.length === 1) {
+                    $labelText.text(selectedLabels[0]); // Nếu chỉ có 1, hiển thị trực tiếp
+                } else {
+                    $labelText.text(`${selectedLabels[0]} +${selectedLabels.length - 1}`); // Nếu có nhiều, hiển thị tên đầu tiên + số lượng còn lại
+                }
+                $dropdownModel.addClass("selected");
+                $chevronIcon.addClass("d-none"); // Ẩn icon chevron xuống
+                $clearIcon.removeClass("d-none"); // Hiển thị nút clear
+            } else {
+                $labelText.text("Cấp bậc"); // Khi không có gì chọn, reset về giá trị mặc định
+                $dropdownModel.removeClass("selected");
+                $chevronIcon.removeClass("d-none"); // Hiển thị lại icon chevron xuống
+                $clearIcon.addClass("d-none"); // Ẩn nút clear
+            }
+        });
+
+        // Khi click vào nút clear, xóa hết checkbox đã chọn
+        $(".clearIcon").click(function (event) {
+            event.stopPropagation(); // Ngăn chặn click lan ra ngoài
+            let $dropdown = $(this).closest(".dropdown");
+            $dropdown.find("input[type='checkbox']").prop("checked", false).trigger("change"); // Bỏ chọn tất cả và kích hoạt sự kiện change
+        });
+
+
+        function updateSalaryDisplay() {
+            let minSalary = parseInt($(".salary .range-input .min").val());
+            let maxSalary = parseInt($(".salary .range-input .max").val());
+            let minLimit = parseInt($(".salary .range-input .min").attr("min"));
+            let maxLimit = parseInt($(".salary .range-input .max").attr("max"));
+
+            // Tính phần trăm để cập nhật style
+            let minPercentage = ((minSalary - minLimit) / (maxLimit - minLimit)) * 100;
+            let maxPercentage = ((maxLimit - maxSalary) / (maxLimit - minLimit)) * 100;
+
+            // Cập nhật nội dung hiển thị trong label (KHÔNG cập nhật span dropdown-model ngay)
+            let salaryText = minSalary === maxSalary ? `${minSalary}$` : `${minSalary}$ - ${maxSalary}$`;
+            $(".salary .ipt-4 .form-label span").text(salaryText); // Cập nhật label trong dropdown
+
+            // Cập nhật style của thanh range
+            $(".salary .range-selected").css({
+                "left": `${minPercentage}%`,
+                "right": `${maxPercentage}%`,
+                "--min-salary-value": minSalary,
+                "--max-salary-value": maxSalary
+            });
+        }
+
+        // Khi kéo thả input range, chỉ cập nhật label hiển thị
+        $(".salary .range-input input").on("input change", function () {
+            updateSalaryDisplay();
+        });
+
+        // Khi click vào nút "Áp dụng"
+        $(".salary .ibtn[data-action='click->jobs--counter-filter#submitFormInline']").click(function () {
+            let $dropdownModel = $(".salary .dropdown-model");
+            let salaryText = $(".salary .ipt-4 .form-label span").text(); // Lấy giá trị đã cập nhật
+
+            // Chỉ cập nhật text span khi Apply
+            $dropdownModel.find("span:first").text(salaryText); // Cập nhật text của span đầu tiên
+            $dropdownModel.addClass("selected"); // Thêm class selected
+            $dropdownModel.find(".chevronDownIcon").addClass("d-none"); // Ẩn icon chevron-down
+            $dropdownModel.find(".clearIcon").removeClass("d-none"); // Hiển thị icon clear
+
+            // Đóng dropdown sau khi áp dụng
+            $(".salary .dropdown-menu").removeClass("show");
+            $(".salary .dropdown-model").removeClass("show");
+        });
+
+        // Khi click vào clear icon, reset về mặc định
+        $(".salary .clearIcon").click(function (event) {
+            event.stopPropagation(); // Ngăn chặn sự kiện lan ra dropdown
+
+            let $dropdownModel = $(".salary .dropdown-model");
+
+            // Reset giá trị về mặc định
+            $(".salary .range-input .min").val(500);
+            $(".salary .range-input .max").val(10000);
+            updateSalaryDisplay();
+
+            // Cập nhật UI
+            $dropdownModel.removeClass("selected"); // Xóa class selected
+            $dropdownModel.find("span:first").text("Mức lương"); // Chỉ cập nhật span khi reset
+            $dropdownModel.find(".chevronDownIcon").removeClass("d-none"); // Hiển thị lại icon chevron-down
+            $dropdownModel.find(".clearIcon").addClass("d-none"); // Ẩn icon clear
+        });
+
+        // Toggle dropdown khi click vào dropdown-model
+        $(".salary .dropdown-model").click(function (event) {
+            event.stopPropagation(); // Ngăn chặn sự kiện click lan ra ngoài
+
+            let $dropdownModel = $(this);
+            let $dropdownMenu = $dropdownModel.siblings(".dropdown-menu");
+
+            // Đóng tất cả dropdown khác trước khi mở dropdown hiện tại
+            $(".salary .dropdown-model, .salary .dropdown-menu").removeClass("show");
+
+            // Nếu dropdown chưa mở thì thêm class "show"
+            if (!$dropdownMenu.hasClass("show")) {
+                $dropdownModel.addClass("show");
+                $dropdownMenu.addClass("show");
+            }
+        });
+
+        // Đóng dropdown khi click ra ngoài
+        $(document).click(function () {
+            $(".salary .dropdown-model, .salary .dropdown-menu").removeClass("show");
+        });
+
+        // Gọi hàm cập nhật khi trang load để thiết lập giá trị ban đầu
+        updateSalaryDisplay();
+
+        @*  *@
+
+
+            $(".button-filter").click(function () {
+                let $filterJob = $("#filter-job");
+                let $body = $("body");
+                if ($filterJob.hasClass("show")) {
+                    $filterJob.removeClass("show").css("display", "none");
+                    $body.removeClass("overflow-hidden"); // Cho phép scroll lại
+                } else {
+                    $filterJob.addClass("show").css({
+                        "display": "block",
+                        "background-color": "rgba(0,0,0, 0.3)"
+                    });
+                    $body.addClass("overflow-hidden"); // Ngăn scroll
+                }
+            });
+        // Khi click vào nút .btn-close, ẩn filter-job và cho phép scroll lại
+        $(".btn-close").click(function () {
+            $("#filter-job").removeClass("show").css("display", "none");
+            $("body").removeClass("overflow-hidden");
+        });
+
+        // Khi click bên ngoài modal-dialog
+        $(document).on("click", function (event) {
+            let $modal = $(".modal-dialog");
+            let $filterJob = $("#filter-job");
+            // Kiểm tra nếu click bên ngoài modal nhưng bên trong filter-job
+            if ($filterJob.hasClass("show") && !$modal.is(event.target) && $modal.has(event.target)
+                .length === 0) {
+                // Thêm class shake để tạo hiệu ứng rung
+                $modal.addClass("shake");
+                // $modal.effect("bounce", "slow");
+                // Xóa class shake sau 0.5s để reset hiệu ứng
+                setTimeout(function () {
+                    $modal.removeClass("shake");
+                }, 400);
+            }
+        });
+    });
+</script>

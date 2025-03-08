@@ -1,0 +1,170 @@
+﻿@using RecruitmentApp.Services
+@inject HeaderService headerService
+
+@{
+
+    string key = ViewData["key"] as string ?? "";
+    string province = ViewData["province"] as string;
+
+    var provinces = headerService.GetMenuProvinces();
+
+    var provinceSelectList = provinces.Select(p => new SelectListItem
+            {
+                Value = p.Slug,
+                Text = p.Name,
+                Selected = p.Slug == province
+            }).ToList();
+
+    var provinceSelected = provinceSelectList.FirstOrDefault(p => p.Selected);
+    if (provinceSelected == null) {
+        provinceSelected = provinceSelectList.Last();
+    }
+
+}
+
+<div class="search-box">
+    <form
+          asp-area="User/Jobs"
+          asp-controller="Job"
+          asp-action="Search"
+          asp-route-key=""
+          accept-charset="UTF-8"
+          method="get">
+        <div class="d-flex flex-column flex-xl-row">
+            <!-- / City -->
+            <div class="search-city flex-shrink-0 imb-2 imb-xl-0 search-form-city-section">
+                <select name="province"
+                        id="city"
+                        tabindex="-1"
+                        class="tomselected ts-hidden-accessible" asp-items="@provinceSelectList">
+                </select>
+                <div class="ts-wrapper single full has-items">
+                    <div class="ts-control" role="combobox" id="city-ts-control" tabindex="0">
+                        <div data-value="@provinceSelected.Value" class="item" data-ts-item="">@provinceSelected.Text</div>
+                    </div>
+                    <div class="ts-dropdown single" style="display: none;">
+                        <div role="listbox" tabindex="-1" class="ts-dropdown-content" id="city-ts-dropdown">
+                            @foreach (var item in provinceSelectList)
+                            {
+                                <div class="option text-it-black@(item.Selected ? " selected" : "")" role="option" data-value="@item.Value">
+                                    <span>@item.Text</span>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="map-pin-box position-absolute top-50 translate-middle-y z-1 pe-none">
+                    <i data-feather="map-pin" class="feather-icon map-pin-icon"></i>
+                </div>
+                <div class="arrow-down-box position-absolute top-50 translate-middle-y z-1 pe-none">
+                    <i data-feather="chevron-down" class="feather-icon icon-lg"></i>
+                </div>
+            </div>
+            <!-- / Keyword and Button -->
+            <div class="d-flex flex-grow-1">
+                <!-- / Keyword -->
+                <div class="search-keyword w-100 imx-xl-3 position-relative search-form-keyword-section dropdown">
+                    <input type="text"
+                           name="key"
+                           id="query"
+                           maxlength="100"
+                           class="form-control dropdown-toggle"
+                           autocomplete="off"
+                           value="@key"
+                           placeholder="Nhập từ khoá theo kỹ năng, chức vụ, công ty..."/>
+                    <div class="dropdown-menu w-100 ts-dropdown m-0"></div>
+                    <a class="position-absolute clear-keyword d-none">
+                        <i data-feather="x" class="feather-icon icon-md"> </i>
+                    </a>
+                </div>
+                <!-- / Button -->
+                <div class="flex-shrink-1">
+                    <button class="ibtn ibtn-primary ibtn-search ifs-16 position-relative" type="submit">
+                        <i data-feather="search" class="feather-icon icon-md"> </i>
+
+                        <span class="d-none d-xl-inline">
+                            Tìm Kiếm
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- / Overlay -->
+        <div class="search-overlay first-overlay"></div>
+        <div class="search-overlay second-overlay z-1" data-action="click->search--autocomplete#closeOverlay"></div>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Khi click vào dropdown control
+        $('#city-ts-control').on('click', function(event) {
+            event.stopPropagation(); // Ngăn chặn sự kiện lan ra ngoài
+            let wrapper = $(this).closest('.ts-wrapper');
+            let dropdown = wrapper.find('.ts-dropdown');
+
+            // Toggle hiển thị dropdown
+            if (dropdown.is(':visible')) {
+                wrapper.removeClass('dropdown-active focus input-active');
+                dropdown.hide();
+            } else {
+                $('.ts-wrapper').removeClass('dropdown-active focus input-active'); // Đóng dropdown khác
+                $('.ts-dropdown').hide();
+                wrapper.addClass('dropdown-active focus input-active');
+                dropdown.show();
+            }
+        });
+
+        // Khi chọn một option
+        $('.ts-dropdown .option').on('click', function(event) {
+            event.stopPropagation();
+            let selectedValue = $(this).attr('data-value');
+            let selectedText = $(this).text();
+            let wrapper = $(this).closest('.ts-wrapper');
+            // Cập nhật nội dung đã chọn
+            wrapper.find('.item').text(selectedText).attr('data-value', selectedValue);
+
+            // Thay đổi class "selected"
+            $('.ts-dropdown .option').removeClass('selected');
+            $(this).addClass('selected');
+            $('#city option:selected').removeAttr('selected'); // Xóa tất cả selected
+            $('#city option[value="' + selectedValue + '"]').attr('selected','selected');
+            // Đóng dropdown
+            wrapper.removeClass('dropdown-active focus input-active');
+            wrapper.find('.ts-dropdown').hide();
+        });
+
+        // Đóng dropdown khi click ra ngoài
+        $(document).on('click', function() {
+            $('.ts-wrapper').removeClass('dropdown-active focus input-active');
+            $('.ts-dropdown').hide();
+        });
+
+         let $input = $("#query");
+        let $clearBtn = $(".clear-keyword");
+
+        // Kiểm tra input có giá trị khi trang load
+        toggleClearButton();
+
+        // Khi nhập vào input, kiểm tra có hiển thị nút xóa không
+        $input.on("input", function () {
+            toggleClearButton();
+        });
+
+        // Khi click vào nút clear
+        $clearBtn.on("click", function (e) {
+            e.preventDefault();
+            $input.val("").focus(); // Xóa input và focus lại
+            toggleClearButton();
+        });
+
+        // Hàm hiển thị/ẩn nút xóa
+        function toggleClearButton() {
+            if ($input.val().trim().length > 0) {
+                $clearBtn.removeClass("d-none");
+            } else {
+                $clearBtn.addClass("d-none");
+            }
+        }
+    });
+</script>

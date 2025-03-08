@@ -1,0 +1,87 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using RecruitmentApp.Models
+
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+
+    <li class="nav-item main-menu position-relative">
+        <div class="d-flex align-items-center user-avatar-wrapper">
+            <div class="sign-in-user-avatar" id="header-user-avatar">
+                <img class="user-avatar" alt="user-avatar" src="https://itviec.com/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMHJxTUE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--b5cecf1eda8b9c8f3765505689936c7d750e1ece/AOh14Girjs--Y-qYpkLbFi-MUegt3K0POJrnIoLPj_Ya_hs=s96-c.jpg" width="32" height="32">
+
+            </div>
+            <div class="d-inline-flex align-items-end">
+                <div id="header-user-name">
+                    <span class="ims-3 text-it-black text-hover-underline">Bình Nguyễn Thanh</span>
+
+                </div>
+                <i class="feather-icon icon-md" data-feather="chevron-down"></i>
+
+            </div>
+        </div>
+        <div class="position-absolute shadow bg-it-white sub-menu vbit-menu top-100 end-0">
+            <ul class="ip-0 im-0 bg-it-white position-relative" data-controller="sub-menu">
+                <li class="profile-menu-item d-flex">
+                    <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-it-black" href="/tong-quan-ho-so?utm_campaign=button_feature_review&amp;utm_medium=new_review&amp;utm_source=emp_page">
+                        <i class="feather-icon icon-md" data-feather="grid"></i>
+                        <span class="ims-2">Tổng quan</span>
+                    </a>
+                </li>
+                <li class="profile-menu-item d-flex">
+                    <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-it-black" href="/ho-so-cv/quan-ly-cv?utm_campaign=button_feature_review&amp;utm_medium=new_review&amp;utm_source=emp_page">
+                        <i class="feather-icon icon-md" data-feather="file-text"></i>
+                        <span class="ims-2">Hồ sơ đính kèm</span>
+                    </a>
+                </li>
+                <li class="profile-menu-item d-flex">
+                    <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-it-black" href="/ho-so-cv?utm_campaign=button_feature_review&amp;utm_medium=new_review&amp;utm_source=emp_page">
+                        <i class="feather-icon icon-md" data-feather="user"></i>
+                        <span class="ims-2">Hồ sơ ITviec</span>
+                    </a>
+                </li>
+                <li class="profile-menu-item d-flex">
+                    <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-it-black" href="/viec-lam-cua-toi/ung-tuyen?utm_campaign=button_feature_review&amp;utm_medium=new_review&amp;utm_source=emp_page">
+                        <i class="feather-icon icon-md" data-feather="briefcase"></i>
+                        <span class="ims-2">Việc làm của tôi</span>
+                    </a>
+                </li>
+                <li class="profile-menu-item d-flex">
+                    <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-it-black" href="/loi-moi-cong-viec?utm_campaign=button_feature_review&amp;utm_medium=new_review&amp;utm_source=emp_page">
+                        <i class="feather-icon icon-md" data-feather="inbox"></i>
+                        <span class="ims-2">Lời mời công việc</span>
+                    </a>
+                </li>
+                <li class="profile-menu-item d-flex">
+                    <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-it-black" href="/dang-ky?utm_campaign=button_feature_review&amp;utm_medium=new_review&amp;utm_source=emp_page">
+                        <i class="feather-icon icon-md" data-feather="mail"></i>
+                        <span class="ims-2">Đăng ký nhận email</span>
+                    </a>
+                </li>
+                <li class="profile-menu-item d-flex">
+                    <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-it-black" href="/cai-dat?utm_campaign=button_feature_review&amp;utm_medium=new_review&amp;utm_source=emp_page">
+                        <i class="feather-icon icon-md" data-feather="settings"></i>
+                        <span class="ims-2">Cài đặt</span>
+                    </a>
+                </li>
+                <li class="profile-menu-item d-flex">
+                    <a type="submit" class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-it-black" asp-area="Identity" asp-controller="Account" asp-action="LogOff">
+                        <i class="feather-icon icon-md" data-feather="log-out"></i>
+                        <span class="ims-2">Đăng xuất</span>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </li>
+}
+else
+{
+    <li class="nav-item">
+        <a hreflang="en" rel="nofollow" class="text-hover-underline text-it-black" asp-area="User/Auths" asp-controller="Auth" asp-action="SignIn">
+            Sign in/Sign up
+        </a>
+    </li>
+}

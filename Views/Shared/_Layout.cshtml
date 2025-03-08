@@ -25,9 +25,12 @@
 
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/globals.css" />
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/feather-icons/feather.js"></script>
+    @* <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
 
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="~/lib/feather-icons/feather.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <style>
         /* ============ desktop view ============ */
@@ -73,7 +76,6 @@
 <body>
 
 
-    <div id="map"></div>
     @* <div> *@
     @*     <form method="get" asp-controller="Home" asp-action="Index"> *@
     @*         <button type="submit" name="culture" value="en">@RecruitmentApp.Resources.Resource.en</button> *@
@@ -102,7 +104,13 @@
     @* </nav> *@
     @* </header>/ *@
     <partial name="_Header" />
-   
+    @* @await Html.PartialAsync("_SelectLanguagePartial") *@
+    @* <ul class="nav navbar-nav"> *@
+    @*     <li><a asp-controller="Home" asp-action="Index">@Localizer["Home"]</a></li> *@
+    @*     <li><a asp-controller="Home" asp-action="About">@Localizer["About"]</a></li> *@
+    @*     <li><a asp-controller="Home" asp-action="Contact">@Localizer["Contact"]</a></li> *@
+    @*     <li><a asp-controller="Home" asp-action="Contact">@Localizer["Home1"]</a></li> *@
+    @* </ul> *@
     @RenderBody()
     @RenderSection("SubLayout", required: false)
     <partial name="_Footer" />
@@ -166,38 +174,7 @@
         // DOMContentLoaded  end
         feather.replace();
         $(document).ready(function () {
-            $(".menu-title").hover(
-                function () {
-                    // Xóa class active khỏi tất cả các menu-title
-                    $(".menu-title").removeClass("active");
-
-                    // Thêm class active cho phần tử hiện tại
-                    $(this).addClass("active");
-                },
-                function () {
-                    // Nếu muốn giữ class active khi hover xong thì bỏ dòng này
-                    // $(this).removeClass("active");
-                }
-            );
-            $('.hamburger-menu').on('click', function () {
-                $('.left-nav').toggleClass('d-none'); // Thêm hoặc xóa class `d-none`
-            });
-
-            // Đóng menu khi nhấn vào nút Close
-            $('[data-action="click->mobile-menu#closeLeftNav"]').on('click', function () {
-                $('.left-nav').addClass('d-none'); // Thêm lại class `d-none` để ẩn
-            });
-
-            $('[data-action="click->mobile-menu#show"]').on('click', function () {
-                // Tìm menu cùng cấp có class `sub-menu` và thay đổi width
-                $(this).siblings('.sub-menu').css('width', '280px');
-            });
-
-            // Khi nhấn vào nút Back
-            $('[data-action="click->mobile-menu#back"]').on('click', function () {
-                // Tìm menu cha có class `sub-menu` và đặt width = 0
-                $(this).closest('.sub-menu').css('width', '0');
-            });
+          
         });
     </script>
 

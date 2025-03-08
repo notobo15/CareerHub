@@ -1,115 +1,23 @@
-﻿<div class="ipx-xl-40 ipx-5 bg-gradient-search position-relative">
+﻿<div class="ipx-xl-40 ipx-5 position-relative bg-gradient-search">
     <div class="icontainer-search-form">
         <div class="search-box mx-auto ipt-12 ipb-16 ipy-md-16">
             <!-- / Header -->
             <h1 class="text-white ipb-8">
-                704 Việc làm IT cho Developer "Chất"
+                @ViewData["totalPosts"] Việc làm IT
             </h1>
             <!-- / Search Form -->
-            <!-- Last updated: "2025-01-10 22:00:38 +0700"-->
-            <div class="search-box">
-                <form data-controller="search--autocomplete"
-                      data-search--autocomplete-seo-url-value="https://itviec.com/viec-lam-it"
-                      data-search--autocomplete-query-source-url-value="/api/v1/tags/populars"
-                      data-search--autocomplete-search-types-value='["Recommendation","Recent search"]'
-                      data-search--autocomplete-recent-searches-value="java,java developer,javascript developer"
-                      action="/viec-lam-it"
-                      accept-charset="UTF-8"
-                      method="get">
-                    <div class="d-flex flex-column flex-xl-row">
-                        <!-- / City -->
-                        <div class="search-city flex-shrink-0 imb-2 imb-xl-0 search-form-city-section">
-                            <select name="city"
-                                    id="city"
-                                    data-cities='{"ho-chi-minh-hcm":"Ho Chi Minh","ha-noi":"Ha Noi","da-nang":"Da Nang","others":"Others"}'
-                                    data-preload="true"
-                                    data-auto-populate-city-target="select"
-                                    data-search--autocomplete-target="city"
-                                    data-controller="search--city_selection"
-                                    tabindex="-1"
-                                    class="tomselected ts-hidden-accessible">
-                                <option value="">Tất cả thành phố</option>
-                                <option value="ho-chi-minh-hcm">Ho Chi Minh</option>
-                                <option value="ha-noi">Ha Noi</option>
-
-                                <option value="others">Others</option>
-                                <option selected="selected" value="da-nang">Da Nang</option>
-                            </select>
-                            <div class="ts-wrapper single full has-items">
-                                <div class="ts-control" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="city-ts-dropdown" id="city-ts-control" tabindex="0">
-                                    <div data-value="da-nang" class="item" data-ts-item="">Da Nang</div>
-                                </div>
-                                <div class="ts-dropdown single" style="display: none;">
-                                    <div role="listbox" tabindex="-1" class="ts-dropdown-content" id="city-ts-dropdown"><div data-selectable="" data-value="" class="option" role="option" id="city-opt-1">Tất cả thành phố</div><div data-selectable="" data-value="ho-chi-minh-hcm" class="option" role="option" id="city-opt-2">Ho Chi Minh</div><div data-selectable="" data-value="ha-noi" class="option active selected" role="option" id="city-opt-3" aria-selected="true">Ha Noi</div><div data-selectable="" data-value="da-nang" class="option" role="option" id="city-opt-4">Da Nang</div><div data-selectable="" data-value="others" class="option" role="option" id="city-opt-5">Others</div></div>
-                                </div>
-                            </div>
-                            <div class="map-pin-box position-absolute top-50 translate-middle-y z-1 pe-none">
-                                <i data-feather="map-pin" class="feather-icon map-pin-icon"></i>
-                            </div>
-                            <div class="arrow-down-box position-absolute top-50 translate-middle-y z-1 pe-none">
-                                <i data-feather="chevron-down" class="feather-icon icon-lg"></i>
-                            </div>
-                        </div>
-                        <!-- / Keyword and Button -->
-                        <div class="d-flex flex-grow-1">
-                            <!-- / Keyword -->
-                            <div class="search-keyword w-100 imx-xl-3 position-relative search-form-keyword-section dropdown">
-                                <input type="text"
-                                       name="query"
-                                       id="query"
-                                       value=""
-                                       maxlength="100"
-                                       class="form-control dropdown-toggle"
-                                       autocomplete="off"
-                                       placeholder="Nhập từ khoá theo kỹ năng, chức vụ, công ty..."
-                                       data-search--autocomplete-target="query"
-                                       data-action="search--autocomplete#toggleClearButton"
-                                       data-bs-toggle="dropdown"
-                                       data-bs-display="static" />
-                                <div class="dropdown-menu w-100 ts-dropdown m-0"></div>
-                                <a class="position-absolute clear-keyword d-none" data-action="search--autocomplete#clearQuery" data-search--autocomplete-target="clearBtn">
-                                    <i data-feather="x" class="feather-icon icon-md"> </i>
-                                </a>
-                            </div>
-                            <!-- / Button -->
-                            <div class="flex-shrink-1">
-                                <button class="ibtn ibtn-primary ibtn-search ifs-16 position-relative" type="submit">
-                                    <i data-feather="search" class="feather-icon icon-md"> </i>
-
-                                    <span class="d-none d-xl-inline">
-                                        Tìm Kiếm
-                                    </span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- / Overlay -->
-                    <div class="search-overlay first-overlay"></div>
-                    <div class="search-overlay second-overlay z-1" data-action="click->search--autocomplete#closeOverlay"></div>
-                </form>
-            </div>
-
+			<partial name="_SearchBox" />
             <!-- / Popular skills -->
             <div class="d-flex igap-4 imt-7 flex-column flex-xl-row align-items-xl-center">
                 <div class="text-silver-grey">
                     Gợi ý cho bạn:
                 </div>
                 <div class="d-flex flex-wrap igap-3">
-                    <a class="itag itag-lg itag-dark" data-controller="utm-tracking" href="/viec-lam-it/java/da-nang?click_source=Suggestion">Java</a>
+                    <a class="itag itag-lg itag-light" href="/viec-lam-it/java/da-nang?click_source=Suggestion">Java</a>
+                    <a class="itag itag-lg itag-light" href="/viec-lam-it/java/da-nang?click_source=Suggestion">.NET</a>
+                    <a class="itag itag-lg itag-light" href="/viec-lam-it/java/da-nang?click_source=Suggestion">Python</a>
                 </div>
             </div>
         </div>
-        <div class="position-absolute bottom-0 end-0 d-none d-xl-block z-1">
-            <img alt="event-highlight-photo"
-                 class="logo-robby-event"
-                 src="https://itviec.com/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMUNoVlE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--363cbb83662e710fe94ee176be9214b9c5749eb8/tet25.png" />
-        </div>
     </div>
-    <img class="holiday-background position-absolute d-none d-xl-inline bottom-0 start-0 end-0 w-100" src="https://itviec.com/assets/tet-background-b974ca8c264859d6b4711a516ff97d2dad59a39e7087416db13ce87cce91f02c.png" />
 </div>
-
-<script>
-    $(document).ready(function () {
-        console.log(12312312312);
-    });
-</script>
