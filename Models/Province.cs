@@ -30,8 +30,7 @@ namespace RecruitmentApp.Models
 
         [Column("administrative_region_id")]
         public string administrative_region_id { get; set; }
-
-
+        public string Slug { get; set; }
         public List<District> Districts { get; set; }
     }
 }

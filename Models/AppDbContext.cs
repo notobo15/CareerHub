@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using RecruitmentApp.Models.RecruitmentApp.Models;
+using RecruitmentApp.Models;
 using System.Linq;
 namespace RecruitmentApp.Models 
 {
@@ -121,7 +121,7 @@ namespace RecruitmentApp.Models
              */
 
             modelBuilder.Entity<CompanyIndustry>()
-           .HasKey(ci => new { ci.CompanyId, ci.IndustryId });
+                .HasKey(ci => new { ci.CompanyId, ci.IndustryId });
 
             modelBuilder.Entity<CompanyIndustry>()
                 .HasOne(ci => ci.Company)
@@ -136,20 +136,6 @@ namespace RecruitmentApp.Models
                 .OnDelete(DeleteBehavior.Cascade);
 
 
-            // Thiết lập quan hệ Company - Address (1:N)
-            modelBuilder.Entity<Address>()
-                .HasOne(a => a.Company)
-                .WithMany(c => c.Addresses)
-                .HasForeignKey(a => a.CompanyId)
-                .OnDelete(DeleteBehavior.Cascade); // Xóa công ty sẽ xóa địa chỉ
-
-            // Thiết lập quan hệ Address - Post (1:N)
-            modelBuilder.Entity<Post>()
-                .HasOne(p => p.Address)
-                .WithMany(a => a.Posts)
-                .HasForeignKey(p => p.AddressId)
-                .OnDelete(DeleteBehavior.Restrict); // Không xóa địa chỉ nếu có bài đăng sử dụng nó
-
             // Thiết lập quan hệ Company - Post (1:N)
             modelBuilder.Entity<Post>()
                 .HasOne(p => p.Company)
@@ -157,19 +143,58 @@ namespace RecruitmentApp.Models
                 .HasForeignKey(p => p.CompanyId)
                 .OnDelete(DeleteBehavior.Cascade); // Xóa công ty sẽ xóa bài đăng
 
+            modelBuilder.Entity<Post>()
+                .HasOne(p => p.Location)
+                .WithMany() // Một Location có thể có nhiều Post
+                .HasForeignKey(p => p.LocationId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<PostView>()
-              .HasIndex(pv => new { pv.PostId, pv.UserId, pv.IpAddress }) // Tạo index tránh trùng lặp
-              .IsUnique();
+                .HasIndex(pv => new { pv.PostId, pv.UserId, pv.IpAddress }) // Tạo index tránh trùng lặp
+                .IsUnique();
+
+            modelBuilder.Entity<Location>()
+                .HasKey(l => l.LocationId);
+
+            // Thiết lập quan hệ với Address (One-to-One)
+            modelBuilder.Entity<Location>()
+                .HasOne(l => l.Address)
+                .WithOne()
+                .HasForeignKey<Location>(l => l.AddressId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Thiết lập quan hệ với Company (Many-to-One)
+            modelBuilder.Entity<Location>()
+                .HasOne(l => l.Company)
+                .WithMany(c => c.Locations)
+                .HasForeignKey(l => l.CompanyId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+            modelBuilder.Entity<Address>()
+                .HasOne(a => a.City)
+                .WithMany()
+                .HasForeignKey(a => a.ProvinceCode)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Address>()
+                .HasOne(a => a.District)
+                .WithMany()
+                .HasForeignKey(a => a.DistrictCode)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Address>()
+                .HasOne(a => a.Ward)
+                .WithMany()
+                .HasForeignKey(a => a.WardCode)
+                .OnDelete(DeleteBehavior.Restrict);
         }
-        // db provices
 
         public DbSet<Province> Provinces { get; set; }
         public DbSet<District> Districts { get; set; }
         public DbSet<Ward> Wards { get; set; }
 
-
-        public DbSet<Contact> Contact { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Level> Levels { get; set; }
@@ -180,6 +205,7 @@ namespace RecruitmentApp.Models
 
         public DbSet<PostSkills> PostSkills { get; set; }
         public DbSet<PostLevel> PostLevels { get; set; }
+        public DbSet<PostLocations> PostLocations { get; set; }
         public DbSet<Follower> Followers { get; set; }
         public DbSet<Favorite> Favorites { get; set; }
         public DbSet<ApplyPost> applyPosts { get; set; }
@@ -188,5 +214,8 @@ namespace RecruitmentApp.Models
         public DbSet<CompanyIndustry> CompanyIndustries { get; set; }
 
         public DbSet<PostView> PostViews { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<Image> Images { get; set; }
+        public DbSet<Country> Countries { get; set; }
     }
 }

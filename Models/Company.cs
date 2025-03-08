@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using RecruitmentApp.Models.RecruitmentApp.Models;
+using RecruitmentApp.Models;
 
 namespace RecruitmentApp.Models
 {
@@ -21,6 +21,7 @@ namespace RecruitmentApp.Models
         public string FullName { get; set; }
 
         public string Size { get; set; }
+        public string ShortDescription { get; set; }
         public string Description { get; set; }
         public string Reason { get; set; }
         //[Required]
@@ -46,6 +47,12 @@ namespace RecruitmentApp.Models
         public bool IsShowCompanyUrl { get; set; }
         public bool IsShowCompanyFbUrl { get; set; }
 
+
+        public string TopReason { get; set; }
+        public string OurExpertise { get; set; }
+        public string WhyJoinUs { get; set; }
+
+
         [ForeignKey("Id")]
         public string RecruiterId { get; set; }
         public AppUser Recruiter { get; set; }
@@ -54,19 +61,19 @@ namespace RecruitmentApp.Models
         public ICollection<Address> Addresses { get; set; }
         public ICollection<CompanySkills> CompanySkills { get; set; }
         public ICollection<Follower> Followers { get; set; }
+        public ICollection<Location> Locations { get; set; }
 
         //  public virtual ICollection<Skill> Skills { get; set; }
 
         //public virtual ICollection<AppUser> Followers { get; set; }
 
+        public ICollection<Image> Images { get; set; }
         public bool IsDeleted { get; set; } = false;
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; }
 
         public ICollection<CompanyIndustry> CompanyIndustries { get; set; }
-
-
+        public int? CountryId { get; set; }
+        public Country Country { get; set; }
     }
-
-
 }

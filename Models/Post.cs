@@ -44,7 +44,7 @@ namespace RecruitmentApp.Models
         public string JobRequirement { get; set; }
 
         [Column(TypeName = "ntext")]
-        public string Benifit {  get; set; }
+        public string Benifit { get; set; }
 
         public int? CompanyId { get; set; }
         public Company Company { get; set; }
@@ -57,22 +57,23 @@ namespace RecruitmentApp.Models
 
         public string TopReason { get; set; }
         public string DegreeRequirement { get; set; }
-        
+
         public int Quantity { get; set; }
 
         //public virtual ICollection<Skill> Skills { get; set; }
-       // public virtual ICollection<Title> Titles { get; set; }
-       // public virtual ICollection<Level> Levels { get; set; }
+        // public virtual ICollection<Title> Titles { get; set; }
+        // public virtual ICollection<Level> Levels { get; set; }
         // public virtual ICollection<Company> Companies { get; set; }
 
         public ICollection<PostSkills> PostSkills { get; set; }
         public ICollection<PostLevel> PostLevels { get; set; }
         public ICollection<Favorite> Favorites { get; set; }
-
+        public ICollection<PostLocations> PostLocations { get; set; }
 
         // public virtual ICollection<AppUser> Favourites { get; set; }
 
-
+        public int? LocationId { get; set; }
+        public Location Location { get; set; }
         public bool IsDeleted { get; set; } = false;
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; }
@@ -83,20 +84,40 @@ namespace RecruitmentApp.Models
         [NotMapped]
         public int[] LevelIds { get; set; }
 
+        // public string salaryToString()
+        // {
+        //     if (MinSalary != 0 && MaxSalary != 0)
+        //     {
+        //         return $"{MinSalary.ToString("#,##0.###")} - {MaxSalary.ToString("#,##0.###")} VND";
+        //     }
+        //     else if (MinSalary == 0)
+        //     {
+        //         return $"Up To {MaxSalary.ToString("#,##0.###")} VND";
+        //     }
+        //     else
+        //     {
+        //         return $"Min {MinSalary.ToString("#,##0.###")} VND";
+        //     }
+        // }
         public string salaryToString()
         {
-            if (MinSalary != 0 && MaxSalary != 0)
+            if (SalaryType?.ToLower() == "custom")
             {
-                return $"{MinSalary.ToString("#,##0.###")} - {MaxSalary.ToString("#,##0.###")} VND";
-            }else if(MinSalary == 0)
+                return "You'll love it";
+            }
+            else if (SalaryType?.ToLower() == "range")
             {
-                return $"Up To {MaxSalary.ToString("#,##0.###")} VND";
-
-            }else
+                if (MinSalary != 0 && MaxSalary != 0)
+                {
+                    return $"{MinSalary.ToString("#,##0.###")} - {MaxSalary.ToString("#,##0.###")} USD";
+                }
+            }
+            else if (SalaryType?.ToLower() == "up_to")
             {
-                return $"Min {MinSalary.ToString("#,##0.###")} VND";
+                return $"Up to {MaxSalary.ToString("#,##0.###")} gross";
             }
 
+            return "Salary not specified";
         }
     }
 }

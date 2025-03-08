@@ -10,10 +10,8 @@ namespace RecruitmentApp.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-
         public int AddressId { get; set; }
         public string Nation { get; set; }
-
         // [ForeignKey("Code")]
 
       //  [Column("ProvinceCODE")]
@@ -31,12 +29,6 @@ namespace RecruitmentApp.Models
        public string GgMapSrc { get; set; }
 
         public string FullAddress { get; set; }
-
-        [ForeignKey("CompanyId")]
-        public int CompanyId { get; set; }
-        public Company Company { get; set; }
-
-        public ICollection<Post> Posts { get; set; }
 
     }
 }

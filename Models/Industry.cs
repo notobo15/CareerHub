@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using RecruitmentApp.Models.RecruitmentApp.Models;
 using System.Collections.Generic;
 
 namespace RecruitmentApp.Models

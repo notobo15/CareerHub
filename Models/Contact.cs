@@ -8,12 +8,11 @@ namespace RecruitmentApp.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-
-        public int Id { get; set; }
+        public int ContactId { get; set; }
 
         [Required(ErrorMessage = "Phai Nhap {0}")]
-        [Column(TypeName = "nvarchar")]
-        [StringLength(50)]
+        //[Column(TypeName = "nvarchar")]
+        //[StringLength(50)]
         [Display(Name = "Họ Và Tên")]
         public string FullName { get; set; }
 

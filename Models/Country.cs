@@ -4,16 +4,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RecruitmentApp.Models
 {
-    public class Level
+    public class Country
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int LevelId { get; set; }
-        [Required]
-        [Display(Name = "Tên level")]
+        public int CountryId { get; set; }
         public string Name { get; set; }
         public string Slug { get; set; }
+        public string ISOCode { get; set; }
 
-        public ICollection<PostLevel> PostLevels { get; set; }
+        public ICollection<Company> Companies { get; set; }
     }
 }
