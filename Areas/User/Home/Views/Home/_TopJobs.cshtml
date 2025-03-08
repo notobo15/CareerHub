@@ -1,0 +1,122 @@
+﻿@using RecruitmentApp.Models
+
+<div class="main">
+	<div class="icontainer">
+		<section class="ipb-16 ipb-xl-20" data-controller="recommended-impressions" data-recommended-impressions-current-page-value="homepage" data-recommended-impressions-job-quantity-value="8" data-recommended-impressions-recommended-homepage-type-value="cookies_recommend_jobs" data-recommended-impressions-url-value="/job/recommended_impressions">
+			<h1 class="ipb-9 text-center">
+				@ViewData["totalPosts"] Việc làm IT cho Developer "Chất"
+			</h1>
+			<div class="row recommended-jobs">
+
+				@if (ViewData["posts"] is List<Post> posts)
+				{
+					@foreach (var post in posts)
+					{
+						<div class="col-xl-3 ipx-5 ipy-2 ip-xl-3">
+							<div class="job-card ipt-4 h-100 d-flex flex-column box-shadow-medium border-radius-large position-relative cursor-pointer transition-duration-300 @(post.IsHot ? "bg-light-warning-color super-hot" : "bg-white")">
+								<div class="ipx-4 ipx-xl-3 flex-grow-1">
+
+									@if (post.IsHot) {
+										<div class="ilabel position-absolute ilabel-warning end-0">
+											HOT
+										</div>
+									}
+									<div class="d-flex align-items-center justify-content-between">
+										<span class="small-text text-dark-grey">
+											Đăng 4 giờ trước
+										</span>
+									</div>
+									<h3 class="imt-3 text-it-black text-break text-clamp-2">
+										<a class="text-reset text-hover-red transition-duration-300 stretched-link" target="_blank" asp-area="User/Jobs" asp-controller="Job" asp-action="Detail" asp-route-slug="@post.Slug">@post.Title</a>
+									</h3>
+									<div class="imy-2 d-flex align-items-center" data-recommended-impressions-target="jobImpression">
+										<a data-controller="utm-tracking" class="job-card-logo border-solid box-shadow-normal border-radius-normal bg-white stretched-link position-relative" href="/nha-tuyen-dung/smg-swiss-marketplace-group?lab_feature=cookies_recommend_jobs">
+											<picture>
+												<source data-srcset="~/images/companies/@post.Company.LogoImage" srcset="~/images/companies/@post.Company.LogoImage">
+												<img alt="@post.Company.Name" class="h-100 lazyloaded" data-controller="lazyload" data-src="" width="48" src="~/images/companies/@post.Company.LogoImage">
+											</picture>
+
+										</a>
+										<span class="ims-2 small-text">
+											<a data-controller="utm-tracking" class="text-rich-grey text-clamp-2 text-hover-underline stretched-link position-relative" href="/nha-tuyen-dung/smg-swiss-marketplace-group?lab_feature=cookies_recommend_jobs">@post.Company.FullName</a>
+										</span>
+									</div>
+									<div class="fw-500">
+										<div class="d-flex align-items-center salary text-rich-grey">
+											<svg fill="none" height="16" stroke="currentColor" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+												<path d="M12.0044 6V18" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+												<path d="M14.9287 7.90332H10.5395C9.99625 7.90332 9.47527 8.11912 9.09114 8.50325C8.70701 8.88738 8.49121 9.40836 8.49121 9.9516C8.49121 10.4948 8.70701 11.0158 9.09114 11.4C9.47527 11.7841 9.99625 11.9999 10.5395 11.9999H13.4656C14.0088 11.9999 14.5298 12.2157 14.914 12.5998C15.2981 12.9839 15.5139 13.5049 15.5139 14.0482C15.5139 14.5914 15.2981 15.1124 14.914 15.4965C14.5298 15.8806 14.0088 16.0964 13.4656 16.0964H8.49121" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor"></path>
+												<circle cx="12.0002" cy="12.0002" r="9.3" stroke-width="2" stroke="currentColor"></circle>
+											</svg>
+
+											<a data-controller="utm-tracking" class="sign-in-view-salary text-reset ips-2 text-decoration-underline stretched-link position-relative" href="/sign_in?job=mid-senior-android-engineer-kotlin-java-english-smg-swiss-marketplace-group-3334&amp;job_index=0&amp;view_salary_source=homepage">Đăng nhập để xem mức lương</a>
+										</div>
+
+									</div>
+									<div class="border-top-dashed imy-3"></div>
+									<div class="d-flex align-items-end imb-1">
+										<span class="text-dark-grey lh-1">
+											<svg fill="none" height="16" viewBox="0 0 24 25" width="16" xmlns="http://www.w3.org/2000/svg">
+												<g clip-path="url(#clip0_947_6633)">
+													<path d="M19 14.625C19 13.6967 18.6312 12.8065 17.9749 12.1501C17.3185 11.4937 16.4283 11.125 15.5 11.125H8.5C7.57174 11.125 6.6815 11.4937 6.02513 12.1501C5.36875 12.8065 5 13.6967 5 14.625" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor"></path>
+													<path d="M12 8.5C13.933 8.5 15.5 6.933 15.5 5C15.5 3.067 13.933 1.5 12 1.5C10.067 1.5 8.5 3.067 8.5 5C8.5 6.933 10.067 8.5 12 8.5Z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor"></path>
+													<path d="M11.5 18.9375H12.5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor"></path>
+													<path d="M4.56116 22.7812L2.90039 15.0938H21.0996L19.3696 22.7812" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor"></path>
+													<line stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" x1="1" x2="23" y1="23.5" y2="23.5"></line>
+												</g>
+												<defs>
+													<clipPath id="clip0_947_6633">
+														<rect fill="white" height="24" transform="translate(0 0.5)" width="24"></rect>
+													</clipPath>
+												</defs>
+											</svg>
+
+										</span>
+										<span class="ips-2 small-text text-rich-grey lh-1">
+											@post.WorkSpace
+										</span>
+									</div>
+									<div class="d-flex align-items-center">
+										<span class="text-dark-grey lh-1">
+											<i data-feather="map-pin" class="feather-icon icon-sm"></i>
+										</span>
+										<span class="ips-2 small-text text-rich-grey">
+											@if (post?.Location?.Address != null)
+											{
+												@post.Location.Address.City.Name
+											}
+										</span>
+									</div>
+									<div class="d-flex flex-wrap imt-3 imb-5 igap-2">
+
+										@if (post.PostSkills is ICollection<PostSkills> postSkills)
+										{
+											@foreach (var k in postSkills.Select( i => i.Skill))
+											{
+												<div class="itag itag-light itag-sm position-relative">
+													<a class="text-reset stretched-link" data-controller="utm-tracking" href="/viec-lam-it/android?click_source=@k.Name">@k.Name</a>
+												</div>
+											}
+
+										}
+									</div>
+								</div>
+							</div>
+
+						</div>
+					}
+				}
+			</div>
+			<div class="text-center imt-10">
+				<a class="ibtn ibtn-md ibtn-secondary" data-controller="utm-tracking" data-disable-with="loading..." href="/viec-lam-it?newest=true&amp;query=java">
+					Xem thêm @(Convert.ToInt32(ViewData["totalPosts"]) - Convert.ToInt32((ViewData["posts"] as List<Post>).Count)) công việc khác
+					<svg class="feather-icon icon-sm">
+						<use href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#chevron-right"></use>
+					</svg>
+
+				</a>
+			</div>
+		</section>
+
+	</div>
+</div>

@@ -1,0 +1,89 @@
+﻿@using RecruitmentApp.Models
+
+<div class="main">
+	<div class="icontainer">
+		<section class="imb-14 imb-xl-22">
+			<div class="h1 ipb-12 text-it-black text-center">
+				Nhà tuyển dụng hàng đầu
+			</div>
+			<div class="row d-flex flex-column flex-xl-row flex-wrap justify-content-center align-items-center top-employers-container">
+				@if (ViewData["companies"] is List<Company> companies)
+				{
+					@foreach (var company in companies)
+					{
+						<a class="col col-xl-4 hyperlink positive-relative employer-link ipx-3 ipb-6 ipb-xl-8" data-controller="utm-tracking employers--top-employer-impression" data-employers--top-employer-impression-target="topEmployer" data-employers--top-employer-impression-url-value="/top_employers/impressions" data-employers--top-employer-impression-employer-key-value="ee3b19b0-80bc-4822-af0b-e320abd46c11" rel="nofollow" data-method="put" asp-area="User/Companies" asp-controller="Company" asp-action="Detail" asp-route-slug="@company.Slug">
+							<div class="top-employer-item d-flex flex-column justify-content-xl-between align-items-xl-center position-relative text-center">
+								<div class="text-center top-employer">
+									<div class="bg-circle position-absolute start-0 z-1">
+										<img class="img-bg-card" src="https://itviec.com/assets/homepage/bg-top-emp-dbf208a6c6d014eb0e2aac10d0a397aac71694c28d5d23cb5709b613bf215fcb.svg" />
+									</div>
+								</div>
+								<div class="mx-auto border-radius-large box-shadow-dark bg-white top-employer-img imt-8 z-11">
+									<picture>
+										<source data-srcset="~/images/companies/@company.LogoImage" srcset="~/images/companies/@company.LogoImage">
+										<img alt="@company.Name" class="border-none border-radius-large position-relative ls-is-cached lazyloaded" data-controller="lazyload" data-src="~/images/companies/@company.LogoImage" height="160" width="160" src="~/images/companies/@company.LogoImage">
+									</picture>
+								</div>
+								<div class="flex-grow-1 z-11 ipb-5 ipb-xl-0 imt-6">
+									<div>
+										<h3 class="text-black ipx-4 employer-name">@company.Name</h3>
+										<div class="ipx-4 ipt-4">
+											<div class="d-flex gap-2 flex-wrap justify-content-center">
+
+												@if (company.CompanySkills is ICollection<CompanySkills> companySkills)
+											{
+													@foreach (var ck in companySkills)
+												{
+													<div class="itag itag-md itag-light disabled">
+															@ck.Skill.Name
+													</div>
+												}
+
+											}
+											</div>
+								</div>
+							</div>
+						</div>
+						<div class="bg-light-grey top-employer-footer irounded-lg-bottom z-11">
+							<div class="d-flex justify-content-center justify-content-xl-start align-items-center small-text text-rich-grey text-start ipb-3 ipb-xl-0">
+							
+                                @if (company.Locations.Any())
+                                {
+									HashSet<string> listAddresses = new HashSet<string>();
+									foreach (var location in company.Locations)
+									{
+										listAddresses.Add(location.Address.City.Name);
+									}
+                                    if (listAddresses.Count > 0) 
+                                    { 
+                                        @string.Join(" - ", listAddresses) 
+									} 
+                                    else 
+									{ 
+                                      @listAddresses.First().ToString(); 
+									} 
+                            } 
+							</div>
+							<div class="d-flex justify-content-center justify-content-xl-end align-items-center normal-text text-it-black top-employer-view-more">
+								<span>
+									<svg class="online-icon">
+										<use xlink:href="#online_icon"></use>
+									</svg>
+								</span>
+								@company.Posts.Count Việc làm
+								<svg class="feather-icon ips-1 icon-md">
+									<use href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#chevron-right"></use>
+								</svg>
+
+							</div>
+						</div>
+					</div>
+				</a>
+					}
+				}
+
+			</div>
+		</section>
+
+	</div>
+</div>
