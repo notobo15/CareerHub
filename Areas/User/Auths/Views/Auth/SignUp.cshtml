@@ -1,0 +1,162 @@
+﻿<div class="flex-grow-1">
+    <div class="main bg-white ipt-12 ipb-16 user-sign-up">
+        <div class="icontainer-xs">
+            <div class="d-flex align-items-center imb-4">
+                <h3>Chào mừng bạn đến với</h3>
+                <img class="ims-3" src="https://itviec.com/assets/logo_black_text-04776232a37ae9091cddb3df1973277252b12ad19a16715f4486e603ade3b6a4.png" width="80" height="30" />
+            </div>
+            <h1>Đăng ký tài khoản</h1>
+            <div data-controller="agreement">
+                <label class="icheckbox imy-4">
+                    <input data-action="click->agreement#check" data-agreement-target="agreeCheckbox" type="checkbox" />
+                    <span class="d-flex">
+                        <div>
+                            Bằng việc đăng ký bằng tài khoản Google, bạn đồng ý với các <a href="https://itviec.com/blog/terms-conditions-vn/" target="_blank" class="hyperlink">Điều khoản dịch vụ</a> và
+                            <a href="https://itviec.com/blog/quy-dinh-bao-mat/" target="_blank" class="hyperlink">Chính sách quyền riêng tư</a> của ITviec liên quan đến thông tin riêng tư của bạn.
+                        </div>
+                    </span>
+                </label>
+                <form class="button_to" method="post" action="/users/auth/google_oauth2?action_type=sign_up&amp;origin=%2Fvi">
+                    <button data-turbo="false" data-agreement-target="submitBtn" id="gplus-signin" rel="nofollow" class="d-flex justify-content-center ibtn ibtn-md ibtn-secondary w-100 igap-0 ipy-2 disabled" type="submit">
+                        <img data-controller="lazyload" src="https://itviec.com/assets/google_logo-af373a5e64715e7d4fcdea711f96995f7fd7a49725b3dd8910d4749b74742cb2.svg" width="30" height="30" class="ls-is-cached lazyloaded" />
+                        <span class="ps-2">Đăng ký bằng Google</span>
+                    </button>
+                    <input type="hidden" name="authenticity_token" value="RzkeaoHfUqXK0F8UAXwSqsktO9dGVkOhdIvvrg7__a1dycFNhF0szwDn6_4AZ9n5FZFGBK25Y39Q_G4z5j9qOA" autocomplete="off" />
+                </form>
+            </div>
+            <div class="d-flex align-items-center imy-6">
+                <div class="border-top-solid flex-grow-1"></div>
+                <div class="imx-5 text-rich-grey text-uppercase">
+                    hoặc
+                </div>
+                <div class="border-top-solid flex-grow-1"></div>
+            </div>
+            <form role="form" id="signup_form" data-controller="authenticate-validation agreement" action="/sign_up?locale=vi" accept-charset="UTF-8" method="post" novalidate="novalidate">
+                <input type="hidden" name="authenticity_token" value="RzkeaoHfUqXK0F8UAXwSqsktO9dGVkOhdIvvrg7__a1dycFNhF0szwDn6_4AZ9n5FZFGBK25Y39Q_G4z5j9qOA" autocomplete="off" />
+                <div class="imb-6">
+                    <label class="imb-2" for="user_name">
+                        <span>Họ và Tên</span>
+                        <abbr class="text-error-color">*</abbr>
+                    </label>
+                    <input class="form-control" placeholder="Nhập họ và tên" required="required" data-msg="Thông tin bắt buộc" data-rule-maxlength="65" data-msg-maxlength="Tối đa 65 ký tự" type="text" name="user[name]" id="user_name" />
+                </div>
+                <div class="imb-6">
+                    <label class="imb-2" for="user_email">
+                        <span>Email</span>
+                        <abbr class="text-error-color">*</abbr>
+                    </label>
+                    <input
+                        class="form-control"
+                        placeholder="Nhập email"
+                        required="required"
+                        data-msg="Thông tin bắt buộc"
+                        data-rule-email="true"
+                        data-msg-email="Địa chỉ Email không hợp lệ"
+                        data-rule-no-plus="true"
+                        data-msg-no-plus="Địa chỉ Email không hợp lệ"
+                        type="email"
+                        value=""
+                        name="user[email]"
+                        id="user_email"
+                    />
+                </div>
+                <div class="imb-6">
+                    <label class="imb-2" for="user_password">
+                        <span>Mật khẩu</span>
+                        <abbr class="text-error-color">*</abbr>
+                    </label>
+                    <div class="position-relative">
+                        <button
+                            class="eye-icon-password border-0 bg-transparent ipx-3 ignore position-absolute end-0 imt-6 translate-middle-y"
+                            data-action="show-hide-password#toggle"
+                            data-controller="show-hide-password"
+                            data-show-hide-password-target="btnEyePassword"
+                            type="button"
+                        >
+                            <div class="d-none lh-1" data-show-hide-password-target="showPassword">
+                                <i class="feather-icon icon-md text-it-black" data-feather="eye">
+                                </i>
+                            </div>
+                            <div class="svg-icon lh-1" data-show-hide-password-target="hidePassword">
+                                <i class="feather-icon icon-md text-it-black" data-feather="eye-off">
+                                </i>
+                            </div>
+                        </button>
+
+                        <input class="form-control" placeholder="Nhập mật khẩu" data-rule-password="true" type="password" name="user[password]" id="user_password" />
+                        <div class="text-error-color d-none" data-authenticate-validation-target="passwordError">
+                            Thông tin bắt buộc
+                        </div>
+                    </div>
+                    <div class="password-verify imt-2">
+                        <div class="d-flex align-items-center" data-authenticate-validation-target="passwordCheck" data-type="length">
+                            <div class="ime-2 d-flex align-items-center">
+                                <i class="feather-icon circle-verify" data-feather="circle">
+                                </i>
+                            </div>
+                            <div class="text-verify">
+                                Ít nhất 12 ký tự
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center" data-authenticate-validation-target="passwordCheck" data-type="symbol">
+                            <div class="ime-2 d-flex align-items-center">
+                                <i class="feather-icon circle-verify" data-feather="circle">
+                                </i>
+                            </div>
+                            <div class="text-verify">
+                                Ít nhất 1 ký tự đặc biệt
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center" data-authenticate-validation-target="passwordCheck" data-type="digits">
+                            <div class="ime-2 d-flex align-items-center">
+                                <i class="feather-icon circle-verify" data-feather="circle">
+                                </i>
+                            </div>
+                            <div class="text-verify">
+                                Ít nhất 1 số
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center" data-authenticate-validation-target="passwordCheck" data-type="upper">
+                            <div class="ime-2 d-flex align-items-center">
+                                <i class="feather-icon circle-verify" data-feather="circle">
+                                </i>
+                            </div>
+                            <div class="text-verify">
+                                Ít nhất 1 chữ viết HOA
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center" data-authenticate-validation-target="passwordCheck" data-type="lower">
+                            <div class="ime-2 d-flex align-items-center">
+                                <i class="feather-icon circle-verify" data-feather="circle">
+                                </i>
+                            </div>
+                            <div class="text-verify">
+                                Ít nhất 1 chữ viết thường
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="imb-8">
+                    <label class="icheckbox">
+                        <input data-action="click->agreement#check" data-agreement-target="agreeCheckbox" type="checkbox" />
+                        <span class="d-flex">
+                            <div>
+                                Tôi đã đọc và đồng ý với các <a href="https://itviec.com/blog/terms-conditions-vn/" target="_blank" class="hyperlink">Điều khoản dịch vụ</a> và
+                                <a href="https://itviec.com/blog/quy-dinh-bao-mat/" target="_blank" class="hyperlink">Chính sách quyền riêng tư</a> của ITviec liên quan đến thông tin riêng tư của tôi.
+                            </div>
+                        </span>
+                    </label>
+                </div>
+                <div class="imb-6">
+                    <button class="ibtn ibtn-md ibtn-primary w-100" data-agreement-target="submitBtn" data-disable-with="Đang đăng ký…" disabled="" type="submit">
+                        Đăng ký bằng Email
+                    </button>
+                </div>
+                <div class="imb-6 text-center">
+                    Bạn đã có tài khoản?
+                    <a class="hyperlink" data-controller="utm-tracking" href="/dang-nhap-tai-khoan">Đăng nhập ngay!</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
