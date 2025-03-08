@@ -1,0 +1,215 @@
+﻿@using RecruitmentApp.DTOs
+@model PostDTO
+
+<div class="preview-job-wrapper bg-white border-radius-large">
+    <div class="preview-job-header ipx-6 ipt-6 ipb-2">
+        <div class="d-flex align-items-center gap-3">
+            <a target="_blank" class="bg-white logo-employer-preview" asp-area="User/Companies" asp-controller="Company"
+                asp-action="Detail" asp-route-slug="@Model.Slug">
+                <img alt="DICOM Vietnam Big Logo" class="border-radius-normal border-solid ls-is-cached lazyloaded"
+                    height="100" width="100" src="~/images/companies/@Model.Company.LogoImage" />
+            </a>
+            <div class="d-flex flex-column gap-2 fw-600">
+                <a target="_blank" asp-area="User/Jobs" asp-controller="Job" asp-action="Detail"
+                    asp-route-slug="@Model.Slug">
+                    <div class="d-flex justify-content-start align-items-start">
+                        <h2 class="text-it-black text-hover-red cursor-pointer transition-duration-300">@Model.Title
+                        </h2>
+                        <div class="text-it-red ims-2 imt-1">
+                            <i class="feather-icon icon-sm hyperlink" data-feather="external-link">
+                            </i>
+                        </div>
+                    </div>
+                </a>
+                <span>
+                    <a target="_blank" class="normal-text text-rich-grey text-hover-underline"
+                        hasp-area="User/Companies" asp-controller="Company" asp-action="Detail"
+                        asp-route-slug="@Model.Slug">@Model.Company.Name</a>
+                </span>
+                <div class="d-flex align-items-center salary text-success-color">
+                    <svg fill="none" height="24" stroke="currentColor" viewBox="0 0 24 24" width="24"
+                        xmlns="http:www.w3.org/2000/svg">
+                        <path d="M12.0044 6V18" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                        <path
+                            d="M14.9287 7.90332H10.5395C9.99625 7.90332 9.47527 8.11912 9.09114 8.50325C8.70701 8.88738 8.49121 9.40836 8.49121 9.9516C8.49121 10.4948 8.70701 11.0158 9.09114 11.4C9.47527 11.7841 9.99625 11.9999 10.5395 11.9999H13.4656C14.0088 11.9999 14.5298 12.2157 14.914 12.5998C15.2981 12.9839 15.5139 13.5049 15.5139 14.0482C15.5139 14.5914 15.2981 15.1124 14.914 15.4965C14.5298 15.8806 14.0088 16.0964 13.4656 16.0964H8.49121"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor">
+                        </path>
+                        <circle cx="12.0002" cy="12.0002" r="9.3" stroke-width="2" stroke="currentColor"></circle>
+                    </svg>
+
+
+                    <span class="ips-2">@Model.SalaryText</span>
+                </div>
+            </div>
+        </div>
+        <div class="imy-4">
+            <div class="d-flex align-items-center">
+                <a class="ibtn ibtn-sm ibtn-primary flex-grow-1" rel="nofollow" target="_self"
+                    href="/viec-lam-it/ky-su-lap-trinh-nhung-embedded-02-vi-tri-dicom-2755/job_applications/new?lab_feature=preview_job">
+                    Ứng tuyển
+                </a>
+                <div class="ims-3" id="885b4cc2-38af-46db-8ab4-067e96949f19">
+                    <a class="d-flex align-items-center d-none"
+                        href="/saved_jobs/ky-su-lap-trinh-nhung-embedded-02-vi-tri-dicom-2755?locale=vi"
+                        data-bs-original-title="Đã lưu">
+                        <i class="feather-icon icon-xl text-it-red fill" data-feather="heart">
+                        </i>
+                    </a>
+                    <a class="d-flex align-items-center"
+                        href="/saved_jobs?job_slug=ky-su-lap-trinh-nhung-embedded-02-vi-tri-dicom-2755&amp;locale=vi"
+                        data-bs-original-title="Lưu việc này">
+                        <i class="feather-icon icon-xl text-it-primary" data-feather="heart">
+                        </i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="text-silver-grey imx-6 imy-0" />
+    <div class="preview-job-content i-scrollbar ip-6">
+        <section class="preview-job-overview">
+            <div class="d-flex flex-column gap-2">
+                @foreach (var address in Model.Addresses)
+                {
+                    <div class="d-inline-block text-dark-grey">
+                        <i class="feather-icon icon-sm align-middle me-1" data-feather="map-pin">
+                        </i>
+                        <span class="small-text text-rich-grey">@address.Province</span>
+                        <a target="_blank" class="align-middle"
+                            href="https:www.google.com/maps?q=1+Nguyen+Huy+Tuong%2C+Thanh+Xuan%2C+Ha+Noi">
+                            <i class="feather-icon icon-sm hyperlink" data-feather="external-link">
+                            </i>
+                        </a>
+                    </div>
+                }
+
+                <div class="d-inline-block text-dark-grey preview-header-item">
+                    <svg fill="none" height="16" viewBox="0 0 24 25" width="16" xmlns="http:www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_947_6633)">
+                            <path
+                                d="M19 14.625C19 13.6967 18.6312 12.8065 17.9749 12.1501C17.3185 11.4937 16.4283 11.125 15.5 11.125H8.5C7.57174 11.125 6.6815 11.4937 6.02513 12.1501C5.36875 12.8065 5 13.6967 5 14.625"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor">
+                            </path>
+                            <path
+                                d="M12 8.5C13.933 8.5 15.5 6.933 15.5 5C15.5 3.067 13.933 1.5 12 1.5C10.067 1.5 8.5 3.067 8.5 5C8.5 6.933 10.067 8.5 12 8.5Z"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor">
+                            </path>
+                            <path d="M11.5 18.9375H12.5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                stroke="currentColor"></path>
+                            <path d="M4.56116 22.7812L2.90039 15.0938H21.0996L19.3696 22.7812" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2" stroke="currentColor"></path>
+                            <line stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor"
+                                x1="1" x2="23" y1="23.5" y2="23.5"></line>
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_947_6633">
+                                <rect fill="white" height="24" transform="translate(0 0.5)" width="24"></rect>
+                            </clipPath>
+                        </defs>
+                    </svg>
+
+                    <span class="small-text text-rich-grey ms-1">@Model.WorkSpace</span>
+                </div>
+                <div class="d-inline-block text-dark-grey preview-header-item">
+                    <i class="feather-icon icon-sm align-middle me-1" data-feather="clock">
+                    </i>
+
+                    <span class="small-text text-rich-grey">@Model.TimeAgo</span>
+                </div>
+                <div class="d-flex align-items-center gap-3">
+                    <span class="small-text text-rich-grey">Kỹ năng:</span>
+                    <div class="d-flex align-items-center gap-1">
+                        @foreach (var skill in Model.Skills)
+                        {
+                            <a class="text-reset" asp-area="User/Skills" asp-controller="Skill" asp-action="Detail"
+                                asp-route-slug="@skill.Slug">
+                                <div class="itag itag-light itag-sm">
+                                    @skill.Name
+                                </div>
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="border-top-dashed imy-6"></div>
+        <section class="job-description">
+            <h2 class="text-it-black imb-4">Mô tả công việc</h2>
+            <div class="paragraph">
+                @Html.Raw(Model.TopReason)
+            </div>
+        </section>
+        <div class="border-top-dashed imy-6"></div>
+        <section class="job-experiences">
+            <h2 class="text-it-black imb-4">Yêu cầu công việc</h2>
+            <div class="paragraph">
+                @Html.Raw(Model.JobRequirement)
+
+            </div>
+        </section>
+        <div class="border-top-dashed imy-6"></div>
+        <section class="job-why-love-working">
+            <h2 class="text-it-black imb-4">Tại sao bạn sẽ yêu thích làm việc tại đây</h2>
+            <div class="paragraph">
+                @Html.Raw(Model.Benifit)
+            </div>
+        </section>
+        <hr class="text-silver-grey imy-6" />
+        <section class="company-infos">
+            <div class="hstack align-items-baseline">
+                <h2 class="text-it-black">@Model.Company.Name</h2>
+                <a target="_blank" class="ms-auto hyperlink" asp-area="User/Companies" asp-controller="Company"
+                    asp-action="Detail" asp-route-slug="@Model.Company.Slug">
+                    <div class="d-flex align-items-center gap-1 text-nowrap">
+                        <span>Xem công ty</span>
+                        <i class="feather-icon icon-sm hyperlink" data-feather="external-link">
+                        </i>
+                    </div>
+                </a>
+            </div>
+            <p class="small-text text-rich-grey imt-2">@Model.Company.ShortDescription</p>
+            <div class="row imt-4">
+                <small class="small-text text-dark-grey col">Mô hình công ty</small>
+                <small class="small-text text-dark-grey col">Lĩnh vực công ty</small>
+                <small class="small-text text-dark-grey col">Quy mô công ty</small>
+            </div>
+            <div class="row">
+                <small class="normal-text text-it-black col">@Model.Company.Type</small>
+                <small class="normal-text text-it-black col text-end text-md-start">
+                    <div class="flex-1 ips-2 ips-md-0">
+                        <div class="d-inline-flex align-items-stretch normal-text">
+                            @string.Join(", ", Model.Company.Industries.Select(i => i.Name))
+                        </div>
+                    </div>
+                </small>
+                <small class="normal-text text-it-black col">@Model.Company.Size</small>
+            </div>
+            <div class="row imt-4">
+                <small class="small-text text-dark-grey col">Quốc gia</small>
+                <small class="small-text text-dark-grey col">Thời gian làm việc</small>
+                <small class="small-text text-dark-grey col"></small>
+            </div>
+            <div class="row">
+                <small class="normal-text text-it-black col">
+                    <svg xmlns="http:www.w3.org/2000/svg" class="d-none">
+                        <symbol id="vn-flag" viewBox="0 0 512 512">
+                            <circle style="fill: #d80027;" cx="256" cy="256" r="256"></circle>
+                            <polygon style="fill: #ffda44;" points="256,133.565 283.628,218.594 373.033,218.594 300.702,271.144 328.33,356.174 256,303.623
+183.67,356.174 211.298,271.144 138.968,218.594 228.372,218.594 "></polygon>
+                        </symbol>
+                    </svg>
+
+                    <div class="d-inline-block">
+                        <img class="feather-icon align-middle ime-1 flag-icon icon-md"
+                            src="https://purecatamphetamine.github.io/country-flag-icons/3x2/@(Model.Company.CountryCode).svg"
+                            alt="" />
+                        <span class="align-middle">@Model.Company.Country</span>
+                        @* <svg class="feather-icon align-middle ime-1 flag-icon icon-md"><use xlink:href="#vn-flag"></use></svg> *@
+                    </div>
+                </small>
+                <small class="normal-text text-it-black col">@Model.Company.WorkingTime</small>
+                <small class="normal-text text-it-black col"> </small>
+            </div>
+        </section>
+    </div>
+</div>
