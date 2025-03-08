@@ -6,6 +6,7 @@ using RecruitmentApp.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Intrinsics.Arm;
+using RecruitmentApp.Utilities;
 
 namespace RecruitmentApp.Seed
 {
@@ -35,6 +36,8 @@ namespace RecruitmentApp.Seed
                     // Seed Wards
                     await SeedWards(applicationDbContext, package);
 
+                    await SeedCountries(applicationDbContext, package);
+
                     // Seed Companies
                     await SeedCompanies(applicationDbContext, package);
 
@@ -44,8 +47,26 @@ namespace RecruitmentApp.Seed
                     await SeedSkills(applicationDbContext, package);
 
                     await SeedTitles(applicationDbContext, package);
-                    
+
+
+                    await SeedAddresses(applicationDbContext, package);
+
+                    await SeedLocations(applicationDbContext, package);
+
                     await SeedPosts(applicationDbContext, package);
+
+                    await SeedCompanySkills(applicationDbContext, package);
+                    
+                    await SeedPostSkills(applicationDbContext, package);
+                    
+                    await SeedPostLocations(applicationDbContext, package);
+
+                    await SeedImages(applicationDbContext, package);
+
+                    await SeedIndustries(applicationDbContext, package);
+
+                    await SeedCompanyIndustries(applicationDbContext, package);
+
                 }
             }
             catch (Exception ex)
@@ -70,7 +91,8 @@ namespace RecruitmentApp.Seed
                         FullName = sheet.Cells[row, 3].Text,
                         FullNameEn = sheet.Cells[row, 4].Text,
                         Name = sheet.Cells[row, 5].Text,
-                        NameEn = sheet.Cells[row, 6].Text
+                        NameEn = sheet.Cells[row, 6].Text,
+                        Slug = AppUtilities.GenerateSlug(sheet.Cells[row, 5].Text)
                     };
 
                     applicationDbContext.Provinces.Add(province);
@@ -147,9 +169,10 @@ namespace RecruitmentApp.Seed
                     var company = new Company
                     {
                         //CompanyId = int.Parse(sheet.Cells[row, 1].Text), // Column 1: CompanyId
-                        Slug = sheet.Cells[row, 2].Text, // Column 2: Slug
-                        Name = sheet.Cells[row, 3].Text, // Column 3: Name
-                        FullName = sheet.Cells[row, 4].Text, // Column 4: FullName
+                        Slug = Utilities.AppUtilities.GenerateSlug(sheet.Cells[row, 3].Value?.ToString()),
+                        //Slug = sheet.Cells[row, 2].Text, // Column 2: Slug
+                        FullName = sheet.Cells[row, 3].Text, // Column 4: FullName
+                        Name = sheet.Cells[row, 4].Text, // Column 3: Name
                         Size = sheet.Cells[row, 5].Text, // Column 5: Size
                         Description = sheet.Cells[row, 6].Text, // Column 6: Description
                         //Description = sheet.Cells[row, 6].Text, // Column 6: Description
@@ -163,6 +186,11 @@ namespace RecruitmentApp.Seed
                         LogoImage = sheet.Cells[row, 15].Text, // Column 14: LogoImage
                         CompanyUrl = sheet.Cells[row, 16].Text, // Column 15: CompanyUrl
                         CompanyFbUrl = sheet.Cells[row, 17].Text, // Column 16: CompanyFbUrl
+                        TopReason = sheet.Cells[row, 19].Text,
+                        OurExpertise = sheet.Cells[row, 20].Text,
+                        WhyJoinUs = sheet.Cells[row, 21].Text, 
+                        ShortDescription = sheet.Cells[row, 22].Text,
+                        CountryId = int.Parse(sheet.Cells[row, 23].Text),
                         // RecruiterId = sheet.Cells[row, 17].Text, // Column 17: RecruiterId (nullable)
                         IsDeleted = false,
                         CreatedAt = DateTime.Now,
@@ -214,7 +242,8 @@ namespace RecruitmentApp.Seed
                     var post = new Post
                     {
                         Title = sheet.Cells[row, 2].Text,
-                        Slug = sheet.Cells[row, 3].Text,
+                        //Slug = sheet.Cells[row, 3].Text,
+                        Slug = Utilities.AppUtilities.GenerateSlug(sheet.Cells[row, 2].Value?.ToString()),
                         IsHot = sheet.Cells[row, 4].Text == "1",
                         ViewTotal = int.TryParse(sheet.Cells[row, 5].Text, out var viewTotal) ? viewTotal : 0,
                         SalaryType = sheet.Cells[row, 6].Text,
@@ -228,7 +257,8 @@ namespace RecruitmentApp.Seed
                         Description = sheet.Cells[row, 13].Text,
                         JobRequirement = sheet.Cells[row, 14].Text,
                         Benifit = sheet.Cells[row, 15].Text,
-                        //CompanyId = int.Parse(sheet.Cells[row, 16].Text),
+                        CompanyId = int.Parse(sheet.Cells[row, 16].Text),
+                        //LocationId = int.Parse(sheet.Cells[row, 22].Text),
                         // RecruiterId = sheet.Cells[row, 17].Text,
                         IsShow = sheet.Cells[row, 18].Text == "1",
                         IsClose = sheet.Cells[row, 19].Text == "1",
@@ -258,12 +288,8 @@ namespace RecruitmentApp.Seed
                     var skill = new Skill
                     {
                         // SkillId = int.Parse(sheet.Cells[row, 1].Text), // Cột 1: SkillId
-                        Name = sheet.Cells[row, 2].Text, // Cột 2: Name
-                        IsDeleted = sheet.Cells[row, 3].Text == "0", // Cột 3: IsDeleted (Chuyển đổi từ 0 hoặc 1)
-                        CreatedAt = DateTime.Parse(sheet.Cells[row, 4].Text), // Cột 4: CreatedAt
-                        UpdatedAt = string.IsNullOrWhiteSpace(sheet.Cells[row, 5].Text)
-                            ? DateTime.MinValue
-                            : DateTime.Parse(sheet.Cells[row, 5].Text) // Cột 5: UpdatedAt (Nếu trống thì để MinValue)
+                        Name = sheet.Cells[row, 2].Text,
+                        Slug = AppUtilities.GenerateSlug(sheet.Cells[row, 2].Text),
                     };
 
                     applicationDbContext.Skills.Add(skill);
@@ -285,7 +311,8 @@ namespace RecruitmentApp.Seed
                     var title = new Title
                     {
                         // Id = int.Parse(sheet.Cells[row, 1].Text), // Cột 1: Id
-                        Name = sheet.Cells[row, 2].Text // Cột 2: Name
+                        Name = sheet.Cells[row, 2].Text, // Cột 2: Name
+                        Slug = AppUtilities.GenerateSlug(sheet.Cells[row, 2].Text)
                     };
 
                     applicationDbContext.Titles.Add(title);
@@ -293,6 +320,210 @@ namespace RecruitmentApp.Seed
 
                 await applicationDbContext.SaveChangesAsync();
                 Console.WriteLine("Titles seeded successfully.");
+            }
+        }
+
+        private static async Task SeedCompanySkills(AppDbContext applicationDbContext, ExcelPackage package)
+        {
+            var sheet = package.Workbook.Worksheets["CompanySkills"];
+            if (sheet != null && !applicationDbContext.CompanySkills.Any())
+            {
+                Console.WriteLine("Seeding Company Skills...");
+                for (int row = 2; row <= sheet.Dimension.Rows; row++)
+                {
+                    var title = new CompanySkills
+                    {
+                        CompanyID = int.Parse(sheet.Cells[row, 2].Text),
+                        SkillID = int.Parse(sheet.Cells[row, 3].Text) 
+                    };
+
+                    applicationDbContext.CompanySkills.Add(title);
+                }
+
+                await applicationDbContext.SaveChangesAsync();
+                Console.WriteLine("Company Skills seeded successfully.");
+            }
+        }
+
+        private static async Task SeedPostSkills(AppDbContext applicationDbContext, ExcelPackage package)
+        {
+            var sheet = package.Workbook.Worksheets["PostSkills"];
+            if (sheet != null && !applicationDbContext.PostSkills.Any())
+            {
+                Console.WriteLine("Seeding Post Skills...");
+                for (int row = 2; row <= sheet.Dimension.Rows; row++)
+                {
+                    var pk = new PostSkills
+                    {
+                        PostID = int.Parse(sheet.Cells[row, 2].Text),
+                        SkillID = int.Parse(sheet.Cells[row, 3].Text)
+                    };
+
+                    applicationDbContext.PostSkills.Add(pk);
+                }
+
+                await applicationDbContext.SaveChangesAsync();
+                Console.WriteLine("Post Skills seeded successfully.");
+            }
+        }
+
+        private static async Task SeedPostLocations(AppDbContext applicationDbContext, ExcelPackage package)
+        {
+            var sheet = package.Workbook.Worksheets["PostLocations"];
+            if (sheet != null && !applicationDbContext.PostLocations.Any())
+            {
+                Console.WriteLine("Seeding Post Locations...");
+                for (int row = 2; row <= sheet.Dimension.Rows; row++)
+                {
+                    var pk = new PostLocations
+                    {
+                        PostID = int.Parse(sheet.Cells[row, 2].Text),
+                        LocationId = int.Parse(sheet.Cells[row, 3].Text)
+                    };
+
+                    applicationDbContext.PostLocations.Add(pk);
+                }
+
+                await applicationDbContext.SaveChangesAsync();
+                Console.WriteLine("Post Skills seeded successfully.");
+            }
+        }
+
+        private static async Task SeedAddresses(AppDbContext applicationDbContext, ExcelPackage package)
+        {
+            var sheet = package.Workbook.Worksheets["Addresses"];
+            if (sheet != null && !applicationDbContext.Addresses.Any())
+            {
+                Console.WriteLine("Seeding Addresses...");
+                for (int row = 2; row <= sheet.Dimension.Rows; row++)
+                {
+                    var address = new Address
+                    {
+                        ProvinceCode = sheet.Cells[row, 2].Text,
+                        DistrictCode = sheet.Cells[row, 3].Text,
+                        WardCode = sheet.Cells[row, 4].Text,
+                        DetailPosition = sheet.Cells[row, 5].Text,
+                        GgMapSrc = sheet.Cells[row, 6].Text,
+                        FullAddress = sheet.Cells[row, 7].Text,
+                    };
+
+                    applicationDbContext.Addresses.Add(address);
+                }
+
+                await applicationDbContext.SaveChangesAsync();
+                Console.WriteLine("Addresses seeded successfully.");
+            }
+        }
+
+        private static async Task SeedLocations(AppDbContext applicationDbContext, ExcelPackage package)
+        {
+            var sheet = package.Workbook.Worksheets["Locations"];
+            if (sheet != null && !applicationDbContext.Locations.Any())
+            {
+                Console.WriteLine("Seeding Locations...");
+                for (int row = 2; row <= sheet.Dimension.Rows; row++)
+                {
+                    var location = new Location
+                    {
+                        AddressId = int.Parse(sheet.Cells[row, 2].Text),
+                        CompanyId = int.Parse(sheet.Cells[row, 3].Text)
+                    };
+
+                    applicationDbContext.Locations.Add(location);
+                }
+
+                await applicationDbContext.SaveChangesAsync();
+                Console.WriteLine("Locations seeded successfully.");
+            }
+        }
+        private static async Task SeedImages(AppDbContext applicationDbContext, ExcelPackage package)
+        {
+            var sheet = package.Workbook.Worksheets["Images"];
+            if (sheet != null && !applicationDbContext.Images.Any())
+            {
+                Console.WriteLine("Seeding Images...");
+                for (int row = 2; row <= sheet.Dimension.Rows; row++)
+                {
+                    var image = new Image
+                    {
+                        CompanyId = int.Parse(sheet.Cells[row, 2].Text),
+                        FileName = sheet.Cells[row, 3].Text
+                    };
+
+                    applicationDbContext.Images.Add(image);
+                }
+
+                await applicationDbContext.SaveChangesAsync();
+                Console.WriteLine("Images seeded successfully.");
+            }
+        }
+
+        private static async Task SeedIndustries(AppDbContext applicationDbContext, ExcelPackage package)
+        {
+            var sheet = package.Workbook.Worksheets["Industries"];
+            if (sheet != null && !applicationDbContext.Industries.Any())
+            {
+                Console.WriteLine("Seeding Industries...");
+                for (int row = 2; row <= sheet.Dimension.Rows; row++)
+                {
+                    var image = new Industry
+                    {
+                        Name = sheet.Cells[row, 2].Text
+                    };
+
+                    applicationDbContext.Industries.Add(image);
+                }
+
+                await applicationDbContext.SaveChangesAsync();
+                Console.WriteLine("Industries seeded successfully.");
+            }
+        }
+
+
+        private static async Task SeedCompanyIndustries(AppDbContext applicationDbContext, ExcelPackage package)
+        {
+            var sheet = package.Workbook.Worksheets["CompanyIndustries"];
+            if (sheet != null && !applicationDbContext.CompanyIndustries.Any())
+            {
+                Console.WriteLine("Seeding Industries...");
+                for (int row = 2; row <= sheet.Dimension.Rows; row++)
+                {
+                    var image = new CompanyIndustry
+                    {
+                        CompanyId = int.Parse(sheet.Cells[row, 2].Text),
+                        IndustryId = int.Parse(sheet.Cells[row, 3].Text),
+
+                    };
+
+                    applicationDbContext.CompanyIndustries.Add(image);
+                }
+
+                await applicationDbContext.SaveChangesAsync();
+                Console.WriteLine("Industries seeded successfully.");
+            }
+        }
+
+        private static async Task SeedCountries(AppDbContext applicationDbContext, ExcelPackage package)
+        {
+            var sheet = package.Workbook.Worksheets["Countries"];
+            if (sheet != null && !applicationDbContext.CompanyIndustries.Any())
+            {
+                Console.WriteLine("Seeding Countries...");
+                for (int row = 2; row <= sheet.Dimension.Rows; row++)
+                {
+                    var country = new Country
+                    {
+                        Slug = AppUtilities.GenerateSlug(sheet.Cells[row, 2].Text),
+                        Name = sheet.Cells[row, 2].Text,
+                        ISOCode = sheet.Cells[row, 3].Text,
+
+                    };
+
+                    applicationDbContext.Countries.Add(country);
+                }
+
+                await applicationDbContext.SaveChangesAsync();
+                Console.WriteLine("Countries seeded successfully.");
             }
         }
     }
