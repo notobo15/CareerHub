@@ -37,9 +37,9 @@
                 @Html.DisplayFor(modelItem => item.DateSend)
             </td>
             <td class="text-center">
-                <a class="btn btn-sm border-primary" asp-action="Details" asp-route-id="@item.Id"><i class="far fa-eye text-primary"></i></a>
-                <a class="btn btn-sm border-warning" asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-edit text-warning"></i></a>
-                <a class="btn btn-sm border-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="fas fa-trash-alt text-danger"></i></a>
+                    <a class="btn btn-sm border-primary" asp-action="Details" asp-route-id="@item.ContactId"><i class="far fa-eye text-primary"></i></a>
+                    <a class="btn btn-sm border-warning" asp-action="Edit" asp-route-id="@item.ContactId"><i class="fas fa-edit text-warning"></i></a>
+                    <a class="btn btn-sm border-danger" asp-action="Delete" asp-route-id="@item.ContactId"><i class="fas fa-trash-alt text-danger"></i></a>
             </td>
         
         </tr>

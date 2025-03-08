@@ -28,7 +28,7 @@ namespace RecruitmentApp.Areas.Contact.Controllers
         [HttpGet("/admin/contact")]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Contact.ToListAsync());
+            return View(await _context.Contacts.ToListAsync());
         }
 
         // GET: Contact/Details/5
@@ -40,8 +40,8 @@ namespace RecruitmentApp.Areas.Contact.Controllers
                 return NotFound();
             }
 
-            var contact = await _context.Contact
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var contact = await _context.Contacts
+                .FirstOrDefaultAsync(m => m.ContactId == id);
             if (contact == null)
             {
                 return NotFound();
@@ -87,7 +87,7 @@ namespace RecruitmentApp.Areas.Contact.Controllers
                 return NotFound();
             }
 
-            var contact = await _context.Contact.FindAsync(id);
+            var contact = await _context.Contacts.FindAsync(id);
             if (contact == null)
             {
                 return NotFound();
@@ -102,7 +102,7 @@ namespace RecruitmentApp.Areas.Contact.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("FullName,Email,Phone,Message")] ContactModel contact)
         {
-            if (id != contact.Id)
+            if (id != contact.ContactId)
             {
                 return NotFound();
             }
@@ -116,7 +116,7 @@ namespace RecruitmentApp.Areas.Contact.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ContactExists(contact.Id))
+                    if (!ContactExists(contact.ContactId))
                     {
                         return NotFound();
                     }
@@ -139,8 +139,8 @@ namespace RecruitmentApp.Areas.Contact.Controllers
                 return NotFound();
             }
 
-            var contact = await _context.Contact
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var contact = await _context.Contacts
+                .FirstOrDefaultAsync(m => m.ContactId == id);
             if (contact == null)
             {
                 return NotFound();
@@ -154,15 +154,15 @@ namespace RecruitmentApp.Areas.Contact.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var contact = await _context.Contact.FindAsync(id);
-            _context.Contact.Remove(contact);
+            var contact = await _context.Contacts.FindAsync(id);
+            _context.Contacts.Remove(contact);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ContactExists(int id)
         {
-            return _context.Contact.Any(e => e.Id == id);
+            return _context.Contacts.Any(e => e.ContactId == id);
         }
     }
 }
