@@ -117,10 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="en" xml:space="preserve">
-    <value>English</value>
+  <data name="About" xml:space="preserve">
+    <value>Giới Thiệu</value>
   </data>
-  <data name="vi" xml:space="preserve">
-    <value>VietNam</value>
+  <data name="Contact" xml:space="preserve">
+    <value>Liên Hệ</value>
+  </data>
+  <data name="Home1" xml:space="preserve">
+    <value>Nhà</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Accueil hm</value>
+  </data>
+  <data name="Toggle navigation" xml:space="preserve">
+    <value>Basculer la navigation-tog nav</value>
   </data>
 </root>
