@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RecruitmentApp.Models;
 
+#nullable disable
+
 namespace RecruitmentApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
@@ -15,9 +17,10 @@ namespace RecruitmentApp.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.17")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "6.0.36")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -43,15 +46,16 @@ namespace RecruitmentApp.Migrations
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -67,15 +71,16 @@ namespace RecruitmentApp.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("RoleClaims");
+                    b.ToTable("RoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -91,7 +96,7 @@ namespace RecruitmentApp.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserClaims");
+                    b.ToTable("UserClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -113,7 +118,7 @@ namespace RecruitmentApp.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserLogins");
+                    b.ToTable("UserLogins", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -128,7 +133,7 @@ namespace RecruitmentApp.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserRoles");
+                    b.ToTable("UserRoles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -147,17 +152,18 @@ namespace RecruitmentApp.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("UserTokens");
+                    b.ToTable("UserTokens", (string)null);
                 });
 
             modelBuilder.Entity("RecruitmentApp.Models.Address", b =>
                 {
                     b.Property<int>("AddressId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
-                    b.Property<int>("CompanyId")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AddressId"), 1L, 1);
+
+                    b.Property<int?>("CompanyId")
                         .HasColumnType("int");
 
                     b.Property<string>("DetailPosition")
@@ -192,6 +198,45 @@ namespace RecruitmentApp.Migrations
                     b.HasIndex("WardCode");
 
                     b.ToTable("Addresses");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.ApplyPost", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("ApplyDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OriginFileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PostID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("applyPosts");
                 });
 
             modelBuilder.Entity("RecruitmentApp.Models.AppUser", b =>
@@ -272,59 +317,25 @@ namespace RecruitmentApp.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("RecruitmentApp.Models.ApplyPost", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("ApplyDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FileName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OriginFileName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PostID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PostID");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("applyPosts");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("RecruitmentApp.Models.Company", b =>
                 {
                     b.Property<int>("CompanyId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CompanyId"), 1L, 1);
 
                     b.Property<string>("CompanyFbUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CompanyUrl")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CountryId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -357,6 +368,9 @@ namespace RecruitmentApp.Migrations
                     b.Property<string>("Nation")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("OurExpertise")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("OverTime")
                         .HasColumnType("nvarchar(max)");
 
@@ -369,10 +383,16 @@ namespace RecruitmentApp.Migrations
                     b.Property<string>("RecruiterId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("ShortDescription")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Size")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Slug")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TopReason")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Type")
@@ -381,14 +401,40 @@ namespace RecruitmentApp.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("WhyJoinUs")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("WorkingTime")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CompanyId");
 
+                    b.HasIndex("CountryId");
+
                     b.HasIndex("RecruiterId");
 
                     b.ToTable("Companies");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.CompanyIndustry", b =>
+                {
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IndustryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.HasKey("CompanyId", "IndustryId");
+
+                    b.HasIndex("IndustryId");
+
+                    b.ToTable("CompanyIndustries");
                 });
 
             modelBuilder.Entity("RecruitmentApp.Models.CompanySkills", b =>
@@ -408,10 +454,11 @@ namespace RecruitmentApp.Migrations
 
             modelBuilder.Entity("RecruitmentApp.Models.Contact", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ContactId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ContactId"), 1L, 1);
 
                     b.Property<DateTime?>("DateSend")
                         .HasColumnType("datetime2");
@@ -423,8 +470,7 @@ namespace RecruitmentApp.Migrations
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Message")
                         .HasColumnType("nvarchar(max)");
@@ -434,9 +480,31 @@ namespace RecruitmentApp.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("Id");
+                    b.HasKey("ContactId");
 
-                    b.ToTable("Contact");
+                    b.ToTable("Contacts");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.Country", b =>
+                {
+                    b.Property<int>("CountryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CountryId"), 1L, 1);
+
+                    b.Property<string>("ISOCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Slug")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CountryId");
+
+                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("RecruitmentApp.Models.District", b =>
@@ -514,12 +582,43 @@ namespace RecruitmentApp.Migrations
                     b.ToTable("Followers");
                 });
 
+            modelBuilder.Entity("RecruitmentApp.Models.Image", b =>
+                {
+                    b.Property<int>("ImageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ImageId"), 1L, 1);
+
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ImageId");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("Images");
+                });
+
             modelBuilder.Entity("RecruitmentApp.Models.Industry", b =>
                 {
                     b.Property<int>("IndustryId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IndustryId"), 1L, 1);
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -533,11 +632,15 @@ namespace RecruitmentApp.Migrations
                 {
                     b.Property<int>("LevelId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LevelId"), 1L, 1);
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Slug")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("LevelId");
@@ -545,12 +648,37 @@ namespace RecruitmentApp.Migrations
                     b.ToTable("Levels");
                 });
 
+            modelBuilder.Entity("RecruitmentApp.Models.Location", b =>
+                {
+                    b.Property<int>("LocationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LocationId"), 1L, 1);
+
+                    b.Property<int>("AddressId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LocationId");
+
+                    b.HasIndex("AddressId")
+                        .IsUnique();
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("Locations");
+                });
+
             modelBuilder.Entity("RecruitmentApp.Models.Post", b =>
                 {
                     b.Property<int>("PostId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PostId"), 1L, 1);
 
                     b.Property<int?>("AddressId")
                         .HasColumnType("int");
@@ -590,6 +718,9 @@ namespace RecruitmentApp.Migrations
 
                     b.Property<string>("JobRequirement")
                         .HasColumnType("ntext");
+
+                    b.Property<int?>("LocationId")
+                        .HasColumnType("int");
 
                     b.Property<double>("MaxSalary")
                         .HasColumnType("float");
@@ -646,6 +777,8 @@ namespace RecruitmentApp.Migrations
 
                     b.HasIndex("CompanyId");
 
+                    b.HasIndex("LocationId");
+
                     b.HasIndex("TitleId");
 
                     b.ToTable("Posts");
@@ -664,6 +797,34 @@ namespace RecruitmentApp.Migrations
                     b.HasIndex("PostID");
 
                     b.ToTable("PostLevels");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.PostLocations", b =>
+                {
+                    b.Property<int>("PostLocationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PostLocationId"), 1L, 1);
+
+                    b.Property<int>("LocationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PostID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PostLocationsPostLocationId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PostLocationId");
+
+                    b.HasIndex("LocationId");
+
+                    b.HasIndex("PostID");
+
+                    b.HasIndex("PostLocationsPostLocationId");
+
+                    b.ToTable("PostLocations");
                 });
 
             modelBuilder.Entity("RecruitmentApp.Models.PostSkills", b =>
@@ -685,8 +846,9 @@ namespace RecruitmentApp.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("IpAddress")
                         .HasColumnType("nvarchar(450)");
@@ -737,6 +899,9 @@ namespace RecruitmentApp.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("name_en");
 
+                    b.Property<string>("Slug")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("administrative_region_id")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("administrative_region_id");
@@ -750,30 +915,13 @@ namespace RecruitmentApp.Migrations
                     b.ToTable("Provinces");
                 });
 
-            modelBuilder.Entity("RecruitmentApp.Models.RecruitmentApp.Models.CompanyIndustry", b =>
-                {
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IndustryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("CompanyId", "IndustryId");
-
-                    b.HasIndex("IndustryId");
-
-                    b.ToTable("CompanyIndustries");
-                });
-
             modelBuilder.Entity("RecruitmentApp.Models.Skill", b =>
                 {
                     b.Property<int>("SkillId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SkillId"), 1L, 1);
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -783,6 +931,9 @@ namespace RecruitmentApp.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Slug")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -797,11 +948,15 @@ namespace RecruitmentApp.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Slug")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -907,27 +1062,26 @@ namespace RecruitmentApp.Migrations
 
             modelBuilder.Entity("RecruitmentApp.Models.Address", b =>
                 {
-                    b.HasOne("RecruitmentApp.Models.Company", "Company")
+                    b.HasOne("RecruitmentApp.Models.Company", null)
                         .WithMany("Addresses")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CompanyId");
 
                     b.HasOne("RecruitmentApp.Models.District", "District")
                         .WithMany()
-                        .HasForeignKey("DistrictCode");
+                        .HasForeignKey("DistrictCode")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("RecruitmentApp.Models.Province", "City")
                         .WithMany()
-                        .HasForeignKey("ProvinceCode");
+                        .HasForeignKey("ProvinceCode")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("RecruitmentApp.Models.Ward", "Ward")
                         .WithMany()
-                        .HasForeignKey("WardCode");
+                        .HasForeignKey("WardCode")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("City");
-
-                    b.Navigation("Company");
 
                     b.Navigation("District");
 
@@ -953,11 +1107,36 @@ namespace RecruitmentApp.Migrations
 
             modelBuilder.Entity("RecruitmentApp.Models.Company", b =>
                 {
+                    b.HasOne("RecruitmentApp.Models.Country", "Country")
+                        .WithMany("Companies")
+                        .HasForeignKey("CountryId");
+
                     b.HasOne("RecruitmentApp.Models.AppUser", "Recruiter")
                         .WithMany()
                         .HasForeignKey("RecruiterId");
 
+                    b.Navigation("Country");
+
                     b.Navigation("Recruiter");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.CompanyIndustry", b =>
+                {
+                    b.HasOne("RecruitmentApp.Models.Company", "Company")
+                        .WithMany("CompanyIndustries")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RecruitmentApp.Models.Industry", "Industry")
+                        .WithMany("CompanyIndustries")
+                        .HasForeignKey("IndustryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("Industry");
                 });
 
             modelBuilder.Entity("RecruitmentApp.Models.CompanySkills", b =>
@@ -1026,12 +1205,39 @@ namespace RecruitmentApp.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("RecruitmentApp.Models.Image", b =>
+                {
+                    b.HasOne("RecruitmentApp.Models.Company", "Company")
+                        .WithMany("Images")
+                        .HasForeignKey("CompanyId");
+
+                    b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.Location", b =>
+                {
+                    b.HasOne("RecruitmentApp.Models.Address", "Address")
+                        .WithOne()
+                        .HasForeignKey("RecruitmentApp.Models.Location", "AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RecruitmentApp.Models.Company", "Company")
+                        .WithMany("Locations")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Address");
+
+                    b.Navigation("Company");
+                });
+
             modelBuilder.Entity("RecruitmentApp.Models.Post", b =>
                 {
                     b.HasOne("RecruitmentApp.Models.Address", "Address")
-                        .WithMany("Posts")
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .WithMany()
+                        .HasForeignKey("AddressId");
 
                     b.HasOne("RecruitmentApp.Models.AppUser", "AppUser")
                         .WithMany("Posts")
@@ -1042,6 +1248,11 @@ namespace RecruitmentApp.Migrations
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("RecruitmentApp.Models.Location", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("RecruitmentApp.Models.Title", null)
                         .WithMany("Posts")
                         .HasForeignKey("TitleId");
@@ -1051,6 +1262,8 @@ namespace RecruitmentApp.Migrations
                     b.Navigation("AppUser");
 
                     b.Navigation("Company");
+
+                    b.Navigation("Location");
                 });
 
             modelBuilder.Entity("RecruitmentApp.Models.PostLevel", b =>
@@ -1068,6 +1281,29 @@ namespace RecruitmentApp.Migrations
                         .IsRequired();
 
                     b.Navigation("Level");
+
+                    b.Navigation("Post");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.PostLocations", b =>
+                {
+                    b.HasOne("RecruitmentApp.Models.Location", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RecruitmentApp.Models.Post", "Post")
+                        .WithMany("PostLocations")
+                        .HasForeignKey("PostID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RecruitmentApp.Models.PostLocations", null)
+                        .WithMany("Locations")
+                        .HasForeignKey("PostLocationsPostLocationId");
+
+                    b.Navigation("Location");
 
                     b.Navigation("Post");
                 });
@@ -1108,25 +1344,6 @@ namespace RecruitmentApp.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("RecruitmentApp.Models.RecruitmentApp.Models.CompanyIndustry", b =>
-                {
-                    b.HasOne("RecruitmentApp.Models.Company", "Company")
-                        .WithMany("CompanyIndustries")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RecruitmentApp.Models.Industry", "Industry")
-                        .WithMany("CompanyIndustries")
-                        .HasForeignKey("IndustryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
-
-                    b.Navigation("Industry");
-                });
-
             modelBuilder.Entity("RecruitmentApp.Models.Ward", b =>
                 {
                     b.HasOne("RecruitmentApp.Models.District", "District")
@@ -1134,11 +1351,6 @@ namespace RecruitmentApp.Migrations
                         .HasForeignKey("DistrictId");
 
                     b.Navigation("District");
-                });
-
-            modelBuilder.Entity("RecruitmentApp.Models.Address", b =>
-                {
-                    b.Navigation("Posts");
                 });
 
             modelBuilder.Entity("RecruitmentApp.Models.AppUser", b =>
@@ -1160,7 +1372,16 @@ namespace RecruitmentApp.Migrations
 
                     b.Navigation("Followers");
 
+                    b.Navigation("Images");
+
+                    b.Navigation("Locations");
+
                     b.Navigation("Posts");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.Country", b =>
+                {
+                    b.Navigation("Companies");
                 });
 
             modelBuilder.Entity("RecruitmentApp.Models.District", b =>
@@ -1184,7 +1405,14 @@ namespace RecruitmentApp.Migrations
 
                     b.Navigation("PostLevels");
 
+                    b.Navigation("PostLocations");
+
                     b.Navigation("PostSkills");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.PostLocations", b =>
+                {
+                    b.Navigation("Locations");
                 });
 
             modelBuilder.Entity("RecruitmentApp.Models.Province", b =>
