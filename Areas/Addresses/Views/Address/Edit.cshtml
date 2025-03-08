@@ -1,7 +1,7 @@
 @model RecruitmentApp.Models.Address
 @inject AppDbContext appDbContext
 @{
-    var listCompany = new SelectList(appDbContext.Companies.ToList(), "CompanyId", "Name", Model.CompanyId.ToString());
+    // var listCompany = new SelectList(appDbContext.Companies.ToList(), "CompanyId", "Name", Model.CompanyId.ToString());
     var listProvince = new SelectList(appDbContext.Provinces.ToList(), "Code", "FullName", Model.ProvinceCode.ToString());
     var listDistrict = new SelectList(appDbContext.Districts.Where(p => p.ProvinceId == Model.ProvinceCode).ToList(), "Code", "FullName", Model.DistrictCode.ToString());
     var listWard = new SelectList(appDbContext.Wards.Where(p => p.DistrictId == Model.DistrictCode).ToList(), "Code", "FullName", Model.WardCode.ToString());
@@ -13,12 +13,12 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="AddressId" />
-            <div class="form-group">
-                <label asp-for="CompanyId" class="control-label"></label>
-                <select asp-for="CompanyId" class="form-control" asp-items="listCompany">
-                </select>
-                <span asp-validation-for="CompanyId" class="text-danger"></span>
-            </div>
+            @* <div class="form-group"> *@
+            @*     <label asp-for="CompanyId" class="control-label"></label> *@
+            @*     <select asp-for="CompanyId" class="form-control" asp-items="listCompany"> *@
+            @*     </select> *@
+            @*     <span asp-validation-for="CompanyId" class="text-danger"></span> *@
+            @* </div> *@
             <div class="form-group">
                 <label asp-for="ProvinceCode" class="control-label"></label>
                 <select asp-for="ProvinceCode" class="form-control" asp-items="listProvince">

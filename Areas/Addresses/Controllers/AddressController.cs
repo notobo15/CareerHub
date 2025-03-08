@@ -25,7 +25,7 @@ namespace RecruitmentApp.Areas.Addresses.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.Addresses
-                .Include(a => a.Company)
+                //.Include(a => a.Company)
                 .Include(a => a.City)
                 .Include(a => a.District)
                 .Include(a => a.Ward)
@@ -41,7 +41,7 @@ namespace RecruitmentApp.Areas.Addresses.Controllers
             }
 
             var address = await _context.Addresses
-                .Include(a => a.Company)
+                //.Include(a => a.Company)
                 .Include(a => a.City)
                 .Include(a => a.District)
                 .Include(a => a.Ward)
