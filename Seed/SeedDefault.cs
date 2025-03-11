@@ -48,7 +48,6 @@ namespace RecruitmentApp.Seed
 
                     await SeedTitles(applicationDbContext, package);
 
-
                     await SeedAddresses(applicationDbContext, package);
 
                     await SeedLocations(applicationDbContext, package);
@@ -56,9 +55,9 @@ namespace RecruitmentApp.Seed
                     await SeedPosts(applicationDbContext, package);
 
                     await SeedCompanySkills(applicationDbContext, package);
-                    
+
                     await SeedPostSkills(applicationDbContext, package);
-                    
+
                     await SeedPostLocations(applicationDbContext, package);
 
                     await SeedImages(applicationDbContext, package);
@@ -188,13 +187,15 @@ namespace RecruitmentApp.Seed
                         CompanyFbUrl = sheet.Cells[row, 17].Text, // Column 16: CompanyFbUrl
                         TopReason = sheet.Cells[row, 19].Text,
                         OurExpertise = sheet.Cells[row, 20].Text,
-                        WhyJoinUs = sheet.Cells[row, 21].Text, 
+                        WhyJoinUs = sheet.Cells[row, 21].Text,
                         ShortDescription = sheet.Cells[row, 22].Text,
                         CountryId = int.Parse(sheet.Cells[row, 23].Text),
                         // RecruiterId = sheet.Cells[row, 17].Text, // Column 17: RecruiterId (nullable)
                         IsDeleted = false,
                         CreatedAt = DateTime.Now,
-                        UpdatedAt = DateTime.Now
+                        UpdatedAt = DateTime.Now,
+                        IsShowCompanyFbUrl = true,
+                        IsShowCompanyUrl = true,
                         //IsDeleted = sheet.Cells[row, 18].Text == "1", // Column 18: IsDeleted
                         //CreatedAt = DateTime.Parse(sheet.Cells[row, 19].Text), // Column 19: CreatedAt
                         //UpdatedAt = DateTime.Parse(sheet.Cells[row, 20].Text), // Column 20: UpdatedAt
@@ -220,7 +221,8 @@ namespace RecruitmentApp.Seed
                     var level = new Level
                     {
                         // LevelId = int.Parse(sheet.Cells[row, 1].Text), // Cột 1: LevelId
-                        Name = sheet.Cells[row, 2].Text // Cột 2: Name
+                        Name = sheet.Cells[row, 2].Text, // Cột 2: Name
+                        Slug = AppUtilities.GenerateSlug(sheet.Cells[row, 2].Text)
                     };
 
                     applicationDbContext.Levels.Add(level);
@@ -237,7 +239,7 @@ namespace RecruitmentApp.Seed
             if (sheet != null && !applicationDbContext.Posts.Any())
             {
                 Console.WriteLine("Seeding Posts...");
-                for (int row = 2; row <= sheet.Dimension.Rows; row++) 
+                for (int row = 2; row <= sheet.Dimension.Rows; row++)
                 {
                     var post = new Post
                     {
@@ -334,7 +336,7 @@ namespace RecruitmentApp.Seed
                     var title = new CompanySkills
                     {
                         CompanyID = int.Parse(sheet.Cells[row, 2].Text),
-                        SkillID = int.Parse(sheet.Cells[row, 3].Text) 
+                        SkillID = int.Parse(sheet.Cells[row, 3].Text)
                     };
 
                     applicationDbContext.CompanySkills.Add(title);
