@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<link rel="shortcut icon" href="~/images/network.ico" />
+
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@200;300;400;500;600;700;800;900&display=swap"
+		  rel="stylesheet">
+	<title>@ViewData["Title"] - RecruitmentApp</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+	<link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+	<link rel="stylesheet" href="~/lib/select2/css/select2.css" />
+	<link rel="stylesheet" href="~/lib/select2/css/select2-bootstrap4.min.css" />
+	<link rel="stylesheet" href="~/lib/Swiper/swiper-bundle.min.css" />
+	<link rel="stylesheet" href="~/lib/summernote/summernote-bs4.min.css" />
+	<link rel="stylesheet" href="~/lib/multiple-select/multiple-select.min.css" />
+	<link rel="stylesheet" href="~/lib/toastify-js/toastify.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+	<link rel="stylesheet" href="~/css/site.css" />
+	<link rel="stylesheet" href="~/css/globals.css" />
+	<link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.bootstrap5.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
+</head>
+
+<body>
+	<partial name="_Loading" />
+
+
+
+	@RenderBody()
+	
+
+	<script src="/_framework/aspnetcore-browser-refresh.js"></script>
+	<script src="~/lib/jquery/dist/jquery.js"></script>
+
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/lib/select2/js/select2.js"></script>
+	<script src="~/lib/Swiper/swiper-bundle.min.js"></script>
+	<script src="~/lib//multiple-select/multiple-select.min.js"></script>
+
+	<script src="~/lib/toastify-js/toastify.min.js"></script>
+	<script src="~/lib/summernote/summernote-bs4.min.js"></script>
+	<partial name="_ValidationScriptsPartial" />
+	@* <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
+
+	@* <script src="https://code.jquery.com/jquery-3.6.0.js"></script> *@
+	<script src="~/lib/feather-icons/feather.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+	<script src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-serialize-object/2.5.0/jquery.serialize-object.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	<script src="~/js/_Header.js" asp-append-version="true"></script>
+	<script src="~/js/_Loading.js" asp-append-version="true"></script>
+	<script src="~/js/_Layout.js" asp-append-version="true"></script>
+	<script src="~/js/SearchBox.js" asp-append-version="true"></script>
+	<script src="~/js/Jobs/_Filter.js" asp-append-version="true"></script>
+
+	<script src="~/js/Profiles/_Layout.js" asp-append-version="true"></script>
+
+
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>
+
+

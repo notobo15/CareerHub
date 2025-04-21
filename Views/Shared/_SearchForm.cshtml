@@ -1,9 +1,17 @@
-﻿<div class="ipx-xl-40 ipx-5 position-relative bg-gradient-search">
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<AppUser> UserManager
+
+@{
+    var user = UserManager.GetUserAsync(User).Result ?? null;
+    
+}
+
+<div class="ipx-xl-40 ipx-5 position-relative bg-gradient-search">
     <div class="icontainer-search-form">
         <div class="search-box mx-auto ipt-12 ipb-16 ipy-md-16">
             <!-- / Header -->
             <h1 class="text-white ipb-8">
-                @ViewData["totalPosts"] Việc làm IT
+                @ViewData["totalPosts"] Việc làm IT "Chất" @(user != null ? " Dành Cho " + user.FullName : "")
             </h1>
             <!-- / Search Form -->
 			<partial name="_SearchBox" />
@@ -13,9 +21,9 @@
                     Gợi ý cho bạn:
                 </div>
                 <div class="d-flex flex-wrap igap-3">
-                    <a class="itag itag-lg itag-light" href="/viec-lam-it/java/da-nang?click_source=Suggestion">Java</a>
-                    <a class="itag itag-lg itag-light" href="/viec-lam-it/java/da-nang?click_source=Suggestion">.NET</a>
-                    <a class="itag itag-lg itag-light" href="/viec-lam-it/java/da-nang?click_source=Suggestion">Python</a>
+                    <a class="itag itag-lg itag-light" asp-action="Search" asp-controller="Job" asp-area="User/Jobs" asp-route-key="java">Java</a>
+                    <a class="itag itag-lg itag-light" asp-action="Search" asp-controller="Job" asp-area="User/Jobs" asp-route-key="react">React</a>
+                    <a class="itag itag-lg itag-light" asp-action="Search" asp-controller="Job" asp-area="User/Jobs" asp-route-key="python">Python</a>
                 </div>
             </div>
         </div>

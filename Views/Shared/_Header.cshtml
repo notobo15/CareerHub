@@ -7,6 +7,8 @@
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
 @inject HeaderService headerService
+@inject IViewLocalizer Localizer
+
 @{
     // List<string> jobCategories = new List<string>
     //     {
@@ -27,31 +29,36 @@
     var skills = headerService.GetMenuSkills();
     var provinces = headerService.GetMenuProvinces();
 
+
     var splitSkills = ListFormatter.SplitList<SkillDto>(skills, 8);
     var splitTitles = ListFormatter.SplitList<TitleDto>(titles, 8);
     var splitCompanies = ListFormatter.SplitList<CompanyDto>(companies, 8);
 
+    var user = UserManager.GetUserAsync(User).Result;
+
 }
+
 <header class="header">
     <div class="d-none d-xl-block">
-        <nav class="navbar fixed-top navbar-expand-lg shadow border-bottom">
+        <nav class="navbar fixed-top navbar-expand-lg">
             <div class="container icontainer-header">
                 <div class="nav-brand ime-8">
                     <a asp-area="User/Home" asp-controller="Home" asp-action="Index">
-                        <img class="logo-itviec" alt="logo"  src="~/images/logo.png" />
+                        @* <img class="logo-itviec" alt="logo"  src="~/images/logo.png" /> *@
+                        <img class="logo-itviec" alt="logo" src="~/images/logo-light.png" />
                     </a>
                 </div>
                 <div class="navbar-collapse">
                     <ul class="navbar-nav me-auto igap-2 align-items-center">
                         <li class="nav-item main-menu position-relative">
                             <a class="text-reset d-flex align-items-center ipx-2">
-                                All Jobs
+                                @Localizer["AllJobs"]
                                 <i class="feather-icon icon-md" data-feather="chevron-down"></i>
                             </a>
-                            <div class="position-absolute top-100 bg-it-white text-white shadow sub-menu">
-                                <ul class="ip-0 im-0 bg-it-white position-relative" data-controller="sub-menu">
+                            <div class="position-absolute top-100 bg-it-black text-white shadow sub-menu">
+                                <ul class="ip-0 im-0 bg-it-black  position-relative">
                                     <li class="menu-title" data-sub-menu-target="menu">
-                                        <a class="text-it-black"
+                                        <a class="text-dark-grey"
                                         href="/jobs-skill-index?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
                                             <div
                                             class="category ipx-4 d-flex align-items-center justify-content-between small-text">
@@ -60,7 +67,7 @@
 
                                             </div>
                                         </a>
-                                        <div class="menu-content shadow bg-it-white small-text position-absolute">
+                                        <div class="menu-content shadow bg-it-black small-text position-absolute">
                                             <div class="row g-1">
                                                 @foreach (var categoryGroup in splitSkills)
                                                 {
@@ -74,7 +81,7 @@
                                             </div>
                                             <div class="text-center text-decoration-underline view-all">
                                                 <a
-                                                class="text-it-black align-items-center d-inline-flex w-100 justify-content-center"
+                                                class="text-dark-grey align-items-center d-inline-flex w-100 justify-content-center"
                                                 href="/jobs-skill-index?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
                                                     View all Jobs by skill
                                                     <i class="feather-icon icon-md" data-feather="chevron-right"></i>
@@ -84,7 +91,7 @@
                                         </div>
                                     </li>
                                     <li class="menu-title" data-sub-menu-target="menu">
-                                        <a class="text-it-black"
+                                        <a class="text-dark-grey"
                                         href="/jobs-title-index?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
                                             <div
                                             class="category ipx-4 d-flex align-items-center justify-content-between small-text">
@@ -92,7 +99,7 @@
                                                 <i class="feather-icon icon-md" data-feather="chevron-right"></i>
                                             </div>
                                         </a>
-                                        <div class="menu-content shadow bg-it-white small-text position-absolute">
+                                        <div class="menu-content shadow bg-it-black small-text position-absolute">
                                             <div class="row g-1">
                                                 @foreach (var titleGroup in splitTitles)
                                                 {
@@ -106,7 +113,7 @@
                                             </div>
                                             <div class="text-center view-all">
                                                 <a
-                                                class="text-it-black align-items-center d-inline-flex w-100 justify-content-center" asp-area="User/Companies" asp-controller="Title" asp-action="Detail">
+                                                class="text-dark-grey align-items-center d-inline-flex w-100 justify-content-center" asp-area="User/Companies" asp-controller="Title" asp-action="Detail">
                                                     View all Jobs by title
                                                     <i class="feather-icon icon-md" data-feather="chevron-right"></i>
 
@@ -115,7 +122,7 @@
                                         </div>
                                     </li>
                                     <li class="menu-title" data-sub-menu-target="menu">
-                                        <a class="text-it-black"
+                                        <a class="text-dark-grey"
 
                                         href="/jobs-company-index?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
                                             <div
@@ -124,7 +131,7 @@
                                                 <i class="feather-icon icon-md" data-feather="chevron-right"></i>
                                             </div>
                                         </a>
-                                        <div class="menu-content shadow bg-it-white small-text position-absolute">
+                                        <div class="menu-content shadow bg-it-black small-text position-absolute">
                                             <div class="row g-1">
                                                 @foreach (var companyGroup in splitCompanies)
                                                 {
@@ -137,7 +144,7 @@
                                                 }
                                                 <div class="text-center text-decoration-underline view-all">
                                                     <a asp-area="User/Companies" asp-controller="Title" asp-action="Detail"
-                                                    class="text-it-black align-items-center d-inline-flex w-100 justify-content-center">
+                                                    class="text-dark-grey align-items-center d-inline-flex w-100 justify-content-center">
                                                         View all Jobs by company
                                                         <i class="feather-icon icon-md" data-feather="chevron-right"></i>
 
@@ -147,11 +154,11 @@
                                     </li>
                                     <li class="menu-title" data-sub-menu-target="menu">
                                         <div
-                                        class="category text-it-black ipx-4 d-flex align-items-center justify-content-between small-text">
+                                        class="category text-dark-grey ipx-4 d-flex align-items-center justify-content-between small-text">
                                             <span>Jobs by City</span>
                                             <i class="feather-icon icon-md" data-feather="chevron-right"></i>
                                         </div>
-                                        <div class="menu-content shadow bg-it-white small-text position-absolute">
+                                        <div class="menu-content shadow bg-it-black small-text position-absolute">
                                             <div class="row g-1">
                                                 <div class="col d-flex flex-column">
                                                     @foreach (var province in provinces)
@@ -168,14 +175,14 @@
                             </div>
                         </li>
                         <li class="nav-item main-menu position-relative">
-                            <div class="d-flex align-items-center ipx-2">
-                                IT Companies
+                            <div class="d-flex align-items-center ipx-2 text-reset">
+                                @Localizer["ITCompanies"]
                                 <i class="feather-icon icon-md" data-feather="chevron-down"></i>
                             </div>
-                            <div class="position-absolute top-100 bg-it-white sub-menu vbit-menu">
-                                <ul class="ip-0 im-0 bg-it-white position-relative" data-controller="sub-menu">
+                            <div class="position-absolute shadow top-100 bg-it-black sub-menu vbit-menu">
+                                <ul class="ip-0 im-0 bg-it-black position-relative">
                                     <li class="menu-title ipx-4 small-text category">
-                                        <a rel="canonical" class="d-block text-it-black"
+                                        <a rel="canonical" class="d-block text-it-white"
                                             href="/companies/review-company?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
                                             Company Reviews
                                         </a>
@@ -188,28 +195,96 @@
                     <ul class="navbar-nav ms-auto igap-6 align-items-center">
                         <ul class="ips-3 ipy-5 menu-item header-nav navbar-nav align-items-xl-center">
                             <li>
-                                <a class="text-hover-underline text-it-black"
+                                <a class="text-hover-underline text-it-white"
                                     rel="canonical" target="_blank"
                                     href="/employer">
-                                    For Employers
+                                    @Localizer["ForEmployers"]
                                 </a>
                             </li>
                         </ul>
-						<partial name="_HeaderAuthPartial"/>
-                      
-                        <ul class="ipy-5 ipy-xl-0 navbar-nav align-items-center text-it-black">
-                            <li>
-                                <div class="switch-language d-inline-flex cursor-pointer">
-                                    <a class="active">
-                                        EN
-                                    </a>
-                                    <div class="vr mx-2 text-white align-self-center cursor-pointer text-it-black"></div>
-                                    <a class="text-dark-grey">
-                                        VI
-                                    </a>
+					
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+
+                            <li class="nav-item main-menu position-relative">
+                                <div class="d-flex align-items-center user-avatar-wrapper">
+                                    <div class="sign-in-user-avatar" id="header-user-avatar">
+                                        <img class="user-avatar" alt="user-avatar" src="@user.Avatar" width="32" height="32" />
+
+                                    </div>
+                                    <div class="d-inline-flex align-items-end">
+                                        <div id="header-user-name">
+                                            <span class="ims-3 text-it-white text-hover-underline">@user.FullName</span>
+
+                                        </div>
+                                        <i class="feather-icon icon-md" data-feather="chevron-down"></i>
+
+                                    </div>
+                                </div>
+                                <div class="position-absolute shadow bg-it-black sub-menu vbit-menu top-100 end-0">
+                                    <ul class="ip-0 im-0 bg-it-black position-relative">
+                                        <li class="profile-menu-item d-flex">
+                                            <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-dark-grey" asp-area="User/Profiles" asp-controller="Profile" asp-action="Index">
+                                                <i class="feather-icon icon-md" data-feather="grid"></i>
+                                                <span class="ims-2">Tổng quan</span>
+                                            </a>
+                                        </li>
+                                        <li class="profile-menu-item d-flex">
+                                            <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-dark-grey" asp-area="User/Profiles" asp-controller="Profile" asp-action="ManageCV">
+                                                <i class="feather-icon icon-md" data-feather="file-text"></i>
+                                                <span class="ims-2">Hồ sơ đính kèm</span>
+                                            </a>
+                                        </li>
+                                        <li class="profile-menu-item d-flex">
+                                            <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-dark-grey" asp-area="User/Profiles" asp-controller="Profile" asp-action="ProfileCV">
+                                                <i class="feather-icon icon-md" data-feather="user"></i>
+                                                <span class="ims-2">Hồ sơ ITviec</span>
+                                            </a>
+                                        </li>
+                                        <li class="profile-menu-item d-flex">
+                                            <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-dark-grey" asp-area="User/Profiles" asp-controller="Profile" asp-action="MyJobs">
+                                                <i class="feather-icon icon-md" data-feather="briefcase"></i>
+                                                <span class="ims-2">Việc làm của tôi</span>
+                                            </a>
+                                        </li>
+                                        <li class="profile-menu-item d-flex">
+                                            <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-dark-grey" asp-area="User/Profiles" asp-controller="Profile" asp-action="JobInvitation">
+                                                <i class="feather-icon icon-md" data-feather="inbox"></i>
+                                                <span class="ims-2">Lời mời công việc</span>
+                                            </a>
+                                        </li>
+                                        <li class="profile-menu-item d-flex">
+                                            <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-dark-grey" asp-area="User/Profiles" asp-controller="Profile" asp-action="ESubscriptions">
+                                                <i class="feather-icon icon-md" data-feather="mail"></i>
+                                                <span class="ims-2">Đăng ký nhận email</span>
+                                            </a>
+                                        </li>
+                                        <li class="profile-menu-item d-flex">
+                                            <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-dark-grey" asp-area="User/Profiles" asp-controller="Profile" asp-action="Settings">
+                                                <i class="feather-icon icon-md" data-feather="settings"></i>
+                                                <span class="ims-2">Cài đặt</span>
+                                            </a>
+                                        </li>
+                                        <li class="profile-menu-item d-flex">
+                                            <a type="submit" class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-dark-grey" asp-area="Users/Auths" asp-controller="Auth" asp-action="LogOff">
+                                                <i class="feather-icon icon-md" data-feather="log-out"></i>
+                                                <span class="ims-2">Đăng xuất</span>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
                             </li>
-                        </ul>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a hreflang="en" rel="nofollow" class="text-hover-underline text-it-white" asp-area="User/Auths" asp-controller="Auth" asp-action="SignIn">
+                                    @Localizer["SignInSignUp"]
+                                </a>
+                            </li>
+                        }
+                      
+                        <partial name="_SelectLanguagePartial" />
                     </ul>
                 </div>
             </div>
@@ -218,7 +293,7 @@
     <div class="d-xl-none">
         <nav class="navbar fixed-top ipx-5 ipy-3 flex-row justify-content-between shadow border-bottom">
             <div class="hamburger-menu">
-                <span class="text-it-black cursor-pointer">
+                <span class="text-dark-grey cursor-pointer">
                     <i class="feather-icon icon-md" data-feather="menu"></i>
                 </span>
             </div>
@@ -226,7 +301,7 @@
                 <div class="itviec-logo position-absolute">
                     <a href="">
                         <img class="logo-itviec" alt="logo-itviec"
-                             src="~/images/logo.png" />
+                             src="~/images/logo-light.png" />
                     </a>
                 </div>
             </div>
@@ -236,19 +311,19 @@
                 @if(SignInManager.IsSignedIn(User)) {
                         <div class="d-flex align-items-center justify-content-end user-menu-wrapper">
                         <div class="sign-in-user-avatar" id="">
-                            <img class="user-avatar" alt="user-avatar" src="https://itviec.com/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMHJxTUE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--b5cecf1eda8b9c8f3765505689936c7d750e1ece/AOh14Girjs--Y-qYpkLbFi-MUegt3K0POJrnIoLPj_Ya_hs=s96-c.jpg" width="32" height="32">
+                            <img class="user-avatar" alt="user-avatar" src="@user.Avatar" width="32" height="32">
                         </div>
                         <i class="feather-icon icon-md" data-feather="chevron-down"></i>
 
                     </div>
                 } else {
-                    <a asp-area="User/Auths" asp-controller="Auth" asp-action="SignIn" class="nav-link ipe-1 text-hover-underline text-it-black">Sign In</a>
+                    <a asp-area="User/Auths" asp-controller="Auth" asp-action="SignIn" class="nav-link ipe-1 text-hover-underline text-it-white">Sign In</a>
                 }
                 </div>
 
             </div>
-            <div class="left-nav d-none position-absolute start-0 bg-it-white text-it-black leftNav shadow">
-                <div class="ips-3 imy-5 d-flex align-items-end justify-content-end cursor-pointer btnCloseLeftNav">
+            <div class="left-nav d-none position-absolute start-0 bg-it-black text-it-white leftNav shadow">
+                <div class="ips-3 imy-5 d-flex align-items-end justify-content-end cursor-pointer dark-grey btnCloseLeftNav">
                     <span class="ipe-2">Close</span>
                     <span class="ipe-3 lh-1">
                         <i class="feather-icon icon-md" data-feather="x"></i>
@@ -256,7 +331,7 @@
                 </div>
                 <div class="menu-item border-top">
                     <div class="ips-3 ipy-4 d-flex align-items-center">
-                        <a class="text-it-black" href="search">All Jobs</a>
+                        <a class="text-it-white" href="search">@Localizer["AllJobs"]</a>
                     </div>
                 </div>
                 <div class="menu-item">
@@ -266,8 +341,8 @@
                             <i class="feather-icon icon-md" data-feather="chevron-right"></i>
                         </span>
                     </div>
-                    <div class="sub-menu bg-it-white text-it-black position-fixed">
-                        <div class="ips-3 ipy-5 d-flex align-items-center justify-content-between text-it-black">
+                    <div class="sub-menu bg-it-black text-dark-grey position-fixed">
+                        <div class="ips-3 ipy-5 d-flex align-items-center justify-content-between text-dark-grey">
                             <div class="d-flex align-items-center btnBackSubMenu">
                                 <i class="feather-icon icon-md" data-feather="chevron-left"></i>
                                 <span class="ips-2">Back</span>
@@ -282,12 +357,12 @@
                         <div class="vstack">
                             @foreach (var category in skills)
                             {
-                                <a class="ips-4 ipy-2 sub-menu-item text-it-black" href="/">@category.Name</a>
+                                <a class="ips-4 ipy-2 sub-menu-item text-dark-grey" href="/">@category.Name</a>
                             }
                         </div>
                         <div class="text-center">
                             <a
-                                class="align-items-center d-inline-flex imy-3 text-it-black"
+                                class="align-items-center d-inline-flex imy-3 text-dark-grey"
                                 href="/jobs-skill-index?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
                                 View all Jobs by skill
                                 <i class="feather-icon icon-sm" data-feather="chevron-right">
@@ -303,8 +378,8 @@
                             <i class="feather-icon icon-md" data-feather="chevron-right"></i>
                         </span>
                     </div>
-                    <div class="sub-menu bg-it-white position-fixed">
-                        <div class="ips-3 ipy-5 d-flex align-items-center justify-content-between text-it-black">
+                    <div class="sub-menu bg-it-black position-fixed">
+                        <div class="ips-3 ipy-5 d-flex align-items-center justify-content-between text-dark-grey">
                             <div class="d-flex align-items-center btnBackSubMenu">
                                 <i class="feather-icon icon-md" data-feather="chevron-left"></i>
                                 <span class="ips-2">Back</span>
@@ -320,11 +395,11 @@
 
 							@foreach (var title in titles)
 							{
-                                <a class="ips-4 ipy-2 sub-menu-item text-it-black" href="/">@title.Name</a>
+                                <a class="ips-4 ipy-2 sub-menu-item text-dark-grey" href="/">@title.Name</a>
 							}
                         </div>
                         <div class="text-center">
-                            <a class="align-items-center d-inline-flex imy-3 text-it-black" asp-area="User/Titles" asp-controller="Title" asp-action="All">
+                            <a class="align-items-center d-inline-flex imy-3 text-dark-grey" asp-area="User/Titles" asp-controller="Title" asp-action="All">
                                 View all Jobs by title
                                 <i class="feather-icon icon-md" data-feather="chevron-right"></i>
 
@@ -340,8 +415,8 @@
 
                         </span>
                     </div>
-                    <div class="sub-menu bg-it-white position-fixed" data-mobile-menu-target="subMenu">
-                        <div class="ips-3 ipy-5 d-flex align-items-center justify-content-between text-it-black">
+                    <div class="sub-menu bg-it-black position-fixed" data-mobile-menu-target="subMenu">
+                        <div class="ips-3 ipy-5 d-flex align-items-center justify-content-between text-dark-grey">
                             <div class="d-flex align-items-center btnBackSubMenu">
                                 <i class="feather-icon icon-md" data-feather="chevron-left"></i>
                                 <span class="ips-2">Back</span>
@@ -356,11 +431,11 @@
                         <div class="vstack">
                             @foreach (var company in companies)
                              {
-                                <a asp-area="User/Companies" asp-controller="Company" asp-action="Detail" asp-route-slug="@company.Slug" class="ips-4 ipy-2 sub-menu-item  text-it-black">@company.Name</a>
+                                <a asp-area="User/Companies" asp-controller="Company" asp-action="Detail" asp-route-slug="@company.Slug" class="ips-4 ipy-2 sub-menu-item text-dark-grey">@company.Name</a>
                              }
                         </div>
                         <div class="text-center">
-                            <a class="align-items-center d-inline-flex imy-3 text-it-black"
+                            <a class="align-items-center d-inline-flex imy-3 text-dark-grey"
                                 href="/jobs-company-index?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
                                 View all Jobs by company
                                 <i class="feather-icon icon-md" data-feather="chevron-right"></i>
@@ -377,8 +452,8 @@
 
                         </span>
                     </div>
-                    <div class="sub-menu bg-it-white position-fixed" data-mobile-menu-target="subMenu">
-                        <div class="ips-3 ipy-5 d-flex align-items-center justify-content-between  text-it-black">
+                    <div class="sub-menu bg-it-black position-fixed" data-mobile-menu-target="subMenu">
+                        <div class="ips-3 ipy-5 d-flex align-items-center justify-content-between  text-dark-grey">
                             <div class="d-flex align-items-center btnBackSubMenu">
                                 <i class="feather-icon icon-md" data-feather="chevron-left"></i>
                                 <span class="ips-2">Back</span>
@@ -393,37 +468,24 @@
                         <div class="vstack">
                             @foreach (var province in provinces)
                             {
-                                <a class="ips-4 ipy-2 sub-menu-item text-it-black" asp-area="User/Provinces" asp-controller="Province" asp-action="Detail">
+                                <a class="ips-4 ipy-2 sub-menu-item text-dark-grey" asp-area="User/Provinces" asp-controller="Province" asp-action="Detail">
                                     @province.Name
                                 </a>
                             }
                             </div>
                     </div>
                 </div>
-                <ul class="ips-3 ipy-5 menu-item header-nav navbar-nav align-items-xl-center text-it-black">
+                <ul class="ips-3 ipy-5 menu-item header-nav navbar-nav align-items-xl-center text-it-white">
                     <li>
-                        <a class="text-hover-underline text-it-black" rel="canonical" target="_blank">For Employers</a>
+                        <a class="text-hover-underline" rel="canonical" target="_blank">For Employers</a>
                     </li>
                 </ul>
 
-                <ul class="ipy-5 ipy-xl-0 navbar-nav align-items-center">
-                    <li>
-                        <div class="switch-language d-inline-flex cursor-pointer text-it-black">
-                            <a asp-controller="Home" asp-action="ChangeLanguage" asp-route-lang="en-US" class="active" >
-                                EN
-                            </a>
-                            <div class="vr mx-2 text-white align-self-center cursor-pointer text-it-black"></div>
-                            <a asp-controller="Home" asp-action="ChangeLanguage" asp-route-lang="vi" class="text-dark-grey">
-                                VI
-                            </a>
-                        </div>
-                    </li>
-                   
-                </ul>
+                <partial name="_SelectLanguagePartial" />
 
             </div>
-            <div class="right-nav d-none position-absolute end-0 bg-it-white shadow">
-                <div class="ipe-3 imy-5 d-flex align-items-end justify-content-end text-it-black cursor-pointer btnCloseRightNav">
+            <div class="right-nav d-none position-absolute end-0 bg-it-black shadow">
+                <div class="ipe-3 imy-5 d-flex align-items-end justify-content-end text-dark-grey cursor-pointer btnCloseRightNav">
                     <span class="ipe-2">Close</span>
                     <span class="ipe-3 lh-1">
                         <i class="feather-icon icon-md" data-feather="x"></i>
@@ -431,46 +493,45 @@
                 </div>
                 <ul class="header-nav navbar-nav border-top">
                     <li class="profile-menu-item d-flex">
-                        <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-it-black"
-                            href="/profile-dashboard?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
+                        <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4"
+                           asp-area="User/Profiles" asp-controller="Profile" asp-action="Index">
                             <i class="feather-icon icon-md" data-feather="grid"></i>
                             <span class="ims-2">Dashboard</span>
                         </a>
                     </li>
                     <li class="profile-menu-item d-flex">
-                        <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-it-black"
-                            href="/profile-cv/manage-cv?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
+                        <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4"
+                           asp-area="User/Profiles" asp-controller="Profile" asp-action="ManageCV">
                             <i class="feather-icon icon-md" data-feather="file-text"></i>
                             <span class="ims-2">CV Attachment</span>
                         </a>
                     </li>
                     <li class="profile-menu-item d-flex">
-                        <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-it-black"
-                            href="/profile-cv?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
+                        <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4"
+                           asp-area="User/Profiles" asp-controller="Profile" asp-action="ProfileCV">
                             <i class="feather-icon icon-md" data-feather="user"></i>
 
-                            <span class="ims-2">ITviec Profile</span>
+                            <span class="ims-2">My Profile</span>
                         </a>
                     </li>
                     <li class="profile-menu-item d-flex">
-                        <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-it-black"
-                            href="/my-jobs?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
+                        <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4"
+                           asp-area="User/Profiles" asp-controller="Profile" asp-action="MyJobs">
                             <i class="feather-icon icon-md" data-feather="briefcase"></i>
 
                             <span class="ims-2">My Jobs</span>
                         </a>
                     </li>
                     <li class="profile-menu-item d-flex">
-                        <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-it-black"
-                            href="/job-invitation?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
+                        <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4"
+                           asp-area="User/Profiles" asp-controller="Profile" asp-action="JobInvitation">
                             <i class="feather-icon icon-md" data-feather="inbox"></i>
 
                             <span class="ims-2">Job Invitation</span>
                         </a>
                     </li>
                     <li class="profile-menu-item d-flex">
-                        <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-it-black"
-                            href="/subscription?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
+                        <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4" asp-area="User/Profiles" asp-controller="Profile" asp-action="ESubscriptions">
                         
                             <i class="feather-icon icon-md" data-feather="mail"></i>
 
@@ -478,16 +539,14 @@
                         </a>
                     </li>
                     <li class="profile-menu-item d-flex">
-                        <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-it-black"
-                            href="/settings?gclid=CjwKCAiAhP67BhAVEiwA2E_9gxgSQaORO_gChtgvCfPmcYxR-DLXjmRK9Dy15LQXuYCmj61Ubb61pRoC2qwQAvD_BwE&amp;utm_campaign=gsn_brand_dn&amp;utm_content=itviec&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec">
+                        <a class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4" asp-area="User/Profiles" asp-controller="Profile" asp-action="Settings">
                             <i class="feather-icon icon-md" data-feather="settings"></i>
 
                             <span class="ims-2">Settings</span>
                         </a>
                     </li>
                     <li class="profile-menu-item d-flex">
-                        <a data-turbo="false" class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4 text-it-black"
-                            rel="nofollow" data-method="delete" href="/sign_out">
+                        <a data-turbo="false" class="d-flex align-items-center w-100 ips-3 ipy-4 ipx-xl-4" asp-area="User/Auths" asp-controller="Auth" asp-action="SignOut">
                             <i class="feather-icon icon-md" data-feather="log-out"></i>
                             <span class="ims-2">Sign Out</span>
                         </a>
@@ -498,59 +557,3 @@
         </nav>
     </div>
 </header>
-<script>
-	$(document).ready(function () {
-        $(".menu-title").hover(
-            function () {
-                $(".menu-title").removeClass("active");
-                $(this).addClass("active");
-            },
-            function () {
-                // Nếu muốn giữ class active khi hover xong thì bỏ dòng này
-                // $(this).removeClass("active");
-            }
-        );
-
-        $('.hamburger-menu').on('click', function () {
-            $('.left-nav').toggleClass('d-none'); // Thêm hoặc xóa class `d-none`
-        });
-
-        // Đóng menu khi nhấn vào nút Close
-        $('.btnCloseLeftNav').on('click', function () {
-            $('.left-nav').addClass('d-none'); // Thêm lại class `d-none` để ẩn
-        });
-
-        $('.btnShowSubMenu').on('click', function () {
-            // Tìm menu cùng cấp có class `sub-menu` và thay đổi width
-            $(this).siblings('.sub-menu').css('width', '280px');
-        });
-        $(".btnCloseSubMenu").on('click', function () {
-            $('.left-nav').addClass('d-none'); // Thêm lại class `d-none` để ẩn
-        })
-        // Khi nhấn vào nút Back
-        $('.btnBackSubMenu').on('click', function () {
-            // Tìm menu cha có class `sub-menu` và đặt width = 0
-            $(this).closest('.sub-menu').css('width', '0');
-        });
-        $(".user-menu-wrapper").click(function () {
-			$(".right-nav").toggleClass("d-none");
-		});
-
-        $(".btnCloseRightNav").click(function() {
-            $(".right-nav").addClass("d-none");
-        })
-
-
-        $(document).click(function (event) {
-        console.log(event.target)
-        if (!$(event.target).closest('.right-nav, .user-menu-wrapper').length) {
-            $(".right-nav").addClass("d-none");
-        }
-        if (!$(event.target).closest('.left-nav, .hamburger-menu').length) {
-            $(".left-nav").addClass("d-none");
-        }
-    });
-	});
-
-
-</script>

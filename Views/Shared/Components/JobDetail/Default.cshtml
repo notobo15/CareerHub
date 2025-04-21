@@ -44,8 +44,7 @@
         </div>
         <div class="imy-4">
             <div class="d-flex align-items-center">
-                <a class="ibtn ibtn-sm ibtn-primary flex-grow-1" rel="nofollow" target="_self"
-                    href="/viec-lam-it/ky-su-lap-trinh-nhung-embedded-02-vi-tri-dicom-2755/job_applications/new?lab_feature=preview_job">
+                <a class="ibtn ibtn-sm ibtn-primary flex-grow-1" rel="nofollow" target="_self" asp-action="Review" asp-controller="Company" asp-area="User/Companies">
                     Ứng tuyển
                 </a>
                 <div class="ims-3" id="885b4cc2-38af-46db-8ab4-067e96949f19">
@@ -69,19 +68,22 @@
     <div class="preview-job-content i-scrollbar ip-6">
         <section class="preview-job-overview">
             <div class="d-flex flex-column gap-2">
-                @foreach (var address in Model.Addresses)
-                {
-                    <div class="d-inline-block text-dark-grey">
-                        <i class="feather-icon icon-sm align-middle me-1" data-feather="map-pin">
-                        </i>
-                        <span class="small-text text-rich-grey">@address.Province</span>
-                        <a target="_blank" class="align-middle"
-                            href="https:www.google.com/maps?q=1+Nguyen+Huy+Tuong%2C+Thanh+Xuan%2C+Ha+Noi">
-                            <i class="feather-icon icon-sm hyperlink" data-feather="external-link">
-                            </i>
-                        </a>
-                    </div>
-                }
+                @* @if (Model != null && Model?.Addresses != null) *@
+                @* { *@
+                @*     @foreach (var address in Model?.Addresses) *@
+                @*     { *@
+                @*         <div class="d-inline-block text-dark-grey"> *@
+                @*             <i class="feather-icon icon-sm align-middle me-1" data-feather="map-pin"> *@
+                @*             </i> *@
+                @*             <span class="small-text text-rich-grey">@address?.Province</span> *@
+                @*             <a target="_blank" class="align-middle" *@
+                @*                 href="https:www.google.com/maps?q=1+Nguyen+Huy+Tuong%2C+Thanh+Xuan%2C+Ha+Noi"> *@
+                @*                 <i class="feather-icon icon-sm hyperlink" data-feather="external-link"> *@
+                @*                 </i> *@
+                @*             </a> *@
+                @*         </div> *@
+                @*     } *@
+                @* } *@
 
                 <div class="d-inline-block text-dark-grey preview-header-item">
                     <svg fill="none" height="16" viewBox="0 0 24 25" width="16" xmlns="http:www.w3.org/2000/svg">
@@ -119,15 +121,18 @@
                 <div class="d-flex align-items-center gap-3">
                     <span class="small-text text-rich-grey">Kỹ năng:</span>
                     <div class="d-flex align-items-center gap-1">
-                        @foreach (var skill in Model.Skills)
-                        {
-                            <a class="text-reset" asp-area="User/Skills" asp-controller="Skill" asp-action="Detail"
-                                asp-route-slug="@skill.Slug">
-                                <div class="itag itag-light itag-sm">
-                                    @skill.Name
-                                </div>
-                            </a>
-                        }
+                        @* @if (Model.Skills != null) *@
+                        @* { *@
+                        @*     @foreach (var skill in Model?.Skills) *@
+                        @*     { *@
+                        @*         <a class="text-reset" asp-area="User/Skills" asp-controller="Skill" asp-action="Detail" *@
+                        @*             asp-route-slug="@skill.Slug"> *@
+                        @*             <div class="itag itag-light itag-sm"> *@
+                        @*                 @skill.Name *@
+                        @*             </div> *@
+                        @*         </a> *@
+                        @*     } *@
+                        @* } *@
                     </div>
                 </div>
             </div>
@@ -151,7 +156,7 @@
         <section class="job-why-love-working">
             <h2 class="text-it-black imb-4">Tại sao bạn sẽ yêu thích làm việc tại đây</h2>
             <div class="paragraph">
-                @Html.Raw(Model.Benifit)
+                @Html.Raw(Model.Benefit)
             </div>
         </section>
         <hr class="text-silver-grey imy-6" />
@@ -178,7 +183,7 @@
                 <small class="normal-text text-it-black col text-end text-md-start">
                     <div class="flex-1 ips-2 ips-md-0">
                         <div class="d-inline-flex align-items-stretch normal-text">
-                            @string.Join(", ", Model.Company.Industries.Select(i => i.Name))
+                            @string.Join(", ", Model.Company?.Industries?.Select(i => i.Name))
                         </div>
                     </div>
                 </small>

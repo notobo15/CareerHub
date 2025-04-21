@@ -2,37 +2,36 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="shortcut icon" href="~/images/network.ico" />
+	<link rel="shortcut icon" href="~/images/network.ico" />
 
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@200;300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
-    <title>@ViewData["Title"] - RecruitmentApp</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@200;300;400;500;600;700;800;900&display=swap"
+		  rel="stylesheet">
+	<title>@ViewData["Title"] - RecruitmentApp</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 
-    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
-    <link rel="stylesheet" href="~/lib/select2/css/select2.css" />
-    <link rel="stylesheet" href="~/lib/select2/css/select2-bootstrap4.min.css" />
-    <link rel="stylesheet" href="~/lib/Swiper/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="~/lib/summernote/summernote-bs4.min.css" />
-    <link rel="stylesheet" href="~/lib/multiple-select/multiple-select.min.css" />
-    <link rel="stylesheet" href="~/lib/toastify-js/toastify.min.css" />
+	<link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+	<link rel="stylesheet" href="~/lib/select2/css/select2.css" />
+	<link rel="stylesheet" href="~/lib/select2/css/select2-bootstrap4.min.css" />
+	<link rel="stylesheet" href="~/lib/Swiper/swiper-bundle.min.css" />
+	<link rel="stylesheet" href="~/lib/summernote/summernote-bs4.min.css" />
+	<link rel="stylesheet" href="~/lib/multiple-select/multiple-select.min.css" />
+	<link rel="stylesheet" href="~/lib/toastify-js/toastify.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+	<link rel="stylesheet" href="~/css/site.css" />
+	<link rel="stylesheet" href="~/css/globals.css" />
+	<link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.bootstrap5.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightbox2/dist/css/lightbox.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css" />
+	<script src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
 
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/css/globals.css" />
-    @* <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
-
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="~/lib/feather-icons/feather.js"></script>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-    <style>
+	@* <style>
         /* ============ desktop view ============ */
         @@media all and (min-width: 992px) {
             .dropdown-menu li {
@@ -69,159 +68,102 @@
                 margin-right: 0.7rem;
                 margin-bottom: .5rem;
             }
-        }
-    </style>
+        }s
+    </style> *@
 </head>
 
 <body>
+	<partial name="_Loading" />
+
+	@* <div> *@
+	@*     <form method="get" asp-controller="Home" asp-action="Index"> *@
+	@*         <button type="submit" name="culture" value="en">@RecruitmentApp.Resources.Resource.en</button> *@
+	@*         <button type="submit" name="culture" value="vi">@RecruitmentApp.Resources.Resource.vi</button> *@
+	@*     </form> *@
+	@* </div> *@
+	@* <header> *@
+	@*     <nav style="" class="border-bottom navbar navbar-expand-sm navbar-toggleable-sm bg-light shadow-sm py-3"> *@
+	@*         <div class="container"> *@
+	@*             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Tuyển Dụng IT</a> *@
+	@*             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent" *@
+	@*                     aria-expanded="false" aria-label="Toggle navigation"> *@
+	@*                 <span class="navbar-toggler-icon"></span> *@
+	@*             </button> *@
+	@*             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between"> *@
+	@*                 <ul class="navbar-nav flex-grow-1"> *@
+	@*                     <li class="nav-item"> *@
+	@*                         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="ContactUs">Liên Hệ Chúng Tôi111</a> *@
+	@*                     </li> *@
+	@*                 </ul> *@
+	@*                    *@
+	@*                 <partial name="_LoginPartial"/> *@
+	@*                 <!--  <partial name="_MenuManagePartial" />--> *@
+	@*             </div> *@
+	@*         </div> *@
+	@* </nav> *@
+	@* </header>/ *@
+	<partial name="_Header" />
+	@* @await Html.PartialAsync("_SelectLanguagePartial") *@
+	@* <ul class="nav navbar-nav"> *@
+	@*     <li><a asp-controller="Home" asp-action="Index">@Localizer["Home"]</a></li> *@
+	@*     <li><a asp-controller="Home" asp-action="About">@Localizer["About"]</a></li> *@
+	@*     <li><a asp-controller="Home" asp-action="Contact">@Localizer["Contact"]</a></li> *@
+	@*     <li><a asp-controller="Home" asp-action="Contact">@Localizer["Home1"]</a></li> *@
+	@* </ul> *@
+	@RenderBody()
+	@RenderSection("SubLayout", required: false)
+	<partial name="_Footer" />
+	@* @await RenderSectionAsync("Search", required: false) *@
+	@* <main> *@
+	@*     <div class="container"> *@
+	@*         @RenderBody() *@
+	@*     </div> *@
+	@* </main> *@
+
+	@* <footer class="border-top py-5 bg-light text-muted mt-5"> *@
+	@*     <div class="container"> *@
+	@*         &copy; 2023 - RecruitmentApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> *@
+	@*     </div> *@
+	@* </footer> *@
+
+	<script src="/_framework/aspnetcore-browser-refresh.js"></script>
+	<script src="~/lib/jquery/dist/jquery.js"></script>
+
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/lib/select2/js/select2.js"></script>
+	<script src="~/lib/Swiper/swiper-bundle.min.js"></script>
+	<script src="~/lib//multiple-select/multiple-select.min.js"></script>
+
+	<script src="~/lib/toastify-js/toastify.min.js"></script>
+	<script src="~/lib/summernote/summernote-bs4.min.js"></script>
+	<partial name="_ValidationScriptsPartial" />
+	@* <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
+
+	@* <script src="https://code.jquery.com/jquery-3.6.0.js"></script> *@
+	<script src="~/lib/feather-icons/feather.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-serialize-object/2.5.0/jquery.serialize-object.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/lightbox2/dist/js/lightbox.min.js"></script>
+	<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/countup.js@2.6.2/dist/countUp.umd.js"></script>
+
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	<script src="~/js/_Header.js" asp-append-version="true"></script>
+	<script src="~/js/_Loading.js" asp-append-version="true"></script>
+	<script src="~/js/_Layout.js" asp-append-version="true"></script>
+	<script src="~/js/SearchBox.js" asp-append-version="true"></script>
+	<script src="~/js/Jobs/_Filter.js" asp-append-version="true"></script>
+
+	<script src="~/js/Profiles/_Layout.js" asp-append-version="true"></script>
 
 
-    @* <div> *@
-    @*     <form method="get" asp-controller="Home" asp-action="Index"> *@
-    @*         <button type="submit" name="culture" value="en">@RecruitmentApp.Resources.Resource.en</button> *@
-    @*         <button type="submit" name="culture" value="vi">@RecruitmentApp.Resources.Resource.vi</button> *@
-    @*     </form> *@
-    @* </div> *@
-    @* <header> *@
-    @*     <nav style="" class="border-bottom navbar navbar-expand-sm navbar-toggleable-sm bg-light shadow-sm py-3"> *@
-    @*         <div class="container"> *@
-    @*             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Tuyển Dụng IT</a> *@
-    @*             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent" *@
-    @*                     aria-expanded="false" aria-label="Toggle navigation"> *@
-    @*                 <span class="navbar-toggler-icon"></span> *@
-    @*             </button> *@
-    @*             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between"> *@
-    @*                 <ul class="navbar-nav flex-grow-1"> *@
-    @*                     <li class="nav-item"> *@
-    @*                         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="ContactUs">Liên Hệ Chúng Tôi111</a> *@
-    @*                     </li> *@
-    @*                 </ul> *@
-    @*                    *@
-    @*                 <partial name="_LoginPartial"/> *@
-    @*                 <!--  <partial name="_MenuManagePartial" />--> *@
-    @*             </div> *@
-    @*         </div> *@
-    @* </nav> *@
-    @* </header>/ *@
-    <partial name="_Header" />
-    @* @await Html.PartialAsync("_SelectLanguagePartial") *@
-    @* <ul class="nav navbar-nav"> *@
-    @*     <li><a asp-controller="Home" asp-action="Index">@Localizer["Home"]</a></li> *@
-    @*     <li><a asp-controller="Home" asp-action="About">@Localizer["About"]</a></li> *@
-    @*     <li><a asp-controller="Home" asp-action="Contact">@Localizer["Contact"]</a></li> *@
-    @*     <li><a asp-controller="Home" asp-action="Contact">@Localizer["Home1"]</a></li> *@
-    @* </ul> *@
-    @RenderBody()
-    @RenderSection("SubLayout", required: false)
-    <partial name="_Footer" />
-    @* @await RenderSectionAsync("Search", required: false) *@
-    @* <main> *@
-    @*     <div class="container"> *@
-    @*         @RenderBody() *@
-    @*     </div> *@
-    @* </main> *@
-
-    @* <footer class="border-top py-5 bg-light text-muted mt-5"> *@
-    @*     <div class="container"> *@
-    @*         &copy; 2023 - RecruitmentApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> *@
-    @*     </div> *@
-    @* </footer> *@
-    <script src="/_framework/aspnetcore-browser-refresh.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/select2/js/select2.js"></script>
-    <script src="~/lib/Swiper/swiper-bundle.min.js"></script>
-    <script src="~/lib//multiple-select/multiple-select.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/lib/toastify-js/toastify.min.js"></script>
-    <script src="~/lib/summernote/summernote-bs4.min.js"></script>
-    <script>
-
-
-        document.addEventListener("DOMContentLoaded", function () {
-            // make it as accordion for smaller screens
-            if (window.innerWidth < 992) {
-
-                // close all inner dropdowns when parent is closed
-                document.querySelectorAll('.navbar .dropdown').forEach(function (everydropdown) {
-                    everydropdown.addEventListener('hidden.bs.dropdown', function () {
-                        // after dropdown is hidden, then find all submenus
-                        this.querySelectorAll('.submenu').forEach(function (everysubmenu) {
-                            // hide every submenu as well
-                            everysubmenu.style.display = 'none';
-                        });
-                    })
-                });
-
-                document.querySelectorAll('.dropdown-menu a').forEach(function (element) {
-                    element.addEventListener('click', function (e) {
-                        let nextEl = this.nextElementSibling;
-                        if (nextEl && nextEl.classList.contains('submenu')) {
-                            // prevent opening link if link needs to open dropdown
-                            e.preventDefault();
-                            if (nextEl.style.display == 'block') {
-                                nextEl.style.display = 'none';
-                            } else {
-                                nextEl.style.display = 'block';
-                            }
-
-                        }
-                    });
-                })
-            }
-            // end if innerWidth
-        });
-        // DOMContentLoaded  end
-        feather.replace();
-        $(document).ready(function () {
-          
-        });
-    </script>
-
-    @await RenderSectionAsync("Scripts", required: false)
+	@await RenderSectionAsync("Scripts", required: false)
+	@await RenderSectionAsync("SubScripts", required: false)
 </body>
 
 </html>
 
 
-<!--
-<li class="nav-item dropdown" id="myDropdown">
-    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Việc Làm</a>
-    <ul class="dropdown-menu dropdown-menu-right">
-        <li >
-            <a class="dropdown-item" href="#">Việc Làm Theo Kĩ Năng</a>
-            <ul class="submenu dropdown-menu">
-
-            </ul>
-        </li>
-        <li>
-            <a class="dropdown-item" href="#">Việc Làm Theo Cấp Bậc</a>
-            <ul class="submenu dropdown-menu">
-                <li><a class="dropdown-item" href="#">Submenu item 1</a></li>
-                <li><a class="dropdown-item" href="#">Submenu item 2</a></li>
-                <li><a class="dropdown-item" href="#">Submenu item 3</a></li>
-            </ul>
-        </li>
-
-        <li>
-            <a class="dropdown-item" href="#">Việc Làm Theo Công Ty</a>
-            <ul class="submenu dropdown-menu">
-                <li><a class="dropdown-item" href="#">Submenu item 1</a></li>
-                <li><a class="dropdown-item" href="#">Submenu item 2</a></li>
-                <li><a class="dropdown-item" href="#">Submenu item 3</a></li>
-            </ul>
-        </li>
-        <li>
-            <a class="dropdown-item" href="#">Việc Làm Theo Thành Phố</a>
-            <ul class="submenu dropdown-menu">
-                <li><a class="dropdown-item" href="#">Submenu item 1</a></li>
-                <li><a class="dropdown-item" href="#">Submenu item 2</a></li>
-                <li><a class="dropdown-item" href="#">Submenu item 3</a></li>
-            </ul>
-        </li>
-    </ul>
-</li>
-
-
-
--->

@@ -1,0 +1,10 @@
+﻿@using RecruitmentApp.ModelViews
+@model RatingStarViewModel
+
+<div class="star-icons position-absolute @Model.ContainerClass">
+    @for (int i = 1; i <= Model.MaxStars; i++)
+    {
+        var fill = i <= Model.Rating ? "fill" : "";
+        <i class="feather-icon icon-sm @fill @Model.IconClass" data-feather="star"></i>
+    }
+</div>

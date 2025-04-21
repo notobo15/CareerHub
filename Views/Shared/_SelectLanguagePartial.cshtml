@@ -10,18 +10,49 @@
 @{
     var requestCulture = Context.Features.Get<IRequestCultureFeature>();
     var cultureItems = LocOptions.Value.SupportedUICultures
-        .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
-        .ToList();
+    .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+    .ToList();
     var returnUrl = string.IsNullOrEmpty(Context.Request.Path) ? "~/" : $"~{Context.Request.Path.Value}";
+    var currentCulture = requestCulture?.RequestCulture.UICulture.Name;
 }
 
-<div title="@Localizer["Request culture provider:"] @requestCulture?.Provider?.GetType().Name">
-    <form id="selectLanguage" asp-controller="Home" 
-          asp-action="SetLanguage" asp-route-returnUrl="@returnUrl" 
-          method="post" class="form-horizontal" role="form">
-        <label asp-for="@requestCulture.RequestCulture.UICulture.Name">@Localizer["Language:"]</label> <select name="culture"
-          onchange="this.form.submit();"
-          asp-for="@requestCulture.RequestCulture.UICulture.Name" asp-items="cultureItems">
-        </select>
-    </form>
-</div>
+
+
+<li class="ipy-5 ipy-xl-0 navbar-nav align-items-center">
+    <div class="switch-language d-inline-flex cursor-pointer" data-controller="language" data-language-locale-value="vi" data-language-localed-path-value="/">
+        
+        <form id="selectLanguage" asp-controller="Home" asp-action="SetLanguage" asp-route-returnUrl="@returnUrl" method="post" class="form-horizontal" role="form">
+            
+            <input type="hidden" name="culture" value="en-US" />
+           
+            <button class="bg-transparent border-0 p-0 @("en-US" == currentCulture ? "active text-it-white" : "text-dark-grey" )" type="submit">
+                EN
+            </button>
+
+        </form>
+
+        <div class="vr mx-2 text-white align-self-center cursor-pointer"></div>
+
+        <form id="selectLanguage" asp-controller="Home" asp-action="SetLanguage" asp-route-returnUrl="@returnUrl" method="post" class="form-horizontal" role="form">
+
+            <input type="hidden" name="culture" value="vi" />
+            <button class="bg-transparent border-0 p-0 @("vi" == currentCulture ? "active text-it-white" : "text-dark-grey" )">
+                VI
+            </button>
+
+        </form>
+    </div>
+</li>
+<script>
+    // $(document).ready(function () {
+      
+        // $('.select-language').select2({
+        //     placeholder: '@Localizer["Select language"]',
+        //     theme: 'bootstrap4',
+        //     width: 'auto',
+        //     minimumResultsForSearch: Infinity,
+        //     templateResult: formatState,
+        //     templateSelection: formatState
+        // }); 
+    // });
+</script>

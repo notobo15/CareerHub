@@ -6,7 +6,7 @@
 @inject AppDbContext appDbContext
 @{
     ViewData["Title"] = "Home Page";
-    var hadCv = appDbContext.applyPosts.OrderByDescending(p => p.ApplyDate).FirstOrDefault(p => p.UserID == UserManager.GetUserId(User));
+    var hadCv = appDbContext.ApplyPosts.OrderByDescending(p => p.ApplyDate).FirstOrDefault(p => p.UserID == UserManager.GetUserId(User));
 }
 <partial name="_StatusMessage" />
 <div class="row">

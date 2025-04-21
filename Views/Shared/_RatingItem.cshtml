@@ -1,0 +1,19 @@
+﻿@using RecruitmentApp.ModelViews
+@model RatingItemViewModel
+
+<li class="d-flex align-items-center border-bottom-dashed py-2">
+    <p class="w-50 text-nowrap">@Model.Label</p>
+    <div class="d-flex justify-content-end align-items-center w-50">
+        <div class="box-star-icons text-warning-color position-relative box-icon-sm">
+            @await Html.PartialAsync("_RatingStars", new RatingStarViewModel { Rating = Model.Rating })
+            <div class="d-flex align-items-center overflow-hidden position-absolute" style="width: @(Model.Rating * 20)%;">
+                @await Html.PartialAsync("_RatingStars", new RatingStarViewModel
+                {
+                    ContainerClass = "text-warning-color",
+                    Rating = Model.Rating
+                })
+            </div>
+        </div>
+        <p class="ims-2">@Model.Rating</p>
+    </div>
+</li>

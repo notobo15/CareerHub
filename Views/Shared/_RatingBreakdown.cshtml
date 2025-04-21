@@ -1,0 +1,26 @@
+﻿@model (string CategoryKey, RatingDetailStats Stats)
+
+@{
+    var (key, stats) = Model;
+    var lowerKey = key.ToLowerInvariant();
+}
+
+<div class="rating-detail-wrapper @lowerKey">
+    <h4 class="text-it-black">Đánh giá chi tiết</h4>
+
+    @for (int i = 5; i >= 1; i--)
+    {
+        var percent = stats?.Percentages.ContainsKey(i) == true ? stats.Percentages[i] : 0;
+
+        <a class="normal-text d-flex align-items-baseline igap-3 text-it-black imt-3">
+            <div class="d-flex align-items-center gap-1">
+                @i
+                <i class="feather-icon icon-sm text-warning-color fill"></i>
+            </div>
+            <div class="progress-line-bar bg-light-warning-color border-radius-normal flex-grow-1">
+                <div class="line bg-warning-color border-radius-normal h-100" style="width: @percent%!important;"></div>
+            </div>
+            <div class="rating-percent-wrapper rating-percent-text">@percent%</div>
+        </a>
+    }
+</div>

@@ -1,0 +1,173 @@
+﻿@using RecruitmentApp.ModelViews
+@model FilterDataComponent
+
+<div class="d-flex flex-column flex-xl-row">
+    <h1 class="headline-total-jobs search-header text-it-black">
+        @Model.totalPosts việc làm IT tại Việt Nam
+    </h1>
+
+    <div class="d-flex igap-3 mt-3 mt-xl-auto ms-xl-auto justify-content-between">
+        <div class="justify-content-end subscription-filter-btn-wrapper d-flex d-xl-none filter-wrapper flex-1">
+            <button class="position-relative button-filter justify-content-center w-xl-auto w-100 bg-it-white text-center irounded-sm border-dark-grey d-flex align-items-center text-it-black text-nowrap"
+                    type="button">
+                <i class="feather-icon icon-md" data-feather="filter"></i>
+                <span class="ips-1 normal-text">Bộ lọc</span>
+                <span class="ilabel-warning position-absolute small-text text-it-white filter-number"></span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="row imt-6 imx-0 search-result">
+    <div class="col-xl-5 card-jobs-list ips-0 ipe-0 ipe-xl-6">
+        <!-- Last updated: "2025-02-05 23:07:21 +0700"-->
+        @foreach (var p in Model.posts)
+        {
+            <div data-postid="@p.PostId"
+                 class="job-card ipt-2 d-flex flex-column border-radius-large position-relative cursor-pointer transition-duration-300 bg-white @(p == Model.posts.First() ? "selected-job" : "")">
+                <div class="ipx-4 ipx-xl-3">
+
+                    @if (p.IsHot)
+                    {
+                        <div class="ilabel position-absolute ilabel-warning end-0">
+                            HOT
+                        </div>
+                    }
+
+                    <div class="ipy-2">
+                        <div class="d-flex align-items-center justify-content-between position-relative">
+                            <span class="small-text text-dark-grey">
+                                @p.TimeAgo
+                            </span>
+                        </div>
+                        <h3 class="imt-3"
+                            href="null">
+                            @p.Title
+                        </h3>
+                        <div class="imy-3 d-flex align-items-center">
+                            <a target="_blank"
+                               class="bg-white logo-employer-card"
+                               href="/nha-tuyen-dung/dicom?lab_feature=preview_jd_page">
+                                <picture>
+                                    <source srcset="~/images/companies/@p.Company.LogoImage" />
+                                    <img alt="DICOM Vietnam Small Logo"
+                                         class="border-radius-normal border-solid box-shadow-normal ls-is-cached lazyloaded"
+                                         height="48"
+                                         width="48"
+                                         src="~/images/companies/@p.Company.LogoImage" />
+                                </picture>
+                            </a>
+                            <span class="ims-2 small-text text-hover-underline">
+                                <a target="_blank" class="text-rich-grey" href="/nha-tuyen-dung/dicom?lab_feature=preview_jd_page">@p.Company.Name</a>
+                            </span>
+                        </div>
+                        <div class="ipb-3 fw-500">
+                            <div class="d-flex align-items-center salary text-success-color">
+                                <svg fill="none" height="20" stroke="currentColor" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.0044 6V18" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                                    <path d="M14.9287 7.90332H10.5395C9.99625 7.90332 9.47527 8.11912 9.09114 8.50325C8.70701 8.88738 8.49121 9.40836 8.49121 9.9516C8.49121 10.4948 8.70701 11.0158 9.09114 11.4C9.47527 11.7841 9.99625 11.9999 10.5395 11.9999H13.4656C14.0088 11.9999 14.5298 12.2157 14.914 12.5998C15.2981 12.9839 15.5139 13.5049 15.5139 14.0482C15.5139 14.5914 15.2981 15.1124 14.914 15.4965C14.5298 15.8806 14.0088 16.0964 13.4656 16.0964H8.49121"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          stroke-width="2"
+                                          stroke="currentColor"></path>
+                                    <circle cx="12.0002" cy="12.0002" r="9.3" stroke-width="2" stroke="currentColor"></circle>
+                                </svg>
+
+                                <span class="ips-2">@p.SalaryText</span>
+                            </div>
+                        </div>
+                        <div class="border-top-dashed"></div>
+                        <div class="imt-2"></div>
+                        <div class="d-flex align-items-center text-dark-grey imt-1">
+                            <svg fill="none" height="16" viewBox="0 0 24 25" width="16" xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0_947_6633)">
+                                    <path d="M19 14.625C19 13.6967 18.6312 12.8065 17.9749 12.1501C17.3185 11.4937 16.4283 11.125 15.5 11.125H8.5C7.57174 11.125 6.6815 11.4937 6.02513 12.1501C5.36875 12.8065 5 13.6967 5 14.625"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          stroke-width="2"
+                                          stroke="currentColor"></path>
+                                    <path d="M12 8.5C13.933 8.5 15.5 6.933 15.5 5C15.5 3.067 13.933 1.5 12 1.5C10.067 1.5 8.5 3.067 8.5 5C8.5 6.933 10.067 8.5 12 8.5Z"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          stroke-width="2"
+                                          stroke="currentColor"></path>
+                                    <path d="M11.5 18.9375H12.5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor"></path>
+                                    <path d="M4.56116 22.7812L2.90039 15.0938H21.0996L19.3696 22.7812" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor"></path>
+                                    <line stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" x1="1" x2="23" y1="23.5" y2="23.5"></line>
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_947_6633">
+                                        <rect fill="white" height="24" transform="translate(0 0.5)" width="24"></rect>
+                                    </clipPath>
+                                </defs>
+                            </svg>
+
+                            <span class="ips-2 small-text text-rich-grey">
+                                @p.WorkSpace
+                            </span>
+                        </div>
+                        <div class="d-flex align-items-center text-dark-grey imt-1">
+                            <i class="feather-icon icon-sm" data-feather="map-pin"></i>
+                            <span class="ips-2 small-text text-rich-grey">
+                                @string.Join(" - ", p.Addresses.Select(a => a.Province))
+                            </span>
+                        </div>
+                        <div class="imt-3 imb-2">
+                            @foreach (var skill in p.Skills)
+                            {
+                                <a class="text-reset" asp-area="User/Skills" asp-controller="Skill" asp-action="Detail">
+                                    <div class="itag itag-light itag-sm">
+                                        @skill.Name
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+    </div>
+    <div class="col-xl-7 p-0 d-none d-xl-block" id="job-detail-container">
+        @await Component.InvokeAsync("JobDetail", new { post = Model.post })
+
+    </div>
+</div>
+
+<div class="pagination-search-jobs d-flex justify-content-center ipb-16">
+
+    <nav class="ipagination imt-10">
+        @if (Model.currentPage > 1)
+        {
+            <div class="page prev">
+                <a href="@Url.Action("Search", "Job", new { province = Model.province, key = Model.key, page = Model.currentPage - 1 })">
+                    <i class="feather-icon icon-sm" data-feather="chevron-left"></i>
+                </a>
+            </div>
+        }
+
+        @for (int i = 1; i <= Model.totalPages; i++)
+        {
+            <div class="page @(i == Model.currentPage ? "current" : "")">
+                @if (i == Model.currentPage)
+                {
+                    @i
+                }
+                else
+                {
+                    <a href="@Url.Action("Search", "Job", new { province = Model.province, key = Model.key, page = i })">@i</a>
+                }
+            </div>
+        }
+
+        @if (Model.currentPage < Model.totalPages)
+        {
+            <div class="page next">
+                <a href="@Url.Action("Search", "Job", new { province = Model.province, key = Model.key, page = Model.currentPage + 1 })">
+                    <i class="feather-icon icon-sm" data-feather="chevron-right"></i>
+                </a>
+            </div>
+        }
+    </nav>
+</div>

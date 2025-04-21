@@ -1,0 +1,305 @@
+﻿@using Newtonsoft.Json
+@using RecruitmentApp.ModelViews
+@using System.Text.Json
+
+
+@{
+	var currentArea = ViewContext.RouteData.Values["area"]?.ToString();
+	var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+	var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+
+
+
+	var menuItems = new List<MenuItem>
+	{
+		new MenuItem { Type = "category", Title = "Overview" },
+
+		new MenuItem { Type = "item", Title = "Dashboard", Area = "Admin/Home", Controller = "Home", Action = "Index", Icon = "box" },
+
+		new MenuItem { Type = "category", Title = "UI User" },
+
+		new MenuItem { Type = "item", Title = "HomePage", Url = "pages/apps/chat.html", Icon = "home" },
+		new MenuItem { Type = "item", Title = "Sliders", Url = "pages/apps/chat.html", Icon = "sliders" },
+
+		new MenuItem { Type = "category", Title = "Web Apps" },
+
+		new MenuItem {
+			Type = "parent",
+			Title = "Emails",
+			Icon = "mail",
+			SubId = "email",
+			Children = new List<MenuItem>
+			{
+				new MenuItem { Area = "Admin/Email", Controller = "Email", Action = "Inbox", Title = "Inbox" },
+				new MenuItem { Area = "Admin/Email", Controller = "Email", Action = "Compose", Title = "Compose" },
+			}
+		},
+
+		new MenuItem { Type = "category", Title = "Main" },
+
+		new MenuItem {
+			Type = "parent",
+			Title = "Users",
+			Icon = "user",
+			SubId = "users",
+			Children = new List<MenuItem>
+			{
+				new MenuItem { Area = "Admin/Identity", Controller = "User", Action = "Index", Title = "List" },
+				new MenuItem { Area = "Admin/Identity", Controller = "User", Action = "Create", Title = "Create" },
+			}
+		},
+
+		new MenuItem {
+			Type = "parent",
+			Title = "Roles",
+			Icon = "command",
+			SubId = "roles",
+			Children = new List<MenuItem>
+			{
+				new MenuItem { Area = "Admin/Identity", Controller = "Role", Action = "Index", Title = "List" },
+				new MenuItem { Area = "Admin/Identity", Controller = "Role", Action = "Create", Title = "Create" },
+			}
+		},
+
+		new MenuItem {
+			Type = "parent",
+			Title = "Companies",
+			Icon = "home",
+			SubId = "companies",
+			Children = new List<MenuItem>
+			{
+				new MenuItem { Area = "Admin/Companies", Controller = "Company", Action = "Index", Title = "List" },
+				new MenuItem { Area = "Admin/Companies", Controller = "Company", Action = "Create", Title = "Create" },
+			}
+		},
+		new MenuItem {
+			Type = "parent",
+			Title = "CompanyTypes",
+			Icon = "grid",
+			SubId = "companyTypes",
+			Children = new List<MenuItem>
+			{
+				new MenuItem { Area = "Admin/CompanyTypes", Controller = "CompanyType", Action = "Index", Title = "List" },
+				new MenuItem { Area = "Admin/CompanyTypes", Controller = "CompanyType", Action = "Create", Title = "Create" },
+			}
+		},
+		new MenuItem {
+			Type = "parent",
+			Title = "Posts",
+			Icon = "book-open",
+			SubId = "posts",
+			Children = new List<MenuItem>
+			{
+				new MenuItem { Area = "Admin/Posts", Controller = "Post", Action = "Index", Title = "List" },
+				new MenuItem { Area = "Admin/Posts", Controller = "Post", Action = "Create", Title = "Create" },
+			}
+		},
+
+		new MenuItem {
+			Type = "parent",
+			Title = "Skills",
+			Icon = "box",
+			SubId = "skills",
+			Children = new List<MenuItem>
+			{
+				new MenuItem { Area = "Admin/Skills", Controller = "Skill", Action = "Index", Title = "List" },
+				new MenuItem { Area = "Admin/Skills", Controller = "Skill", Action = "Create", Title = "Create" },
+			}
+		},
+
+		new MenuItem {
+			Type = "parent",
+			Title = "Levels",
+			Icon = "file-text",
+			SubId = "levels",
+			Children = new List<MenuItem>
+			{
+				new MenuItem { Area = "Admin/Levels", Controller = "Level", Action = "Index", Title = "List" },
+				new MenuItem { Area = "Admin/Levels", Controller = "Level", Action = "Create", Title = "Create" },
+			}
+		},
+
+		new MenuItem {
+			Type = "parent",
+			Title = "Titles",
+			Icon = "activity",
+			SubId = "titles",
+			Children = new List<MenuItem>
+			{
+				new MenuItem { Area = "Admin/Titles", Controller = "Title", Action = "Index", Title = "List", Icon = "list" },
+				new MenuItem { Area = "Admin/Titles", Controller = "Title", Action = "Create", Title = "Create", Icon = "plus"},
+			}
+		},
+
+			new MenuItem {
+			Type = "parent",
+			Title = "Industries",
+			Icon = "shopping-bag",
+			SubId = "industries",
+			Children = new List<MenuItem>
+			{
+				new MenuItem { Area = "Admin/Industries", Controller = "Industry", Action = "Index", Title = "List", Icon = "list" },
+				new MenuItem { Area = "Admin/Industries", Controller = "Industry", Action = "Create", Title = "Create", Icon = "plus"},
+			}
+		},
+		
+		new MenuItem {
+			Type = "parent",
+			Title = "Work Types",
+			Icon = "archive",
+			SubId = "worktypes",
+			Children = new List<MenuItem>
+			{
+				new MenuItem { Area = "Admin/WorkTypes", Controller = "WorkType", Action = "Index", Title = "List", Icon = "list" },
+				new MenuItem { Area = "Admin/WorkTypes", Controller = "WorkType", Action = "Create", Title = "Create", Icon = "plus"},
+			}
+		},
+
+
+		new MenuItem {
+			Type = "parent",
+			Title = "Countries",
+			Icon = "map",
+			SubId = "countries",
+			Children = new List<MenuItem>
+			{
+				new MenuItem { Area = "Admin/Countries", Controller = "Country", Action = "Index", Title = "List", Icon = "list" },
+				new MenuItem { Area = "Admin/Countries", Controller = "Country", Action = "Create", Title = "Create", Icon = "plus"},
+			}
+		},
+
+		new MenuItem {
+			Type = "parent",
+			Title = "Provinces",
+			Icon = "map-pin",
+			SubId = "provinces",
+			Children = new List<MenuItem>
+			{
+				new MenuItem { Area = "Admin/Provinces", Controller = "Province", Action = "Index", Title = "List", Icon = "list" },
+			}
+		},
+
+	};
+	foreach (var item in menuItems)
+	{
+		if (item.Type == "item")
+		{
+			item.IsActive =
+				string.Equals(item.Area, currentArea, StringComparison.OrdinalIgnoreCase) &&
+				string.Equals(item.Controller, currentController, StringComparison.OrdinalIgnoreCase) &&
+				string.Equals(item.Action, currentAction, StringComparison.OrdinalIgnoreCase);
+		}
+		else if (item.Type == "parent" && item.Children?.Any() == true)
+		{
+			foreach (var child in item.Children)
+			{
+				child.IsActive =
+					string.Equals(child.Area, currentArea, StringComparison.OrdinalIgnoreCase) &&
+					string.Equals(child.Controller, currentController, StringComparison.OrdinalIgnoreCase) &&
+					string.Equals(child.Action, currentAction, StringComparison.OrdinalIgnoreCase);
+			}
+
+			item.IsParentActive = item.Children.Any(c => c.IsActive);
+		}
+	}
+
+}
+
+<nav class="sidebar">
+	<div class="sidebar-header">
+		<a asp-area="Admin/Home" asp-controller="Home" asp-action="Index" class="sidebar-brand">
+			CareerHub
+		</a>
+		<div class="sidebar-toggler not-active">
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+	</div>
+	<div class="sidebar-body">
+		<ul class="nav">
+			@foreach (var item in menuItems)
+			{
+				if (item.Type == "category")
+				{
+					<li class="nav-item nav-category">@item.Title</li>
+				}
+				else if (item.Type == "item")
+				{
+					<li class="nav-item @(item.IsActive ? "active" : "")">
+						<a class="nav-link"
+						   asp-controller="@item.Controller"
+						   asp-action="@item.Action"
+						   asp-area="@item.Area">
+							<i class="link-icon" data-feather="@item.Icon"></i>
+							<span class="link-title">@item.Title</span>
+						</a>
+					</li>
+				}
+				else if (item.Type == "parent")
+				{
+					<li class="nav-item @(item.IsParentActive ? "active" : "")">
+						<a class="nav-link"
+						   data-toggle="collapse"
+						   href="#@item.SubId"
+						   role="button"
+						   aria-expanded="@(item.IsParentActive.ToString().ToLower())"
+						   aria-controls="@item.SubId">
+							<i class="link-icon" data-feather="@item.Icon"></i>
+							<span class="link-title">@item.Title</span>
+							<i class="link-arrow" data-feather="chevron-down"></i>
+						</a>
+						<div class="collapse @(item.IsParentActive ? "show" : "")" id="@item.SubId">
+							<ul class="nav sub-menu">
+								@foreach (var child in item.Children)
+								{
+									<li class="nav-item">
+										<a asp-controller="@child.Controller"
+										   asp-action="@child.Action"
+										   asp-area="@child.Area"
+										   class="nav-link @(child.IsActive ? "active" : "")"
+										>
+											@child.Title
+										</a>
+									</li>
+								}
+							</ul>
+						</div>
+					</li>
+				}
+			}
+		</ul>
+	</div>
+</nav>
+<nav class="settings-sidebar">
+	<div class="sidebar-body">
+		<a href="#" class="settings-sidebar-toggler">
+			<i data-feather="settings"></i>
+		</a>
+		<h6 class="text-muted">Sidebar:</h6>
+		<div class="form-group border-bottom">
+			<div class="form-check form-check-inline">
+				<label class="form-check-label">
+					<input type="radio" class="form-check-input" name="sidebarThemeSettings" id="sidebarLight" value="sidebar-light" checked>
+					Light
+				</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<label class="form-check-label">
+					<input type="radio" class="form-check-input" name="sidebarThemeSettings" id="sidebarDark" value="sidebar-dark">
+					Dark
+				</label>
+			</div>
+		</div>
+		<div class="theme-wrapper">
+			<h6 class="text-muted mb-2">Light Theme:</h6>
+			<a class="theme-item active" href="demo_1/dashboard-one.html">
+				<img src="~/assets/images/screenshots/light.jpg" alt="light theme">
+			</a>
+			<h6 class="text-muted mb-2">Dark Theme:</h6>
+			<a class="theme-item" href="demo_2/dashboard-one.html">
+				<img src="~/assets/images/screenshots/dark.jpg" alt="light theme">
+			</a>
+		</div>
+	</div>
+</nav>

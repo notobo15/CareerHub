@@ -1,5 +1,4 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@using Microsoft.AspNetCore.Identity
 @using RecruitmentApp.Models
 @using System.Web;
 
@@ -20,22 +19,22 @@
     var workspaceSelected = ViewData["workspace"] as string[];
 
     var listSalary = new List<SelectListItem>() {
-        new SelectListItem {Text = "--- Chọn mức lương ---", Value = "-1", },
-        new SelectListItem {Text = "Dưới 5 Triệu", Value = "1", },
-        new SelectListItem {Text = "Từ 5 Đến 15 Triệu", Value = "2"},
-        new SelectListItem {Text = "Từ 15 Đến 30 Triệu", Value = "3"},
-        new SelectListItem {Text = "Từ 30 Triệu Trở Lên", Value = "4" },
-    };
+new SelectListItem {Text = "--- Chọn mức lương ---", Value = "-1", },
+new SelectListItem {Text = "Dưới 5 Triệu", Value = "1", },
+new SelectListItem {Text = "Từ 5 Đến 15 Triệu", Value = "2"},
+new SelectListItem {Text = "Từ 15 Đến 30 Triệu", Value = "3"},
+new SelectListItem {Text = "Từ 30 Triệu Trở Lên", Value = "4" },
+};
     int TotalFilter = levelsSelected.Count() + typesSelected.Count() + workspaceSelected.Count();
     var listType = new List<Company>() {
-        new  Company{Type = "Product" },
-        new  Company{Type = "Outsource"},
-    };
+new Company{Type = "Product" },
+new Company{Type = "Outsource"},
+};
     var listWorkspace = new List<Post>() {
-        new  Post{WorkSpace = "Văn Phòng" },
-        new  Post{WorkSpace = "Làm Từ Xa"},
-        new  Post{WorkSpace = "Linh Hoạt"},
-    };
+new Post{WorkSpace = "Văn Phòng" },
+new Post{WorkSpace = "Làm Từ Xa"},
+new Post{WorkSpace = "Linh Hoạt"},
+};
 
 
     foreach (var s in listSalary)
@@ -49,17 +48,16 @@
 
 }
 <style>
-    .provice {
-    }
+    .provice {}
 
     label.badge {
         border-radius: 1.5rem;
         font-size: 0.9rem;
     }
 
-        label.badge:hover {
-            background-color: rgb(220,53,69, 0.4);
-        }
+    label.badge:hover {
+        background-color: rgb(220, 53, 69, 0.4);
+    }
 
     .select2-container {
         width: unset !important;
@@ -75,8 +73,9 @@
 
     label:has(input.selected) {
         border: 1px solid #dc3545 !important;
-        background: rgb(220,53,69, 0.2);
+        background: rgb(220, 53, 69, 0.2);
     }
+
     .btn-reset-filter {
 
         cursor: pointer;
@@ -91,7 +90,8 @@
         <div class="container ">
             <form class="row py-4 align-items-center " asp-action="Search" method="get">
                 <div class="col-md-5 mb-3 mb-md-0">
-                    <input name="key" type="text" class="form-control" value="@ViewData["key"]" placeholder="Nhập" style="height: 3.5rem; font-size: 1.25rem;">
+                    <input name="key" type="text" class="form-control" value="@ViewData["key"]" placeholder="Nhập"
+                        style="height: 3.5rem; font-size: 1.25rem;">
                 </div>
                 <div class="col-md-4  mb-3 mb-md-0" style="height: 3.5rem;">
                     <select name="city" class="provice w-100" asp-items="@provices">
@@ -100,11 +100,13 @@
                 </div>
 
                 <div class="col-md-3 w-100">
-                    <button type="submit" class="w-100 py-2 btn btn-primary" style="height: 3.5rem;"><b>TÌM NGAY</b></button>
+                    <button type="submit" class="w-100 py-2 btn btn-primary" style="height: 3.5rem;"><b>TÌM
+                            NGAY</b></button>
                 </div>
 
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-lg " role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -125,14 +127,16 @@
                                             {
                                                 <label for="@level.Name" class="badge py-3 px-4 border  mr-2 checked">
                                                     @level.Name <i class="ml-2 fa fa-plus"></i>
-                                                    <input hidden checked class="selected" id="@level.Name" value="@level.LevelId" type="checkbox" name="level" />
+                                                    <input hidden checked class="selected" id="@level.Name" value="@level.LevelId"
+                                                        type="checkbox" name="level" />
                                                 </label>
                                             }
                                             else
                                             {
                                                 <label for="@level.Name" class="badge py-3 px-4 border mr-2">
                                                     @level.Name <i class="ml-2 fa fa-plus"></i>
-                                                    <input hidden id="@level.Name" value="@level.LevelId" type="checkbox" name="level" />
+                                                    <input hidden id="@level.Name" value="@level.LevelId" type="checkbox"
+                                                        name="level" />
                                                 </label>
                                             }
                                         }
@@ -155,7 +159,8 @@
                                             {
                                                 <label for="@type.Type" class="badge py-3 px-4 border  mr-2 selected">
                                                     @type.Type<i class="ml-2 fa fa-plus"></i>
-                                                    <input hidden checked class="selected" id="@type.Type" value="@type.Type" type="checkbox" name="type" />
+                                                    <input hidden checked class="selected" id="@type.Type" value="@type.Type"
+                                                        type="checkbox" name="type" />
                                                 </label>
                                             }
                                             else
@@ -183,14 +188,16 @@
                                             {
                                                 <label for="@work.WorkSpace" class="badge py-3 px-4 border  mr-2 checked">
                                                     @work.WorkSpace<i class="ml-2 fa fa-plus"></i>
-                                                    <input hidden checked class="selected" id="@work.WorkSpace" value="@work.WorkSpace" type="checkbox" name="workspace" />
+                                                    <input hidden checked class="selected" id="@work.WorkSpace"
+                                                        value="@work.WorkSpace" type="checkbox" name="workspace" />
                                                 </label>
                                             }
                                             else
                                             {
                                                 <label for="@work.WorkSpace" class="badge py-3 px-4 border mr-2">
                                                     @work.WorkSpace<i class="ml-2 fa fa-plus"></i>
-                                                    <input hidden id="@work.WorkSpace" value="@work.WorkSpace" type="checkbox" name="workspace" />
+                                                    <input hidden id="@work.WorkSpace" value="@work.WorkSpace" type="checkbox"
+                                                        name="workspace" />
                                                 </label>
                                             }
                                         }
@@ -210,28 +217,30 @@
 
             </form>
             <div class="text-right pb-3">
-                <button type="button" class="position-relative btn btn-danger px-5 py-2" data-toggle="modal" data-target="#exampleModalCenter">
+                <button type="button" class="position-relative btn btn-danger px-5 py-2" data-toggle="modal"
+                    data-target="#exampleModalCenter">
                     <i class="fas fa-filter fs5 mr-2"></i>
                     Bọ lọc
-                    <span class="position-absolute bg-light text-dark br" style="top: -10px; right: -10px; line-height:0.5; padding: 8px 5px; width: 26px;height: 26px; border-radius:50%">@TotalFilter</span>
+                    <span class="position-absolute bg-light text-dark br"
+                        style="top: -10px; right: -10px; line-height:0.5; padding: 8px 5px; width: 26px;height: 26px; border-radius:50%">@TotalFilter</span>
                 </button>
             </div>
         </div>
     </div>
 
 
-    }
+}
 <div class="container">
-  
+
     <h4 class=" my-4">Kết quả tìm kiếm (@result.Count() tin đăng)</h4>
     <div class="row">
         @{
             var posts = ViewData["posts"] as List<Post>;
             foreach (var post in result)
             {
-                            <div class="col-sm-6 col-lg-3 mb-4">
-                                <div class="card shadow  p-3 position-relative">
-                                    @{
+                <div class="col-sm-6 col-lg-3 mb-4">
+                    <div class="card shadow  p-3 position-relative">
+                        @{
                             DateTime now = DateTime.Now;
                             TimeSpan timeDifference = (now - post.PostDate);
                             string time;
@@ -244,66 +253,68 @@
                             {
                                 time = $"{(int)timeDifference.TotalDays} ngày";
                             }
-                                    }
-                                    <h6 class="text-muted"> Đăng @time trước</h6>
-                                    <a asp-action="ViewPost" asp-route-id="@post.PostId" class="d-block">
-                                        <h5 class="card-title">@post.Title</h5>
-                                    </a>
-                                    <div class="d-flex align-items-center">
-                                        <div class="w-25 ">
-                                            <img class="card-img" src="~/company-logo/@post.Company.LogoImage" alt="Card image cap">
-                                        </div>
-                                        <div class="w-75 px-2">
-                                            @post.Company.Name
-                                        </div>
+                        }
+                        <h6 class="text-muted"> Đăng @time trước</h6>
+                        <a asp-action="ViewPost" asp-route-id="@post.PostId" class="d-block">
+                            <h5 class="card-title">@post.Title</h5>
+                        </a>
+                        <div class="d-flex align-items-center">
+                            <div class="w-25 ">
+                                <img class="card-img" src="~/company-logo/@post.Company.LogoImage" alt="Card image cap">
+                            </div>
+                            <div class="w-75 px-2">
+                                @post.Company.Name
+                            </div>
 
-                                    </div>
+                        </div>
 
-                                    @if (SignInManager.IsSignedIn(User))
+                        @if (SignInManager.IsSignedIn(User))
                         {
                             <div class="d-flex align-items-center mt-3" style="color: #008563 !important;min-height: 2.8rem;">
-                                            <h6 class="mr-2"><i class="fas fa-dollar-sign"></i></h6>
+                                <h6 class="mr-2"><i class="fas fa-dollar-sign"></i></h6>
                                 <h6>Lương: @post.salaryToString()</h6>
-                                        </div>
+                            </div>
                         }
                         else
                         {
-                                        <a asp-action="Login" asp-controller="Account" asp-area="Identity" class="d-flex align-items-center mt-3 text-success">
-                                            <span class="mr-2"><i class="fas fa-dollar-sign"></i></span>
-                                            <span>Lương: Đăng nhập Để Xem Chi Tiết</span>
-                                        </a>
+                            <a asp-action="Login" asp-controller="Account" asp-area="Identity"
+                                class="d-flex align-items-center mt-3 text-success">
+                                <span class="mr-2"><i class="fas fa-dollar-sign"></i></span>
+                                <span>Lương: Đăng nhập Để Xem Chi Tiết</span>
+                            </a>
                         }
-                                    <hr />
-                                    <div class="d-flex align-items-center">
-                                        <span class="mr-2"><i class="fas fa-building"></i></span>
-                                        <span>@post.WorkSpace</span>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <span class="mr-2"><i class="fas fa-map-marker-alt"></i></span>
-                                        <span>@post?.Address?.City.Name</span>
-                                    </div>
-                                    <div class="my-3">
-                                        @if (post.PostSkills.Any())
+                        <hr />
+                        <div class="d-flex align-items-center">
+                            <span class="mr-2"><i class="fas fa-building"></i></span>
+                            <span>@post.WorkSpace</span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <span class="mr-2"><i class="fas fa-map-marker-alt"></i></span>
+                            <span>@post?.Address?.City.Name</span>
+                        </div>
+                        <div class="my-3">
+                            @if (post.PostSkills.Any())
                             {
 
                                 foreach (var t in post.PostSkills)
                                 {
-                                    //     <span class="badge p-2 rounded-pill bg-light border m-1">@t.Skill.Name</span>
+                                    // <span class="badge p-2 rounded-pill bg-light border m-1">@t.Skill.Name</span>
                                 }
                             }
-                                    </div>
+                        </div>
 
-                                </div>
-                                @if (post.IsHot)
+                    </div>
+                    @if (post.IsHot)
                     {
-                                    <div class="ilabel position-absolute bg-danger py-1 px-2 text-white rounded-left" style="top: 10px; right: 0;width: 100px;">
-                                        <i class="fas fa-burn mr-2"></i>HOT
-                                    </div>
+                        <div class="ilabel position-absolute bg-danger py-1 px-2 text-white rounded-left"
+                            style="top: 10px; right: 0;width: 100px;">
+                            <i class="fas fa-burn mr-2"></i>HOT
+                        </div>
                     }
-                            </div>
+                </div>
             }
         }
-      <!--
+        <!--
 
 
           <div class="w-100 text-center py-5">

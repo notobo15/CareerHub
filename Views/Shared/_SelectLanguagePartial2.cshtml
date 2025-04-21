@@ -1,0 +1,41 @@
+﻿@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Http.Features
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Options
+
+@inject IViewLocalizer Localizer
+@inject IOptions<RequestLocalizationOptions> LocOptions
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOptions.Value.SupportedUICultures
+    .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+    .ToList();
+    var returnUrl = string.IsNullOrEmpty(Context.Request.Path) ? "~/" : $"~{Context.Request.Path.Value}";
+}
+
+<div title="@Localizer["Request culture provider:"] @requestCulture?.Provider?.GetType().Name">
+    <form id="selectLanguage" asp-controller="Home" asp-action="SetLanguage" asp-route-returnUrl="@returnUrl"
+        method="post" class="form-horizontal" role="form">
+        <label asp-for="@requestCulture.RequestCulture.UICulture.Name">@Localizer["Language:"]</label>
+        <select name="culture" onchange="this.form.submit();" asp-for="@requestCulture.RequestCulture.UICulture.Name"
+            asp-items="cultureItems">
+        </select>
+    </form>
+</div>
+
+
+
+<li class="ipy-5 ipy-xl-0 navbar-nav align-items-center">
+    <div class="switch-language d-inline-flex cursor-pointer" data-controller="language" data-language-locale-value="vi"
+        data-language-localed-path-value="/">
+        <button class="bg-transparent border-0 p-0 text-dark-grey" data-action="click->language#switchLanguage">
+            EN
+        </button>
+        <div class="vr mx-2 text-white align-self-center cursor-pointer"></div>
+        <button class="bg-transparent border-0 p-0 active text-it-white" data-action="click->language#switchLanguage">
+            VI
+        </button>
+    </div>
+</li>
