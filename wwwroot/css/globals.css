@@ -1,13 +1,3 @@
-/*!
- * ITCSS: Inverted Triangle architecture for CSS.
- * https://csswizardry.net/talks/2014/11/itcss-dafed.pdf
-*/
-/*!
- * Bootstrap v5.1.3 (https://getbootstrap.com/)
- * Copyright 2011-2021 The Bootstrap Authors
- * Copyright 2011-2021 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
- */
 :root {
     --i-blue: #0d6efd;
     --i-indigo: #6610f2;
@@ -2258,6 +2248,7 @@ progress {
     padding: 11px 16px;
     font-size: 1rem;
     font-weight: 400;
+    height: auto;
     line-height: 1.5;
     color: #121212;
     background-color: #fff;
@@ -2289,7 +2280,7 @@ progress {
     background-color: #fff;
     border-color: #414042;
     outline: 0;
-    box-shadow: 0 0 2px 2px #ffdfdf;
+    /* box-shadow: 0 0 2px 2px #ffdfdf; */
 }
 
 .form-control::-webkit-date-and-time-value {
@@ -3030,7 +3021,8 @@ textarea.form-control-lg {
 }
 
 .was-validated .form-select:invalid,
-.form-select.is-invalid {
+.form-select.is-invalid,
+.input-validation-error {
     border-color: #f60d00;
 }
 
@@ -6453,6 +6445,25 @@ fieldset:disabled .btn {
     .modal-fullscreen-xxl-down .modal-footer {
         border-radius: 0;
     }
+}
+
+@keyframes shake {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.03);
+    }
+    /* Giãn ra */
+    100% {
+        transform: scale(1);
+    }
+    /* Quay về trạng thái ban đầu */
+}
+
+.shake {
+    animation: shake 0.3s ease-in-out;
 }
 
 .tooltip {
@@ -12358,7 +12369,7 @@ fieldset:disabled .btn {
 .ts-dropdown [data-disabled],
 .ts-dropdown [data-disabled] [data-selectable].option {
     cursor: inherit;
-    opacity: 0.5;
+    /* opacity: 0.5; */
 }
 
 .ts-dropdown [data-selectable].option {
@@ -12425,7 +12436,7 @@ fieldset:disabled .btn {
 .ts-dropdown-content {
     overflow-y: auto;
     overflow-x: hidden;
-    max-height: 200px;
+    max-height: 50vh;
     overflow-scrolling: touch;
     scroll-behavior: smooth;
 }
@@ -12823,7 +12834,7 @@ img.lazyloaded[data-controller~="lazyload"] {
     margin-inline-start: var(--swiper-centered-offset-before);
 }
 
-.swiper-centered.swiper-horizontal>.swiper-wrapper: :before {
+.swiper-centered.swiper-horizontal > .swiper-wrapper::before {
     height: 100%;
     width: var(--swiper-centered-offset-after);
 }
@@ -12832,7 +12843,7 @@ img.lazyloaded[data-controller~="lazyload"] {
     margin-block-start: var(--swiper-centered-offset-before);
 }
 
-.swiper-centered.swiper-vertical>.swiper-wrapper: :before {
+.swiper-centered.swiper-vertical > .swiper-wrapper::before {
     width: 100%;
     height: var(--swiper-centered-offset-after);
 }
@@ -14032,8 +14043,16 @@ ul > li::marker {
     background-color: #ece5ff !important;
 }
 
+.bg-it-primary {
+    background-color: #165d94 !important;
+}
+
 .bg-gradient-search {
-    background: linear-gradient(269.85deg, #54151c 0%, #121212 54.89%);
+    /*    background: linear-gradient(269.85deg, #54151c 0%, #121212 54.89%);*/
+    /* background: linear-gradient(269.85deg, #fff 0%, #165d94 54.89%); */
+    /*    background: rgb(22,93,148);
+    background: linear-gradient(90deg, rgba(22,93,148,1) 0%, rgba(66,129,200,1) 20%, rgba(98,158,251,1) 60%, rgba(255,255,255,1) 100%);*/
+    background: linear-gradient(277.42deg, #185e95 0%, #121212 54.89%);
 }
 
 .ifs-12 {
@@ -27711,14 +27730,28 @@ ul > li::marker {
 
 .ibtn-primary {
     color: #fff;
-    background-color: #ed1b2f;
-    border-color: #ed1b2f;
+    background-color: #007bff;
+    border-color: #007bff;
 }
 
-.ibtn-primary:hover {
+.ibtn-outline-primary {
+    color: #007bff;
+    background-color: #fff;
+    border-color: #007bff;
+}
+
+.ibtn-outline-primary:hover {
     color: #fff;
-    background-color: #c82222;
-    border-color: #c82222;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.ibtn-primary:hover {
+    /* color: #fff;
+    background-color: #185e95;
+    border-color: #165d94; */
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
 }
 
 .ibtn-primary:disabled,
@@ -28459,9 +28492,9 @@ ul > li::marker {
 }
 
 .ipagination .page > a:hover {
-    color: #ed1b2f;
+    color: #185e95;
     background-color: #fff5f5;
-    border-color: #ed1b2f;
+    border-color: #185e95;
     transition: 0.3s;
 }
 
@@ -28481,8 +28514,8 @@ ul > li::marker {
 }
 
 .ipagination .current {
-    background-color: #ed1b2f;
-    border-color: #ed1b2f;
+    background-color: #185e95;
+    border-color: #185e95;
     color: #fff;
     border-radius: 4px;
     padding: 0 4px;
@@ -28568,6 +28601,26 @@ ul > li::marker {
     background-color: #ed1b2f;
 }
 
+.manage-profile ul#profile_nav .active > .badge-counter, 
+.manage-profile ul.aim-activities-nav-container .active > .badge-counter, 
+turbo-frame ul#profile_nav .active > .badge-counter,
+turbo-frame ul.aim-activities-nav-container .active > .badge-counter {
+    opacity: 1;
+    color: #fff;
+    background-color: #ed1b2f
+}
+
+.manage-profile ul#profile_nav .badge-counter, .manage-profile ul.aim-activities-nav-container .badge-counter, turbo-frame ul#profile_nav .badge-counter, turbo-frame ul.aim-activities-nav-container .badge-counter {
+    display: inline-block;
+    padding: 0 8px;
+    border-radius: 12px;
+    font-weight: 400;
+    line-height: 24px;
+    font-size: 16px;
+    color: #121212;
+    background-color: #dedede
+}
+
 @media (min-width: 768px) {
     .itabs.compact .item {
         padding: 16px 0;
@@ -28579,7 +28632,7 @@ ul > li::marker {
 }
 
 .feather-icon {
-    stroke: currentColor;
+    /* stroke: #185e95; */
     stroke-width: 2;
     stroke-linecap: round;
     stroke-linejoin: round;
@@ -30905,7 +30958,7 @@ ul > li::marker {
 .header {
     background: #fff;
     height: 54px;
-    border-bottom-width: 0.0625rem;
+    border-bottom-width: 0.625rem;
     border-bottom-color: #e4e2e0;
 }
 
@@ -30916,20 +30969,20 @@ ul > li::marker {
 }
 
 .header nav {
-/*    background: linear-gradient(269.85deg, #54151c 0%, #121212 54.89%);*/
-    background: #fff;
+    /* background: linear-gradient(269.85deg, #fff 0%, #165d94 54.89%); */
+    background: linear-gradient(277.42deg, #185e95 0%, #121212 54.89%);
     border-bottom: 1px solid #ffffff1a;
 }
 
-    .header nav img.logo-itviec {
-        height: 54px;
-        width: auto;
-    }
+.header nav img.logo-itviec {
+    height: 54px;
+    width: auto;
+}
 
 @media (min-width: 1200px) {
     .header nav img.logo-itviec {
         height: 54px;
-/*        width: 82px;*/
+        /*        width: 82px;*/
     }
 }
 
@@ -30952,15 +31005,15 @@ ul > li::marker {
 
 .nav-item {
     cursor: pointer;
-/*    color: #a6a6a6;*/
+    color: #a6a6a6;
 }
 
 .nav-item:hover {
-/*    color: #fff;*/
+    /*    color: #fff;*/
 }
 
 .nav-item .nav-item-link {
-/*    color: #a6a6a6;*/
+    /*    color: #a6a6a6;*/
 }
 
 .nav-item .nav-item-link:hover {
@@ -31019,6 +31072,10 @@ ul > li::marker {
     color: #fff;
 }
 
+.menu-title.active > a {
+    color: #fff !important;
+}
+
 .menu-title.active .menu-content {
     display: flex;
     flex-direction: column;
@@ -31059,6 +31116,10 @@ ul > li::marker {
     color: #fff;
 }
 
+.profile-menu-item button {
+    color: #fff;
+}
+
 @media (min-width: 1200px) {
     .profile-menu-item {
         height: 45px;
@@ -31075,7 +31136,7 @@ ul > li::marker {
     }
 
     .profile-menu-item > a:hover {
-        color: #fff;
+        color: #fff !important;
     }
 
     .profile-menu-item:hover {
@@ -31124,12 +31185,15 @@ li.profile-menu-item::marker {
 
 .footer {
     color: var(--i-silver-grey);
-    background: linear-gradient(177.12deg, #121212 48.81%, #54151c 98.26%);
+    /* background: linear-gradient(177.12deg, #121212 48.81%, #54151c 98.26%); */
+    background: linear-gradient(177.42deg, #121212 48.81%, #185e95 98.26%);
 }
 
 @media (min-width: 1200px) {
     .footer {
-        background: linear-gradient(277.42deg, #54151c 0%, #121212 43.92%);
+        /* background: linear-gradient(277.42deg, #54151c 0%, #121212 43.92%); */
+        /* background: linear-gradient(269.85deg, #fff 0%, #165d94 54.89%); */
+        background: linear-gradient(277.42deg, #185e95 0%, #121212 54.89%);
     }
 }
 
@@ -31279,16 +31343,17 @@ li.profile-menu-item::marker {
     z-index: -1;
 }
 
-.gradient-light-grey-background:before {
-    content: " ";
-    width: 120vw;
-    position: absolute;
-    left: -12%;
-    top: 0;
-    height: 400px;
-    background: linear-gradient(270.08deg, #54151c 7.4%, #121212 54.81%);
-    border-radius: 0 0 70% 50%;
-}
+    .gradient-light-grey-background:before {
+        content: " ";
+        width: 120vw;
+        position: absolute;
+        left: -12%;
+        top: 0;
+        height: 400px;
+/*        background: linear-gradient(270.08deg, #54151c 7.4%, #121212 54.81%);*/
+        background: linear-gradient(277.42deg, #185e95 0%, #121212 54.89%);
+        border-radius: 0 0 70% 50%;
+    }
 
 .gradient-background {
     width: 100%;
@@ -31307,7 +31372,8 @@ li.profile-menu-item::marker {
     left: -12%;
     top: 0;
     height: 400px;
-    background: linear-gradient(270.08deg, #54151c 7.4%, #121212 54.81%);
+    background: linear-gradient(277.42deg, #185e95 0%, #121212 54.89%);
+    /*    background: linear-gradient(270.08deg, #54151c 7.4%, #121212 54.81%);*/
     border-radius: 0 0 70% 50%;
 }
 
@@ -31942,7 +32008,7 @@ li.profile-menu-item::marker {
 
 @media (min-width: 1200px) {
     .card-jobs-list .job-card.selected-job {
-        border: 1px solid #ed1b2f;
+        border: 1px solid #185e95;
         box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.06);
     }
 
@@ -31956,7 +32022,7 @@ li.profile-menu-item::marker {
         margin: 8px 0;
         border-top-right-radius: 8px;
         border-bottom-right-radius: 8px;
-        background-color: #ed1b2f;
+        background-color: #185e95;
     }
 
     .card-jobs-list .job-card.selected-job::after {
@@ -31966,11 +32032,11 @@ li.profile-menu-item::marker {
         bottom: calc(50% - 8px);
         border-top: 8px solid transparent;
         border-bottom: 8px solid transparent;
-        border-left: 8px solid red;
+        border-left: 8px solid #185e95;
     }
 
     .card-jobs-list .job-card.selected-job:hover {
-        border: 1px solid #ed1b2f;
+        border: 1px solid #185e95;
     }
 }
 
@@ -32220,8 +32286,8 @@ li.profile-menu-item::marker {
 
 .filter .range-selected {
     height: 100%;
-    left: calc((var(--min-salary-value) - 500) / 9500 * 100%);
-    right: calc(100% - (var(--max-salary-value) - 500) / 9500 * 100%);
+    left: calc((var(--min-salary-value) - 0) / 50000000 * 100%);
+    right: calc(100% - (var(--max-salary-value) - 0) / 50000000 * 100%);
     position: absolute;
     border-radius: 5px;
     background-color: #0ab305;
@@ -35294,6 +35360,84 @@ img.lazyloaded[data-controller~="lazyload"] {
     }
 }
 
+#skills_card .selectBoxes, #modal-fluid .selectBoxes {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr auto;
+    gap: 10px;
+}
+#skills_card .bg-light-grey, #modal-fluid .bg-light-grey {
+    background-color: #f7f7f7
+}
+
+#skills_card .selectBoxes, #modal-fluid .selectBoxes {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr auto;
+    gap: 10px
+}
+
+@media(max-width: 575.98px) {
+    #skills_card .selectBoxes, #modal-fluid .selectBoxes {
+        grid-template-columns: 1fr
+    }
+}
+
+#skills_card .selectBoxes .ts-control, #modal-fluid .selectBoxes .ts-control {
+    font-size: 16px !important;
+    padding: 0 .75rem
+}
+
+    #skills_card .selectBoxes .ts-control input, #modal-fluid .selectBoxes .ts-control input {
+        font-size: 16px !important
+    }
+
+#skills_card .selectBoxes .focus > .ts-control, #modal-fluid .selectBoxes .focus > .ts-control {
+    border: 1px solid #414042 !important
+}
+
+#skills_card .selectBoxes #selectLevel, #modal-fluid .selectBoxes #selectLevel {
+    color: #a6a6a6
+}
+
+    #skills_card .selectBoxes #selectLevel .form-floating-level, #modal-fluid .selectBoxes #selectLevel .form-floating-level {
+        position: relative
+    }
+
+        #skills_card .selectBoxes #selectLevel .form-floating-level > .ts-wrapper .ts-control, #modal-fluid .selectBoxes #selectLevel .form-floating-level > .ts-wrapper .ts-control {
+            padding-top: 1.625rem;
+            padding-left: 16px
+        }
+
+            #skills_card .selectBoxes #selectLevel .form-floating-level > .ts-wrapper .ts-control input::placeholder, #modal-fluid .selectBoxes #selectLevel .form-floating-level > .ts-wrapper .ts-control input::placeholder {
+                opacity: 1
+            }
+
+        #skills_card .selectBoxes #selectLevel .form-floating-level > .ts-wrapper:has(.ts-control :not(div[data-ts-item])) + label, #modal-fluid .selectBoxes #selectLevel .form-floating-level > .ts-wrapper:has(.ts-control :not(div[data-ts-item])) + label {
+            transform: inherit
+        }
+
+        #skills_card .selectBoxes #selectLevel .form-floating-level > .ts-wrapper:has(.ts-control input:focus) + label, #skills_card .selectBoxes #selectLevel .form-floating-level .ts-wrapper:has(.ts-control div[data-ts-item]) + label, #modal-fluid .selectBoxes #selectLevel .form-floating-level > .ts-wrapper:has(.ts-control input:focus) + label, #modal-fluid .selectBoxes #selectLevel .form-floating-level .ts-wrapper:has(.ts-control div[data-ts-item]) + label {
+            transform: scale(0.85) translateY(-0.625rem) translateX(0.15rem)
+        }
+
+        #skills_card .selectBoxes #selectLevel .form-floating-level .ts-wrapper.form-select.input-active .ts-control, #modal-fluid .selectBoxes #selectLevel .form-floating-level .ts-wrapper.form-select.input-active .ts-control {
+            border: 1px solid #414042
+        }
+
+        #skills_card .selectBoxes #selectLevel .form-floating-level .ts-control > .item, #modal-fluid .selectBoxes #selectLevel .form-floating-level .ts-control > .item {
+            width: 90%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis
+        }
+
+        #skills_card .selectBoxes #selectLevel .form-floating-level .ts-control > input, #modal-fluid .selectBoxes #selectLevel .form-floating-level .ts-control > input {
+            display: none !important
+        }
+
+#skills_card .selectBoxes .form-select:focus, #modal-fluid .selectBoxes .form-select:focus {
+    border: none
+}
+
 #skills_card .bg-light-grey,
 #modal-fluid .bg-light-grey {
     background-color: #f7f7f7;
@@ -35394,6 +35538,305 @@ img.lazyloaded[data-controller~="lazyload"] {
 #modal-fluid .selectBoxes .form-select:focus {
     border: none;
 }
+
+
+.working-experience-card .working-experience-header, .working-experience-card .education-card-header, .working-experience-card .award-card-header, #education_card .working-experience-header, #education_card .education-card-header, #education_card .award-card-header, #award_card .working-experience-header, #award_card .education-card-header, #award_card .award-card-header {
+    max-height: 75px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center
+}
+
+    .working-experience-card .working-experience-header .card-title, .working-experience-card .education-card-header .card-title, .working-experience-card .award-card-header .card-title, #education_card .working-experience-header .card-title, #education_card .education-card-header .card-title, #education_card .award-card-header .card-title, #award_card .working-experience-header .card-title, #award_card .education-card-header .card-title, #award_card .award-card-header .card-title {
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 34px;
+        color: #ea1e30;
+        margin: 0
+    }
+
+    .working-experience-card .working-experience-header .working-experience__add-new, .working-experience-card .working-experience-header .education-card__add-new, .working-experience-card .working-experience-header .award-card__add-new, .working-experience-card .education-card-header .working-experience__add-new, .working-experience-card .education-card-header .education-card__add-new, .working-experience-card .education-card-header .award-card__add-new, .working-experience-card .award-card-header .working-experience__add-new, .working-experience-card .award-card-header .education-card__add-new, .working-experience-card .award-card-header .award-card__add-new, #education_card .working-experience-header .working-experience__add-new, #education_card .working-experience-header .education-card__add-new, #education_card .working-experience-header .award-card__add-new, #education_card .education-card-header .working-experience__add-new, #education_card .education-card-header .education-card__add-new, #education_card .education-card-header .award-card__add-new, #education_card .award-card-header .working-experience__add-new, #education_card .award-card-header .education-card__add-new, #education_card .award-card-header .award-card__add-new, #award_card .working-experience-header .working-experience__add-new, #award_card .working-experience-header .education-card__add-new, #award_card .working-experience-header .award-card__add-new, #award_card .education-card-header .working-experience__add-new, #award_card .education-card-header .education-card__add-new, #award_card .education-card-header .award-card__add-new, #award_card .award-card-header .working-experience__add-new, #award_card .award-card-header .education-card__add-new, #award_card .award-card-header .award-card__add-new {
+        cursor: pointer
+    }
+
+.working-experience-card .input__disabled--gray, #education_card .input__disabled--gray, #award_card .input__disabled--gray {
+    background: #f4f4f4
+}
+
+.working-experience-card .is-invalid, #education_card .is-invalid, #award_card .is-invalid {
+    border: 1px solid #ea1e30 !important
+}
+
+.working-experience-card .working-experience-form, .working-experience-card .edit-experience-panel, .working-experience-card .edit-working-experience-form, .working-experience-card .education-form, .working-experience-card .edit-education-panel, .working-experience-card .edit-education-form, .working-experience-card .award-form, #education_card .working-experience-form, #education_card .edit-experience-panel, #education_card .edit-working-experience-form, #education_card .education-form, #education_card .edit-education-panel, #education_card .edit-education-form, #education_card .award-form, #award_card .working-experience-form, #award_card .edit-experience-panel, #award_card .edit-working-experience-form, #award_card .education-form, #award_card .edit-education-panel, #award_card .edit-education-form, #award_card .award-form {
+    margin-top: 20px
+}
+
+    .working-experience-card .working-experience-form .timing-grid-container, .working-experience-card .edit-experience-panel .timing-grid-container, .working-experience-card .edit-working-experience-form .timing-grid-container, .working-experience-card .education-form .timing-grid-container, .working-experience-card .edit-education-panel .timing-grid-container, .working-experience-card .edit-education-form .timing-grid-container, .working-experience-card .award-form .timing-grid-container, #education_card .working-experience-form .timing-grid-container, #education_card .edit-experience-panel .timing-grid-container, #education_card .edit-working-experience-form .timing-grid-container, #education_card .education-form .timing-grid-container, #education_card .edit-education-panel .timing-grid-container, #education_card .edit-education-form .timing-grid-container, #education_card .award-form .timing-grid-container, #award_card .working-experience-form .timing-grid-container, #award_card .edit-experience-panel .timing-grid-container, #award_card .edit-working-experience-form .timing-grid-container, #award_card .education-form .timing-grid-container, #award_card .edit-education-panel .timing-grid-container, #award_card .edit-education-form .timing-grid-container, #award_card .award-form .timing-grid-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr
+    }
+
+        .working-experience-card .working-experience-form .timing-grid-container .timing-box, .working-experience-card .edit-experience-panel .timing-grid-container .timing-box, .working-experience-card .edit-working-experience-form .timing-grid-container .timing-box, .working-experience-card .education-form .timing-grid-container .timing-box, .working-experience-card .edit-education-panel .timing-grid-container .timing-box, .working-experience-card .edit-education-form .timing-grid-container .timing-box, .working-experience-card .award-form .timing-grid-container .timing-box, #education_card .working-experience-form .timing-grid-container .timing-box, #education_card .edit-experience-panel .timing-grid-container .timing-box, #education_card .edit-working-experience-form .timing-grid-container .timing-box, #education_card .education-form .timing-grid-container .timing-box, #education_card .edit-education-panel .timing-grid-container .timing-box, #education_card .edit-education-form .timing-grid-container .timing-box, #education_card .award-form .timing-grid-container .timing-box, #award_card .working-experience-form .timing-grid-container .timing-box, #award_card .edit-experience-panel .timing-grid-container .timing-box, #award_card .edit-working-experience-form .timing-grid-container .timing-box, #award_card .education-form .timing-grid-container .timing-box, #award_card .edit-education-panel .timing-grid-container .timing-box, #award_card .edit-education-form .timing-grid-container .timing-box, #award_card .award-form .timing-grid-container .timing-box {
+            width: 50%
+        }
+
+            .working-experience-card .working-experience-form .timing-grid-container .timing-box label, .working-experience-card .edit-experience-panel .timing-grid-container .timing-box label, .working-experience-card .edit-working-experience-form .timing-grid-container .timing-box label, .working-experience-card .education-form .timing-grid-container .timing-box label, .working-experience-card .edit-education-panel .timing-grid-container .timing-box label, .working-experience-card .edit-education-form .timing-grid-container .timing-box label, .working-experience-card .award-form .timing-grid-container .timing-box label, #education_card .working-experience-form .timing-grid-container .timing-box label, #education_card .edit-experience-panel .timing-grid-container .timing-box label, #education_card .edit-working-experience-form .timing-grid-container .timing-box label, #education_card .education-form .timing-grid-container .timing-box label, #education_card .edit-education-panel .timing-grid-container .timing-box label, #education_card .edit-education-form .timing-grid-container .timing-box label, #education_card .award-form .timing-grid-container .timing-box label, #award_card .working-experience-form .timing-grid-container .timing-box label, #award_card .edit-experience-panel .timing-grid-container .timing-box label, #award_card .edit-working-experience-form .timing-grid-container .timing-box label, #award_card .education-form .timing-grid-container .timing-box label, #award_card .edit-education-panel .timing-grid-container .timing-box label, #award_card .edit-education-form .timing-grid-container .timing-box label, #award_card .award-form .timing-grid-container .timing-box label {
+                white-space: nowrap
+            }
+
+            .working-experience-card .working-experience-form .timing-grid-container .timing-box.month, .working-experience-card .edit-experience-panel .timing-grid-container .timing-box.month, .working-experience-card .edit-working-experience-form .timing-grid-container .timing-box.month, .working-experience-card .education-form .timing-grid-container .timing-box.month, .working-experience-card .edit-education-panel .timing-grid-container .timing-box.month, .working-experience-card .edit-education-form .timing-grid-container .timing-box.month, .working-experience-card .award-form .timing-grid-container .timing-box.month, #education_card .working-experience-form .timing-grid-container .timing-box.month, #education_card .edit-experience-panel .timing-grid-container .timing-box.month, #education_card .edit-working-experience-form .timing-grid-container .timing-box.month, #education_card .education-form .timing-grid-container .timing-box.month, #education_card .edit-education-panel .timing-grid-container .timing-box.month, #education_card .edit-education-form .timing-grid-container .timing-box.month, #education_card .award-form .timing-grid-container .timing-box.month, #award_card .working-experience-form .timing-grid-container .timing-box.month, #award_card .edit-experience-panel .timing-grid-container .timing-box.month, #award_card .edit-working-experience-form .timing-grid-container .timing-box.month, #award_card .education-form .timing-grid-container .timing-box.month, #award_card .edit-education-panel .timing-grid-container .timing-box.month, #award_card .edit-education-form .timing-grid-container .timing-box.month, #award_card .award-form .timing-grid-container .timing-box.month {
+                padding-right: 1rem
+            }
+
+@media(min-width: 768px) {
+    .working-experience-card .working-experience-form .timing-grid-container, .working-experience-card .edit-experience-panel .timing-grid-container, .working-experience-card .edit-working-experience-form .timing-grid-container, .working-experience-card .education-form .timing-grid-container, .working-experience-card .edit-education-panel .timing-grid-container, .working-experience-card .edit-education-form .timing-grid-container, .working-experience-card .award-form .timing-grid-container, #education_card .working-experience-form .timing-grid-container, #education_card .edit-experience-panel .timing-grid-container, #education_card .edit-working-experience-form .timing-grid-container, #education_card .education-form .timing-grid-container, #education_card .edit-education-panel .timing-grid-container, #education_card .edit-education-form .timing-grid-container, #education_card .award-form .timing-grid-container, #award_card .working-experience-form .timing-grid-container, #award_card .edit-experience-panel .timing-grid-container, #award_card .edit-working-experience-form .timing-grid-container, #award_card .education-form .timing-grid-container, #award_card .edit-education-panel .timing-grid-container, #award_card .edit-education-form .timing-grid-container, #award_card .award-form .timing-grid-container {
+        grid-template-columns: 1fr 1fr
+    }
+}
+
+.working-experience-card .working-experience-form__start-time, .working-experience-card .edit-experience-panel__start-time, .working-experience-card .edit-working-experience-form__start-time, .working-experience-card .education-form__start-time, .working-experience-card .edit-education-panel__start-time, .working-experience-card .edit-education-form__start-time, .working-experience-card .award-form__start-time, #education_card .working-experience-form__start-time, #education_card .edit-experience-panel__start-time, #education_card .edit-working-experience-form__start-time, #education_card .education-form__start-time, #education_card .edit-education-panel__start-time, #education_card .edit-education-form__start-time, #education_card .award-form__start-time, #award_card .working-experience-form__start-time, #award_card .edit-experience-panel__start-time, #award_card .edit-working-experience-form__start-time, #award_card .education-form__start-time, #award_card .edit-education-panel__start-time, #award_card .edit-education-form__start-time, #award_card .award-form__start-time {
+    padding-right: 1rem
+}
+
+.working-experience-card .working-experience-form .select-time-box, .working-experience-card .edit-experience-panel .select-time-box, .working-experience-card .edit-working-experience-form .select-time-box, .working-experience-card .education-form .select-time-box, .working-experience-card .edit-education-panel .select-time-box, .working-experience-card .edit-education-form .select-time-box, .working-experience-card .award-form .select-time-box, #education_card .working-experience-form .select-time-box, #education_card .edit-experience-panel .select-time-box, #education_card .edit-working-experience-form .select-time-box, #education_card .education-form .select-time-box, #education_card .edit-education-panel .select-time-box, #education_card .edit-education-form .select-time-box, #education_card .award-form .select-time-box, #award_card .working-experience-form .select-time-box, #award_card .edit-experience-panel .select-time-box, #award_card .edit-working-experience-form .select-time-box, #award_card .education-form .select-time-box, #award_card .edit-education-panel .select-time-box, #award_card .edit-education-form .select-time-box, #award_card .award-form .select-time-box {
+    display: inline-flex;
+    width: 100%
+}
+
+.working-experience-card .working-experience-form__input, .working-experience-card .edit-experience-panel__input, .working-experience-card .edit-working-experience-form__input, .working-experience-card .education-form__input, .working-experience-card .edit-education-panel__input, .working-experience-card .edit-education-form__input, .working-experience-card .award-form__input, #education_card .working-experience-form__input, #education_card .edit-experience-panel__input, #education_card .edit-working-experience-form__input, #education_card .education-form__input, #education_card .edit-education-panel__input, #education_card .edit-education-form__input, #education_card .award-form__input, #award_card .working-experience-form__input, #award_card .edit-experience-panel__input, #award_card .edit-working-experience-form__input, #award_card .education-form__input, #award_card .edit-education-panel__input, #award_card .edit-education-form__input, #award_card .award-form__input {
+    border-radius: 6px 6px 0px 0px;
+    line-height: 24px
+}
+
+.working-experience-card .working-experience-form__select, .working-experience-card .edit-experience-panel__select, .working-experience-card .edit-working-experience-form__select, .working-experience-card .education-form__select, .working-experience-card .edit-education-panel__select, .working-experience-card .edit-education-form__select, .working-experience-card .award-form__select, #education_card .working-experience-form__select, #education_card .edit-experience-panel__select, #education_card .edit-working-experience-form__select, #education_card .education-form__select, #education_card .edit-education-panel__select, #education_card .edit-education-form__select, #education_card .award-form__select, #award_card .working-experience-form__select, #award_card .edit-experience-panel__select, #award_card .edit-working-experience-form__select, #award_card .education-form__select, #award_card .edit-education-panel__select, #award_card .edit-education-form__select, #award_card .award-form__select {
+    height: 44px;
+    color: #333;
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, grey 50%),linear-gradient(135deg, grey 50%, transparent 50%),linear-gradient(to right, transparent, transparent) !important;
+    background-position: calc(100% - 15px) 20px,calc(100% - 10px) 20px,100% 0 !important;
+    background-size: 5px 5px,5px 5px,2.5em 2.5em !important;
+    background-repeat: no-repeat;
+    margin-top: 7px;
+    align-items: center
+}
+
+    .working-experience-card .working-experience-form__select[disabled], .working-experience-card .edit-experience-panel__select[disabled], .working-experience-card .edit-working-experience-form__select[disabled], .working-experience-card .education-form__select[disabled], .working-experience-card .edit-education-panel__select[disabled], .working-experience-card .edit-education-form__select[disabled], .working-experience-card .award-form__select[disabled], #education_card .working-experience-form__select[disabled], #education_card .edit-experience-panel__select[disabled], #education_card .edit-working-experience-form__select[disabled], #education_card .education-form__select[disabled], #education_card .edit-education-panel__select[disabled], #education_card .edit-education-form__select[disabled], #education_card .award-form__select[disabled], #award_card .working-experience-form__select[disabled], #award_card .edit-experience-panel__select[disabled], #award_card .edit-working-experience-form__select[disabled], #award_card .education-form__select[disabled], #award_card .edit-education-panel__select[disabled], #award_card .edit-education-form__select[disabled], #award_card .award-form__select[disabled] {
+        color: #a3a3a3
+    }
+
+.working-experience-card .working-experience-form .help-block, .working-experience-card .working-experience-form .cv-error-message, .working-experience-card .working-experience-form .validate, .working-experience-card .working-experience-form .show_error_validate_date_range, .working-experience-card .edit-experience-panel .help-block, .working-experience-card .edit-experience-panel .cv-error-message, .working-experience-card .edit-experience-panel .validate, .working-experience-card .edit-experience-panel .show_error_validate_date_range, .working-experience-card .edit-working-experience-form .help-block, .working-experience-card .edit-working-experience-form .cv-error-message, .working-experience-card .edit-working-experience-form .validate, .working-experience-card .edit-working-experience-form .show_error_validate_date_range, .working-experience-card .education-form .help-block, .working-experience-card .education-form .cv-error-message, .working-experience-card .education-form .validate, .working-experience-card .education-form .show_error_validate_date_range, .working-experience-card .edit-education-panel .help-block, .working-experience-card .edit-education-panel .cv-error-message, .working-experience-card .edit-education-panel .validate, .working-experience-card .edit-education-panel .show_error_validate_date_range, .working-experience-card .edit-education-form .help-block, .working-experience-card .edit-education-form .cv-error-message, .working-experience-card .edit-education-form .validate, .working-experience-card .edit-education-form .show_error_validate_date_range, .working-experience-card .award-form .help-block, .working-experience-card .award-form .cv-error-message, .working-experience-card .award-form .validate, .working-experience-card .award-form .show_error_validate_date_range, #education_card .working-experience-form .help-block, #education_card .working-experience-form .cv-error-message, #education_card .working-experience-form .validate, #education_card .working-experience-form .show_error_validate_date_range, #education_card .edit-experience-panel .help-block, #education_card .edit-experience-panel .cv-error-message, #education_card .edit-experience-panel .validate, #education_card .edit-experience-panel .show_error_validate_date_range, #education_card .edit-working-experience-form .help-block, #education_card .edit-working-experience-form .cv-error-message, #education_card .edit-working-experience-form .validate, #education_card .edit-working-experience-form .show_error_validate_date_range, #education_card .education-form .help-block, #education_card .education-form .cv-error-message, #education_card .education-form .validate, #education_card .education-form .show_error_validate_date_range, #education_card .edit-education-panel .help-block, #education_card .edit-education-panel .cv-error-message, #education_card .edit-education-panel .validate, #education_card .edit-education-panel .show_error_validate_date_range, #education_card .edit-education-form .help-block, #education_card .edit-education-form .cv-error-message, #education_card .edit-education-form .validate, #education_card .edit-education-form .show_error_validate_date_range, #education_card .award-form .help-block, #education_card .award-form .cv-error-message, #education_card .award-form .validate, #education_card .award-form .show_error_validate_date_range, #award_card .working-experience-form .help-block, #award_card .working-experience-form .cv-error-message, #award_card .working-experience-form .validate, #award_card .working-experience-form .show_error_validate_date_range, #award_card .edit-experience-panel .help-block, #award_card .edit-experience-panel .cv-error-message, #award_card .edit-experience-panel .validate, #award_card .edit-experience-panel .show_error_validate_date_range, #award_card .edit-working-experience-form .help-block, #award_card .edit-working-experience-form .cv-error-message, #award_card .edit-working-experience-form .validate, #award_card .edit-working-experience-form .show_error_validate_date_range, #award_card .education-form .help-block, #award_card .education-form .cv-error-message, #award_card .education-form .validate, #award_card .education-form .show_error_validate_date_range, #award_card .edit-education-panel .help-block, #award_card .edit-education-panel .cv-error-message, #award_card .edit-education-panel .validate, #award_card .edit-education-panel .show_error_validate_date_range, #award_card .edit-education-form .help-block, #award_card .edit-education-form .cv-error-message, #award_card .edit-education-form .validate, #award_card .edit-education-form .show_error_validate_date_range, #award_card .award-form .help-block, #award_card .award-form .cv-error-message, #award_card .award-form .validate, #award_card .award-form .show_error_validate_date_range {
+    color: #ea1e30
+}
+
+.working-experience-card .working-experience-form .form-control, .working-experience-card .edit-experience-panel .form-control, .working-experience-card .edit-working-experience-form .form-control, .working-experience-card .education-form .form-control, .working-experience-card .edit-education-panel .form-control, .working-experience-card .edit-education-form .form-control, .working-experience-card .award-form .form-control, #education_card .working-experience-form .form-control, #education_card .edit-experience-panel .form-control, #education_card .edit-working-experience-form .form-control, #education_card .education-form .form-control, #education_card .edit-education-panel .form-control, #education_card .edit-education-form .form-control, #education_card .award-form .form-control, #award_card .working-experience-form .form-control, #award_card .edit-experience-panel .form-control, #award_card .edit-working-experience-form .form-control, #award_card .education-form .form-control, #award_card .edit-education-panel .form-control, #award_card .edit-education-form .form-control, #award_card .award-form .form-control {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 6px 6px 0 0
+}
+
+    .working-experience-card .working-experience-form .form-control:focus, .working-experience-card .edit-experience-panel .form-control:focus, .working-experience-card .edit-working-experience-form .form-control:focus, .working-experience-card .education-form .form-control:focus, .working-experience-card .edit-education-panel .form-control:focus, .working-experience-card .edit-education-form .form-control:focus, .working-experience-card .award-form .form-control:focus, #education_card .working-experience-form .form-control:focus, #education_card .edit-experience-panel .form-control:focus, #education_card .edit-working-experience-form .form-control:focus, #education_card .education-form .form-control:focus, #education_card .edit-education-panel .form-control:focus, #education_card .edit-education-form .form-control:focus, #education_card .award-form .form-control:focus, #award_card .working-experience-form .form-control:focus, #award_card .edit-experience-panel .form-control:focus, #award_card .edit-working-experience-form .form-control:focus, #award_card .education-form .form-control:focus, #award_card .edit-education-panel .form-control:focus, #award_card .edit-education-form .form-control:focus, #award_card .award-form .form-control:focus {
+        box-shadow: unset;
+        border-color: #cecece;
+        border-bottom: 1px solid #000
+    }
+
+.working-experience-card .working-experience-form .placeholder-tips, .working-experience-card .edit-experience-panel .placeholder-tips, .working-experience-card .edit-working-experience-form .placeholder-tips, .working-experience-card .education-form .placeholder-tips, .working-experience-card .edit-education-panel .placeholder-tips, .working-experience-card .edit-education-form .placeholder-tips, .working-experience-card .award-form .placeholder-tips, #education_card .working-experience-form .placeholder-tips, #education_card .edit-experience-panel .placeholder-tips, #education_card .edit-working-experience-form .placeholder-tips, #education_card .education-form .placeholder-tips, #education_card .edit-education-panel .placeholder-tips, #education_card .edit-education-form .placeholder-tips, #education_card .award-form .placeholder-tips, #award_card .working-experience-form .placeholder-tips, #award_card .edit-experience-panel .placeholder-tips, #award_card .edit-working-experience-form .placeholder-tips, #award_card .education-form .placeholder-tips, #award_card .edit-education-panel .placeholder-tips, #award_card .edit-education-form .placeholder-tips, #award_card .award-form .placeholder-tips {
+    font-weight: 400;
+    font-size: 14px;
+    font-style: italic;
+    line-height: 24px;
+    color: #868686;
+    padding-bottom: 18px
+}
+
+.working-experience-card .working-experience-form .form-profile-checkbox, .working-experience-card .edit-experience-panel .form-profile-checkbox, .working-experience-card .edit-working-experience-form .form-profile-checkbox, .working-experience-card .education-form .form-profile-checkbox, .working-experience-card .edit-education-panel .form-profile-checkbox, .working-experience-card .edit-education-form .form-profile-checkbox, .working-experience-card .award-form .form-profile-checkbox, #education_card .working-experience-form .form-profile-checkbox, #education_card .edit-experience-panel .form-profile-checkbox, #education_card .edit-working-experience-form .form-profile-checkbox, #education_card .education-form .form-profile-checkbox, #education_card .edit-education-panel .form-profile-checkbox, #education_card .edit-education-form .form-profile-checkbox, #education_card .award-form .form-profile-checkbox, #award_card .working-experience-form .form-profile-checkbox, #award_card .edit-experience-panel .form-profile-checkbox, #award_card .edit-working-experience-form .form-profile-checkbox, #award_card .education-form .form-profile-checkbox, #award_card .edit-education-panel .form-profile-checkbox, #award_card .edit-education-form .form-profile-checkbox, #award_card .award-form .form-profile-checkbox {
+    width: 21px;
+    height: 21px
+}
+
+.working-experience-card .working-experience-form .form__textarea, .working-experience-card .edit-experience-panel .form__textarea, .working-experience-card .edit-working-experience-form .form__textarea, .working-experience-card .education-form .form__textarea, .working-experience-card .edit-education-panel .form__textarea, .working-experience-card .edit-education-form .form__textarea, .working-experience-card .award-form .form__textarea, #education_card .working-experience-form .form__textarea, #education_card .edit-experience-panel .form__textarea, #education_card .edit-working-experience-form .form__textarea, #education_card .education-form .form__textarea, #education_card .edit-education-panel .form__textarea, #education_card .edit-education-form .form__textarea, #education_card .award-form .form__textarea, #award_card .working-experience-form .form__textarea, #award_card .edit-experience-panel .form__textarea, #award_card .edit-working-experience-form .form__textarea, #award_card .education-form .form__textarea, #award_card .edit-education-panel .form__textarea, #award_card .edit-education-form .form__textarea, #award_card .award-form .form__textarea {
+    margin-top: 7px;
+    resize: none;
+    width: 100%;
+    box-sizing: border-box
+}
+
+.working-experience-card .working-experience-item,
+.working-experience-card .award-item,
+#education_card .working-experience-item,
+#education_card .award-item,
+#award_card .working-experience-item,
+#award_card .award-item {
+    margin-top: 20px;
+    border-bottom: 1px solid #dedede
+}
+
+    .work-experience-item {
+           margin-top: 20px;
+    }
+    .working-experience-card .working-experience-item .info, .working-experience-card .award-item .info, #education_card .working-experience-item .info, #education_card .award-item .info, #award_card .working-experience-item .info, #award_card .award-item .info {
+        margin-bottom: 20px
+    }
+
+.working-experience-card .working-experience-items > .working-experience-item:last-child, #education_card .working-experience-items > .working-experience-item:last-child, #award_card .working-experience-items > .working-experience-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0
+}
+
+.working-experience-card .job-title, .working-experience-card .major-title, .working-experience-card .award-title, #education_card .job-title, #education_card .major-title, #education_card .award-title, #award_card .job-title, #award_card .major-title, #award_card .award-title {
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    line-height: 21px;
+    padding-bottom: 9px
+}
+
+    .working-experience-card .job-title .actions, .working-experience-card .major-title .actions, .working-experience-card .award-title .actions, #education_card .job-title .actions, #education_card .major-title .actions, #education_card .award-title .actions, #award_card .job-title .actions, #award_card .major-title .actions, #award_card .award-title .actions {
+        display: flex;
+        gap: 10px
+    }
+
+        .working-experience-card .job-title .actions a:hover, .working-experience-card .major-title .actions a:hover, .working-experience-card .award-title .actions a:hover, #education_card .job-title .actions a:hover, #education_card .major-title .actions a:hover, #education_card .award-title .actions a:hover, #award_card .job-title .actions a:hover, #award_card .major-title .actions a:hover, #award_card .award-title .actions a:hover {
+            text-decoration: none
+        }
+
+.working-experience-card .employer-name, .working-experience-card .school-name, #education_card .employer-name, #education_card .school-name, #award_card .employer-name, #award_card .school-name {
+    color: #4e4c4d;
+    font-size: 16px;
+    font-weight: 400;
+    padding-bottom: 9px
+}
+
+.working-experience-card .date-range, #education_card .date-range, #award_card .date-range {
+    color: rgba(56,53,54,.6);
+    font-size: 14px;
+    font-weight: 400;
+    padding-bottom: 9px
+}
+
+.working-experience-card .education-items > .education-item, #education_card .education-items > .education-item, #award_card .education-items > .education-item {
+    margin-top: 20px;
+    border-bottom: 1px solid #dedede
+}
+
+    .working-experience-card .education-items > .education-item .info, #education_card .education-items > .education-item .info, #award_card .education-items > .education-item .info {
+        margin-bottom: 20px
+    }
+
+    .working-experience-card .education-items > .education-item:last-child, #education_card .education-items > .education-item:last-child, #award_card .education-items > .education-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0
+    }
+
+.working-experience-card .award-items > .award-item:last-child, #education_card .award-items > .award-item:last-child, #award_card .award-items > .award-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0
+}
+
+.education-experience-form .timing-grid-container, .award-form .timing-grid-container {
+    padding: 1rem 0
+}
+
+    .education-experience-form .timing-grid-container .working-experience-form__start-time, .award-form .timing-grid-container .working-experience-form__start-time {
+        margin-bottom: 1rem
+    }
+
+    .education-experience-form .timing-grid-container .select-time-box, .award-form .timing-grid-container .select-time-box {
+        display: grid;
+        grid-template-columns: 1fr 1fr
+    }
+
+    .education-experience-form .timing-grid-container .timing-box label, .award-form .timing-grid-container .timing-box label {
+        white-space: nowrap
+    }
+
+    .education-experience-form .timing-grid-container .timing-box.month, .award-form .timing-grid-container .timing-box.month {
+        padding-right: 1rem
+    }
+
+@media(min-width: 768px) {
+    .education-experience-form .timing-grid-container, .award-form .timing-grid-container {
+        grid-template-columns: 1fr 1fr
+    }
+}
+
+.education-experience-form__input, .award-form__input {
+    border-radius: 6px 6px 0px 0px;
+    line-height: 24px
+}
+
+.education-experience-form__select, .award-form__select {
+    color: #333;
+    height: 44px;
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, grey 50%),linear-gradient(135deg, grey 50%, transparent 50%),linear-gradient(to right, transparent, transparent) !important;
+    background-position: calc(100% - 15px) 20px,calc(100% - 10px) 20px,100% 0 !important;
+    background-size: 5px 5px,5px 5px,2.5em 2.5em !important;
+    background-repeat: no-repeat;
+    margin-top: 7px
+}
+
+    .education-experience-form__select[disabled], .award-form__select[disabled] {
+        color: #a3a3a3
+    }
+
+.education-experience-form .help-block, .education-experience-form .cv-error-message, .education-experience-form .validate, .education-experience-form .show_error_validate_date_range, .award-form .help-block, .award-form .cv-error-message, .award-form .validate, .award-form .show_error_validate_date_range {
+    color: #ea1e30
+}
+
+.education-experience-form .form-control, .award-form .form-control {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 6px 6px 0 0
+}
+
+    .education-experience-form .form-control:focus, .award-form .form-control:focus {
+        box-shadow: unset;
+        border-color: #cecece;
+        border-bottom: 1px solid #000
+    }
+
+.education-experience-form .placeholder-tips, .award-form .placeholder-tips {
+    font-weight: 400;
+    font-size: 14px;
+    font-style: italic;
+    line-height: 24px;
+    color: #868686;
+    padding-bottom: 20px
+}
+
+.education-experience-form .form-profile-checkbox, .award-form .form-profile-checkbox {
+    width: 21px;
+    height: 21px
+}
+
+.education-experience-form .form__textarea, .award-form .form__textarea {
+    margin-top: 7px;
+    resize: none;
+    width: 100%;
+    box-sizing: border-box
+}
+
+.working-experience-form .insert-template {
+    top: 10px;
+    right: 8px
+}
+
+    .working-experience-form .insert-template .insert-template-btn {
+        background: #fff;
+        border: 1px solid #dedede;
+        color: #121212;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 18px;
+        word-wrap: break-word
+    }
+
+.working-experience-card .trix-content {
+    line-height: 1.8 !important
+}
+
 
 .working-experience-card .working-experience-header,
 .working-experience-card .education-card-header,
@@ -36691,7 +37134,8 @@ turbo-frame .color-transparent {
     }
 }
 
-.edit-button {
+.edit-button,
+.add-button {
     position: absolute;
     top: 0;
     right: 0;
@@ -36749,6 +37193,7 @@ turbo-frame .color-transparent {
         align-items: center;
     }
 }
+
 
 #job_preference .preference-pill {
     border-color: var(--text-normal-color);
@@ -37020,7 +37465,7 @@ turbo-frame .color-transparent {
 }
 
 #minimal-cv[data-theme="black"] .text-main-color {
-/*    color: #121212 !important;*/
+    /*    color: #121212 !important;*/
 }
 
 .btn-color-black {
@@ -40729,6 +41174,11 @@ a.it-stories__sharing-button .it-stories__text-button {
     border: 1px solid #dedede;
 }
 
+body.modal-open {
+    overflow: hidden;
+    padding-right: 0 !important;
+}
+
 body.best_companies_index .slogan-wrapper {
     margin: 0 auto;
     line-height: 1.4em;
@@ -42832,4 +43282,43 @@ body.best_companies_index .slogan-wrapper__badge img {
 
 .salary-report-landing-page .get-the-report-section #form-inline-message:has(*) {
     margin-top: 24px;
+}
+
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+.grid-container {
+    max-width: 1280px;
+}
+.grid-container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1280px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.error-text {
+    font-size: 14px;
+    color: #f60d00;
+}
+
+#reviewForm select {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
 }

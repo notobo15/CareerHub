@@ -3,85 +3,90 @@ for details on configuring this project to bundle and minify static web assets. 
 * {
     font-family: 'Lexend', sans-serif;
 }
+
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
-}
-a:hover {
-    text-decoration: none;
+    color: #0366d6;
 }
 
+    a:hover {
+        text-decoration: none;
+    }
+
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  /* Margin bottom by footer height */
+    /* Margin bottom by footer height */
 }
-.footer {
+/*.footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
-}
+  line-height: 60px;*/ /* Vertically center the text there */
+/*}*/
 .badge {
     background: rgba(255,255,255,0.2);
 }
 
-.badge:hover {
-    background: rgba(0,0,0,0.2);
-    cursor: pointer;
-    border: 1px solid #000;
-}
+    .badge:hover {
+        background: rgba(0,0,0,0.2);
+        cursor: pointer;
+        border: 1px solid #000;
+    }
+
 .card-title {
     overflow: hidden;
     display: -webkit-box;
@@ -89,12 +94,15 @@ body {
     -webkit-box-orient: vertical;
     min-height: 48px;
 }
+
 .fs4 {
     font-size: 1.5rem;
 }
+
 fs4-3 {
     font-size: 1.3rem;
 }
+
 .fs5 {
     font-size: 1rem;
 }
@@ -112,4 +120,121 @@ fs4-3 {
     position: absolute;
     top: 100%;
     right: 0px;
+}
+
+
+
+#jobs_tab .job-card {
+    border-bottom: 1px solid #dedede
+}
+
+#jobs_tab .job-card:last-child {
+    margin-bottom: 0
+}
+
+#jobs_tab .job-card .invitation-link {
+    color: #121212;
+    transition: color 300ms
+}
+
+#jobs_tab .job-card .invitation-link:hover {
+    color: #ed1b2f
+}
+
+#jobs_tab .job-card .company-logo {
+    width: 48px;
+    height: 48px;
+    object-fit: contain
+}
+
+@media(min-width: 768px) {
+    #jobs_tab .job-card .company-logo {
+        width: 80px;
+        height: 80px
+    }
+}
+
+#jobs_tab .invitation-logo {
+    background-color: #fff;
+    object-fit: contain;
+    width: 32px;
+    height: 32px
+}
+
+@media(min-width: 768px) {
+    #jobs_tab .invitation-logo {
+        width: 48px;
+        height: 48px
+    }
+}
+
+#jobs_tab .bg-image {
+    padding-top: 16px;
+    padding-left: 16px;
+    background-size: 40px 30px;
+    background-position: top left;
+    background-repeat: no-repeat
+}
+
+@media(min-width: 768px) {
+    #jobs_tab .bg-image {
+        background-size: 64px 48px;
+        padding-top: 32px;
+        padding-left: 32px
+    }
+}
+
+#jobs_tab .job-card:hover {
+    box-shadow: 0 4px 24px rgba(0,0,0,.12);
+    z-index: 10
+}
+
+#jobs_tab .borderless-select {
+    display: inline-block
+}
+
+#jobs_tab .borderless-select > .ts-control {
+    border: none;
+    font-size: 14px !important;
+    padding: 0;
+    background-color: transparent;
+    padding-left: 4px;
+    min-height: 0
+}
+
+#jobs_tab .borderless-select > .ts-control:focus, #jobs_tab .borderless-select > .ts-control:active {
+    border: none
+}
+
+#jobs_tab .borderless-select > .ts-control > .item {
+    padding-right: 40px
+}
+
+#jobs_tab .borderless-select > .ts-control > input {
+    color: transparent;
+    position: absolute
+}
+
+#jobs_tab .borderless-select > .ts-dropdown {
+    width: auto;
+    white-space: nowrap
+}
+
+#jobs_tab #sort_by-ts-control {
+    color: transparent;
+    position: absolute
+}
+
+#jobs_tab .job-card:last-child {
+    border-bottom: 0
+}
+
+@media(min-width: 768px) {
+    #jobs_tab .job-card:last-child {
+        border-radius: 0 0 8px 8px
+    }
+}
+
+#jobs_tab .ts-wrapper {
+    min-height: auto;
 }
