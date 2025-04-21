@@ -20,9 +20,9 @@ namespace RecruitmentApp.Utilities
             {
                 int days = (int)timeDifference.TotalDays;
                 int hours = (int)(timeDifference.TotalHours % 24);
-                return $"{days} ngày {hours} giờ trước";
-            }
 
+                return hours > 0 ? $"{days} ngày {hours} giờ trước" : $"{days} ngày trước";
+            }
         }
     }
 }
