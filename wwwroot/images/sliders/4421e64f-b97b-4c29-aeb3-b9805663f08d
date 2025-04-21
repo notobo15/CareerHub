@@ -1,0 +1,1672 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Ch&#x1EC9;nh s&#x1EED;a c&#xF4;ng ty</title>
+	<!-- core:css -->
+	<link rel="stylesheet" href="/assets/vendors/core/core.css">
+	<!-- endinject -->
+	<!-- plugin css for this page -->
+	<link rel="stylesheet" href="/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
+	<!-- end plugin css for this page -->
+	<!-- inject:css -->
+	<link rel="stylesheet" href="/assets/fonts/feather-font/css/iconfont.css">
+	<link rel="stylesheet" href="/assets/vendors/flag-icon-css/css/flag-icon.min.css">
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css" />
+	<link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/assets/vendors/select2/select2.min.css">
+	<link rel="stylesheet" href="/assets/vendors/simplemde/simplemde.min.css">
+
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/vendors/cropperjs/cropper.min.css">
+	<link rel="stylesheet" href="/lib/select2/css/select2.css" />
+	<link rel="stylesheet" href="/lib/select2/css/select2-bootstrap4.min.css" />
+	<link rel="stylesheet" href="/assets/vendors/jquery-steps/jquery.steps.css">
+	<link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+	<link href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" rel="stylesheet" />
+	<!-- endinject -->
+	<!-- Layout styles -->
+	<link rel="stylesheet" href="/assets/css/demo_1/style.css">
+	<!-- End layout styles -->
+	<link rel="shortcut icon" href="/images/network.ico" />
+</head>
+
+
+<body>
+
+	<div class="main-wrapper">
+
+		<!-- partial:partials/_sidebar.html -->
+		
+
+
+<nav class="sidebar">
+	<div class="sidebar-header">
+		<a class="sidebar-brand" href="/admin">
+			CareerHub
+		</a>
+		<div class="sidebar-toggler not-active">
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+	</div>
+	<div class="sidebar-body">
+		<ul class="nav">
+					<li class="nav-item nav-category">Overview</li>
+					<li class="nav-item ">
+						<a class="nav-link" href="/admin">
+							<i class="link-icon" data-feather="box"></i>
+							<span class="link-title">Dashboard</span>
+						</a>
+					</li>
+					<li class="nav-item nav-category">UI User</li>
+					<li class="nav-item ">
+						<a class="nav-link" href="/">
+							<i class="link-icon" data-feather="home"></i>
+							<span class="link-title">HomePage</span>
+						</a>
+					</li>
+					<li class="nav-item ">
+						<a class="nav-link" href="/">
+							<i class="link-icon" data-feather="sliders"></i>
+							<span class="link-title">Sliders</span>
+						</a>
+					</li>
+					<li class="nav-item nav-category">Web Apps</li>
+					<li class="nav-item ">
+						<a class="nav-link"
+						   data-toggle="collapse"
+						   href="#email"
+						   role="button"
+						   aria-expanded="false"
+						   aria-controls="email">
+							<i class="link-icon" data-feather="mail"></i>
+							<span class="link-title">Emails</span>
+							<i class="link-arrow" data-feather="chevron-down"></i>
+						</a>
+						<div class="collapse " id="email">
+							<ul class="nav sub-menu">
+									<li class="nav-item">
+										<a class="nav-link " href="/admin/email/inbox">
+											Inbox
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link " href="/admin/email/compose">
+											Compose
+										</a>
+									</li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-item nav-category">Main</li>
+					<li class="nav-item ">
+						<a class="nav-link"
+						   data-toggle="collapse"
+						   href="#users"
+						   role="button"
+						   aria-expanded="false"
+						   aria-controls="users">
+							<i class="link-icon" data-feather="user"></i>
+							<span class="link-title">Users</span>
+							<i class="link-arrow" data-feather="chevron-down"></i>
+						</a>
+						<div class="collapse " id="users">
+							<ul class="nav sub-menu">
+									<li class="nav-item">
+										<a class="nav-link " href="/admin/user/index">
+											List
+										</a>
+									</li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-item ">
+						<a class="nav-link"
+						   data-toggle="collapse"
+						   href="#roles"
+						   role="button"
+						   aria-expanded="false"
+						   aria-controls="roles">
+							<i class="link-icon" data-feather="command"></i>
+							<span class="link-title">Roles</span>
+							<i class="link-arrow" data-feather="chevron-down"></i>
+						</a>
+						<div class="collapse " id="roles">
+							<ul class="nav sub-menu">
+									<li class="nav-item">
+										<a class="nav-link " href="/role/index">
+											List
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link " href="/role/create">
+											Create
+										</a>
+									</li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-item ">
+						<a class="nav-link"
+						   data-toggle="collapse"
+						   href="#companies"
+						   role="button"
+						   aria-expanded="false"
+						   aria-controls="companies">
+							<i class="link-icon" data-feather="home"></i>
+							<span class="link-title">Companies</span>
+							<i class="link-arrow" data-feather="chevron-down"></i>
+						</a>
+						<div class="collapse " id="companies">
+							<ul class="nav sub-menu">
+									<li class="nav-item">
+										<a class="nav-link " href="/admin/company/index">
+											List
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link " href="/admin/company/create">
+											Create
+										</a>
+									</li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-item ">
+						<a class="nav-link"
+						   data-toggle="collapse"
+						   href="#posts"
+						   role="button"
+						   aria-expanded="false"
+						   aria-controls="posts">
+							<i class="link-icon" data-feather="book-open"></i>
+							<span class="link-title">Posts</span>
+							<i class="link-arrow" data-feather="chevron-down"></i>
+						</a>
+						<div class="collapse " id="posts">
+							<ul class="nav sub-menu">
+									<li class="nav-item">
+										<a class="nav-link " href="/admin/post/index">
+											List
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link " href="/admin/post/create">
+											Create
+										</a>
+									</li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-item ">
+						<a class="nav-link"
+						   data-toggle="collapse"
+						   href="#skills"
+						   role="button"
+						   aria-expanded="false"
+						   aria-controls="skills">
+							<i class="link-icon" data-feather="box"></i>
+							<span class="link-title">Skills</span>
+							<i class="link-arrow" data-feather="chevron-down"></i>
+						</a>
+						<div class="collapse " id="skills">
+							<ul class="nav sub-menu">
+									<li class="nav-item">
+										<a class="nav-link " href="/admin/skill/index">
+											List
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link " href="/admin/skill/create">
+											Create
+										</a>
+									</li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-item ">
+						<a class="nav-link"
+						   data-toggle="collapse"
+						   href="#levels"
+						   role="button"
+						   aria-expanded="false"
+						   aria-controls="levels">
+							<i class="link-icon" data-feather="file-text"></i>
+							<span class="link-title">Levels</span>
+							<i class="link-arrow" data-feather="chevron-down"></i>
+						</a>
+						<div class="collapse " id="levels">
+							<ul class="nav sub-menu">
+									<li class="nav-item">
+										<a class="nav-link " href="/admin/level/index">
+											List
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link " href="/admin/level/create">
+											Create
+										</a>
+									</li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-item ">
+						<a class="nav-link"
+						   data-toggle="collapse"
+						   href="#titles"
+						   role="button"
+						   aria-expanded="false"
+						   aria-controls="titles">
+							<i class="link-icon" data-feather="activity"></i>
+							<span class="link-title">Titles</span>
+							<i class="link-arrow" data-feather="chevron-down"></i>
+						</a>
+						<div class="collapse " id="titles">
+							<ul class="nav sub-menu">
+									<li class="nav-item">
+										<a class="nav-link " href="/admin/title/index">
+											List
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link " href="/admin/title/create">
+											Create
+										</a>
+									</li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-item ">
+						<a class="nav-link"
+						   data-toggle="collapse"
+						   href="#worktypes"
+						   role="button"
+						   aria-expanded="false"
+						   aria-controls="worktypes">
+							<i class="link-icon" data-feather="archive"></i>
+							<span class="link-title">Work Types</span>
+							<i class="link-arrow" data-feather="chevron-down"></i>
+						</a>
+						<div class="collapse " id="worktypes">
+							<ul class="nav sub-menu">
+									<li class="nav-item">
+										<a class="nav-link " href="/admin/work-types/index">
+											List
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link " href="/admin/work-types/create">
+											Create
+										</a>
+									</li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-item ">
+						<a class="nav-link"
+						   data-toggle="collapse"
+						   href="#countries"
+						   role="button"
+						   aria-expanded="false"
+						   aria-controls="countries">
+							<i class="link-icon" data-feather="map"></i>
+							<span class="link-title">Countries</span>
+							<i class="link-arrow" data-feather="chevron-down"></i>
+						</a>
+						<div class="collapse " id="countries">
+							<ul class="nav sub-menu">
+									<li class="nav-item">
+										<a class="nav-link " href="/admin/country/index">
+											List
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link " href="/admin/country/create">
+											Create
+										</a>
+									</li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-item ">
+						<a class="nav-link"
+						   data-toggle="collapse"
+						   href="#provinces"
+						   role="button"
+						   aria-expanded="false"
+						   aria-controls="provinces">
+							<i class="link-icon" data-feather="map-pin"></i>
+							<span class="link-title">Provinces</span>
+							<i class="link-arrow" data-feather="chevron-down"></i>
+						</a>
+						<div class="collapse " id="provinces">
+							<ul class="nav sub-menu">
+									<li class="nav-item">
+										<a class="nav-link " href="/admin/province/index">
+											List
+										</a>
+									</li>
+							</ul>
+						</div>
+					</li>
+		</ul>
+	</div>
+</nav>
+<nav class="settings-sidebar">
+	<div class="sidebar-body">
+		<a href="#" class="settings-sidebar-toggler">
+			<i data-feather="settings"></i>
+		</a>
+		<h6 class="text-muted">Sidebar:</h6>
+		<div class="form-group border-bottom">
+			<div class="form-check form-check-inline">
+				<label class="form-check-label">
+					<input type="radio" class="form-check-input" name="sidebarThemeSettings" id="sidebarLight" value="sidebar-light" checked>
+					Light
+				</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<label class="form-check-label">
+					<input type="radio" class="form-check-input" name="sidebarThemeSettings" id="sidebarDark" value="sidebar-dark">
+					Dark
+				</label>
+			</div>
+		</div>
+		<div class="theme-wrapper">
+			<h6 class="text-muted mb-2">Light Theme:</h6>
+			<a class="theme-item active" href="demo_1/dashboard-one.html">
+				<img src="/assets/images/screenshots/light.jpg" alt="light theme">
+			</a>
+			<h6 class="text-muted mb-2">Dark Theme:</h6>
+			<a class="theme-item" href="demo_2/dashboard-one.html">
+				<img src="/assets/images/screenshots/dark.jpg" alt="light theme">
+			</a>
+		</div>
+	</div>
+</nav>
+
+
+		<!-- partial -->
+
+		<div class="page-wrapper">
+
+
+
+			<!-- partial:partials/_navbar.html -->
+			
+
+
+
+
+<nav class="navbar">
+	<a href="#" class="sidebar-toggler">
+		<i data-feather="menu"></i>
+	</a>
+	<div class="navbar-content">
+		<form class="search-form">
+			<div class="input-group">
+				<div class="input-group-prepend">
+					<div class="input-group-text">
+						<i data-feather="search"></i>
+					</div>
+				</div>
+				<input type="text" class="form-control" id="navbarForm" placeholder="Search here...">
+			</div>
+		</form>
+		<ul class="navbar-nav">
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="languageDropdown" role="button"
+				   data-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
+					<i class="flag-icon flag-icon-us me-1"></i>
+					<span class="font-weight-medium me-1">
+						English
+					</span>
+				</a>
+				<div class="dropdown-menu" aria-labelledby="languageDropdown">
+					<form method="post" action="/home/setlanguage?returnUrl=~%2Fadmin%2Fcompany%2Fedit%2F1">
+						<input type="hidden" name="culture" value="en-US" />
+						<button type="submit" class="dropdown-item d-flex align-items-center">
+							<i class="flag-icon flag-icon-us me-2"></i> English
+						</button>
+					<input name="__RequestVerificationToken" type="hidden" value="CfDJ8LM_qECkpX9Hnf5xFnUmUSa5t1j36LV8BssbqU6DPMel5f4y-If3wLa3YYkEjCJe-sY5TTcoeg9HH4CkBLMW0oCrHjeUrR9U4ro0O1zQSxwCAvLmVTEbnSXvKdiIfPBxxWUGjZ-YUrqlo4MH9SmYwpcirZkB19WVjPG2Wo4vCGGfXO5wGF2_dzA2eIvjoiSvYA" /></form>
+					<form method="post" action="/home/setlanguage?returnUrl=~%2Fadmin%2Fcompany%2Fedit%2F1">
+						<input type="hidden" name="culture" value="vi" />
+						<button type="submit" class="dropdown-item d-flex align-items-center">
+							<i class="flag-icon flag-icon-vn me-2"></i> Tiếng Việt
+						</button>
+					<input name="__RequestVerificationToken" type="hidden" value="CfDJ8LM_qECkpX9Hnf5xFnUmUSa5t1j36LV8BssbqU6DPMel5f4y-If3wLa3YYkEjCJe-sY5TTcoeg9HH4CkBLMW0oCrHjeUrR9U4ro0O1zQSxwCAvLmVTEbnSXvKdiIfPBxxWUGjZ-YUrqlo4MH9SmYwpcirZkB19WVjPG2Wo4vCGGfXO5wGF2_dzA2eIvjoiSvYA" /></form>
+				</div>
+			</li>
+			<li class="nav-item dropdown nav-apps">
+				<a class="nav-link dropdown-toggle" href="#" id="appsDropdown" role="button" data-toggle="dropdown"
+				   aria-haspopup="true" aria-expanded="false">
+					<i data-feather="grid"></i>
+				</a>
+				<div class="dropdown-menu" aria-labelledby="appsDropdown">
+					<div class="dropdown-header d-flex align-items-center justify-content-between">
+						<p class="mb-0 font-weight-medium">Web Apps</p>
+						<a href="javascript:;" class="text-muted">Edit</a>
+					</div>
+					<div class="dropdown-body">
+						<div class="d-flex align-items-center apps">
+							<a href="pages/apps/chat.html">
+								<i data-feather="message-square" class="icon-lg"></i>
+								<p>Chat</p>
+							</a>
+							<a href="pages/apps/calendar.html">
+								<i data-feather="calendar" class="icon-lg"></i>
+								<p>Calendar</p>
+							</a>
+							<a href="/email/inbox">
+								<i data-feather="mail" class="icon-lg"></i>
+								<p>Email</p>
+							</a>
+							<a href="/manage/profile">
+								<i data-feather="instagram" class="icon-lg"></i>
+								<p>Profile</p>
+							</a>
+						</div>
+					</div>
+					<div class="dropdown-footer d-flex align-items-center justify-content-center">
+						<a href="javascript:;">View all</a>
+					</div>
+				</div>
+			</li>
+			<li class="nav-item dropdown nav-messages">
+				<a class="nav-link dropdown-toggle" href="#" id="messageDropdown" role="button" data-toggle="dropdown"
+				   aria-haspopup="true" aria-expanded="false">
+					<i data-feather="mail"></i>
+				</a>
+				<div class="dropdown-menu" aria-labelledby="messageDropdown">
+					<div class="dropdown-header d-flex align-items-center justify-content-between">
+						<p class="mb-0 font-weight-medium">9 New Messages</p>
+						<a href="javascript:;" class="text-muted">Clear all</a>
+					</div>
+					<div class="dropdown-body">
+						<a href="javascript:;" class="dropdown-item">
+							<div class="figure">
+								<img src="https://placehold.co/30x30" alt="userr">
+							</div>
+							<div class="content">
+								<div class="d-flex justify-content-between align-items-center">
+									<p>Leonardo Payne</p>
+									<p class="sub-text text-muted">2 min ago</p>
+								</div>
+								<p class="sub-text text-muted">Project status</p>
+							</div>
+						</a>
+						<a href="javascript:;" class="dropdown-item">
+							<div class="figure">
+								<img src="https://placehold.co/30x30" alt="userr">
+							</div>
+							<div class="content">
+								<div class="d-flex justify-content-between align-items-center">
+									<p>B&#xEC;nh Nguy&#x1EC5;n Thanh</p>
+									<p class="sub-text text-muted">30 min ago</p>
+								</div>
+								<p class="sub-text text-muted">Client meeting</p>
+							</div>
+						</a>
+						<a href="javascript:;" class="dropdown-item">
+							<div class="figure">
+								<img src="https://placehold.co/30x30" alt="userr">
+							</div>
+							<div class="content">
+								<div class="d-flex justify-content-between align-items-center">
+									<p>Jensen Combs</p>
+									<p class="sub-text text-muted">1 hrs ago</p>
+								</div>
+								<p class="sub-text text-muted">Project updates</p>
+							</div>
+						</a>
+						<a href="javascript:;" class="dropdown-item">
+							<div class="figure">
+								<img src="/images/avatars/b4f9eaf0-6e5e-490c-bc89-a41046c56e26.jpg" alt="userr">
+							</div>
+							<div class="content">
+								<div class="d-flex justify-content-between align-items-center">
+									<p>B&#xEC;nh Nguy&#x1EC5;n Thanh</p>
+									<p class="sub-text text-muted">2 hrs ago</p>
+								</div>
+								<p class="sub-text text-muted">Project deadline</p>
+							</div>
+						</a>
+						<a href="javascript:;" class="dropdown-item">
+							<div class="figure">
+								<img src="https://placehold.co/30x30" alt="userr">
+							</div>
+							<div class="content">
+								<div class="d-flex justify-content-between align-items-center">
+									<p>Yaretzi Mayo</p>
+									<p class="sub-text text-muted">5 hr ago</p>
+								</div>
+								<p class="sub-text text-muted">New record</p>
+							</div>
+						</a>
+					</div>
+					<div class="dropdown-footer d-flex align-items-center justify-content-center">
+						<a href="javascript:;">View all</a>
+					</div>
+				</div>
+			</li>
+			<li class="nav-item dropdown nav-notifications">
+				<a class="nav-link dropdown-toggle" href="#" id="notificationDropdown" role="button"
+				   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<i data-feather="bell"></i>
+					<div class="indicator">
+						<div class="circle"></div>
+					</div>
+				</a>
+				<div class="dropdown-menu" aria-labelledby="notificationDropdown">
+					<div class="dropdown-header d-flex align-items-center justify-content-between">
+						<p class="mb-0 font-weight-medium">6 New Notifications</p>
+						<a href="javascript:;" class="text-muted">Clear all</a>
+					</div>
+					<div class="dropdown-body">
+						<a href="javascript:;" class="dropdown-item">
+							<div class="icon">
+								<i data-feather="user-plus"></i>
+							</div>
+							<div class="content">
+								<p>New customer registered</p>
+								<p class="sub-text text-muted">2 sec ago</p>
+							</div>
+						</a>
+						<a href="javascript:;" class="dropdown-item">
+							<div class="icon">
+								<i data-feather="gift"></i>
+							</div>
+							<div class="content">
+								<p>New Order Recieved</p>
+								<p class="sub-text text-muted">30 min ago</p>
+							</div>
+						</a>
+						<a href="javascript:;" class="dropdown-item">
+							<div class="icon">
+								<i data-feather="alert-circle"></i>
+							</div>
+							<div class="content">
+								<p>Server Limit Reached!</p>
+								<p class="sub-text text-muted">1 hrs ago</p>
+							</div>
+						</a>
+						<a href="javascript:;" class="dropdown-item">
+							<div class="icon">
+								<i data-feather="layers"></i>
+							</div>
+							<div class="content">
+								<p>Apps are ready for update</p>
+								<p class="sub-text text-muted">5 hrs ago</p>
+							</div>
+						</a>
+						<a href="javascript:;" class="dropdown-item">
+							<div class="icon">
+								<i data-feather="download"></i>
+							</div>
+							<div class="content">
+								<p>Download completed</p>
+								<p class="sub-text text-muted">6 hrs ago</p>
+							</div>
+						</a>
+					</div>
+					<div class="dropdown-footer d-flex align-items-center justify-content-center">
+						<a href="javascript:;">View all</a>
+					</div>
+				</div>
+			</li>
+			<li class="nav-item dropdown nav-profile">
+				<a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-toggle="dropdown"
+				   aria-haspopup="true" aria-expanded="false">
+					<img src="/images/avatars/b4f9eaf0-6e5e-490c-bc89-a41046c56e26.jpg" alt="profile">
+				</a>
+				<div class="dropdown-menu" aria-labelledby="profileDropdown">
+					<div class="dropdown-header d-flex flex-column align-items-center">
+						<div class="figure mb-3">
+							<img src="/images/avatars/b4f9eaf0-6e5e-490c-bc89-a41046c56e26.jpg" alt="">
+						</div>
+						<div class="info text-center">
+							<p class="name font-weight-bold mb-0">B&#xEC;nh Nguy&#x1EC5;n Thanh</p>
+							<p class="email text-muted mb-3">binh15122003@gmail.com</p>
+						</div>
+					</div>
+					<div class="dropdown-body">
+						<ul class="profile-nav p-0 pt-3">
+							<li class="nav-item">
+								<a class="nav-link" href="/manage/profile">
+									<i data-feather="user"></i>
+									<span>Profile</span>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="/manage/profile?isEdit=true">
+									<i data-feather="edit"></i>
+									<span>Edit Profile</span>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a href="javascript:;" class="nav-link">
+									<i data-feather="repeat"></i>
+									<span>Switch User</span>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="/account/logoff">
+									<i data-feather="log-out"></i>
+									<span>Log Out</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+</nav>
+
+			<!-- partial -->
+
+			<div class="page-content">
+
+				
+
+<nav class="page-breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">Companies</li>
+		<li class="breadcrumb-item active">Chỉnh sửa</li>
+	</ol>
+</nav>
+
+<div class="row">
+	<div class="col-md-12 grid-margin">
+		<div class="card">
+			<div class="card-body">
+				<h4 class="font-weight-bold">Ch&#x1EC9;nh s&#x1EED;a c&#xF4;ng ty</h4>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<div id="tabs">
+	<ul>
+		<li><a href="#details">Details</a></li>
+		<li><a href="#images">Images</a></li>
+		<li><a href="#locations">Locations</a></li>
+	</ul>
+	<div id="details">
+		<div id="general">
+			<form enctype="multipart/form-data" action="/admin/company/edit/1" method="post">
+				
+				<input type="hidden" data-val="true" data-val-required="The CompanyId field is required." id="CompanyId" name="CompanyId" value="1" />
+				
+
+				<div class="form-group">
+					<label for="Slug">Slug</label>
+					<input class="form-control" type="text" id="Slug" name="Slug" value="ngan-hang-tmcp-quan-doi" />
+					<span class="text-danger field-validation-valid" data-valmsg-for="Slug" data-valmsg-replace="true"></span>
+				</div>
+
+				<div class="form-group">
+					<label for="Name">T&#xEA;n C&#xF4;ng Ty</label>
+					<input class="form-control" type="text" data-val="true" data-val-required="The T&#xEA;n C&#xF4;ng Ty field is required." id="Name" name="Name" value="MB Bank" />
+					<span class="text-danger field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
+				</div>
+
+				<div class="form-group">
+					<label for="Size">Size</label>
+					<input class="form-control" type="text" id="Size" name="Size" value="151-300" />
+					<span class="text-danger field-validation-valid" data-valmsg-for="Size" data-valmsg-replace="true"></span>
+				</div>
+
+
+				<div class="form-group">
+					<label for="Phone">Phone</label>
+					<input class="form-control" type="number" data-val="true" data-val-phone="Kh&#xF4;ng ph&#x1EA3;i Phone" id="Phone" name="Phone" value="0987654321" />
+					<span class="text-danger field-validation-valid" data-valmsg-for="Phone" data-valmsg-replace="true"></span>
+				</div>
+
+				<div class="form-group">
+					<label for="Email">Email</label>
+					<input class="form-control" type="email" data-val="true" data-val-email="Kh&#xF4;ng ph&#x1EA3;i Email" id="Email" name="Email" value="test@gmail.com" />
+					<span class="text-danger field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+				</div>
+
+				<div class="form-group">
+					<label for="Type">Type</label>
+					<input class="form-control" type="text" id="Type" name="Type" value="Product" />
+					<span class="text-danger field-validation-valid" data-valmsg-for="Type" data-valmsg-replace="true"></span>
+				</div>
+
+				<div class="form-group">
+					<label for="Country">Country</label>
+					<select class="form-control" id="Country" name="Country" />
+					<span class="text-danger field-validation-valid" data-valmsg-for="Country" data-valmsg-replace="true"></span>
+				</div>
+
+				<div class="form-group">
+					<label for="OverTime">OverTime</label>
+					<input class="form-control" type="text" id="OverTime" name="OverTime" value="No" />
+					<span class="text-danger field-validation-valid" data-valmsg-for="OverTime" data-valmsg-replace="true"></span>
+				</div>
+
+				<div class="form-group">
+					<label for="WorkingTime">WorkingTime</label>
+					<input class="form-control" type="text" id="WorkingTime" name="WorkingTime" value="Monday - Friday" />
+					<span class="text-danger field-validation-valid" data-valmsg-for="WorkingTime" data-valmsg-replace="true"></span>
+				</div>
+
+				<div class="form-group">
+					<label for="LogoImage">LogoImage</label><br />
+						<img src="/images/companies/MBbank.jpg" alt="Logo" class="img-thumbnail mb-2" style="max-height:100px;" />
+					<input type="file" class="form-control" id="File" name="File" />
+					<span class="text-danger field-validation-valid" data-valmsg-for="File" data-valmsg-replace="true"></span>
+				</div>
+
+				<div class="form-group">
+					<label for="RecruiterId">RecruiterId</label>
+					<select class="form-control" id="RecruiterId" name="RecruiterId" />
+					<span class="text-danger field-validation-valid" data-valmsg-for="RecruiterId" data-valmsg-replace="true"></span>
+				</div>
+
+
+				<div class="form-group">
+					<label for="IsShowCompanyUrl">IsShowCompanyUrl</label>
+					<input class="form-control" type="checkbox" checked="checked" data-val="true" data-val-required="The IsShowCompanyUrl field is required." id="IsShowCompanyUrl" name="IsShowCompanyUrl" value="true" />
+					<span class="text-danger field-validation-valid" data-valmsg-for="IsShowCompanyUrl" data-valmsg-replace="true"></span>
+				</div>
+
+				<div class="form-group">
+					<label for="CompanyUrl">CompanyUrl</label>
+					<input class="form-control" type="text" id="CompanyUrl" name="CompanyUrl" value="https://www.mbbank.com.vn/" />
+					<span class="text-danger field-validation-valid" data-valmsg-for="CompanyUrl" data-valmsg-replace="true"></span>
+				</div>
+
+				<div class="form-group">
+					<label for="IsShowCompanyFbUrl">IsShowCompanyFbUrl</label>
+					<input class="form-control" type="checkbox" checked="checked" data-val="true" data-val-required="The IsShowCompanyFbUrl field is required." id="IsShowCompanyFbUrl" name="IsShowCompanyFbUrl" value="true" />
+					<span class="text-danger field-validation-valid" data-valmsg-for="IsShowCompanyFbUrl" data-valmsg-replace="true"></span>
+				</div>
+
+				<div class="form-group">
+					<label for="CompanyFbUrl">CompanyFbUrl</label>
+					<input class="form-control" type="text" id="CompanyFbUrl" name="CompanyFbUrl" value="" />
+					<span class="text-danger field-validation-valid" data-valmsg-for="CompanyFbUrl" data-valmsg-replace="true"></span>
+				</div>
+
+				<div class="form-group">
+					<label for="SkillIds">K&#x129; N&#x103;ng</label>
+					<select multiple="multiple" class="form-control w-100" id="SkillIds" name="SkillIds"><option value="1">Agile</option>
+<option value="2">QA QC</option>
+<option value="3">Python</option>
+<option value="4">Project Manager</option>
+<option selected="selected" value="5">Product Manager</option>
+<option value="6">PostgreSql</option>
+<option value="7">PHP</option>
+<option value="8">Oracle</option>
+<option value="9">ReactJS</option>
+<option value="10">OOP</option>
+<option value="11">NoSQL</option>
+<option value="12">NodeJS</option>
+<option value="13">Networking</option>
+<option value="14">.NET</option>
+<option value="15">MySQL</option>
+<option value="16">MVC</option>
+<option selected="selected" value="17">Manager</option>
+<option value="18">Objective C</option>
+<option value="19">Magento</option>
+<option value="20">React Native</option>
+<option value="21">Ruby on Rails</option>
+<option value="22">Unity</option>
+<option value="23">UI-UX</option>
+<option value="24">TypeScript</option>
+<option selected="selected" value="25">Tester</option>
+<option selected="selected" value="26">Team Leader</option>
+<option value="27">System Engineer</option>
+<option selected="selected" value="28">System Admin</option>
+<option selected="selected" value="29">Ruby</option>
+<option value="30">Swift</option>
+<option selected="selected" value="31">Spring</option>
+<option value="32">Solidity</option>
+<option value="33">Software Architect</option>
+<option value="34">Sharepoint</option>
+<option value="35">Scrum</option>
+<option value="36">Scala</option>
+<option value="37">SAP</option>
+<option value="38">SQL</option>
+<option value="39">VueJS</option>
+<option value="40">Linux</option>
+<option selected="selected" value="41">Kotlin</option>
+<option selected="selected" value="42">Dart</option>
+<option value="43">CSS</option>
+<option selected="selected" value="44">Cloud</option>
+<option value="45">C language</option>
+<option value="46">C&#x2B;&#x2B;</option>
+<option value="47">C#</option>
+<option value="48">Business Analyst</option>
+<option value="49">Data Analyst</option>
+<option value="50">Bridge Engineer</option>
+<option value="51">.NET Developer</option>
+<option value="52">QA QC</option>
+<option value="53">Python</option>
+<option value="54">Project Manager</option>
+<option value="55">Product Manager</option>
+<option value="56">PostgreSql</option>
+<option value="57">PHP</option>
+<option value="58">Oracle</option>
+<option value="59">ReactJS</option>
+<option value="60">OOP</option>
+<option value="61">NoSQL</option>
+<option value="62">NodeJS</option>
+<option value="63">Networking</option>
+<option value="64">.NET</option>
+<option value="65">MySQL</option>
+<option value="66">MVC</option>
+<option value="67">Manager</option>
+<option value="68">Objective C</option>
+<option value="69">Magento</option>
+<option value="70">React Native</option>
+<option value="71">Ruby on Rails</option>
+<option value="72">Unity</option>
+<option value="73">UI-UX</option>
+<option value="74">TypeScript</option>
+<option value="75">Tester</option>
+<option value="76">Team Leader</option>
+<option value="77">System Engineer</option>
+<option value="78">System Admin</option>
+<option value="79">Ruby</option>
+<option value="80">Swift</option>
+<option value="81">Spring</option>
+<option value="82">Solidity</option>
+<option value="83">Software Architect</option>
+<option value="84">Sharepoint</option>
+<option value="85">Scrum</option>
+<option value="86">Scala</option>
+<option value="87">SAP</option>
+<option value="88">SQL</option>
+<option value="89">VueJS</option>
+<option value="90">Linux</option>
+<option value="91">Kotlin</option>
+<option value="92">Dart</option>
+<option value="93">CSS</option>
+<option value="94">Cloud</option>
+<option value="95">C language</option>
+<option value="96">C&#x2B;&#x2B;</option>
+<option value="97">C#</option>
+<option value="98">Business Analyst</option>
+<option value="99">Data Analyst</option>
+<option value="100">Bridge Engineer</option>
+<option value="101">Azure</option>
+<option value="102">AWS</option>
+<option value="103">Automation Test</option>
+<option value="104">ASP.NET</option>
+<option value="105">AngularJS</option>
+<option value="106">Angular</option>
+<option value="107">Android</option>
+<option value="108">Blockchain</option>
+<option value="109">Laravel</option>
+<option value="110">Database</option>
+<option value="111">DevOps</option>
+<option value="112">JSON</option>
+<option value="113">JavaScript</option>
+<option value="114">Java</option>
+<option value="115">Japanese</option>
+<option value="116">J2EE</option>
+<option value="117">IT Support</option>
+<option value="118">iOS</option>
+<option value="119">Designer</option>
+<option value="120">HTML5</option>
+<option value="121">Games</option>
+<option value="122">Flutter</option>
+<option value="123">ERP</option>
+<option value="124">English</option>
+<option value="125">Embedded</option>
+<option value="126">Elixir</option>
+<option value="127">Django</option>
+<option value="128">Golang</option>
+<option value="129">Wordpress</option>
+</select>
+					<span class="text-danger field-validation-valid" data-valmsg-for="SkillIds" data-valmsg-replace="true"></span>
+				</div>
+
+				<div class="form-group">
+					<label for="TopReason">TopReason</label>
+					<textarea class="form-control" rows="5" id="TopReason" name="TopReason">
+</textarea>
+					<span class="text-danger field-validation-valid" data-valmsg-for="TopReason" data-valmsg-replace="true"></span>
+				</div>
+
+				<div class="form-group">
+					<label for="Reason">Reason</label>
+					<textarea class="form-control" rows="5" id="Reason" name="Reason">
+&lt;div class=&quot;paragraph text-break text-contain-hyperlink&quot;&gt;&#xA;&lt;p&gt;&lt;strong&gt;Tr&#x1EA3;i nghi&#x1EC7;m Thu nh&#x1EAD;p h&#x1EA5;p d&#x1EAB;n v&#x1EDB;i g&#xF3;i &#x111;&#xE3;i ng&#x1ED9; to&#xE0;n di&#x1EC7;n:&lt;/strong&gt;&amp;nbsp;&lt;/p&gt;&lt;ul&gt;&#xA;&lt;li&gt;Th&#x1B0;&#x1EDF;ng&amp;nbsp;th&#xE0;nh t&#xED;ch th&#xE1;ng 13; Th&#x1B0;&#x1EDF;ng th&#xE0;nh t&#xED;ch theo k&#x1EBF;t qu&#x1EA3; c&#xF4;ng vi&#x1EC7;c 06 th&#xE1;ng, 1 n&#x103;m ; Th&#x1B0;&#x1EDF;ng c&#xE1;c&amp;nbsp;d&#x1ECB;p l&#x1EC5; t&#x1EBF;t trong n&#x103;m ; Th&#x1B0;&#x1EDF;ng theo danh hi&#x1EC7;u c&#xE1; nh&#xE2;n v&#xE0; t&#x1EAD;p th&#x1EC3;&#x2026;&amp;nbsp;&lt;/li&gt;&#xA;&lt;li&gt;Du l&#x1ECB;ch ngh&#x1EC9; d&#x1B0;&#x1EE1;ng h&#xE0;ng n&#x103;m&lt;/li&gt;&#xA;&lt;li&gt;Kh&#xE1;m s&#x1EE9;c kh&#x1ECF;e &#x111;&#x1ECB;nh k&#xEC;&lt;/li&gt;&#xA;&lt;li&gt;G&#xF3;i b&#x1EA3;o hi&#x1EC3;m s&#x1EE9;c kh&#x1ECF;e c&#xE1; nh&#xE2;n v&#xE0; ng&#x1B0;&#x1EDD;i th&#xE2;n (MIC)&lt;/li&gt;&#xA;&lt;li&gt;Qu&#xE0; t&#x1EB7;ng v&#xE0; ng&#xE0;y ngh&#x1EC9; sinh nh&#x1EAD;t h&#x1B0;&#x1EDF;ng nguy&#xEA;n l&#x1B0;&#x1A1;ng&amp;nbsp;&lt;/li&gt;&#xA;&lt;/ul&gt;&lt;p&gt;&lt;strong&gt;C&#x1A1; h&#x1ED9;i ngh&#x1EC1; nghi&#x1EC7;p v&#xE0; ph&#xE1;t tri&#x1EC3;n b&#x1EA3;n th&#xE2;n:&lt;/strong&gt;&amp;nbsp;&lt;/p&gt;&lt;ul&gt;&#xA;&lt;li&gt;&#x110;&#x1B0;&#x1EE3;c th&#x1EED; s&#x1EE9;c v&#x1EDB;i c&#xE1;c n&#x1EC1;n t&#x1EA3;ng c&#xF4;ng ngh&#x1EC7; m&#x1EDB;i, tham gia v&#xE0;o nh&#x1EEF;ng d&#x1EF1; &#xE1;n chuy&#x1EC3;n &#x111;&#x1ED5;i l&#x1EDB;n c&#x1EE7;a ng&#xE2;n h&#xE0;ng&amp;nbsp;&lt;/li&gt;&#xA;&lt;li&gt;C&#xF3; c&#x1A1; h&#x1ED9;i h&#x1ECD;c h&#x1ECF;i t&#x1EEB; c&#xE1;c Chuy&#xEA;n gia, L&#xE3;nh &#x111;&#x1EA1;o n&#x1ED9;i b&#x1ED9; h&#xE0;ng &#x111;&#x1EA7;u t&#x1EA1;i MB trong l&#x129;nh v&#x1EF1;c IT, T&#xE0;i ch&#xED;nh ng&#xE2;n h&#xE0;ng&amp;nbsp;&lt;/li&gt;&#xA;&lt;li&gt;&#x110;&#x1B0;&#x1EE3;c tr&#x1EA3;i nghi&#x1EC7;m c&#xE1;c&amp;nbsp;ph&#x1B0;&#x1A1;ng ph&#xE1;p h&#x1ECD;c t&#x1EAD;p&amp;nbsp;m&#x1EDB;i v&#xE0;&amp;nbsp;ph&#xE1;t tri&#x1EC3;n n&#x103;ng l&#x1EF1;c theo l&#x1ED9; tr&#xEC;nh c&#xF4;ng danh.&amp;nbsp;&lt;/li&gt;&#xA;&lt;li&gt;H&#x1B0;&#x1EDF;ng c&#xE1;c ch&#xED;nh s&#xE1;ch h&#x1ED7; tr&#x1EE3;, khuy&#x1EBF;n kh&#xED;ch h&#x1ECD;c t&#x1EAD;p, n&#xE2;ng cao tr&#xEC;nh &#x111;&#x1ED9; v&#xE0; ph&#xE1;t tri&#x1EC3;n b&#x1EA3;n th&#xE2;n (ch&#x1EE9;ng ch&#x1EC9; ngh&#x1EC1; qu&#x1ED1;c t&#x1EBF;...)&amp;nbsp;&lt;/li&gt;&#xA;&lt;/ul&gt;&lt;p&gt;&lt;strong&gt;M&#xF4;i tr&#x1B0;&#x1EDD;ng l&#xE0;m vi&#x1EC7;c l&#xFD; t&#x1B0;&#x1EDF;ng v&#x1EDB;i:&lt;/strong&gt;&amp;nbsp;&lt;/p&gt;&lt;ul&gt;&#xA;&lt;li&gt;Nh&#x1EEF;ng ng&#x1B0;&#x1EDD;i c&#x1ED9;ng s&#x1EF1; th&#xE2;n thi&#x1EC7;n v&#xE0; t&#xE0;i n&#x103;ng&amp;nbsp;&lt;/li&gt;&#xA;&lt;li&gt;C&#x1A1; s&#x1EDF; v&#x1EAD;t ch&#x1EA5;t, kh&#xF4;ng gian l&#xE0;m vi&#x1EC7;c xanh v&#xE0; hi&#x1EC7;n &#x111;&#x1EA1;i.&lt;br&gt;&amp;nbsp;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/div&gt;</textarea>
+					<span class="text-danger field-validation-valid" data-valmsg-for="Reason" data-valmsg-replace="true"></span>
+				</div>
+
+				<div class="form-group">
+					<label for="ShortDescription">ShortDescription</label>
+					<textarea class="form-control" rows="5" id="ShortDescription" name="ShortDescription">
+</textarea>
+					<span class="text-danger field-validation-valid" data-valmsg-for="ShortDescription" data-valmsg-replace="true"></span>
+				</div>
+
+				<div class="form-group">
+					<label for="Description">Description</label>
+					<textarea class="form-control" rows="5" id="Description" name="Description">
+&lt;div class=&quot;paragraph ipt-4 text-break text-contain-hyperlink&quot;&gt;&#xA;Ng&#xE2;n h&#xE0;ng TMCP Qu&#xE2;n &#x110;&#x1ED9;i (MB)&#xA;&lt;p&gt;&lt;strong&gt;V&#x1EC1; ch&#xFA;ng t&#xF4;i&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;V&#x1EDB;i t&#x1EA7;m nh&#xEC;n &quot;Tr&#x1EDF; th&#xE0;nh Doanh nghi&#x1EC7;p s&#x1ED1;, T&#x1EAD;p &#x111;o&#xE0;n t&#xE0;i ch&#xED;nh d&#x1EAB;n &#x111;&#x1EA7;u&quot; c&#xF9;ng m&#x1EE5;c ti&#xEA;u &quot;Top 3 th&#x1ECB; tr&#x1B0;&#x1EDD;ng v&#x1EC1; hi&#x1EC7;u qu&#x1EA3;, h&#x1B0;&#x1EDB;ng &#x111;&#x1EBF;n Top &#x111;&#x1EA7;u ch&#xE2;u &#xC1;&#x201D;,&amp;nbsp;MB &#x111;&#xE3; v&#xE0; &#x111;ang ti&#x1EBF;p t&#x1EE5;c x&#xE2;y d&#x1EF1;ng, ph&#xE1;t tri&#x1EC3;n trong v&#xE0; ngo&#xE0;i n&#x1B0;&#x1EDB;c, nh&#x1EB1;m&amp;nbsp;&#x111;&#xE1;p &#x1EE9;ng y&#xEA;u c&#x1EA7;u chuy&#x1EC3;n d&#x1ECB;ch s&#x1ED1;, m&#x1EE5;c ti&#xEA;u t&#x103;ng tr&#x1B0;&#x1EDF;ng kinh doanh v&#xE0; n&#xE2;ng cao n&#x103;ng l&#x1EF1;c c&#x1EA1;nh tranh.&amp;nbsp;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;S&#x1EDF; h&#x1EEF;u &#x111;&#x1ED9;i ng&#x169; h&#x1A1;n 10.000 nh&#xE2;n s&#x1EF1;,&amp;nbsp;trong &#x111;&#xF3; c&#xF3; h&#x1A1;n 1000 MBITers - chi&#x1EBF;m 10% t&#x1ED5;ng nh&#xE2;n s&#x1EF1; to&#xE0;n Ng&#xE2;n h&#xE0;ng - n&#x1EB1;m trong top &#x111;&#x1EA7;u c&#xE1;c ng&#xE2;n h&#xE0;ng t&#x1EA1;i Vi&#x1EC7;t Nam v&#x1EC1; t&#x1EC9; l&#x1EC7; nh&#xE2;n s&#x1EF1; thu&#x1ED9;c nh&#xF3;m C&#xF4;ng ngh&#x1EC7; v&#xE0; &#x110;&#x1ED5;i m&#x1EDB;i, MB &#x111;ang kh&#xF4;ng ng&#x1EEB;ng &#x111;&#x1EA7;u t&#x1B0; m&#x1EA1;nh m&#x1EBD; cho h&#x1EC7; th&#x1ED1;ng, con ng&#x1B0;&#x1EDD;i v&#xE0; kinh doanh n&#x1EC1;n t&#x1EA3;ng nh&#x1EB1;m &#x111;em &#x111;&#x1EBF;n nh&#x1EEF;ng tr&#x1EA3;i nghi&#x1EC7;m xu&#x1EA5;t s&#x1EAF;c nh&#x1EA5;t cho kh&#xE1;ch h&#xE0;ng, x&#xE2;y d&#x1EF1;ng m&#xF4;i tr&#x1B0;&#x1EDD;ng l&#xE0;m vi&#x1EC7;c h&#x1EA1;nh ph&#xFA;c, b&#x1EC1;n v&#x1EEF;ng cho ng&#x1B0;&#x1EDD;i MB.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;T&#x1EF1; h&#xE0;o l&#xE0; Ng&#xE2;n h&#xE0;ng S&#x1ED1; s&#x1ED1; 01 Vi&#x1EC7;t Nam,&amp;nbsp;&#x111;&#x1B0;&#x1EE3;c ph&#x1EE5;c v&#x1EE5; h&#x1A1;n 30 tri&#x1EC7;u kh&#xE1;ch h&#xE0;ng c&#xE1; nh&#xE2;n v&#xE0; doanh nghi&#x1EC7;p.&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;Vi&#x1EC7;t Nam &#x111;ang s&#x1EDF; h&#x1EEF;u 07 &#x1EE9;ng d&#x1EE5;ng c&#xF3; tr&#xEA;n 10 tri&#x1EC7;u ng&#x1B0;&#x1EDD;i s&#x1EED; d&#x1EE5;ng (Theo s&#x1ED1; li&#x1EC7;u c&#x1EE7;a B&#x1ED9; Th&#xF4;ng tin v&#xE0; Truy&#x1EC1;n th&#xF4;ng n&#x103;m 2023), MB l&#xE0; Ng&#xE2;n h&#xE0;ng duy nh&#x1EA5;t n&#x1EB1;m trong danh s&#xE1;ch &#x111;&#x1EA7;y t&#x1EF1; h&#xE0;o n&#xE0;y. T&#xED;nh &#x111;&#x1EBF;n h&#x1EBF;t n&#x103;m 2024, MB ch&#xED;nh th&#x1EE9;c chinh ph&#x1EE5;c c&#x1ED9;t m&#x1ED1;c 30 tri&#x1EC7;u kh&#xE1;ch h&#xE0;ng, t&#x1B0;&#x1A1;ng &#x111;&#x1B0;&#x1A1;ng 30% d&#xE2;n s&#x1ED1; Vi&#x1EC7;t Nam, v&#xE0; &#x111;&#xE3; c&#xF9;ng ng&#x1B0;&#x1EDD;i d&#xF9;ng th&#x1EF1;c hi&#x1EC7;n 6,5 t&#x1EF7; giao d&#x1ECB;ch tr&#xEA;n k&#xEA;nh S&#x1ED1; - gi&#x1EEF; v&#x1EEF;ng v&#x1ECB; tr&#xED; Top 1 quy m&#xF4; NAPAS (C&#xF4;ng ty C&#x1ED5; ph&#x1EA7;n Thanh to&#xE1;n Qu&#x1ED1;c gia Vi&#x1EC7;t Nam). Trong &#x111;&#xF3;, ri&#xEA;ng &#x1EE9;ng d&#x1EE5;ng App MBBank ghi nh&#x1EAD;n t&#x1EA7;n su&#x1EA5;t &#x111;&#x1EC9;nh ch&#x1EA1;m ng&#x1B0;&#x1EE1;ng 20 tri&#x1EC7;u giao d&#x1ECB;ch/ng&#xE0;y, c&#xF9;ng h&#x1EC7; th&#x1ED1;ng &#x1ED5;n &#x111;&#x1ECB;nh, an to&#xE0;n, b&#x1EA3;o m&#x1EAD;t.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;M&#xF4;i tr&#x1B0;&#x1EDD;ng l&#xE0;m vi&#x1EC7;c b&#x1EC1;n v&#x1EEF;ng, h&#x1EA1;nh ph&#xFA;c&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;N&#x103;m 2024 ghi d&#x1EA5;u c&#x1ED9;t m&#x1ED1;c MB30 v&#x1EC1; v&#x103;n ho&#xE1; v&#xE0; con ng&#x1B0;&#x1EDD;i v&#x1EDB;i 02 gi&#x1EA3;i th&#x1B0;&#x1EDF;ng danh gi&#xE1;:&amp;nbsp;&lt;i&gt; &#x201C;Sustainable Workplace Awards &#x2013; Doanh nghi&#x1EC7;p c&#xF3; m&#xF4;i tr&#x1B0;&#x1EDD;ng l&#xE0;m vi&#x1EC7;c b&#x1EC1;n v&#x1EEF;ng&#x201D; &lt;/i&gt;do HR Asia Awards (T&#x1EA1;p ch&#xED; nh&#xE2;n s&#x1EF1; uy t&#xED;n h&#xE0;ng &#x111;&#x1EA7;u Ch&#xE2;u &#xC1;) v&#xE0;&lt;i&gt; &#x201C;Happiness At Work &#x2013; Doanh nghi&#x1EC7;p c&#xF3; Ngu&#x1ED3;n nh&#xE2;n l&#x1EF1;c H&#x1EA1;nh ph&#xFA;c&#x201D;&lt;/i&gt; do Anphabe (T&#x1ED5; ch&#x1EE9;c t&#x1B0; v&#x1EA5;n ti&#xEA;n phong v&#x1EC1; gi&#x1EA3;i ph&#xE1;p Th&#x1B0;&#x1A1;ng hi&#x1EC7;u Nh&#xE0; tuy&#x1EC3;n d&#x1EE5;ng v&#xE0; M&#xF4;i tr&#x1B0;&#x1EDD;ng l&#xE0;m vi&#x1EC7;c) trao t&#x1EB7;ng.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&#x110;&#x1EB7;c bi&#x1EC7;t, MB &#x111;&#xE3; ch&#xED;nh th&#x1EE9;c &#x111;&#x1B0;&#x1EE3;c vinh danh trong h&#x1EA1;ng m&#x1EE5;c &#x201C;Vietnam Best IT Companies 2025&#x201D; do ch&#xED;nh c&#xE1;c &#x1EE9;ng vi&#xEA;n c&#x1EE7;a ITviec b&#xEC;nh ch&#x1ECD;n. V&#xE0; ch&#xFA;ng t&#xF4;i v&#x1EAB;n &#x111;ang li&#xEA;n t&#x1EE5;c t&#xEC;m ki&#x1EBF;m nh&#x1EEF;ng nh&#xE2;n t&#x1ED1; xu&#x1EA5;t s&#x1EAF;c, s&#xE1;ng t&#x1EA1;o, &#x111;&#x1ED3;ng th&#x1EDD;i cam k&#x1EBF;t mang &#x111;&#x1EBF;n nh&#x1EEF;ng gi&#xE1; tr&#x1ECB;, tr&#x1EA3;i nghi&#x1EC7;m t&#x1ED1;t nh&#x1EA5;t cho nh&#xE2;n vi&#xEA;n khi gia nh&#x1EAD;p t&#x1ED5; ch&#x1EE9;c c&#x1EE7;a m&#xEC;nh.&lt;/p&gt;&#xA;&lt;/div&gt;</textarea>
+					<span class="text-danger field-validation-valid" data-valmsg-for="Description" data-valmsg-replace="true"></span>
+				</div>
+
+				<div class="form-group">
+					<label for="OurExpertise">OurExpertise</label>
+					<textarea class="form-control" rows="5" id="OurExpertise" name="OurExpertise">
+</textarea>
+					<span class="text-danger field-validation-valid" data-valmsg-for="OurExpertise" data-valmsg-replace="true"></span>
+				</div>
+
+				<div class="form-group">
+					<label for="WhyJoinUs">WhyJoinUs</label>
+					<textarea class="form-control" rows="5" id="WhyJoinUs" name="WhyJoinUs">
+</textarea>
+					<span class="text-danger field-validation-valid" data-valmsg-for="WhyJoinUs" data-valmsg-replace="true"></span>
+				</div>
+
+
+
+				<div class="form-group d-flex gap-2 mt-4">
+					<button type="submit" class="btn btn-primary d-inline-flex align-items-center mr-2">
+						<i data-feather="save" class="mr-1 icon-md"></i> Lưu
+					</button>
+					<a class="btn btn-outline-secondary d-inline-flex align-items-center" href="/admin/company/index">
+						<i data-feather="x" class="mr-1 icon-md"></i> Hủy
+					</a>
+				</div>
+			<input name="__RequestVerificationToken" type="hidden" value="CfDJ8LM_qECkpX9Hnf5xFnUmUSa5t1j36LV8BssbqU6DPMel5f4y-If3wLa3YYkEjCJe-sY5TTcoeg9HH4CkBLMW0oCrHjeUrR9U4ro0O1zQSxwCAvLmVTEbnSXvKdiIfPBxxWUGjZ-YUrqlo4MH9SmYwpcirZkB19WVjPG2Wo4vCGGfXO5wGF2_dzA2eIvjoiSvYA" /><input name="IsShowCompanyUrl" type="hidden" value="false" /><input name="IsShowCompanyFbUrl" type="hidden" value="false" /></form>
+		</div>
+
+
+	</div>
+	<div id="images">
+		<div id="details">
+			<form method="post" enctype="multipart/form-data" action="/admin/company/savecompany">
+				<input type="hidden" data-val="true" data-val-required="The CompanyId field is required." id="CompanyId" name="CompanyId" value="1" />
+				<!-- Các field khác như Tên, Email, ... -->
+
+				<div class="form-group">
+					<label>Ảnh Công Ty</label>
+					<input type="file" name="images" id="images" multiple />
+				</div>
+
+				<!-- Field để lưu danh sách fileName của ảnh đã chọn -->
+				<input type="hidden" name="SavedImageFileNames" id="SavedImageFileNames" />
+
+				<div class="form-group mt-3">
+					<button type="submit" class="btn btn-primary">Lưu</button>
+				</div>
+			<input name="__RequestVerificationToken" type="hidden" value="CfDJ8LM_qECkpX9Hnf5xFnUmUSa5t1j36LV8BssbqU6DPMel5f4y-If3wLa3YYkEjCJe-sY5TTcoeg9HH4CkBLMW0oCrHjeUrR9U4ro0O1zQSxwCAvLmVTEbnSXvKdiIfPBxxWUGjZ-YUrqlo4MH9SmYwpcirZkB19WVjPG2Wo4vCGGfXO5wGF2_dzA2eIvjoiSvYA" /></form>
+
+
+		</div>
+	</div>
+	<div id="locations">
+		<p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
+		<p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
+	</div>
+</div>
+
+
+
+			</div>
+
+			<!-- partial:partials/_footer.html -->
+			<footer class="footer d-flex flex-column flex-md-row align-items-center justify-content-between mt-4 pt-3 border-top">
+	<p class="text-muted mb-1 mb-md-0 text-center text-md-start">
+		&copy; 2025 <a href="/" class="text-decoration-none fw-bold text-dark">CareerHub</a> — Empowering Your Future.
+	</p>
+	<p class="text-muted text-center text-md-end mb-0 d-none d-md-block">
+		Made with <i data-feather="heart" class="text-danger mx-1 icon-sm"></i> by passionate developers.
+	</p>
+</footer>
+
+			<!-- partial -->
+
+		</div>
+	</div>
+
+	<script src="/lib/jquery/dist/jquery.js"></script>
+	<script src="/_framework/aspnetcore-browser-refresh.js"></script>
+	<script src="/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+	<!-- core:js -->
+	<script src="/assets/vendors/core/core.js"></script>
+	<!-- endinject -->
+	<!-- plugin js for this page -->
+	<script src="/assets/vendors/chartjs/Chart.min.js"></script>
+	<script src="/assets/vendors/jquery.flot/jquery.flot.js"></script>
+	<script src="/assets/vendors/jquery.flot/jquery.flot.resize.js"></script>
+	<script src="/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+	<script src="/assets/vendors/apexcharts/apexcharts.min.js"></script>
+	<script src="/assets/vendors/progressbar.js/progressbar.min.js"></script>
+
+
+	<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+
+	<script src="/assets/vendors/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+	<script src="/assets/vendors/inputmask/jquery.inputmask.min.js"></script>
+
+	<script src="/lib/select2/js/select2.js"></script>
+	<script src="/assets/vendors/jquery-steps/jquery.steps.min.js"></script>
+
+	<!-- end plugin js for this page -->
+	<!-- inject:js -->
+	<script src="/assets/vendors/feather-icons/feather.min.js"></script>
+	<script src="/assets/vendors/cropperjs/cropper.min.js"></script>
+
+	<script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+	<script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
+	<script src="/assets/js/template.js"></script>
+	<!-- endinject -->
+	<!-- custom js for this page -->
+	<script src="/assets/js/dashboard.js"></script>
+	<script src="/assets/js/datepicker.js"></script>
+
+	<!-- end custom js for this page -->
+	
+
+	<script>
+		$(document).ready(function() {
+			$("#SkillIds").select2({
+				placeholder: "Tất cả kỹ năng",
+				theme: "bootstrap4",
+				allowClear: true
+			});
+			feather.replace();
+
+			$("#tabs").tabs();
+
+	
+			const existingImages = [{"source":"https://localhost:5001/images/sliders/383395366_769786128284089_6737865291634600207_n.webp","options":{"type":"local","file":{"name":"383395366_769786128284089_6737865291634600207_n.webp","type":"image/png","size":123456},"metadata":{"id":1}}},{"source":"https://localhost:5001/images/sliders/350131531_624507389709008_9201446014570598061_n-min2.webp","options":{"type":"local","file":{"name":"350131531_624507389709008_9201446014570598061_n-min2.webp","type":"image/png","size":123456},"metadata":{"id":2}}},{"source":"https://localhost:5001/images/sliders/78906e46-5cd2-4eba-9b41-cebbcc8a127d.png","options":{"type":"local","file":{"name":"78906e46-5cd2-4eba-9b41-cebbcc8a127d.png","type":"image/png","size":123456},"metadata":{"id":16}}}];
+
+			console.log("existingImages", existingImages)
+
+			const pond = FilePond.create(document.querySelector('#images'), {
+				allowMultiple: true,
+				allowImagePreview: true,
+				imagePreviewHeight: 140,
+				server: {
+					process: {
+						url: '/images/upload',
+						method: 'POST',
+						withCredentials: false,
+						onload: (response) => {
+							const result = JSON.parse(response);
+							return result.path; //FileName sẽ là key (source)
+						}
+					},
+					revert: (uniqueFileId, load, error) => {
+						fetch(`/images/revert?fileName=${encodeURIComponent(uniqueFileId)}`, {
+								method: 'DELETE'
+							})
+							.then(res => {
+								if (res.ok) {
+									load();
+								} else {
+									error('Không thể xoá ảnh.');
+								}
+							});
+					},
+					load: (source, load, error, progress, abort, headers) => {
+						console.log("🔗 Loading image from:", source);
+						const myRequest = new Request(source);
+						fetch(myRequest).then(response => response.blob()).then(load);
+					}
+				},
+				files: existingImages
+			});
+
+			// Lưu danh sách file đang có vào hidden input khi submit form
+			const form = document.querySelector('form');
+			form.addEventListener('submit', () => {
+				const fileNames = pond.getFiles().map(f => f.serverId || f.source);
+				document.getElementById('SavedImageFileNames').value = fileNames.join(',');
+			});
+
+
+		});
+	</script>
+	
+<script>
+
+    (function (factory) {
+        if (typeof define === 'function' && define.amd) {
+            define(['jquery'], factory);
+        }
+        else if (typeof module === 'object' && module.exports) {
+            module.exports = factory(require('jquery'));
+        } else {
+            factory(window.jQuery);
+        }
+    }(function ($) {
+        $.extend($.summernote.plugins, {
+            // Tạo plugin tên elfinder
+            'elfinder': function (context) {
+                var self = this;
+                // ui has renders to build ui elements.
+                var ui = $.summernote.ui;
+                // Tạo nút bấm
+                context.memo('button.elfinder', function () {
+                    var button = ui.button({
+                        contents: '<i class="note-icon-picture"/> elFinder',
+                        tooltip: 'Quản lý file',
+                        click: function () {
+                            // Bấm vào nút bấm gọi hàm elfinderDialog
+                            elfinderDialog(context);
+                        }
+                    });
+                    // create jQuery object from button instance.
+                    var $elfinder = button.render();
+                    return $elfinder;
+                });
+                // This methods will be called when editor is destroyed by $('..').summernote('destroy');
+                // You should remove elements on `initialize`.
+                this.destroy = function () {
+                    this.$panel.remove();
+                    this.$panel = null;
+                };
+            }
+
+        });
+    }));
+
+
+    function elfinderDialog(editor) {
+        var fm = $('<div/>').dialogelfinder({
+
+            baseUrl: "/lib/elfinder/",
+            url: "/file-manager-connector",
+
+            lang: 'vi',
+            width: 840,
+            height: 450,
+            destroyOnClose: true,
+            getFileCallback: function (files, fm) {
+                console.log(files);
+                editor.invoke('editor.insertImage', files.url);
+            },
+            commandsOptions: {
+                getfile: {
+                    oncomplete: 'close',
+                    folders: false
+                }
+            }
+        }).dialogelfinder('instance');
+    }
+
+
+
+    $(document).ready(function () {
+        $('#TopReason').summernote({
+            height: 350,
+            toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video', 'elfinder']],
+                    ['height', ['height']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
+            });
+    });
+</script>
+	
+<script>
+
+    (function (factory) {
+        if (typeof define === 'function' && define.amd) {
+            define(['jquery'], factory);
+        }
+        else if (typeof module === 'object' && module.exports) {
+            module.exports = factory(require('jquery'));
+        } else {
+            factory(window.jQuery);
+        }
+    }(function ($) {
+        $.extend($.summernote.plugins, {
+            // Tạo plugin tên elfinder
+            'elfinder': function (context) {
+                var self = this;
+                // ui has renders to build ui elements.
+                var ui = $.summernote.ui;
+                // Tạo nút bấm
+                context.memo('button.elfinder', function () {
+                    var button = ui.button({
+                        contents: '<i class="note-icon-picture"/> elFinder',
+                        tooltip: 'Quản lý file',
+                        click: function () {
+                            // Bấm vào nút bấm gọi hàm elfinderDialog
+                            elfinderDialog(context);
+                        }
+                    });
+                    // create jQuery object from button instance.
+                    var $elfinder = button.render();
+                    return $elfinder;
+                });
+                // This methods will be called when editor is destroyed by $('..').summernote('destroy');
+                // You should remove elements on `initialize`.
+                this.destroy = function () {
+                    this.$panel.remove();
+                    this.$panel = null;
+                };
+            }
+
+        });
+    }));
+
+
+    function elfinderDialog(editor) {
+        var fm = $('<div/>').dialogelfinder({
+
+            baseUrl: "/lib/elfinder/",
+            url: "/file-manager-connector",
+
+            lang: 'vi',
+            width: 840,
+            height: 450,
+            destroyOnClose: true,
+            getFileCallback: function (files, fm) {
+                console.log(files);
+                editor.invoke('editor.insertImage', files.url);
+            },
+            commandsOptions: {
+                getfile: {
+                    oncomplete: 'close',
+                    folders: false
+                }
+            }
+        }).dialogelfinder('instance');
+    }
+
+
+
+    $(document).ready(function () {
+        $('#Reason').summernote({
+            height: 350,
+            toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video', 'elfinder']],
+                    ['height', ['height']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
+            });
+    });
+</script>
+	
+<script>
+
+    (function (factory) {
+        if (typeof define === 'function' && define.amd) {
+            define(['jquery'], factory);
+        }
+        else if (typeof module === 'object' && module.exports) {
+            module.exports = factory(require('jquery'));
+        } else {
+            factory(window.jQuery);
+        }
+    }(function ($) {
+        $.extend($.summernote.plugins, {
+            // Tạo plugin tên elfinder
+            'elfinder': function (context) {
+                var self = this;
+                // ui has renders to build ui elements.
+                var ui = $.summernote.ui;
+                // Tạo nút bấm
+                context.memo('button.elfinder', function () {
+                    var button = ui.button({
+                        contents: '<i class="note-icon-picture"/> elFinder',
+                        tooltip: 'Quản lý file',
+                        click: function () {
+                            // Bấm vào nút bấm gọi hàm elfinderDialog
+                            elfinderDialog(context);
+                        }
+                    });
+                    // create jQuery object from button instance.
+                    var $elfinder = button.render();
+                    return $elfinder;
+                });
+                // This methods will be called when editor is destroyed by $('..').summernote('destroy');
+                // You should remove elements on `initialize`.
+                this.destroy = function () {
+                    this.$panel.remove();
+                    this.$panel = null;
+                };
+            }
+
+        });
+    }));
+
+
+    function elfinderDialog(editor) {
+        var fm = $('<div/>').dialogelfinder({
+
+            baseUrl: "/lib/elfinder/",
+            url: "/file-manager-connector",
+
+            lang: 'vi',
+            width: 840,
+            height: 450,
+            destroyOnClose: true,
+            getFileCallback: function (files, fm) {
+                console.log(files);
+                editor.invoke('editor.insertImage', files.url);
+            },
+            commandsOptions: {
+                getfile: {
+                    oncomplete: 'close',
+                    folders: false
+                }
+            }
+        }).dialogelfinder('instance');
+    }
+
+
+
+    $(document).ready(function () {
+        $('#Description').summernote({
+            height: 350,
+            toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video', 'elfinder']],
+                    ['height', ['height']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
+            });
+    });
+</script>
+	
+<script>
+
+    (function (factory) {
+        if (typeof define === 'function' && define.amd) {
+            define(['jquery'], factory);
+        }
+        else if (typeof module === 'object' && module.exports) {
+            module.exports = factory(require('jquery'));
+        } else {
+            factory(window.jQuery);
+        }
+    }(function ($) {
+        $.extend($.summernote.plugins, {
+            // Tạo plugin tên elfinder
+            'elfinder': function (context) {
+                var self = this;
+                // ui has renders to build ui elements.
+                var ui = $.summernote.ui;
+                // Tạo nút bấm
+                context.memo('button.elfinder', function () {
+                    var button = ui.button({
+                        contents: '<i class="note-icon-picture"/> elFinder',
+                        tooltip: 'Quản lý file',
+                        click: function () {
+                            // Bấm vào nút bấm gọi hàm elfinderDialog
+                            elfinderDialog(context);
+                        }
+                    });
+                    // create jQuery object from button instance.
+                    var $elfinder = button.render();
+                    return $elfinder;
+                });
+                // This methods will be called when editor is destroyed by $('..').summernote('destroy');
+                // You should remove elements on `initialize`.
+                this.destroy = function () {
+                    this.$panel.remove();
+                    this.$panel = null;
+                };
+            }
+
+        });
+    }));
+
+
+    function elfinderDialog(editor) {
+        var fm = $('<div/>').dialogelfinder({
+
+            baseUrl: "/lib/elfinder/",
+            url: "/file-manager-connector",
+
+            lang: 'vi',
+            width: 840,
+            height: 450,
+            destroyOnClose: true,
+            getFileCallback: function (files, fm) {
+                console.log(files);
+                editor.invoke('editor.insertImage', files.url);
+            },
+            commandsOptions: {
+                getfile: {
+                    oncomplete: 'close',
+                    folders: false
+                }
+            }
+        }).dialogelfinder('instance');
+    }
+
+
+
+    $(document).ready(function () {
+        $('#ShortDescription').summernote({
+            height: 350,
+            toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video', 'elfinder']],
+                    ['height', ['height']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
+            });
+    });
+</script>
+	
+<script>
+
+    (function (factory) {
+        if (typeof define === 'function' && define.amd) {
+            define(['jquery'], factory);
+        }
+        else if (typeof module === 'object' && module.exports) {
+            module.exports = factory(require('jquery'));
+        } else {
+            factory(window.jQuery);
+        }
+    }(function ($) {
+        $.extend($.summernote.plugins, {
+            // Tạo plugin tên elfinder
+            'elfinder': function (context) {
+                var self = this;
+                // ui has renders to build ui elements.
+                var ui = $.summernote.ui;
+                // Tạo nút bấm
+                context.memo('button.elfinder', function () {
+                    var button = ui.button({
+                        contents: '<i class="note-icon-picture"/> elFinder',
+                        tooltip: 'Quản lý file',
+                        click: function () {
+                            // Bấm vào nút bấm gọi hàm elfinderDialog
+                            elfinderDialog(context);
+                        }
+                    });
+                    // create jQuery object from button instance.
+                    var $elfinder = button.render();
+                    return $elfinder;
+                });
+                // This methods will be called when editor is destroyed by $('..').summernote('destroy');
+                // You should remove elements on `initialize`.
+                this.destroy = function () {
+                    this.$panel.remove();
+                    this.$panel = null;
+                };
+            }
+
+        });
+    }));
+
+
+    function elfinderDialog(editor) {
+        var fm = $('<div/>').dialogelfinder({
+
+            baseUrl: "/lib/elfinder/",
+            url: "/file-manager-connector",
+
+            lang: 'vi',
+            width: 840,
+            height: 450,
+            destroyOnClose: true,
+            getFileCallback: function (files, fm) {
+                console.log(files);
+                editor.invoke('editor.insertImage', files.url);
+            },
+            commandsOptions: {
+                getfile: {
+                    oncomplete: 'close',
+                    folders: false
+                }
+            }
+        }).dialogelfinder('instance');
+    }
+
+
+
+    $(document).ready(function () {
+        $('#WhyJoinUs').summernote({
+            height: 350,
+            toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video', 'elfinder']],
+                    ['height', ['height']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
+            });
+    });
+</script>
+	
+<script>
+
+    (function (factory) {
+        if (typeof define === 'function' && define.amd) {
+            define(['jquery'], factory);
+        }
+        else if (typeof module === 'object' && module.exports) {
+            module.exports = factory(require('jquery'));
+        } else {
+            factory(window.jQuery);
+        }
+    }(function ($) {
+        $.extend($.summernote.plugins, {
+            // Tạo plugin tên elfinder
+            'elfinder': function (context) {
+                var self = this;
+                // ui has renders to build ui elements.
+                var ui = $.summernote.ui;
+                // Tạo nút bấm
+                context.memo('button.elfinder', function () {
+                    var button = ui.button({
+                        contents: '<i class="note-icon-picture"/> elFinder',
+                        tooltip: 'Quản lý file',
+                        click: function () {
+                            // Bấm vào nút bấm gọi hàm elfinderDialog
+                            elfinderDialog(context);
+                        }
+                    });
+                    // create jQuery object from button instance.
+                    var $elfinder = button.render();
+                    return $elfinder;
+                });
+                // This methods will be called when editor is destroyed by $('..').summernote('destroy');
+                // You should remove elements on `initialize`.
+                this.destroy = function () {
+                    this.$panel.remove();
+                    this.$panel = null;
+                };
+            }
+
+        });
+    }));
+
+
+    function elfinderDialog(editor) {
+        var fm = $('<div/>').dialogelfinder({
+
+            baseUrl: "/lib/elfinder/",
+            url: "/file-manager-connector",
+
+            lang: 'vi',
+            width: 840,
+            height: 450,
+            destroyOnClose: true,
+            getFileCallback: function (files, fm) {
+                console.log(files);
+                editor.invoke('editor.insertImage', files.url);
+            },
+            commandsOptions: {
+                getfile: {
+                    oncomplete: 'close',
+                    folders: false
+                }
+            }
+        }).dialogelfinder('instance');
+    }
+
+
+
+    $(document).ready(function () {
+        $('#OurExpertise').summernote({
+            height: 350,
+            toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video', 'elfinder']],
+                    ['height', ['height']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
+            });
+    });
+</script>
+
+</body>
+
+</html>
+
+
