@@ -21,7 +21,7 @@ namespace RecruitmentApp.DTOs
         public string WorkSpace { get; set; }
         public string Description { get; set; }
         public string JobRequirement { get; set; }
-        public string Benifit { get; set; }
+        public string Benefit { get; set; }
         public string TimeAgo { get; set; }
         public string LocationName { get; set; }
         public List<SkillDTO> Skills { get; set; }
