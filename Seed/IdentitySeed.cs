@@ -36,7 +36,8 @@ namespace RecruitmentApp.Seed
                 {
                     UserName = adminEmail,
                     Email = adminEmail,
-                    EmailConfirmed = true
+                    EmailConfirmed = true,
+                    Avatar = "/images/icons/avatar-default.svg"
                 };
 
                 var createAdmin = await userManager.CreateAsync(newAdmin, adminPassword);
@@ -44,6 +45,37 @@ namespace RecruitmentApp.Seed
                 {
                     // Assign Admin role to the user
                     await userManager.AddToRoleAsync(newAdmin, "Admin");
+                }
+            }
+
+            // Seed 10 random users for each role
+            var random = new Random();
+
+            foreach (var roleName in roleNames)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    var userEmail = $"{roleName.ToLower()}user{i + 1}@example.com";
+                    var password = "Password@123"; // Default password for all users
+                    var user = await userManager.FindByEmailAsync(userEmail);
+
+                    if (user == null)
+                    {
+                        var newUser = new AppUser
+                        {
+                            UserName = userEmail,
+                            Email = userEmail,
+                            EmailConfirmed = true,
+                            Avatar = "/images/icons/avatar-default.svg"
+                        };
+
+                        var createUser = await userManager.CreateAsync(newUser, password);
+                        if (createUser.Succeeded)
+                        {
+                            // Assign role to the user
+                            await userManager.AddToRoleAsync(newUser, roleName);
+                        }
+                    }
                 }
             }
         }

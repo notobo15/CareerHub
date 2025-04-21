@@ -66,6 +66,12 @@ namespace RecruitmentApp.Seed
 
                     await SeedCompanyIndustries(applicationDbContext, package);
 
+                    await SeedWorkTypes(applicationDbContext, package);
+
+                    await SeedPostWorkTypes(applicationDbContext, package);
+
+                    await SeedCompanyTypes(applicationDbContext, package);
+
                 }
             }
             catch (Exception ex)
@@ -183,6 +189,7 @@ namespace RecruitmentApp.Seed
                         OverTime = sheet.Cells[row, 13].Text, // Column 12: OverTime
                         WorkingTime = sheet.Cells[row, 14].Text, // Column 13: WorkingTime
                         LogoImage = sheet.Cells[row, 15].Text, // Column 14: LogoImage
+                        LogoFullPath = "/images/companies/" + sheet.Cells[row, 15].Text, // Column 14: LogoImage
                         CompanyUrl = sheet.Cells[row, 16].Text, // Column 15: CompanyUrl
                         CompanyFbUrl = sheet.Cells[row, 17].Text, // Column 16: CompanyFbUrl
                         TopReason = sheet.Cells[row, 19].Text,
@@ -258,7 +265,7 @@ namespace RecruitmentApp.Seed
                         TopReason = sheet.Cells[row, 12].Text,
                         Description = sheet.Cells[row, 13].Text,
                         JobRequirement = sheet.Cells[row, 14].Text,
-                        Benifit = sheet.Cells[row, 15].Text,
+                        Benefit = sheet.Cells[row, 15].Text,
                         CompanyId = int.Parse(sheet.Cells[row, 16].Text),
                         //LocationId = int.Parse(sheet.Cells[row, 22].Text),
                         // RecruiterId = sheet.Cells[row, 17].Text,
@@ -449,7 +456,9 @@ namespace RecruitmentApp.Seed
                     var image = new Image
                     {
                         CompanyId = int.Parse(sheet.Cells[row, 2].Text),
-                        FileName = sheet.Cells[row, 3].Text
+                        FileName = sheet.Cells[row, 3].Text,
+                        FullPath = "/images/sliders/" + sheet.Cells[row, 3].Text
+
                     };
 
                     applicationDbContext.Images.Add(image);
@@ -505,6 +514,50 @@ namespace RecruitmentApp.Seed
             }
         }
 
+        private static async Task SeedWorkTypes(AppDbContext applicationDbContext, ExcelPackage package)
+        {
+            var sheet = package.Workbook.Worksheets["WorkTypes"];
+            if (sheet != null && !applicationDbContext.WorkTypes.Any())
+            {
+                Console.WriteLine("Seeding WorkTypes...");
+                for (int row = 2; row <= sheet.Dimension.Rows; row++)
+                {
+                    var workType = new WorkType
+                    {
+                        Name = sheet.Cells[row, 2].Text,
+                        Slug = AppUtilities.GenerateSlug(sheet.Cells[row, 2].Text),
+
+                    };
+
+                    applicationDbContext.WorkTypes.Add(workType);
+                }
+
+                await applicationDbContext.SaveChangesAsync();
+                Console.WriteLine("WorkTypes seeded successfully.");
+            }
+        }
+        private static async Task SeedPostWorkTypes(AppDbContext applicationDbContext, ExcelPackage package)
+        {
+            var sheet = package.Workbook.Worksheets["PostWorkTypes"];
+            if (sheet != null && !applicationDbContext.PostWorkTypes.Any())
+            {
+                Console.WriteLine("Seeding PostWorkTypes...");
+                for (int row = 2; row <= sheet.Dimension.Rows; row++)
+                {
+                    var postWorkType = new PostWorkType
+                    {
+                        PostId = int.Parse(sheet.Cells[row, 2].Text),
+                        WorkTypeId = int.Parse(sheet.Cells[row, 3].Text),
+
+                    };
+
+                    applicationDbContext.PostWorkTypes.Add(postWorkType);
+                }
+
+                await applicationDbContext.SaveChangesAsync();
+                Console.WriteLine("PostWorkTypes seeded successfully.");
+            }
+        }
         private static async Task SeedCountries(AppDbContext applicationDbContext, ExcelPackage package)
         {
             var sheet = package.Workbook.Worksheets["Countries"];
@@ -526,6 +579,29 @@ namespace RecruitmentApp.Seed
 
                 await applicationDbContext.SaveChangesAsync();
                 Console.WriteLine("Countries seeded successfully.");
+            }
+        }
+
+        private static async Task SeedCompanyTypes(AppDbContext applicationDbContext, ExcelPackage package)
+        {
+            var sheet = package.Workbook.Worksheets["CompanyTypes"];
+            if (sheet != null && !applicationDbContext.CompanyTypes.Any())
+            {
+                Console.WriteLine("Seeding CompanyTypes...");
+                for (int row = 2; row <= sheet.Dimension.Rows; row++)
+                {
+                    var companyType = new CompanyType
+                    {
+                        Slug = AppUtilities.GenerateSlug(sheet.Cells[row, 2].Text),
+                        Name = sheet.Cells[row, 2].Text,
+
+                    };
+
+                    applicationDbContext.CompanyTypes.Add(companyType);
+                }
+
+                await applicationDbContext.SaveChangesAsync();
+                Console.WriteLine("CompanyTypes seeded successfully.");
             }
         }
     }
