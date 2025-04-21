@@ -1,4 +1,5 @@
 ﻿using RecruitmentApp.Models;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace RecruitmentApp.Validation
@@ -7,11 +8,21 @@ namespace RecruitmentApp.Validation
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var post = (Post)validationContext.ObjectInstance;
+            var instance = validationContext.ObjectInstance;
+            var type = instance.GetType();
 
-            if ((double)value < post.MinSalary)
+            var minProp = type.GetProperty("MinSalary");
+            var maxProp = type.GetProperty("MaxSalary");
+
+            if (minProp == null || maxProp == null)
+                return ValidationResult.Success;
+
+            double minSalary = Convert.ToDouble(minProp.GetValue(instance));
+            double maxSalary = Convert.ToDouble(maxProp.GetValue(instance));
+
+            if (minSalary > maxSalary)
             {
-                return new ValidationResult("MaxSalary must be greater than or equal to MinSalary.");
+                return new ValidationResult("Lương tối thiểu không được lớn hơn lương tối đa.");
             }
 
             return ValidationResult.Success;
