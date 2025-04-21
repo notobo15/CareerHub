@@ -13,6 +13,8 @@ namespace RecruitmentApp.Models
         public string Name { get; set; }
 
         public ICollection<CompanyIndustry> CompanyIndustries { get; set; }
+        public ICollection<UserIndustry> UserIndustries { get; set; }
 
+        public ICollection<PostIndustry> PostIndustries { get; set; }
     }
 }

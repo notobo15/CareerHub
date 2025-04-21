@@ -8,15 +8,12 @@ namespace RecruitmentApp.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int PostLocationId { get; set; }
+        public int Id { get; set; }
 
         public int LocationId { get; set; }
         public Location Location { get; set; }
 
         public int PostID { get; set; }
         public Post Post { get; set; }
-
-
-        public ICollection<PostLocations> Locations { get; set; }
     }
 }

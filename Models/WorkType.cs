@@ -4,18 +4,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RecruitmentApp.Models
 {
-    public class Title
+    public class WorkType
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-
-        public int Id { get; set; }
-
+        public int WorkTypeId { get; set; }
         [Required]
+        [Display(Name = "Tên hình thức làm việc")]
         public string Name { get; set; }
         public string Slug { get; set; }
 
-        public virtual List<Post> Posts { get; set; }
-        public ICollection<PostTitle> PostTitles { get; set; }
+        public ICollection<PostWorkType> PostWorkTypes { get; set; }
     }
 }

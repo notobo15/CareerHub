@@ -40,6 +40,7 @@ namespace RecruitmentApp.Models
         public string WorkingTime { get; set; }
         //[Required]
         public string LogoImage { get; set; }
+        public string LogoFullPath { get; set; }
         //[Required]
         public string CompanyUrl { get; set; }
         public string CompanyFbUrl { get; set; }
@@ -53,15 +54,18 @@ namespace RecruitmentApp.Models
         public string WhyJoinUs { get; set; }
 
 
-        [ForeignKey("Id")]
-        public string RecruiterId { get; set; }
-        public AppUser Recruiter { get; set; }
+        public int? WorkTypeId { get; set; }
+        public WorkType WorkType { get; set; }
 
+
+        public int? CompanyTypeId { get; set; }
+        public CompanyType CompanyType { get; set; }
         public ICollection<Post> Posts  { get; set; }
         public ICollection<Address> Addresses { get; set; }
         public ICollection<CompanySkills> CompanySkills { get; set; }
         public ICollection<Follower> Followers { get; set; }
         public ICollection<Location> Locations { get; set; }
+        public ICollection<Review> Reviews { get; set; }
 
         //  public virtual ICollection<Skill> Skills { get; set; }
 
@@ -75,5 +79,7 @@ namespace RecruitmentApp.Models
         public ICollection<CompanyIndustry> CompanyIndustries { get; set; }
         public int? CountryId { get; set; }
         public Country Country { get; set; }
+
+        public ICollection<AppUser> Recruiters { get; set; }
     }
 }

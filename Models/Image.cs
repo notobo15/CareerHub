@@ -10,7 +10,9 @@ namespace RecruitmentApp.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ImageId { get; set; }
+        public int Order { get; set; }
         public string FileName { get; set; }
+        public string FullPath { get; set; }
 
         public int? CompanyId { get; set; }
         public Company Company { get; set; }

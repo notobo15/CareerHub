@@ -44,7 +44,7 @@ namespace RecruitmentApp.Models
         public string JobRequirement { get; set; }
 
         [Column(TypeName = "ntext")]
-        public string Benifit { get; set; }
+        public string Benefit { get; set; }
 
         public int? CompanyId { get; set; }
         public Company Company { get; set; }
@@ -66,10 +66,12 @@ namespace RecruitmentApp.Models
         // public virtual ICollection<Company> Companies { get; set; }
 
         public ICollection<PostSkills> PostSkills { get; set; }
+        public ICollection<PostWorkType> PostWorkTypes { get; set; }
         public ICollection<PostLevel> PostLevels { get; set; }
         public ICollection<Favorite> Favorites { get; set; }
         public ICollection<PostLocations> PostLocations { get; set; }
-
+        public ICollection<PostIndustry> PostIndustries { get; set; }
+        public ICollection<ApplyPost> ApplyPosts { get; set; }
         // public virtual ICollection<AppUser> Favourites { get; set; }
 
         public int? LocationId { get; set; }
@@ -83,6 +85,10 @@ namespace RecruitmentApp.Models
 
         [NotMapped]
         public int[] LevelIds { get; set; }
+
+
+        public ICollection<PostTitle> PostTitles { get; set; }
+
 
         // public string salaryToString()
         // {
@@ -109,7 +115,7 @@ namespace RecruitmentApp.Models
             {
                 if (MinSalary != 0 && MaxSalary != 0)
                 {
-                    return $"{MinSalary.ToString("#,##0.###")} - {MaxSalary.ToString("#,##0.###")} USD";
+                    return $"{MinSalary.ToString("#,##0.###")} - {MaxSalary.ToString("#,##0.###")} VNĐ";
                 }
             }
             else if (SalaryType?.ToLower() == "up_to")
