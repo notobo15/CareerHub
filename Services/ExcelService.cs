@@ -103,7 +103,7 @@ namespace RecruitmentApp.Services
 
                             JobRequirement = worksheet.Cells[row,7].Value?.ToString(),
 
-                            Benifit = worksheet.Cells[row,8].Value?.ToString(),
+                            Benefit = worksheet.Cells[row,8].Value?.ToString(),
 
                             DegreeRequirement = worksheet.Cells[row,9].Value?.ToString(),
 
