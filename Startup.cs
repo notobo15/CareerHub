@@ -1,10 +1,12 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Localization.Routing;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Data.SqlClient;
@@ -15,17 +17,21 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using OfficeOpenXml;
+using RecruitmentApp.Areas.Admin.Email.Services;
 using RecruitmentApp.Data;
+using RecruitmentApp.Hubs;
 using RecruitmentApp.Models;
 using RecruitmentApp.Seed;
 using RecruitmentApp.Services;
+using RecruitmentApp.Services.Users;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-// dotnet aspnet-codegenerator controller -name PostController -m RecruitmentApp.Models.Company -dc AppDbContext -outDir Controllers -namespace RecruitmentApp.Controllers
+
+
 namespace RecruitmentApp
 {
     public class Startup
@@ -42,6 +48,8 @@ namespace RecruitmentApp
         {
 
             services.AddLocalization(o => { o.ResourcesPath = "Resources"; });
+
+
             services.AddControllersWithViews()
                     .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
                     .AddDataAnnotationsLocalization();
@@ -54,9 +62,17 @@ namespace RecruitmentApp
                     new CultureInfo("vi"),
                 };
 
-                options.DefaultRequestCulture = new RequestCulture(supportedCultures.First());
+                options.DefaultRequestCulture = new RequestCulture(supportedCultures[0]);
                 options.SupportedCultures = supportedCultures;
                 options.SupportedUICultures = supportedCultures;
+
+
+
+                // options.AddInitialRequestCultureProvider(new CustomRequestCultureProvider(async context =>
+                // {
+                //     // My custom request culture logic
+                //     return await Task.FromResult(new ProviderCultureResult("en"));
+                // }));
             });
 
             services.AddOptions();
@@ -65,21 +81,22 @@ namespace RecruitmentApp
             services.AddSingleton<IEmailSender, SendMailService>();
 
 
-            services.AddControllersWithViews();
             services.AddRazorPages();
-            // Đăng ký AppDbContext, sử dụng kết nối đến MS SQL Server
-            services.AddDbContext<AppDbContext>(options => {
-               string connectstring = Configuration.GetConnectionString("DbContext");
-                options.UseSqlServer(connectstring);
+
+            services.AddDbContext<AppDbContext>(options =>
+            {
+                string connectstring = Configuration.GetConnectionString("DbContext");
+                options.UseSqlServer(connectstring, sqlOptions => sqlOptions.EnableRetryOnFailure());
                 //options.UseMySql(connectstring, ServerVersion.AutoDetect(connectstring));
             });
-            // Đăng ký các dịch vụ của Identity
+
             services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
             // Truy cập IdentityOptions
-            services.Configure<IdentityOptions>(options => {
+            services.Configure<IdentityOptions>(options =>
+            {
                 // Thiết lập về Password
                 options.Password.RequireDigit = false; // Không bắt phải có số
                 options.Password.RequireLowercase = false; // Không bắt phải có chữ thường
@@ -105,12 +122,45 @@ namespace RecruitmentApp
             });
 
             // Cấu hình Cookie
-            services.ConfigureApplicationCookie(options => {
-                // options.Cookie.HttpOnly = true;  
+            services.ConfigureApplicationCookie(options =>
+            {
+            // options.Cookie.HttpOnly = true;  
+            options.Events = new CookieAuthenticationEvents
+            {
+                OnRedirectToLogin = context =>
+                {
+                    var requestPath = context.Request.Path;
+
+                    if (requestPath.StartsWithSegments("/admin", StringComparison.OrdinalIgnoreCase))
+                    {
+                        context.Response.Redirect("/admin/account/login?returnUrl=" + Uri.EscapeDataString(context.Request.Path));
+                    }
+                    else if (requestPath.StartsWithSegments("/", StringComparison.OrdinalIgnoreCase))
+                    {
+                        context.Response.Redirect("/auth/login?returnUrl=" + Uri.EscapeDataString(context.Request.Path));
+                    }
+                    else
+                    {
+                        context.Response.Redirect("/login?returnUrl=" + Uri.EscapeDataString(context.Request.Path));
+                    }
+
+                    return Task.CompletedTask;
+                },
+
+                    OnRedirectToAccessDenied = context =>
+                    {
+                        // Cũng có thể xử lý tương tự cho trang AccessDenied nếu muốn
+                        context.Response.Redirect("/access-denied");
+                        return Task.CompletedTask;
+                    }
+                };
+
+
+
                 options.ExpireTimeSpan = TimeSpan.FromDays(30);
-                options.LoginPath = $"/login/";                                 // Url đến trang đăng nhập
+                //options.LoginPath = $"/admin/account/login";                                 // Url đến trang đăng nhập
                 options.LogoutPath = $"/logout/";
-                options.AccessDeniedPath = $"/Account/AccessDenied";   // Trang khi User bị cấm truy cập
+                //options.AccessDeniedPath = $"/Account/AccessDenied";   // Trang khi User bị cấm truy cập
             });
             services.Configure<SecurityStampValidatorOptions>(options =>
             {
@@ -124,8 +174,10 @@ namespace RecruitmentApp
             services.AddAuthorization(options =>
             {
                 // User thỏa mãn policy khi có roleclaim: permission với giá trị manage.user
-                options.AddPolicy("AdminDropdown", policy => {
-                    options.AddPolicy("ViewManageMenu", builder => {
+                options.AddPolicy("AdminDropdown", policy =>
+                {
+                    options.AddPolicy("ViewManageMenu", builder =>
+                    {
                         builder.RequireAuthenticatedUser();
                         builder.RequireRole(RoleName.Administrator);
                     });
@@ -135,39 +187,55 @@ namespace RecruitmentApp
             });
 
             services.AddAuthentication()
-                 .AddGoogle(options => {
+                 .AddGoogle(options =>
+                 {
                      var gconfig = Configuration.GetSection("Authentication:Google");
                      options.ClientId = gconfig["ClientId"];
                      options.ClientSecret = gconfig["ClientSecret"];
                      // https://localhost:5001/signin-google
                      options.CallbackPath = "/dang-nhap-tu-google";
+                     options.ClaimActions.MapJsonKey("image", "picture");
+                     //  options.Scope.Add("https://www.googleapis.com/auth/userinfo.email");
+                     //  options.Scope.Add("https://www.googleapis.com/auth/userinfo.profile");
+                     //  options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
+                     //  options.Scope.Add("https://www.googleapis.com/auth/user.phonenumbers.read");
+
+                     options.SaveTokens = true;
                  })
-                 .AddFacebook(options => {
+                 .AddFacebook(options =>
+                 {
                      var fconfig = Configuration.GetSection("Authentication:Facebook");
                      options.AppId = fconfig["AppId"];
                      options.AppSecret = fconfig["AppSecret"];
                      options.CallbackPath = "/dang-nhap-tu-facebook";
                  })
-                 // .AddTwitter()
-                 // .AddMicrosoftAccount()
                  ;
-
+            using (var scope = services.BuildServiceProvider())
+            {
+                var dbContext = scope.GetRequiredService<AppDbContext>();
+                var roleManager = scope.GetRequiredService<RoleManager<IdentityRole>>();
+                var userManager = scope.GetRequiredService<UserManager<AppUser>>();
+                dbContext.Database.EnsureCreated();
+                //dbContext.Database.Migrate();
+                SeedDefault.SeedAsync(dbContext).Wait();
+                IdentitySeed.SeedRolesAndAdminAsync(roleManager, userManager).Wait();
+            }
             // Lowercase routes
-            // services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
-
-            var serviceProvider = services.BuildServiceProvider();
-            using var scope = serviceProvider.CreateScope();
-            var scopedServices = scope.ServiceProvider;
-
-            var dbContext = scopedServices.GetRequiredService<AppDbContext>();
-
-            SeedDefault.SeedAsync(dbContext).Wait();
-
-
+            services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
+            services.AddScoped<HeaderService>();
+            services.AddScoped<PostService>();
+            services.AddScoped<CompanyService>();
+            services.AddScoped<PostService>();
+            services.AddHttpClient(); // Để inject HttpClient
+            services.AddScoped<ImageService>();
+            services.AddSignalR();
+            services.AddScoped<EmailStatsService>();
+            services.AddScoped<UserService>();
+            services.AddScoped<ReviewStatsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -178,12 +246,20 @@ namespace RecruitmentApp
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
+                try
+                {
+                    using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+                    serviceScope.ServiceProvider.GetService<AppDbContext>().Database.Migrate();
+                }
+                catch
+                {
+                }
             }
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
-			app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions()
             {
@@ -206,41 +282,34 @@ namespace RecruitmentApp
                     CultureInfo.CurrentUICulture = culture;
                 }
                 await next();
-            });
+            }); 
 
             app.UseAuthentication();
             app.UseRouting();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<MailHub>("/mailhub");
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "/{controller=Home}/{action=Index}/{id?}");
-              
-              //  endpoints.MapControllerRoute(
-               //    name: "Recruiters",
-               //    pattern: "nha-tuyen-dung/{controller=ManageInfo}/{action=Index}/{id?}",
-               //    defaults: new { area = "Recruiters" });
-
-               // endpoints.MapAreaControllerRoute(
-              //    name: "Admin",
-              //    areaName: "Admin",
-              //    pattern: "admin/{controller=Home}/{action=Index}/{id?}");
-
+                    pattern: "{controller=Home}/{action=Index}/{id?}"
+                    );
+                endpoints.MapControllerRoute(
+                  name: "areas",
+                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
             });
 
         }
+
     }
+
 }
 /*
+dotnet aspnet-codegenerator controller -name PostController -m RecruitmentApp.Models.Company -dc AppDbContext -outDir Controllers -namespace RecruitmentApp.Controllers
  
  dotnet aspnet-codegenerator controller -name LevelController -m RecruitmentApp.Models.Level -dc AppDbContext -outDir Areas/Levels/Controllers -namespace RecruitmentApp.Areas.Levels.Controllers -l _AdminLayout
  dotnet aspnet-codegenerator controller -name PostController -m RecruitmentApp.Models.Post -dc AppDbContext -outDir Areas/Posts/Controllers -namespace RecruitmentApp.Areas.Posts.Controllers 
  dotnet aspnet-codegenerator controller -name SkillController -m RecruitmentApp.Models.Skill -dc AppDbContext -outDir Areas/Skills/Controllers -namespace RecruitmentApp.Areas.Skills.Controllers
  
-
-dotnet add package Microsoft.EntityFrameworkCore.Design --version 6.0.13
-dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 6.0.13
-dotnet add package Microsoft.EntityFrameworkCore.SqlServer.Design --version 1.1.6
-dotnet add package Microsoft.EntityFrameworkCore.Tools --version 6.0.13
  */
