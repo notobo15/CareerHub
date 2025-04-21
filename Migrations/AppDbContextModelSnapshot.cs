@@ -217,11 +217,18 @@ namespace RecruitmentApp.Migrations
                     b.Property<string>("FileName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FilePath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OriginFileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PostID")
@@ -236,7 +243,7 @@ namespace RecruitmentApp.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("applyPosts");
+                    b.ToTable("ApplyPosts");
                 });
 
             modelBuilder.Entity("RecruitmentApp.Models.AppUser", b =>
@@ -244,18 +251,39 @@ namespace RecruitmentApp.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("AboutMe")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("AcademicLevel")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("AllowJobInvitations")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("BirthDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CoverLetter")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("CurrentSalary")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -264,18 +292,26 @@ namespace RecruitmentApp.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<byte>("Gender")
-                        .HasColumnType("TINYINT");
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("HomeAdress")
-                        .HasMaxLength(400)
-                        .HasColumnType("nvarchar(400)");
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LevelId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<decimal?>("MaxExpectedSalary")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("MinExpectedSalary")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -291,14 +327,24 @@ namespace RecruitmentApp.Migrations
                     b.Property<string>("PersonLink")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PersonalLink")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("ProvinceCode")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShortName")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
@@ -307,7 +353,17 @@ namespace RecruitmentApp.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<int?>("WorkTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("YearsOfExperience")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("LevelId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -317,7 +373,110 @@ namespace RecruitmentApp.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
+                    b.HasIndex("ProvinceCode");
+
+                    b.HasIndex("WorkTypeId");
+
                     b.ToTable("Users", (string)null);
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.Award", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IssueMonth")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IssueYear")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Organization")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Awards");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.BlockCompanyInvitation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("BlockCompanyInvitations");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.Certificate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IssueMonth")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IssueYear")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Organization")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Certificates");
                 });
 
             modelBuilder.Entity("RecruitmentApp.Models.Company", b =>
@@ -330,6 +489,9 @@ namespace RecruitmentApp.Migrations
 
                     b.Property<string>("CompanyFbUrl")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CompanyTypeId")
+                        .HasColumnType("int");
 
                     b.Property<string>("CompanyUrl")
                         .HasColumnType("nvarchar(max)");
@@ -358,6 +520,9 @@ namespace RecruitmentApp.Migrations
                     b.Property<bool>("IsShowCompanyUrl")
                         .HasColumnType("bit");
 
+                    b.Property<string>("LogoFullPath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("LogoImage")
                         .HasColumnType("nvarchar(max)");
 
@@ -380,9 +545,6 @@ namespace RecruitmentApp.Migrations
                     b.Property<string>("Reason")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RecruiterId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("ShortDescription")
                         .HasColumnType("nvarchar(max)");
 
@@ -404,14 +566,19 @@ namespace RecruitmentApp.Migrations
                     b.Property<string>("WhyJoinUs")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("WorkTypeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("WorkingTime")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CompanyId");
 
+                    b.HasIndex("CompanyTypeId");
+
                     b.HasIndex("CountryId");
 
-                    b.HasIndex("RecruiterId");
+                    b.HasIndex("WorkTypeId");
 
                     b.ToTable("Companies");
                 });
@@ -450,6 +617,26 @@ namespace RecruitmentApp.Migrations
                     b.HasIndex("CompanyID");
 
                     b.ToTable("CompanySkills");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.CompanyType", b =>
+                {
+                    b.Property<int>("CompanyTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CompanyTypeId"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Slug")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CompanyTypeId");
+
+                    b.ToTable("CompanyTypes");
                 });
 
             modelBuilder.Entity("RecruitmentApp.Models.Contact", b =>
@@ -552,6 +739,198 @@ namespace RecruitmentApp.Migrations
                     b.ToTable("Districts");
                 });
 
+            modelBuilder.Entity("RecruitmentApp.Models.Education", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Details")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("FromMonth")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FromYear")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsStudying")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Major")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("School")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ToMonth")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ToYear")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Educations");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.Email.Attachment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("FileSize")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("MailId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MailId");
+
+                    b.ToTable("Attachments");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.Email.Label", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Color")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Labels");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.Email.Mail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Body")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDraft")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsImportant")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSpam")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsStarred")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsTrash")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("ReplyToMailId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SenderId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("SentAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReplyToMailId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("Mails");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.Email.MailLabel", b =>
+                {
+                    b.Property<int>("MailId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LabelId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.HasKey("MailId", "LabelId");
+
+                    b.HasIndex("LabelId");
+
+                    b.ToTable("MailLabels");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.Email.MailRecipient", b =>
+                {
+                    b.Property<int>("MailId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.HasKey("MailId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("MailRecipients");
+                });
+
             modelBuilder.Entity("RecruitmentApp.Models.Favorite", b =>
                 {
                     b.Property<string>("UserID")
@@ -569,15 +948,18 @@ namespace RecruitmentApp.Migrations
 
             modelBuilder.Entity("RecruitmentApp.Models.Follower", b =>
                 {
-                    b.Property<string>("UserID")
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("CompanyID")
+                    b.Property<int?>("CompanyId")
                         .HasColumnType("int");
 
-                    b.HasKey("UserID", "CompanyID");
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
-                    b.HasIndex("CompanyID");
+                    b.HasKey("UserId", "CompanyId");
+
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("Followers");
                 });
@@ -599,8 +981,14 @@ namespace RecruitmentApp.Migrations
                     b.Property<string>("FileName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FullPath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -672,6 +1060,50 @@ namespace RecruitmentApp.Migrations
                     b.ToTable("Locations");
                 });
 
+            modelBuilder.Entity("RecruitmentApp.Models.PersonalProject", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("EndMonth")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EndYear")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsOngoing")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ProjectName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StartMonth")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StartYear")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UrlProject")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PersonalProjects");
+                });
+
             modelBuilder.Entity("RecruitmentApp.Models.Post", b =>
                 {
                     b.Property<int>("PostId")
@@ -686,7 +1118,7 @@ namespace RecruitmentApp.Migrations
                     b.Property<string>("AppUserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Benifit")
+                    b.Property<string>("Benefit")
                         .HasColumnType("ntext");
 
                     b.Property<int?>("CompanyId")
@@ -784,6 +1216,29 @@ namespace RecruitmentApp.Migrations
                     b.ToTable("Posts");
                 });
 
+            modelBuilder.Entity("RecruitmentApp.Models.PostIndustry", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("IndustryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IndustryId");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("PostIndustries");
+                });
+
             modelBuilder.Entity("RecruitmentApp.Models.PostLevel", b =>
                 {
                     b.Property<int>("LevelID")
@@ -801,11 +1256,11 @@ namespace RecruitmentApp.Migrations
 
             modelBuilder.Entity("RecruitmentApp.Models.PostLocations", b =>
                 {
-                    b.Property<int>("PostLocationId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PostLocationId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("LocationId")
                         .HasColumnType("int");
@@ -813,16 +1268,11 @@ namespace RecruitmentApp.Migrations
                     b.Property<int>("PostID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PostLocationsPostLocationId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PostLocationId");
+                    b.HasKey("Id");
 
                     b.HasIndex("LocationId");
 
                     b.HasIndex("PostID");
-
-                    b.HasIndex("PostLocationsPostLocationId");
 
                     b.ToTable("PostLocations");
                 });
@@ -840,6 +1290,29 @@ namespace RecruitmentApp.Migrations
                     b.HasIndex("PostID");
 
                     b.ToTable("PostSkills");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.PostTitle", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TitleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("TitleId");
+
+                    b.ToTable("PostTitles");
                 });
 
             modelBuilder.Entity("RecruitmentApp.Models.PostView", b =>
@@ -871,6 +1344,53 @@ namespace RecruitmentApp.Migrations
                         .HasFilter("[UserId] IS NOT NULL AND [IpAddress] IS NOT NULL");
 
                     b.ToTable("PostViews");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.PostWorkType", b =>
+                {
+                    b.Property<int>("PostWorkTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PostWorkTypeId"), 1L, 1);
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WorkTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PostWorkTypeId");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("WorkTypeId");
+
+                    b.ToTable("PostWorkTypes");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.PreferredLocation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PreferredLocations");
                 });
 
             modelBuilder.Entity("RecruitmentApp.Models.Province", b =>
@@ -913,6 +1433,133 @@ namespace RecruitmentApp.Migrations
                     b.HasKey("Code");
 
                     b.ToTable("Provinces");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.ResumeFile", b =>
+                {
+                    b.Property<int>("ResumeFileId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ResumeFileId"), 1L, 1);
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsPrimary")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("OrigialFileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("UploadedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ResumeFileId");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("ResumeFiles");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.Review", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CompanyReply")
+                        .HasMaxLength(5000)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CultureRating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Experience")
+                        .IsRequired()
+                        .HasMaxLength(10000)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsOvertimeSatisfied")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ManagementRating")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OfficeRating")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OverallRating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("OvertimeReason")
+                        .HasMaxLength(140)
+                        .HasColumnType("nvarchar(140)");
+
+                    b.Property<bool>("RecommendToFriends")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("RepliedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("RepliedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("SalaryRating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Sentiment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Suggestion")
+                        .IsRequired()
+                        .HasMaxLength(10000)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Summary")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("TrainingRating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("RepliedById");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("RecruitmentApp.Models.Skill", b =>
@@ -964,6 +1611,138 @@ namespace RecruitmentApp.Migrations
                     b.ToTable("Titles");
                 });
 
+            modelBuilder.Entity("RecruitmentApp.Models.UserAppliedPost", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SavedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserAppliedPosts");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.UserIndustry", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("IndustryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IndustryId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserIndustries");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.UserSavedPost", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SavedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserSavedPosts");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.UserSkill", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("SkillId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SkillLevel")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SkillId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserSkills");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.UserViewedPost", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SavedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserViewedPosts");
+                });
+
             modelBuilder.Entity("RecruitmentApp.Models.Ward", b =>
                 {
                     b.Property<string>("Code")
@@ -1007,6 +1786,74 @@ namespace RecruitmentApp.Migrations
                     b.HasIndex("DistrictId");
 
                     b.ToTable("Wards");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.WorkExperience", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Company")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("FromMonth")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FromYear")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsCurrentlyWorking")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("JobTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Project")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ToMonth")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ToYear")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("WorkExperiences");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.WorkType", b =>
+                {
+                    b.Property<int>("WorkTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WorkTypeId"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Slug")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("WorkTypeId");
+
+                    b.ToTable("WorkTypes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1091,7 +1938,7 @@ namespace RecruitmentApp.Migrations
             modelBuilder.Entity("RecruitmentApp.Models.ApplyPost", b =>
                 {
                     b.HasOne("RecruitmentApp.Models.Post", "Post")
-                        .WithMany()
+                        .WithMany("ApplyPosts")
                         .HasForeignKey("PostID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1105,19 +1952,93 @@ namespace RecruitmentApp.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("RecruitmentApp.Models.AppUser", b =>
+                {
+                    b.HasOne("RecruitmentApp.Models.Company", "Company")
+                        .WithMany("Recruiters")
+                        .HasForeignKey("CompanyId");
+
+                    b.HasOne("RecruitmentApp.Models.Level", "CurrentLevel")
+                        .WithMany()
+                        .HasForeignKey("LevelId");
+
+                    b.HasOne("RecruitmentApp.Models.Province", "Province")
+                        .WithMany()
+                        .HasForeignKey("ProvinceCode");
+
+                    b.HasOne("RecruitmentApp.Models.WorkType", "WorkType")
+                        .WithMany()
+                        .HasForeignKey("WorkTypeId");
+
+                    b.Navigation("Company");
+
+                    b.Navigation("CurrentLevel");
+
+                    b.Navigation("Province");
+
+                    b.Navigation("WorkType");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.Award", b =>
+                {
+                    b.HasOne("RecruitmentApp.Models.AppUser", "User")
+                        .WithMany("Awards")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.BlockCompanyInvitation", b =>
+                {
+                    b.HasOne("RecruitmentApp.Models.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RecruitmentApp.Models.AppUser", "User")
+                        .WithMany("BlockedCompanies")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.Certificate", b =>
+                {
+                    b.HasOne("RecruitmentApp.Models.AppUser", "User")
+                        .WithMany("Certificates")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("RecruitmentApp.Models.Company", b =>
                 {
+                    b.HasOne("RecruitmentApp.Models.CompanyType", "CompanyType")
+                        .WithMany("Companies")
+                        .HasForeignKey("CompanyTypeId");
+
                     b.HasOne("RecruitmentApp.Models.Country", "Country")
                         .WithMany("Companies")
                         .HasForeignKey("CountryId");
 
-                    b.HasOne("RecruitmentApp.Models.AppUser", "Recruiter")
+                    b.HasOne("RecruitmentApp.Models.WorkType", "WorkType")
                         .WithMany()
-                        .HasForeignKey("RecruiterId");
+                        .HasForeignKey("WorkTypeId");
+
+                    b.Navigation("CompanyType");
 
                     b.Navigation("Country");
 
-                    b.Navigation("Recruiter");
+                    b.Navigation("WorkType");
                 });
 
             modelBuilder.Entity("RecruitmentApp.Models.CompanyIndustry", b =>
@@ -1167,6 +2088,91 @@ namespace RecruitmentApp.Migrations
                     b.Navigation("Province");
                 });
 
+            modelBuilder.Entity("RecruitmentApp.Models.Education", b =>
+                {
+                    b.HasOne("RecruitmentApp.Models.AppUser", "User")
+                        .WithMany("Educations")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.Email.Attachment", b =>
+                {
+                    b.HasOne("RecruitmentApp.Models.Email.Mail", "Mail")
+                        .WithMany("Attachments")
+                        .HasForeignKey("MailId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Mail");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.Email.Label", b =>
+                {
+                    b.HasOne("RecruitmentApp.Models.AppUser", "User")
+                        .WithMany("Labels")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.Email.Mail", b =>
+                {
+                    b.HasOne("RecruitmentApp.Models.Email.Mail", "ReplyToMail")
+                        .WithMany()
+                        .HasForeignKey("ReplyToMailId");
+
+                    b.HasOne("RecruitmentApp.Models.AppUser", "Sender")
+                        .WithMany("SentMails")
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("ReplyToMail");
+
+                    b.Navigation("Sender");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.Email.MailLabel", b =>
+                {
+                    b.HasOne("RecruitmentApp.Models.Email.Label", "Label")
+                        .WithMany("MailLabels")
+                        .HasForeignKey("LabelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RecruitmentApp.Models.Email.Mail", "Mail")
+                        .WithMany("MailLabels")
+                        .HasForeignKey("MailId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Label");
+
+                    b.Navigation("Mail");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.Email.MailRecipient", b =>
+                {
+                    b.HasOne("RecruitmentApp.Models.Email.Mail", "Mail")
+                        .WithMany("Recipients")
+                        .HasForeignKey("MailId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RecruitmentApp.Models.AppUser", "User")
+                        .WithMany("ReceivedMails")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Mail");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("RecruitmentApp.Models.Favorite", b =>
                 {
                     b.HasOne("RecruitmentApp.Models.Post", "Post")
@@ -1190,13 +2196,13 @@ namespace RecruitmentApp.Migrations
                 {
                     b.HasOne("RecruitmentApp.Models.Company", "Company")
                         .WithMany("Followers")
-                        .HasForeignKey("CompanyID")
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("RecruitmentApp.Models.AppUser", "User")
                         .WithMany("Followers")
-                        .HasForeignKey("UserID")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1233,6 +2239,17 @@ namespace RecruitmentApp.Migrations
                     b.Navigation("Company");
                 });
 
+            modelBuilder.Entity("RecruitmentApp.Models.PersonalProject", b =>
+                {
+                    b.HasOne("RecruitmentApp.Models.AppUser", "User")
+                        .WithMany("PersonalProjects")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("RecruitmentApp.Models.Post", b =>
                 {
                     b.HasOne("RecruitmentApp.Models.Address", "Address")
@@ -1266,6 +2283,25 @@ namespace RecruitmentApp.Migrations
                     b.Navigation("Location");
                 });
 
+            modelBuilder.Entity("RecruitmentApp.Models.PostIndustry", b =>
+                {
+                    b.HasOne("RecruitmentApp.Models.Industry", "Industry")
+                        .WithMany("PostIndustries")
+                        .HasForeignKey("IndustryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RecruitmentApp.Models.Post", "Post")
+                        .WithMany("PostIndustries")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Industry");
+
+                    b.Navigation("Post");
+                });
+
             modelBuilder.Entity("RecruitmentApp.Models.PostLevel", b =>
                 {
                     b.HasOne("RecruitmentApp.Models.Level", "Level")
@@ -1288,7 +2324,7 @@ namespace RecruitmentApp.Migrations
             modelBuilder.Entity("RecruitmentApp.Models.PostLocations", b =>
                 {
                     b.HasOne("RecruitmentApp.Models.Location", "Location")
-                        .WithMany()
+                        .WithMany("PostLocations")
                         .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1298,10 +2334,6 @@ namespace RecruitmentApp.Migrations
                         .HasForeignKey("PostID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("RecruitmentApp.Models.PostLocations", null)
-                        .WithMany("Locations")
-                        .HasForeignKey("PostLocationsPostLocationId");
 
                     b.Navigation("Location");
 
@@ -1327,6 +2359,25 @@ namespace RecruitmentApp.Migrations
                     b.Navigation("Skill");
                 });
 
+            modelBuilder.Entity("RecruitmentApp.Models.PostTitle", b =>
+                {
+                    b.HasOne("RecruitmentApp.Models.Post", "Post")
+                        .WithMany("PostTitles")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RecruitmentApp.Models.Title", "Title")
+                        .WithMany("PostTitles")
+                        .HasForeignKey("TitleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+
+                    b.Navigation("Title");
+                });
+
             modelBuilder.Entity("RecruitmentApp.Models.PostView", b =>
                 {
                     b.HasOne("RecruitmentApp.Models.Post", "Post")
@@ -1344,6 +2395,170 @@ namespace RecruitmentApp.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("RecruitmentApp.Models.PostWorkType", b =>
+                {
+                    b.HasOne("RecruitmentApp.Models.Post", "Post")
+                        .WithMany("PostWorkTypes")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RecruitmentApp.Models.WorkType", "WorkType")
+                        .WithMany("PostWorkTypes")
+                        .HasForeignKey("WorkTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+
+                    b.Navigation("WorkType");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.PreferredLocation", b =>
+                {
+                    b.HasOne("RecruitmentApp.Models.Province", "Province")
+                        .WithMany()
+                        .HasForeignKey("Code");
+
+                    b.HasOne("RecruitmentApp.Models.AppUser", "User")
+                        .WithMany("PreferredLocations")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Province");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.ResumeFile", b =>
+                {
+                    b.HasOne("RecruitmentApp.Models.AppUser", "AppUser")
+                        .WithMany("ResumeFiles")
+                        .HasForeignKey("AppUserId");
+
+                    b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.Review", b =>
+                {
+                    b.HasOne("RecruitmentApp.Models.Company", "Company")
+                        .WithMany("Reviews")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RecruitmentApp.Models.AppUser", "RepliedBy")
+                        .WithMany("Reviews")
+                        .HasForeignKey("RepliedById");
+
+                    b.HasOne("RecruitmentApp.Models.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Company");
+
+                    b.Navigation("RepliedBy");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.UserAppliedPost", b =>
+                {
+                    b.HasOne("RecruitmentApp.Models.Post", "Post")
+                        .WithMany()
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RecruitmentApp.Models.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.UserIndustry", b =>
+                {
+                    b.HasOne("RecruitmentApp.Models.Industry", "Industry")
+                        .WithMany("UserIndustries")
+                        .HasForeignKey("IndustryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RecruitmentApp.Models.AppUser", "User")
+                        .WithMany("UserIndustries")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Industry");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.UserSavedPost", b =>
+                {
+                    b.HasOne("RecruitmentApp.Models.Post", "Post")
+                        .WithMany()
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RecruitmentApp.Models.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.UserSkill", b =>
+                {
+                    b.HasOne("RecruitmentApp.Models.Skill", "Skill")
+                        .WithMany()
+                        .HasForeignKey("SkillId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RecruitmentApp.Models.AppUser", "User")
+                        .WithMany("UserSkills")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Skill");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.UserViewedPost", b =>
+                {
+                    b.HasOne("RecruitmentApp.Models.Post", "Post")
+                        .WithMany()
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RecruitmentApp.Models.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("RecruitmentApp.Models.Ward", b =>
                 {
                     b.HasOne("RecruitmentApp.Models.District", "District")
@@ -1353,13 +2568,52 @@ namespace RecruitmentApp.Migrations
                     b.Navigation("District");
                 });
 
+            modelBuilder.Entity("RecruitmentApp.Models.WorkExperience", b =>
+                {
+                    b.HasOne("RecruitmentApp.Models.AppUser", "User")
+                        .WithMany("WorkExperiences")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("RecruitmentApp.Models.AppUser", b =>
                 {
+                    b.Navigation("Awards");
+
+                    b.Navigation("BlockedCompanies");
+
+                    b.Navigation("Certificates");
+
+                    b.Navigation("Educations");
+
                     b.Navigation("Favorites");
 
                     b.Navigation("Followers");
 
+                    b.Navigation("Labels");
+
+                    b.Navigation("PersonalProjects");
+
                     b.Navigation("Posts");
+
+                    b.Navigation("PreferredLocations");
+
+                    b.Navigation("ReceivedMails");
+
+                    b.Navigation("ResumeFiles");
+
+                    b.Navigation("Reviews");
+
+                    b.Navigation("SentMails");
+
+                    b.Navigation("UserIndustries");
+
+                    b.Navigation("UserSkills");
+
+                    b.Navigation("WorkExperiences");
                 });
 
             modelBuilder.Entity("RecruitmentApp.Models.Company", b =>
@@ -1377,6 +2631,15 @@ namespace RecruitmentApp.Migrations
                     b.Navigation("Locations");
 
                     b.Navigation("Posts");
+
+                    b.Navigation("Recruiters");
+
+                    b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.CompanyType", b =>
+                {
+                    b.Navigation("Companies");
                 });
 
             modelBuilder.Entity("RecruitmentApp.Models.Country", b =>
@@ -1389,9 +2652,27 @@ namespace RecruitmentApp.Migrations
                     b.Navigation("Wards");
                 });
 
+            modelBuilder.Entity("RecruitmentApp.Models.Email.Label", b =>
+                {
+                    b.Navigation("MailLabels");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.Email.Mail", b =>
+                {
+                    b.Navigation("Attachments");
+
+                    b.Navigation("MailLabels");
+
+                    b.Navigation("Recipients");
+                });
+
             modelBuilder.Entity("RecruitmentApp.Models.Industry", b =>
                 {
                     b.Navigation("CompanyIndustries");
+
+                    b.Navigation("PostIndustries");
+
+                    b.Navigation("UserIndustries");
                 });
 
             modelBuilder.Entity("RecruitmentApp.Models.Level", b =>
@@ -1399,20 +2680,28 @@ namespace RecruitmentApp.Migrations
                     b.Navigation("PostLevels");
                 });
 
+            modelBuilder.Entity("RecruitmentApp.Models.Location", b =>
+                {
+                    b.Navigation("PostLocations");
+                });
+
             modelBuilder.Entity("RecruitmentApp.Models.Post", b =>
                 {
+                    b.Navigation("ApplyPosts");
+
                     b.Navigation("Favorites");
+
+                    b.Navigation("PostIndustries");
 
                     b.Navigation("PostLevels");
 
                     b.Navigation("PostLocations");
 
                     b.Navigation("PostSkills");
-                });
 
-            modelBuilder.Entity("RecruitmentApp.Models.PostLocations", b =>
-                {
-                    b.Navigation("Locations");
+                    b.Navigation("PostTitles");
+
+                    b.Navigation("PostWorkTypes");
                 });
 
             modelBuilder.Entity("RecruitmentApp.Models.Province", b =>
@@ -1429,7 +2718,14 @@ namespace RecruitmentApp.Migrations
 
             modelBuilder.Entity("RecruitmentApp.Models.Title", b =>
                 {
+                    b.Navigation("PostTitles");
+
                     b.Navigation("Posts");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.WorkType", b =>
+                {
+                    b.Navigation("PostWorkTypes");
                 });
 #pragma warning restore 612, 618
         }
