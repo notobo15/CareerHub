@@ -1,63 +1,49 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Bogus.DataSets;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using RecruitmentApp.Models;
+using RecruitmentApp.Services.Users;
 
 namespace RecruitmentApp.Areas.User.Home.Controllers
 {
     [Area("User/Home")]
-    [Route("/home")]
-    [Route("/trang-chu")]
+    [Route("")]
+
     public class HomeController : Controller
     {
 
         private readonly AppDbContext _dbContext;
-        private readonly IStringLocalizer<HomeController> _localizer;
-        public HomeController(AppDbContext dbContext, IStringLocalizer<HomeController> localizer)
+        private readonly CompanyService _companyService;
+        private readonly PostService _postService;
+        public HomeController(AppDbContext dbContext, CompanyService companyService, PostService postService)
         {
             _dbContext = dbContext;
-            _localizer = localizer;
+            _companyService = companyService;
+            _postService = postService;
         }
 
         [HttpGet]
         [Route("")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-              var companies = _dbContext.Companies
-                  .Include(c => c.CompanySkills)
-                  .ThenInclude(ck => ck.Skill)
-                  .Include(c => c.Locations)
-                  .ThenInclude(l => l.Address)
-                  .ThenInclude(p => p.City)
-                  //.Include(c => c.Posts)
-                  //.Include(c => c.Addresses)
-                  .Include(c => c.Posts)
-                .OrderBy(c => c.CompanyId)
-                .Distinct()
-                .Take(6)
-                .ToList();
-            var posts = _dbContext.Posts
-                .Include(p => p.PostSkills)
-                .ThenInclude(pk => pk.Skill)
-                .Include(p => p.Company)
-
-                .Include(p => p.Location)
-                .ThenInclude(pl => pl.Address)
-                .ThenInclude(pla => pla.City)
-
-                .Take(8)
-                .ToList();
-
+            var companies = await _companyService.GetTopCompaniesAsync(8);
+            var posts = await _postService.GetLatestPostsAsync(8);
+            ViewData["Title"] = "CareerHub | Việc làm IT Nhất Dành Cho Bạn";
             ViewData["companies"] = companies;
             ViewData["posts"] = posts;
-            ViewData["totalPosts"] = _dbContext.Posts.Count();
+            ViewData["totalPosts"] = await _dbContext.Posts.CountAsync();
             return View();
         }
         [HttpPost]
+        [Route("set-language")]
         public IActionResult SetLanguage(string culture, string returnUrl)
         {
             Response.Cookies.Append(
@@ -68,5 +54,17 @@ namespace RecruitmentApp.Areas.User.Home.Controllers
 
             return LocalRedirect(returnUrl);
         }
+        [Route("condition")]
+        public IActionResult Condition()
+        {
+            return View();
+        }
+        [Route("policy")]
+        public IActionResult Policy()
+        {
+            return View();
+        }
+
+
     }
 }

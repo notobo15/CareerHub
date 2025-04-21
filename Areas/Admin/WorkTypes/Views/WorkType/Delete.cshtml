@@ -1,0 +1,61 @@
+﻿@model RecruitmentApp.Models.WorkType
+
+@{
+    ViewData["Title"] = "Xoá hình thức làm việc";
+}
+
+<!-- Breadcrumb -->
+<nav class="page-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Hình thức làm việc</li>
+        <li class="breadcrumb-item active" aria-current="page">Xoá</li>
+    </ol>
+</nav>
+
+<!-- Tiêu đề -->
+<div class="row">
+    <div class="col-md-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="font-weight-bold text-danger">Xác nhận xoá</h4>
+                <p>Bạn có chắc chắn muốn xoá hình thức làm việc sau không?</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chi tiết cần xoá -->
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.WorkTypeId)</dt>
+                    <dd class="col-sm-10">@Html.DisplayFor(model => model.WorkTypeId)</dd>
+
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Name)</dt>
+                    <dd class="col-sm-10">@Html.DisplayFor(model => model.Name)</dd>
+
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Slug)</dt>
+                    <dd class="col-sm-10">@Html.DisplayFor(model => model.Slug)</dd>
+                </dl>
+
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="WorkTypeId" />
+                    <div class="form-group d-flex gap-2 mt-4">
+                        <button type="submit" class="btn btn-danger d-inline-flex align-items-center">
+                            <i data-feather="trash-2" class="me-1 icon-md"></i> Xoá
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary d-inline-flex align-items-center">
+                            <i data-feather="x" class="me-1 icon-md"></i> Huỷ
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>feather.replace();</script>
+}

@@ -1,0 +1,123 @@
+﻿@inject RecruitmentApp.Services.HeaderService headerService
+
+@model RecruitmentApp.ModelViews.PersonalDetailsViewModel
+
+@{
+	var provinces = headerService.GetMenuProvinces();
+
+	var provinceItems = new SelectList(provinces, "Code", "Name", Model.Province);
+}
+
+<form class="contact-info-edit" asp-action="SavePersonalDetail" asp-controller="Profile" method="post" enctype="multipart/form-data">
+	@Html.AntiForgeryToken()
+	<div class="modal-content border-radius-normal box-shadow-dark">
+		<div class="modal-header ips-5 ips-xl-8 ipe-5 ipe-xl-5 ipy-4">
+			<h2 class="modal-title text-it-black">Personal details</h2>
+			<button aria-label="Close" class="btn-close modal-fluid__close" data-dismiss="modal" type="button"></button>
+		</div>
+		<div class="modal-body ipt-6 ipb-8 ipx-5 ipx-xl-8">
+			<div class="row imx-0">
+				<div class="col-12 col-xl-3 text-center ipx-0 ipe-xl-3">
+					<div class="mx-auto">
+						<img id="avatarPreview" class="avatar ls-is-cached lazyloaded" alt="Avatar Profile" src="~/images/icons/avatar-default.svg">
+					</div>
+					<div class="d-flex justify-content-center align-items-center imt-4">
+						<input class="form-control d-none" accept="image/jpeg,image/png" type="file" asp-for="AvatarFile">
+						<label class="cursor-pointer text-it-red" asp-for="AvatarFile">
+							<div class="d-flex">
+								<p class="d-flex align-items-center">
+									<i class="feather-icon icon-sm icon-md" data-feather="camera">
+									</i>
+								</p>
+								<p class="text-truncated ims-1">Edit</p>
+							</div>
+						</label>
+						<div class="ims-6 cursor-pointer text-rich-grey" id="deleteAvatarBtn">
+							<div class="d-flex">
+								<p class="d-flex align-items-center">
+									<i class="feather-icon icon-sm icon-md" data-feather="trash-2"></i>
+								</p><p class="text-truncated ims-1">Delete</p><p></p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-xl-9 ipx-0 ips-xl-3 imt-6 imt-xl-0">
+					<div class="row imx-0">
+						<div class="form-floating col-12 ipx-0">
+							<input placeholder="Full name" class="form-control" asp-for="FullName">
+							<label asp-for="FullName">
+								Full name
+								<span class="irequired">*</span>
+							</label>
+						</div>
+						<div class="form-floating imt-6 col-12 ipx-0">
+							<input placeholder="Title" class="form-control" asp-for="Title">
+							<label asp-for="Title">
+								Title
+								<span class="irequired">*</span>
+							</label>
+						</div>
+						<div class="form-floating imt-6 col-12 col-xl-6 ipx-0 ipe-0 ipe-xl-6">
+							<input class="form-control" disabled="disabled" type="email" asp-for="Email">
+							<label asp-for="Email">Email address</label>
+						</div>
+						<div class="form-floating imt-6 col-12 col-xl-6 ipx-0">
+							<input placeholder="Phone number" class="form-control" asp-for="PhoneNumber">
+							<label asp-for="PhoneNumber">
+								Phone number
+								<span class="irequired">*</span>
+							</label>
+						</div>
+						<div class="form-floating icon-inside imt-6 col-12 col-xl-6 ipx-0 ipe-0 ipe-xl-6">
+							<input placeholder="Date of Birth" class="form-control" asp-for="BirthDate" type="text">
+							<label asp-for="BirthDate">
+								Date of Birth
+								<span class="irequired">*</span>
+							</label>
+							<div class="avatar-group__calendar position-absolute">
+								<label class="cursor-pointer" asp-for="BirthDate">
+									<i class="feather-icon icon-md" data-feather="calendar"></i>
+								</label>
+							</div>
+						</div>
+						<div class="form-floating imt-6 col-12 col-xl-6 ipx-0">
+							<select class="form-control" placeholder="Gender" asp-for="Gender">
+								<option value="0">Female</option>
+								<option selected="1" value="male">Male</option>
+								<option value="2">Others</option>
+							</select>
+							<label asp-for="Gender">
+								Gender
+							</label>
+						</div>
+						<div class="form-floating imt-6 col-12 col-xl-6 ipx-0 ipe-0 ipe-xl-6">
+							<select class="form-control" placeholder="Current province/city" asp-for="Province" asp-items="provinceItems">
+							</select>
+							<label asp-for="Province">
+								Current province/city
+								<span class="irequired">*</span>
+							</label>
+							<div id="province_error"></div>
+						</div>
+						<div class="form-floating imt-6 col-12 col-xl-6 ipx-0">
+							<input asp-for="Address" placeholder="Address (Street, district,...)" class="form-control" maxlength="255" size="255" type="text" value="Bình Tân" name="profile[address]" id="profile_address">
+							<label asp-for="Address" for="profile_address">Address (Street, district,...)</label>
+						</div>
+						<div class="form-floating imt-6 col-12 ipx-0">
+							<input asp-for="PersonalLink" placeholder="Personal link (Linkedin, porfolio,...)" class="form-control">
+							<label asp-for="PersonalLink">Personal link (Linkedin, porfolio,...)</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer justify-content-between justify-content-md-end p-0 ipx-5 ipx-xl-8 ipy-2">
+			<button class="ibtn ibtn-sm ibtn-tertiary flex-grow-1 flex-md-grow-0 imy-0 ime-4 fw-400" data-dismiss="modal" type="button">
+				Cancel
+			</button>
+			<button class="ibtn ibtn-sm ibtn-primary flex-grow-1 flex-md-grow-0 im-0" type="submit">
+				Save
+			</button>
+		</div>
+	</div>
+</form>

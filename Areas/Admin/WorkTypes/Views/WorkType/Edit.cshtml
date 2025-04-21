@@ -1,0 +1,73 @@
+﻿@model RecruitmentApp.Models.WorkType
+
+@{
+    ViewData["Title"] = "Chỉnh sửa hình thức làm việc";
+}
+
+<!-- Breadcrumb -->
+<nav class="page-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Hình thức làm việc</li>
+        <li class="breadcrumb-item active" aria-current="page">Chỉnh sửa</li>
+    </ol>
+</nav>
+
+<!-- Tiêu đề -->
+<div class="row">
+    <div class="col-md-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="font-weight-bold mb-0">@ViewData["Title"]</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Form chỉnh sửa -->
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-md-6">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <input type="hidden" asp-for="WorkTypeId" />
+
+                        <div class="form-group">
+                            <label asp-for="Name" class="form-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger small"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Slug" class="form-label"></label>
+                            <input asp-for="Slug" class="form-control" />
+                            <span asp-validation-for="Slug" class="text-danger small"></span>
+                        </div>
+
+                        <div class="form-group d-flex gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary d-inline-flex align-items-center">
+                                <i data-feather="save" class="me-1 icon-md"></i> Lưu thay đổi
+                            </button>
+                            <a asp-action="Index" class="btn btn-outline-secondary d-inline-flex align-items-center">
+                                <i data-feather="x" class="me-1 icon-md"></i> Huỷ
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Back to list -->
+<a asp-action="Index" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center mt-3">
+    <i data-feather="chevron-left" class="me-1 icon-md"></i> Quay về danh sách
+</a>
+
+@section Scripts {
+    <script>
+        feather.replace();
+    </script>
+}

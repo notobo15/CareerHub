@@ -1,0 +1,126 @@
+﻿@model EducationViewModel
+
+@{
+	var years = DateTimeUtils.GetYearList();
+	var months = DateTimeUtils.GetMonthList();
+	var isEdit = Model.EducationId > 0;
+}
+<form id="education-form" method="post" asp-action="@(isEdit ? "EditEducation" : "SaveEducation")" asp-controller="Profile">
+	<input type="hidden" asp-for="EducationId" />
+	<div class="modal-content border-radius-normal box-shadow-dark" x-data="{ isStudying: @Model.IsStudying.ToString().ToLower() }">
+		<div class="modal-header ips-5 ips-xl-8 ipe-5 ipe-xl-5 ipy-4">
+			<h2 class="modal-title text-it-black">Education</h2>
+			<button aria-label="Close" class="btn-close modal-fluid__close" data-dismiss="modal" type="button"></button>
+		</div>
+		<div class="modal-body ipt-6 ipb-8 ipx-5 ipx-xl-8">
+			<div class="row imx-0">
+				<div class="form-floating col-12 ipx-0">
+					<input placeholder="Enter a school" class="form-control" type="text" asp-for="School" />
+					<label for="education_school" asp-for="School">
+						School
+						<span class="irequired">*</span>
+					</label>
+					<span class="validate error-text small-text" asp-validation-for="School"></span>
+				</div>
+				<div class="form-floating imt-6 col-12 ipx-0">
+					<input placeholder="Enter a major" class="form-control" asp-for="Major" type="text" />
+					<label asp-for="Major">
+						Major
+						<span class="irequired">*</span>
+					</label>
+					<span class="validate error-text small-text" asp-validation-for="Major"></span>
+				</div>
+				<div class="imt-6 ipx-0">
+					<label class="icheckbox user-select-none" asp-for="IsStudying">
+						<input asp-for="IsStudying" type="checkbox" x-model="isStudying" />
+						<span>I am currently studying here</span>
+					</label>
+				</div>
+				<div class="row imt-6 ipx-0 ims-0">
+					<div class="col-6 col-md-3 ips-0 ipe-2">
+						<h4>
+							<label>
+								From
+								<span class="irequired">*</span>
+							</label>
+						</h4>
+						<div class="imt-3">
+							<div class="form-floating">
+								<select asp-for="FromMonth" class="form-select started_at_month_new_education month" placeholder="Chọn tháng" asp-items="months"></select>
+
+								<label asp-for="FromMonth">
+									Month
+								</label>
+								<span class="validate error-text small-text" asp-validation-for="FromMonth"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-6 col-md-3 ips-2 ipe-0 ipe-md-6">
+						<br>
+						<div class="imt-5">
+							<div class="form-floating">
+								<select asp-for="FromYear" class="form-select started_at_year_new_education year" placeholder="Chọn năm" asp-items="years"></select>
+
+								<label asp-for="FromYear">
+									Year
+								</label>
+								<span class="validate error-text small-text" asp-validation-for="FromYear"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-6 col-md-3 ips-0 ipe-2 ipe-md-4 ipt-6 ipt-md-0">
+						<h4>
+							<label>
+								To
+								<span class="irequired">*</span>
+							</label>
+						</h4>
+						<div class="imt-3">
+							<div class="form-floating">
+								<select x-bind:disabled="isStudying" asp-for="ToMonth" class="form-select ended_at_month_new_education month" placeholder="Chọn tháng" asp-items="months"></select>
+								<label asp-for="ToMonth">
+									Month
+								</label>
+								<span class="validate error-text small-text" asp-validation-for="ToYear"></span>
+
+							</div>
+						</div>
+					</div>
+					<div class="col-6 col-md-3 ips-2 ipe-0 ipx-md-0">
+						<h4 class="d-md-none">
+							<label></label>
+						</h4>
+						<br>
+						<div class="imt-5">
+							<div class="form-floating">
+								<select x-bind:disabled="isStudying" asp-for="ToYear" class="form-select ended_at_year_new_education year" placeholder="Chọn năm" asp-items="years"></select>
+								<label asp-for="ToYear">
+									Year
+								</label>
+								<span class="validate error-text small-text" asp-validation-for="ToYear"></span>
+
+							</div>
+						</div>
+					</div>
+					<div class="show_error_validate_date_range error-text small-text">
+						@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+					</div>
+				</div>
+				<div class="form-floating imt-6 col-12 ipx-0">
+					<input placeholder="Additional details" asp-for="Details" class="form__textarea form-control" type="text">
+					<label asp-for="Details">Additional details</label>
+					<span class="validate error-text small-text" asp-validation-for="Details"></span>
+
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer justify-content-between justify-content-md-end p-0 ipx-5 ipx-xl-8 ipy-2">
+			<button class="ibtn ibtn-sm ibtn-tertiary flex-grow-1 flex-md-grow-0 imy-0 ime-4 fw-400" data-dismiss="modal" type="button">
+				Cancel
+			</button>
+			<button class="ibtn ibtn-sm ibtn-primary flex-grow-1 flex-md-grow-0 im-0" type="submit">
+				Save
+			</button>
+		</div>
+	</div>
+</form>

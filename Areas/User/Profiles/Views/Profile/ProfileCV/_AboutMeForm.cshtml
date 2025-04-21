@@ -1,0 +1,42 @@
+﻿@model RecruitmentApp.ModelViews.AboutMeViewModel
+
+<form id="about-me-form" asp-action="SaveAboutMe" method="post" asp-controller="Profile">
+
+	<div class="modal-content border-radius-normal box-shadow-dark">
+		@Html.AntiForgeryToken()
+		<div class="modal-header ips-5 ips-xl-8 ipe-5 ipe-xl-5 ipy-4">
+			<h2 class="modal-title text-it-black">About Me</h2>
+			<button aria-label="Close" class="btn-close modal-fluid__close" data-dismiss="modal" type="button"></button>
+		</div>
+		<div class="modal-body ipt-6 ipb-8 ipx-5 ipx-xl-8">
+			<div>
+				<div class="placeholder-tips imb-3 imb-md-6 justify-content-start align-items-start align-items-md-center">
+					<div class="placeholder-tips-icon" data-action="close">
+						<i class="feather-icon text-white" data-feather="feather"></i>
+					</div>
+					<div class="placeholder-tips-text ims-2 normal-text">
+						<b><span style="color: #FF9119">Tips:</span></b> Summarize your professional experience, highlight your skills and your strengths.
+					</div>
+				</div>
+				@Html.Partial("_TrixEditor", new TrixEditorModel
+				{
+					AspFor = "AboutMe",
+					Value = Model.AboutMe,
+					Height = 300,
+					MaxLength = 1500,
+					Placeholder = "Giới thiệu bản thân...",
+					EnableCounter = true,
+					Disabled = false
+				})
+			</div>
+		</div>
+		<div class="modal-footer justify-content-between justify-content-md-end p-0 ipx-5 ipx-xl-8 ipy-2">
+			<button class="ibtn ibtn-sm ibtn-tertiary flex-grow-1 flex-md-grow-0 imy-0 ime-4 fw-400" data-dismiss="modal" type="button">
+				Cancel
+			</button>
+			<button class="ibtn ibtn-sm ibtn-primary flex-grow-1 flex-md-grow-0 im-0" type="submit">
+				Save
+			</button>
+		</div>
+	</div>
+</form>

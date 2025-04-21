@@ -1,0 +1,111 @@
+﻿@model RecruitmentApp.ModelViews.GeneralInfoViewModel
+
+@using RecruitmentApp.Services
+@inject HeaderService headerService
+
+@{
+	var yearsOfExperience = headerService.GetMenuYearsOfExperience();
+
+
+}
+
+<div class="modal-content border-radius-normal box-shadow-dark">
+	<form asp-action="SaveGeneralInfo" asp-controller="Profile" method="post" id="GeneralInfoForm">
+		<div class="modal-header ips-5 ips-xl-8 ipe-5 ipe-xl-5 ipy-4">
+			<h2 class="modal-title text-it-black">General Information</h2>
+			<button data-action="close" class="btn-close modal-fluid__close" data-dismiss="modal" type="button"></button>
+		</div>
+
+		<div class="modal-body ipt-6 ipb-8 ipx-5 ipx-xl-8">
+
+			<div class="general-information d-flex flex-column">
+				<div class="single-select col-12 imb-6">
+					<h4 class="imb-2">
+						Total years of experience
+						<span class="irequired">*</span>
+					</h4>
+					<select placeholder="Select year" required="required" class="form-select" asp-for="YearsOfExperience">
+						@foreach (var y in yearsOfExperience)
+						{
+							<option value="@y.Key" selected="@(y.Key == Model.YearsOfExperience)">@y.Value</option>
+						}
+					</select>
+
+
+					<div id="totalYearsOfExperienceError"></div>
+				</div>
+				<div class="single-select col-12 imb-6">
+					<h4 class="imb-2">
+						Current job level
+						<span class="irequired">*</span>
+					</h4>
+					<select asp-for="LevelId" placeholder="Select level" required="required" class="form-select" asp-items="Model.Levels">
+					</select>
+					<div id="currentLevelError"></div>
+				</div>
+				<div class="select-model col-12 imb-6">
+					<h4 class="imb-2">
+						Expected working model
+						<span class="irequired">*</span>
+					</h4>
+					<select asp-for="WorkTypeId" placeholder="Select model" required="required" class="form-select" asp-items="Model.WorkTypes">
+					</select>
+					<span class="helper-text imt-1">
+						Allow multiple selections
+					</span>
+					<div id="workingModelError"></div>
+				</div>
+				<div class="select-industry col-12 imb-6">
+					<h4 class="imb-2">
+						Industry experience (domain)
+						<span class="irequired">*</span>
+					</h4>
+					<select asp-for="SelectedIndustryIds" asp-items="Model.Industries" placeholder="Select industry" required="required" multiple="multiple" class="form-select"></select>
+					<div class="ifs-14 text-rich-grey imt-1">
+						<span class="quantityIndustry">0/5</span>
+						industries
+					</div>
+					<div id="companyIndustryError"></div>
+				</div>
+				<div class="d-flex flex-column flex-xl-row">
+					<div class="expected-salary col-12 col-xl-6 imb-6 imb-xl-0 ime-xl-6">
+						<h4 class="imb-2">
+							Expected salary (per month)
+							<span class="irequired">*</span>
+						</h4>
+						<div class="d-flex flex-wrap">
+							<div class="expect-salary-range d-flex">
+								<div class="flex-grow-1">
+									<input class="form-control currency-input" maxlength="11" placeholder="From" required="required" type="text" asp-for="MinExpectedSalary" />
+								</div>
+								<span class="ipy-3 ipx-1 text-rich-grey fw-600">-</span>
+								<div class="flex-grow-1">
+									<input class="form-control currency-input" maxlength="11" placeholder="To" required="required" type="text" asp-for="MaxExpectedSalary" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="current-salary col-12 col-xl-6 ipe-xl-8">
+						<h4 class="imb-2">
+							Current salary (per month)
+						</h4>
+						<div class="d-flex">
+							<div class="flex-grow-1">
+								<input class="form-control currency-input" maxlength="11" placeholder="Enter number" type="text" asp-for="CurrentSalary" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="modal-footer justify-content-between justify-content-md-end p-0 ipx-5 ipx-xl-8 ipy-2">
+			<button data-dismiss="modal" class="ibtn ibtn-sm ibtn-tertiary flex-grow-1 flex-md-grow-0 imy-0 ime-4 fw-400" type="button">
+				Cancel
+			</button>
+			<button class="ibtn ibtn-sm ibtn-primary flex-grow-1 flex-md-grow-0 im-0" type="submit">
+				Save
+			</button>
+		</div>
+	</form>
+</div>

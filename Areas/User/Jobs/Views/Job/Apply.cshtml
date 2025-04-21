@@ -1,0 +1,228 @@
+@using RecruitmentApp.Areas.User.Jobs.ModelViews
+@model ApplyPostViewModel
+@{
+	ViewData["Title"] = "Ứng tuyển công việc";
+	Layout = "_BlankLayout";
+}
+
+@* <h3>@ViewData["Title"]</h3> *@
+
+@* <form asp-controller="Job" asp-action="Apply" enctype="multipart/form-data" method="post"> *@
+@* 	@Html.HiddenFor(m => m.PostId) *@
+
+@* 	<div class="form-group"> *@
+@* 		<label>Họ tên</label> *@
+@* 		@Html.TextBoxFor(m => m.Name, new { @class = "form-control" }) *@
+@* 		@Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" }) *@
+@* 	</div> *@
+
+@* 	<div class="form-group"> *@
+@* 		<label>Số điện thoại</label> *@
+@* 		@Html.TextBoxFor(m => m.Phone, new { @class = "form-control" }) *@
+@* 		@Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" }) *@
+@* 	</div> *@
+
+@* 	<div class="form-group"> *@
+@* 		<label>Thư giới thiệu (Cover letter)</label> *@
+@* 		@Html.TextAreaFor(m => m.Description, new { @class = "form-control", rows = 4 }) *@
+@* 	</div> *@
+
+@* 	<div class="form-group"> *@
+@* 		<label>Chọn CV đã lưu</label> *@
+@* 		@Html.DropDownListFor(m => m.SelectedResumeFileId, Model.ResumeFiles, "-- Chọn CV mặc định --", new { @class = "form-control" }) *@
+@* 	</div> *@
+
+@* 	<div class="form-group"> *@
+@* 		<label>Hoặc tải CV mới</label> *@
+@* 		<input type="file" name="UploadedFile" class="form-control" /> *@
+@* 	</div> *@
+
+@* 	<button type="submit" class="btn btn-primary">Gửi ứng tuyển</button> *@
+@* </form> *@
+
+<div class="d-flex flex-column min-vh-main">
+
+
+	<div class="flex-grow-1">
+
+		<div class="main ipx-0">
+			<div class="gradient-light-grey-background d-none d-md-block"></div>
+			<div class="icontainer-sm apply-page">
+				<div class="d-flex align-items-center text-center position-relative top-branding-background">
+					<div class="position-absolute" data-controller="quit-confirmation">
+						<a class="d-flex align-items-center hyperlink text-it-white" asp-action="Detail" asp-route-slug="@Model.slugPost">
+							<i class="feather-icon icon-md" data-feather="chevron-left"></i>
+							<div class="d-none d-md-flex">
+								Back
+							</div>
+						</a>
+						<div aria-hidden="" class="modal fade" data-quit-confirmation-target="backModal" tabindex="-1">
+							<div class="modal-dialog modal-dialog-centered imodal-default-width">
+								<div class="modal-content">
+									<div class="d-flex">
+										<div class="d-flex flex-grow-1 ipt-6 ips-6 ipe-4 ipt-md-8 ips-md-8">
+											<h2 class="text-it-black">Quit applying</h2>
+										</div>
+										<button aria-label="Close" class="btn-close imt-5 ime-5" data-bs-dismiss="modal" type="button"></button>
+									</div>
+									<div class="ipt-3 ipx-6 ipx-md-8 ipb-6 ipb-md-8">
+										<p class="paragraph text-rich-grey text-start">
+											Changes you made so far will not be saved. Are you sure you want to quit this page?
+										</p>
+									</div>
+									<div class="d-flex flex-column flex-md-row align-items-md-center align-items-stretch ipb-6 ipx-6 ipx-md-8 justify-content-end">
+										<div class="d-flex flex-column-reverse flex-md-row ibtn-group-gap">
+											<button class="ibtn ibtn-tertiary flex-grow-1 flex-md-grow-0" data-bs-dismiss="modal" type="button">
+												Continue applying
+											</button>
+											<a class="ibtn ibtn-md ibtn-primary flex-grow-1 flex-md-grow-0" data-controller="utm-tracking" href="/it-jobs/senior-manager-qa-qc-engineer-tester-japanese-n2-andpad-vietnam-co-ltd-4341">Confirm</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="imy-6 m-auto">
+						<img class="logo-itviec" alt="logo-itviec" src="~/images/logo.png" width="180" height="auto">
+					</div>
+				</div>
+
+				<div class="ipx-5 ipy-6 ip-xl-8 bg-it-white box-shadow-normal border-radius-large">
+					<h2 class="imb-6">Senior/Manager QA QC Engineer (Tester, Japanese N2+) at ANDPAD VietNam Co., Ltd</h2>
+					<form id="apply_form" asp-controller="Job" asp-action="Apply" enctype="multipart/form-data" method="post">
+						@Html.HiddenFor(m => m.PostId)
+						<div class="form-group imb-6">
+							<h3 class="imb-3 text-it-black">
+								Your CV
+								<span class="irequired">*</span>
+							</h3>
+							<input value="1" name="last_cv" id="job_application_last_cv" data-job-applications--new-target="lastCv" autocomplete="off" type="hidden">
+							@if (!string.IsNullOrEmpty(Model.PrimaryResumeName))
+							{
+								<label class="iradio ip-4 imb-4 border-radius-normal select-cv-wrapper w-100 cursor-pointer active">
+									<input checked="" name="selectCVRadio" type="radio" class="is-valid">
+									<span>
+										<div>
+											Use your current CV
+											<div class="d-flex align-items-center imt-2">
+												<a target="_blank" rel="noopener" class="hyperlink" href="/cv-preview">3121410082_Nguyễn-Thanh-Bình_DCT1211_Seminar-Chuyên-đề_Mid-Term (2).pdf</a>
+												<a target="_blank" class="d-flex align-items-center ims-2" href="/cv-preview">
+													<i class="feather-icon icon-sm hyperlink" data-feather="eye"></i>
+
+												</a>
+											</div>
+											<div class="imt-1 small-text text-dark-grey">
+												Upload date: 25-03-2025
+											</div>
+										</div>
+									</span>
+								</label>
+							}
+							<label class="iradio ip-4 border-radius-normal select-cv-wrapper w-100 cursor-pointer">
+								<input name="selectCVRadio" type="radio" class="is-valid">
+								<span>
+									<div>
+										Upload a new CV
+										<div class="imt-3 d-flex flex-column flex-xl-row align-items-xl-center">
+											<label asp-for="UploadedFile">
+												<div class="ibtn ibtn-sm ibtn-secondary w-100 cursor-pointer">
+													<div class="d-flex">
+														<p class="d-flex align-items-center">
+															<i class="feather-icon icon-sm icon-md" data-feather="upload"></i>
+														</p><p class="text-truncated ims-2">Choose file</p><p></p>
+													</div>
+												</div>
+											</label>
+
+											<div class="imt-2 imt-xl-0 ims-xl-3 newFileName">
+												No file chosen
+											</div>
+										</div>
+										<input class="d-none ignore" type="file" asp-for="UploadedFile">
+										<div id="job_application_cv_local-error" class="invalid-feedback">This field is required.</div>
+										<div class="imt-2 small-text text-dark-grey">Please upload a .doc, .docx, or .pdf file, maximum 3MB and no password protection</div>
+									</div>
+								</span>
+							</label>
+
+						</div>
+						<div class="form-group imb-6">
+							<h3 class="imb-3 text-it-black">Personal information</h3>
+							<div class="form-floating imb-4">
+								<input class="form-control" asp-for="Name">
+								<label asp-for="Name">
+									Full name
+									<span class="irequired">*</span>
+								</label>
+							</div>
+							<div class="form-floating imb-4">
+								<input class="form-control" asp-for="Phone">
+								<label asp-for="Phone">
+									Phone number
+									<span class="irequired">*</span>
+								</label>
+							</div>
+							<div class="form-floating">
+								<select asp-for="Phone" class="form-control form-select">
+									<option value="Đà Nẵng">Đà Nẵng</option>
+									<option value="Others">Others</option>
+									<option selected="selected" value="TP Hồ Chí Minh">TP Hồ Chí Minh</option>
+									<option selected="selected" value="Hà Nội">Hà Nội</option>
+								</select>
+								<label>
+									Preferred work location
+									<span class="irequired">*</span>
+								</label>
+								<div class="imt-1 small-text text-dark-grey">
+									<span data-location-selection-target="counter">2/3</span>
+									<span>locations</span>
+								</div>
+								<div id="preferred_work_locations_error"></div>
+							</div>
+						</div>
+						<div class="form-group imb-6" data-char-counter-locale-value="en" data-char-counter-max-length-value="500" data-controller="char-counter">
+							<h3 class="imb-3 text-it-black">
+								Cover Letter
+								<span class="text-dark-grey fw-400 normal-text">(Optional)</span>
+							</h3>
+							<label class="imb-3 text-rich-grey" for="job_application_advantages"><p>Which position would you like to apply? (Senior or Manager)</p></label>
+							<div>
+								<textarea asp-for="Description" placeholder="Details and specific examples will make your application stronger..." class="form-control text-area-field">e</textarea>
+							</div>
+							<div class="text-dark-grey text-start" data-char-counter-target="display">475 of 500 characters remaining</div>
+						</div>
+						<button class="ibtn ibtn-primary ibtn-md w-100" type="submit">
+							Send my CV
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+
+@section Scripts {
+	<script>
+		$(document).ready(function () {
+			$("#UploadedFile").on("change", function () {
+				const file = this.files[0];
+				if (file) {
+					$("#fileNameDisplay").text(file.name);
+				}
+			});
+
+			$('#UploadedFile').on('change', function () {
+			const file = this.files[0];
+			if (file) {
+				$('.newFileName').text(file.name);
+			} else {
+				$('.newFileName').text("No file chosen");
+			}
+		});
+		});
+	</script>
+}

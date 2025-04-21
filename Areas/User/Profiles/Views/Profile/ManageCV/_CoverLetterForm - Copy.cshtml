@@ -1,0 +1,44 @@
+﻿@model RecruitmentApp.ModelViews.CoverLetterViewModel
+<div class="bg-white imt-5 ipx-5 ipy-6 ip-xl-6 border-radius-large-xl box-shadow-normal" id="cover_letter">
+	<turbo-frame id="cover_letter">
+		<div class="position-relative content-container-mobile">
+			<h2 class="imb-3">Cover Letter</h2>
+
+
+			<div class="@(string.IsNullOrWhiteSpace(Model.CoverLetter) ? "d-none" : "d-block") cover-letter-display">
+				<div class="border-bottom-solid imb-4"></div>
+				<div class="paragraph">@Model.CoverLetter</div>
+				<div class="edit-button cursor-pointer">
+					<i class="feather-icon text-it-red icon-md" data-feather="edit"></i>
+				</div>
+			</div>
+
+			<div class="@(string.IsNullOrWhiteSpace(Model.CoverLetter) ? "d-block" : "d-none") cover-letter-view">
+				<div class="position-relative imt-2">
+					<div class="text-dark-grey">Introduce yourself and why you'd make a great hire</div>
+					<div class="placeholder-image">
+						<img src="~/images/icons/cover_letter_no_info.svg" alt="cover_letter_no_info" />
+					</div>
+				</div>
+				<div class="edit-button vertical-middle cursor-pointer">
+					<i class="feather-icon text-it-red icon-md" data-feather="edit"></i>
+				</div>
+			</div>
+
+			<div class="d-none cover-letter-edit">
+				<hr class="text-silver-grey">
+				<div class="my-4">
+					<span class="placeholder-tip d-block my-4 fst-italic">Tips: Start by describing what you bring to the table and why this job excites you</span>
+					<form asp-action="SaveCoverLetter" asp-controller="Profile" method="post">
+						<textarea asp-for="CoverLetter" class="form-control" rows="6" style=""></textarea>
+						<span class="increase-counter">0/500 characters</span>
+						<div class="col-12 button-group d-flex justify-content-end">
+							<span class="cancel-button ibtn ibtn-sm ibtn-tertiary ime-5">Cancel</span>
+							<input type="submit" name="commit" value="Save" class="ibtn ibtn-sm ibtn-primary" data-disable-with="Save">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</turbo-frame>
+</div>

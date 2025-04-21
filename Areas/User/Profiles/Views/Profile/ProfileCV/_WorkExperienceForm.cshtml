@@ -1,0 +1,300 @@
+﻿@model WorkExperienceViewModel
+
+@{
+	var years = DateTimeUtils.GetYearList();
+	var months = DateTimeUtils.GetMonthList();
+	var isEdit = Model.Id > 0;
+}
+
+<form id="experience-form" class="working-experience-form" method="post" asp-action="@(isEdit ? "EditWorkExperience" : "SaveWorkExperience")" asp-controller="Profile">
+	<input type="hidden" asp-for="Id" />
+	<div class="modal-content border-radius-normal box-shadow-dark">
+		<div class="modal-header ips-5 ips-xl-8 ipe-5 ipe-xl-5 ipy-4">
+			<h2 class="modal-title text-it-black">Work Experience</h2>
+			<button aria-label="Close" class="btn-close modal-fluid__close" data-dismiss="modal" type="button"></button>
+		</div>
+		<div class="modal-body ipt-6 ipb-8 ipx-5 ipx-xl-8">
+			<div class="row imx-0">
+				<div class="form-floating col-12 ipx-0 dropdown">
+					<input placeholder="Enter job title" class="form-control dropdown-toggle" asp-for="JobTitle">
+
+					<label asp-for="JobTitle">
+						Job title
+						<span class="irequired">*</span>
+					</label>
+					<span class="validate error-text small-text" asp-validation-for="JobTitle"></span>
+				</div>
+				<div class="form-floating imt-6 col-12 ipx-0 dropdown">
+					<input placeholder="Enter an employer" class="form-control dropdown-toggle" asp-for="Company">
+					<label for="Company">
+						Company
+						<span class="irequired">*</span>
+					</label>
+					<span class="validate error-text small-text" asp-validation-for="Company"></span>
+				</div>
+				<div class="imt-6 ipx-0">
+					<label class="icheckbox user-select-none" for="IsCurrentlyWorking">
+						<input asp-for="IsCurrentlyWorking" />
+						<span>I am currently working here</span>
+					</label>
+				</div>
+				<div class="row imt-6 ipx-0 ims-0">
+					<div class="col-6 col-md-3 ips-0 ipe-2">
+						<h4>
+							<label>
+								From
+								<span class="irequired">*</span>
+							</label>
+						</h4>
+						<div class="imt-3">
+							<div class="form-floating">
+								<select asp-for="FromMonth" class="form-select started_at_month_new_experience month" asp-items="months"></select>
+								<label asp-for="FromMonth">
+									Month
+								</label>
+								<span class="validate error-text small-text" asp-validation-for="FromMonth"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-6 col-md-3 ips-2 ipe-0 ipe-md-6">
+						<br>
+						<div class="imt-5">
+							<div class="form-floating">
+								<select class="form-select started_at_year_new_experience year" asp-for="FromYear" asp-items="years"></select>
+
+								<label asp-for="FromYear">
+									Year
+								</label>
+								<span class="validate error-text small-text" asp-validation-for="FromYear"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-6 col-md-3 ips-0 ipe-2 ipe-md-4 ipt-6 ipt-md-0">
+						<h4>
+							<label>
+								To
+								<span class="irequired">*</span>
+							</label>
+						</h4>
+						<div class="imt-3">
+							<div class="form-floating">
+								<select asp-for="ToMonth" class="form-select month" asp-items="months"></select>
+
+								<label asp-for="ToMonth">
+									Month
+								</label>
+								<span class="validate error-text small-text" asp-validation-for="ToMonth"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-6 col-md-3 ips-2 ipe-0 ipx-md-0">
+						<h4 class="d-block d-md-none">
+							<label></label>
+						</h4>
+						<br>
+						<div class="imt-5">
+							<div class="form-floating">
+								<select class="form-select year" asp-for="ToYear" asp-items="years">
+								</select>
+
+								<label asp-for="ToYear">
+									Year
+								</label>
+								<span class="validate error-text small-text" asp-validation-for="ToYear"></span>
+							</div>
+						</div>
+					</div>
+					<div class="show_error_validate_date_range error-text small-text">
+
+						@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+					</div>
+				</div>
+				<div class="imt-6 ipx-0">
+					<div id="custom-trix-editor">
+						<h4 class="text-it-black">
+							Description
+						</h4>
+						<div class="placeholder-tips imt-2 imb-3 imb-md-6 justify-content-start align-items-start">
+							<div class="placeholder-tips-icon">
+								<i class="feather-icon text-white" data-feather="feather"></i>
+							</div>
+							<div class="placeholder-tips-text ims-2 normal-text">
+								<b><span style="color: #FF9119">Tips:</span></b> Brief the company's industry, then detail your responsibilities and achievements. For  projects, write on the <b>"Project"</b> field below.
+							</div>
+						</div>
+						<input type="hidden" asp-for="Description" />
+						<trix-toolbar id="trix-toolbar-2">
+							<div class="trix-button-row">
+								<span class="trix-button-group trix-button-group--text-tools" data-trix-button-group="text-tools">
+									<button type="button" class="trix-button trix-button--icon trix-button--icon-bold" data-trix-attribute="bold" data-trix-key="b" title="Bold" tabindex="-1">Bold</button>
+									<button type="button" class="trix-button trix-button--icon trix-button--icon-italic" data-trix-attribute="italic" data-trix-key="i" title="Italic" tabindex="-1">Italic</button>
+									<button type="button" class="trix-button trix-button--icon trix-button--icon-strike" data-trix-attribute="strike" title="Strikethrough" tabindex="-1">Strikethrough</button>
+									<button type="button" class="trix-button trix-button--icon trix-button--icon-link" data-trix-attribute="href" data-trix-action="link" data-trix-key="k" title="Link" tabindex="-1">Link</button>
+									<button type="button" class="trix-button trix-button--icon trix-button--icon-underline" data-trix-attribute="underline" title="Underline"></button>
+								</span>
+
+								<span class="trix-button-group trix-button-group--block-tools" data-trix-button-group="block-tools">
+									<button type="button" class="trix-button trix-button--icon trix-button--icon-heading-1" data-trix-attribute="heading1" title="Heading" tabindex="-1">Heading</button>
+									<button type="button" class="trix-button trix-button--icon trix-button--icon-quote" data-trix-attribute="quote" title="Quote" tabindex="-1">Quote</button>
+									<button type="button" class="trix-button trix-button--icon trix-button--icon-code" data-trix-attribute="code" title="Code" tabindex="-1">Code</button>
+									<button type="button" class="trix-button trix-button--icon trix-button--icon-bullet-list" data-trix-attribute="bullet" title="Bullets" tabindex="-1">Bullets</button>
+									<button type="button" class="trix-button trix-button--icon trix-button--icon-number-list" data-trix-attribute="number" title="Numbers" tabindex="-1">Numbers</button>
+									<button type="button" class="trix-button trix-button--icon trix-button--icon-decrease-nesting-level" data-trix-action="decreaseNestingLevel" title="Decrease Level" tabindex="-1">Decrease Level</button>
+									<button type="button" class="trix-button trix-button--icon trix-button--icon-increase-nesting-level" data-trix-action="increaseNestingLevel" title="Increase Level" tabindex="-1">Increase Level</button>
+								</span>
+
+								<span class="trix-button-group trix-button-group--file-tools" data-trix-button-group="file-tools">
+									<button type="button" class="trix-button trix-button--icon trix-button--icon-attach" data-trix-action="attachFiles" title="Attach Files" tabindex="-1">Attach Files</button>
+								</span>
+
+								<span class="trix-button-group-spacer"></span>
+
+								<span class="trix-button-group trix-button-group--history-tools" data-trix-button-group="history-tools">
+									<button type="button" class="trix-button trix-button--icon trix-button--icon-undo" data-trix-action="undo" data-trix-key="z" title="Undo" tabindex="-1">Undo</button>
+									<button type="button" class="trix-button trix-button--icon trix-button--icon-redo" data-trix-action="redo" data-trix-key="shift+z" title="Redo" tabindex="-1">Redo</button>
+								</span>
+							</div>
+
+							<div class="trix-dialogs" data-trix-dialogs="">
+								<div class="trix-dialog trix-dialog--link" data-trix-dialog="href" data-trix-dialog-attribute="href">
+									<div class="trix-dialog__link-fields">
+										<input type="url" name="href" class="trix-input trix-input--dialog" placeholder="Enter a URL…" aria-label="URL" data-trix-validate-href="" required="" data-trix-input="" disabled="disabled">
+										<div class="trix-button-group">
+											<input type="button" class="trix-button trix-button--dialog" value="Link" data-trix-method="setAttribute">
+											<input type="button" class="trix-button trix-button--dialog" value="Unlink" data-trix-method="removeAttribute">
+										</div>
+									</div>
+								</div>
+							</div>
+						</trix-toolbar>
+						<trix-editor autocomplete="off" rows="6" id="trix-editor-description" class="form-control trix-editor customized-min-height ignore" input="trix-editor-description_trix_input_experience" contenteditable="" role="textbox" trix-id="2" toolbar="trix-toolbar-2"></trix-editor>
+						<span class="small-text text-dark-grey">
+							<span data-character-counter-target="display">0/2500 characters</span>
+						</span>
+						<span class="validate error-text small-text" asp-validation-for="Description"></span>
+					</div>
+				</div>
+				<div class="imt-6 ipx-0">
+					<div id="custom-trix-editor">
+						<h4 class="text-it-black">
+							Project
+						</h4>
+						<div class="placeholder-tips imt-2 imb-3 imb-md-6 justify-content-start align-items-start align-items-md-center">
+							<div class="placeholder-tips-icon">
+								<i class="feather-icon text-white" data-feather="feather"></i>
+							</div>
+							<div class="placeholder-tips-text ims-2 normal-text">
+								<b><span style="color: #FF9119">Tips:</span></b> Include project details, your role, technologies and team size.
+							</div>
+						</div>
+						<div class="position-relative">
+							<input type="hidden" asp-for="Project">
+							<trix-toolbar id="trix-toolbar-3">
+								<div class="trix-button-row">
+									<span class="trix-button-group trix-button-group--text-tools" data-trix-button-group="text-tools">
+										<button type="button" class="trix-button trix-button--icon trix-button--icon-bold" data-trix-attribute="bold" data-trix-key="b" title="Bold" tabindex="-1">Bold</button>
+										<button type="button" class="trix-button trix-button--icon trix-button--icon-italic" data-trix-attribute="italic" data-trix-key="i" title="Italic" tabindex="-1">Italic</button>
+										<button type="button" class="trix-button trix-button--icon trix-button--icon-strike" data-trix-attribute="strike" title="Strikethrough" tabindex="-1">Strikethrough</button>
+										<button type="button" class="trix-button trix-button--icon trix-button--icon-link" data-trix-attribute="href" data-trix-action="link" data-trix-key="k" title="Link" tabindex="-1">Link</button>
+										<button type="button" class="trix-button trix-button--icon trix-button--icon-underline" data-trix-attribute="underline" title="Underline"></button>
+									</span>
+
+									<span class="trix-button-group trix-button-group--block-tools" data-trix-button-group="block-tools">
+										<button type="button" class="trix-button trix-button--icon trix-button--icon-heading-1" data-trix-attribute="heading1" title="Heading" tabindex="-1">Heading</button>
+										<button type="button" class="trix-button trix-button--icon trix-button--icon-quote" data-trix-attribute="quote" title="Quote" tabindex="-1">Quote</button>
+										<button type="button" class="trix-button trix-button--icon trix-button--icon-code" data-trix-attribute="code" title="Code" tabindex="-1">Code</button>
+										<button type="button" class="trix-button trix-button--icon trix-button--icon-bullet-list" data-trix-attribute="bullet" title="Bullets" tabindex="-1">Bullets</button>
+										<button type="button" class="trix-button trix-button--icon trix-button--icon-number-list" data-trix-attribute="number" title="Numbers" tabindex="-1">Numbers</button>
+										<button type="button" class="trix-button trix-button--icon trix-button--icon-decrease-nesting-level" data-trix-action="decreaseNestingLevel" title="Decrease Level" tabindex="-1">Decrease Level</button>
+										<button type="button" class="trix-button trix-button--icon trix-button--icon-increase-nesting-level" data-trix-action="increaseNestingLevel" title="Increase Level" tabindex="-1">Increase Level</button>
+									</span>
+
+									<span class="trix-button-group trix-button-group--file-tools" data-trix-button-group="file-tools">
+										<button type="button" class="trix-button trix-button--icon trix-button--icon-attach" data-trix-action="attachFiles" title="Attach Files" tabindex="-1">Attach Files</button>
+									</span>
+
+									<span class="trix-button-group-spacer"></span>
+
+									<span class="trix-button-group trix-button-group--history-tools" data-trix-button-group="history-tools">
+										<button type="button" class="trix-button trix-button--icon trix-button--icon-undo" data-trix-action="undo" data-trix-key="z" title="Undo" tabindex="-1">Undo</button>
+										<button type="button" class="trix-button trix-button--icon trix-button--icon-redo" data-trix-action="redo" data-trix-key="shift+z" title="Redo" tabindex="-1">Redo</button>
+									</span>
+								</div>
+
+								<div class="trix-dialogs" data-trix-dialogs="">
+									<div class="trix-dialog trix-dialog--link" data-trix-dialog="href" data-trix-dialog-attribute="href">
+										<div class="trix-dialog__link-fields">
+											<input type="url" name="href" class="trix-input trix-input--dialog" placeholder="Enter a URL…" aria-label="URL" data-trix-validate-href="" required="" data-trix-input="" disabled="disabled">
+											<div class="trix-button-group">
+												<input type="button" class="trix-button trix-button--dialog" value="Link" data-trix-method="setAttribute">
+												<input type="button" class="trix-button trix-button--dialog" value="Unlink" data-trix-method="removeAttribute">
+											</div>
+										</div>
+									</div>
+								</div>
+							</trix-toolbar>
+							<trix-editor autocomplete="off" rows="6" id="trix-editor-project" class="form-control trix-editor customized-min-height ignore" data-character-counter-target="input" data-action="input->character-counter#counter" data-direct-upload-url="https://itviec.com/rails/active_storage/direct_uploads" data-blob-url-template="https://itviec.com/rails/active_storage/blobs/redirect/:signed_id/:filename" input="trix-editor-project_trix_input_experience" contenteditable="" role="textbox" trix-id="3" toolbar="trix-toolbar-3"></trix-editor><span class="increase-counter small-text text-dark-grey">
+								<span data-character-counter-target="display">0/2500 characters</span>
+							</span>
+							<span class="validate error-text small-text" asp-validation-for="Project"></span>
+							<div class="d-none" data-users--insert-template-target="templateHtml">
+								<div>
+									<strong>Project name</strong>
+									| 01/2025 - 05/2025
+								</div>
+								<ul>
+									<li>
+										<strong>
+											Description:
+										</strong>
+										Write a short description of your project
+									</li>
+									<li>
+										<strong>
+											Role:
+										</strong>
+										Your role in this project
+									</li>
+									<li>
+										<strong>
+											Responsibilities:
+										</strong>
+										<ul>
+											<li>First responsibility</li>
+											<li>Second responsibility</li>
+										</ul>
+									</li>
+									<li>
+										<strong>
+											Tech stack:
+										</strong>
+										List technologies used
+									</li>
+									<li>
+										<strong>
+											Team size:
+										</strong>
+										x members
+									</li>
+								</ul>
+							</div>
+							<div class="insert-template position-absolute">
+								<button class="insert-template-btn irounded-sm" data-action="click->users--insert-template#insert click->character-counter#reload" type="button">
+									Insert template
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer justify-content-between justify-content-md-end p-0 ipx-5 ipx-xl-8 ipy-2">
+			<button class="ibtn ibtn-sm ibtn-tertiary flex-grow-1 flex-md-grow-0 imy-0 ime-4 fw-400" data-dismiss="modal" type="button">
+				Cancel
+			</button>
+			<button class="ibtn ibtn-sm ibtn-primary flex-grow-1 flex-md-grow-0 im-0" type="submit">
+				Save
+			</button>
+		</div>
+	</div>
+</form>

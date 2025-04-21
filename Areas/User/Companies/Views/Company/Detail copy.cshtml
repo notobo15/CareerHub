@@ -1,0 +1,671 @@
+﻿@using RecruitmentApp.Models
+@using System.Web
+@{
+
+    var company = ViewData["company"] as Company;
+    var locations = ViewData["locations"] as Dictionary<string, List<Address>>;
+}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightbox2/dist/css/lightbox.min.css">
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lightbox2/dist/js/lightbox.min.js"></script>
+<div class="flex-grow-1">
+    <main class="employer-page">
+        <div class="main bg-gradient-search text-white ipt-6 ipb-8 ipy-xl-8">
+            <div class="icontainer">
+                <div class="row gx-0 igx-xl-7">
+                    <div class="col-xl-8">
+                        <div class="d-flex flex-xl-row flex-column">
+                            <div class="d-flex justify-content-center">
+                                <div class="logo border-radius-normal text-center ime-xl-6">
+                                    <picture>
+                                        <source data-srcset="~/images/companies/@company.LogoImage"
+                                            srcset="~/images/companies/@company.LogoImage" />
+                                        <img alt="NAB Innovation Centre Vietnam Vietnam Big Logo"
+                                            class="mw-100 object-fit-contain border-radius-normal lazyloaded"
+                                            data-controller="lazyload"
+                                            data-src="~/images/companies/@company.LogoImage    " height="100%"
+                                            src="~/images/companies/@company.LogoImage" />
+                                    </picture>
+                                </div>
+                            </div>
+                            <div>
+                                <h1 class="text-center text-xl-start ipt-4 ipb-2 ipt-xl-0">
+                                    @company.FullName
+                                </h1>
+                                <div class="d-flex flex-xl-row flex-column">
+                                    <div class="d-flex igap-2 justify-content-center ipb-2 ipb-xl-0 ipe-xl-6">
+                                        <span>
+                                            <i class="feather-icon icon-sm text-dark-grey" data-feather="map-pin"></i>
+
+                                        </span>
+                                        <div class="small-text">
+                                            @string.Join(" - ", company.Locations.Select(c => c.Address.City.Name))
+                                        </div>
+                                    </div>
+                                    <div class="d-flex igap-2 justify-content-center cursor-pointer"
+                                        data-action="click->employers--scroll#goToJobListing">
+                                        <span>
+                                            <i class="feather-icon icon-sm text-dark-grey" data-feather="briefcase"></i>
+                                        </span>
+                                        <div class="small-text text-decoration-underline text-nowrap">
+                                            @company.Posts.Where(c => !c.IsClose).ToList().Count() job openings
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex igap-3 ipt-6 ipb-xl-0">
+                                    <a class="ibtn ibtn-md ibtn-primary ibtn-md-phone w-50 w-xl-auto" rel="nofollow"
+                                        href="/companies/nab-innovation-centre-vietnam/review/new?utm_campaign=button_feature_review&amp;utm_medium=new_review&amp;utm_source=emp_page">
+                                        Write review
+                                    </a>
+
+                                    <a id="follow-button"
+                                        class="ibtn ibtn-md ibtn-secondary ibtn-md-phone w-xl-auto w-50" rel="nofollow"
+                                        href="/companies/nab-innovation-centre-vietnam/followings?locale=en">
+                                        Follow
+                                    </a>
+
+                                    <a id="unfollow-button"
+                                        class="ibtn ibtn-md ibtn-secondary ibtn-md-phone w-xl-auto w-50 d-none ibutton-following"
+                                        rel="nofollow" href="#">
+                                        <div class="positive">
+                                            <div class="d-flex igap-2 align-items-center text-nowrap">
+                                                <i class="feather-icon icon-md" data-feather="check">
+                                                </i>
+
+                                                Following
+                                            </div>
+                                        </div>
+                                        <div class="negative">
+                                            <div class="d-flex igap-2 align-items-center text-nowrap">
+                                                <i class="feather-icon icon-md" data-feather="x">
+                                                </i>
+                                                Unfollow
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4">
+                        <a class="d-flex gx-0 bg-rating-reviews text-white border-radius-normal ip-4 imt-6 imt-xl-0"
+                            data-controller="utm-tracking" href="/companies/nab-innovation-centre-vietnam/review">
+                            <div class="d-flex align-items-center ipe-3 ipe-xl-4 w-50 justify-content-center">
+                                <div class="h1 ipe-2 ipe-xl-3">
+                                    4.7
+                                </div>
+                                <div class="flex-column">
+                                    <div class="box-star-icons text-silver-grey position-relative box-icon-sm">
+                                        <div class="star-icons position-absolute">
+                                            <i class="feather-icon icon-sm" data-feather="star"></i>
+                                            <i class="feather-icon icon-sm" data-feather="star"></i>
+                                            <i class="feather-icon icon-sm" data-feather="star"></i>
+                                            <i class="feather-icon icon-sm" data-feather="star"></i>
+                                            <i class="feather-icon icon-sm" data-feather="star"></i>
+
+
+                                        </div>
+                                        <div class="d-flex align-items-center overflow-hidden position-absolute"
+                                            style="width: 94%;">
+                                            <div class="star-icons text-warning-color">
+                                                <i class="feather-icon icon-sm fill" data-feather="star"></i>
+                                                <i class="feather-icon icon-sm fill" data-feather="star"></i>
+                                                <i class="feather-icon icon-sm fill" data-feather="star"></i>
+                                                <i class="feather-icon icon-sm fill" data-feather="star"></i>
+                                                <i class="feather-icon icon-sm fill" data-feather="star"></i>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="ifs-12 ifs-xl-14 text-lowercase ipt-1">
+                                        55 reviews
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center w-50 justify-content-center">
+                                <div class="d-flex align-items-baseline ipe-2 ipe-xl-3">
+                                    <div class="h1">
+                                        98
+                                    </div>
+                                    <div class="small-text">%</div>
+                                </div>
+                                <div class="ifs-12 ifs-xl-14">
+                                    Recommend working here to a friend
+                                </div>
+                            </div>
+                        </a>
+                        <div class="ipt-6 ipt-xl-5 text-center">
+                            <a target="_blank" rel="nofollow">
+                                <img width="240" height="auto"
+                                    src="https://itviec.com/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBOXVVUUE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--ecab14a987bce6eaa6e360949ba0778c81a77034/Logo%20VBIT%202024-04.png" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main bg-gradient-search text-white ipy-xl-4 ipb-3 header-sticky d-none">
+            <div class="icontainer">
+                <hr class="text-silver-grey m-0 imb-3 d-xl-none" />
+                <div class="row">
+                    <div class="col-xl-8 d-none d-xl-flex">
+                        <div class="d-inline-flex align-items-center">
+                            <h3>@company.FullName</h3>
+                        </div>
+                    </div>
+                    <div class="col-xl-4">
+                        <div class="d-flex igap-3 justify-content-xl-end">
+                            <a class="ibtn ibtn-sm ibtn-primary ibtn-md-phone w-50 w-xl-auto" rel="nofollow"
+                                href="/companies/nab-innovation-centre-vietnam/review/new?utm_campaign=button_feature_review&amp;utm_medium=new_review&amp;utm_source=emp_page">
+                                Write review
+                            </a>
+
+                            <a id="follow-button" class="ibtn ibtn-sm ibtn-secondary ibtn-md-phone w-50 w-xl-auto"
+                                rel="nofollow" data-method="post"
+                                href="/companies/nab-innovation-centre-vietnam/followings?locale=en">
+                                Follow
+                            </a>
+
+                            <a id="unfollow-button"
+                                class="ibtn ibtn-sm ibtn-secondary ibtn-md-phone w-50 w-xl-auto d-none ibutton-following"
+                                rel="nofollow" href="#">
+                                <div class="positive">
+                                    <div class="d-flex igap-2 align-items-center text-nowrap">
+                                        <svg class="feather-icon icon-md">
+                                            <use
+                                                href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#check">
+                                            </use>
+                                        </svg>
+
+                                        Following
+                                    </div>
+                                </div>
+                                <div class="negative">
+                                    <div class="d-flex igap-2 align-items-center text-nowrap">
+                                        <svg class="feather-icon icon-md">
+                                            <use
+                                                href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#x">
+                                            </use>
+                                        </svg>
+
+                                        Unfollow
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-light-grey ipt-xl-8 ipt-0">
+            <div class="icontainer ips-xl-7">
+                <div class="row gx-0 igx-xl-7">
+                    <div class="col-xl-8">
+                        <!-- / Tabs Navigation -->
+                        <div class="bg-it-white box-shadow-medium border-radius-large-xl imb-5"
+                            data-employers--scroll-target="tabs">
+                            <ul class="itabs ips-xl-6 justify-content-around justify-content-xl-start">
+                                <li class="item">
+                                    <a class="tab-link active"
+                                        href="/companies/nab-innovation-centre-vietnam">Overview</a>
+                                </li>
+                                <li class="item">
+                                    <a class="tab-link" href="/companies/nab-innovation-centre-vietnam/review">
+                                        Reviews
+                                        <div class="badge-counter ims-2">55</div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- / Sections -->
+                        <div
+                            class="bg-it-white box-shadow-medium border-radius-large-xl ipx-5 ipt-6 ipb-8 imb-5 ip-xl-6 ipb-xl-8">
+                            <h2 class="border-bottom-dashed ipb-4">
+                                General information
+                            </h2>
+                            <div class="row ipt-xl-4">
+                                <div
+                                    class="col-xl-4 d-flex flex-xl-column justify-content-between justify-content-xl-start border-bottom-dotted border-none-xl ipy-2 ipy-xl-0">
+                                    <div class="text-dark-grey ifs-xl-14">
+                                        Company type
+                                    </div>
+                                    <div class="normal-text">
+                                        @company.Type
+                                    </div>
+                                </div>
+                                <div
+                                    class="col-xl-4 d-flex flex-xl-column justify-content-between justify-content-xl-start border-bottom-dotted border-none-xl ipy-2 ipy-xl-0">
+                                    <div class="text-dark-grey ifs-xl-14">
+                                        Company industry
+                                    </div>
+                                    <div class="text-end text-xl-start">
+                                        <div class="flex-1 ips-2 ips-md-0">
+                                            <div class="d-inline-flex">
+                                                @string.Join(" - ", company.CompanyIndustries.Select(c =>
+                                                c.Industry.Name))
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="col-xl-4 d-flex flex-xl-column justify-content-between justify-content-xl-start border-bottom-dotted border-none-xl ipy-2 ipy-xl-0">
+                                    <div class="text-dark-grey ifs-xl-14">
+                                        Company size
+                                    </div>
+                                    <div class="normal-text">
+                                        @company.Size
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row ipt-xl-4">
+                                <div
+                                    class="col-xl-4 d-flex flex-xl-column justify-content-between border-bottom-dotted border-none-xl ipy-2 ipy-xl-0">
+                                    <div class="text-dark-grey ifs-xl-14">
+                                        Country
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <div class="d-inline-block">
+                                            <i class="feather-icon align-middle ime-1 flag-icon icon-md"
+                                                data-feather="au-flag">
+                                            </i>
+                                            <span class="align-middle">Australia</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="col-xl-4 d-flex flex-xl-column justify-content-between border-bottom-dotted border-none-xl ipy-2 ipy-xl-0">
+                                    <div class="text-dark-grey ifs-xl-14">
+                                        Working days
+                                    </div>
+                                    <div class="normal-text">
+                                        @company.WorkingTime
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 d-flex flex-xl-column justify-content-between ipy-2 ipy-xl-0">
+                                    <div class="text-dark-grey ifs-xl-14">
+                                        Overtime policy
+                                    </div>
+                                    <div class="normal-text">
+                                        @company.OverTime
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-it-white box-shadow-medium border-radius-large-xl ipx-5 ipt-6 ipb-8 imb-5 ip-xl-6 ipb-xl-8">
+                            <h2 class="border-bottom-dashed ipb-4">
+                                Company overview
+                            </h2>
+                            <div class="paragraph ipt-4 text-break text-contain-hyperlink">
+
+                                @Html.Raw(@company.Description)
+
+                            </div>
+                            <div class="d-flex flex-column flex-xl-row paragraph border-top-dashed imt-4">
+                                @if (company.IsShowCompanyUrl)
+                                {
+                                    <a class="d-flex align-items-center cursor-pointer ipt-4 ipe-4"
+                                        href="@company.CompanyUrl">
+                                        <i data-feather="globe" class="feather-icon icon-md hyperlink">
+                                        </i>
+                                        <div class="hyperlink ips-1">
+                                            Company website
+                                        </div>
+                                    </a>
+                                }
+
+                                @if (company.IsShowCompanyFbUrl)
+                                {
+                                    <a class="d-flex align-items-center cursor-pointer ipt-4" href="@company.CompanyFbUrl">
+                                        <i data-feather="facebook" class="feather-icon icon-md hyperlink"></i>
+
+                                        <div class="hyperlink ips-1">
+                                            Fanpage Facebook
+                                        </div>
+                                    </a>
+                                }
+
+                            </div>
+                        </div>
+                        <div
+                            class="bg-it-white box-shadow-medium border-radius-large-xl ipx-5 ipt-6 ipb-8 imb-5 ip-xl-6 ipb-xl-8">
+                            <h2 class="border-bottom-dashed ipb-4">
+                                Our key skills
+                            </h2>
+                            <div class="paragraph text-break">
+                                <div class="ipt-4">
+                                    The latest Cloud &amp; Micro-services technologies
+                                </div>
+                                <div class="d-flex flex-wrap igap-3 ipt-4">
+                                    @foreach (var skill in company?.CompanySkills?.Select(i => i.Skill))
+                                    {
+                                        <a target="_blank" data-controller="utm-tracking" class="itag itag-sm itag-light"
+                                            href="/it-jobs/@skill.Name">@skill.Name</a>
+                                    }
+                                </div>
+                                <div class="ipt-4 text-contain-hyperlink">
+                                    @Html.Raw(company.OurExpertise)
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-it-white box-shadow-medium border-radius-large-xl ipx-5 ipt-6 ipb-8 imb-5 ip-xl-6 ipb-xl-8">
+                            <h2 class="border-bottom-dashed ipb-4">
+                                Why you'll love working here
+                            </h2>
+                            <div class="position-relative read-more-container">
+                                <div data-read-more-target="content">
+                                    @Html.Raw(company.TopReason)
+                                    <div class="jd-photos ipt-2 ipb-6">
+                                        <div class="swiper swiper-container">
+                                            <div class="swiper-wrapper">
+
+                                                @foreach (var image in company.Images)
+                                                {
+                                                    <div class="swiper-slide">
+                                                        <a href="~/images/sliders/@image.FileName" data-lightbox="gallery">
+                                                            <img src="~/images/sliders/@image.FileName"
+                                                                alt="@image.FileName" />
+                                                        </a>
+                                                    </div>
+
+                                                }
+                                                <!-- Pagination -->
+                                            </div>
+                                            <div class="swiper-pagination"></div>
+                                        </div>
+                                        <div class="paragraph text-break text-contain-hyperlink">
+                                            @Html.Raw(company.WhyJoinUs)
+                                        </div>
+                                        <div class="read-more position-absolute bottom-0 w-100 text-center ipt-24 read-more-btn"
+                                            data-read-more-target="moreTextLink">
+                                            <a class="hyperlink d-flex justify-content-center align-items-center cursor-pointer"
+                                                data-action="read-more#toggle">
+                                                <span class="ipe-1">View more</span>
+                                                <i class="feather-icon icon-md" data-feather="chevron-down"></i>
+                                            </a>
+                                        </div>
+                                        <div class="d-none ipt-6 read-less-btn" data-read-more-target="lessTextLink">
+                                            <a class="hyperlink d-flex justify-content-center align-items-center cursor-pointer"
+                                                data-action="read-more#toggle">
+                                                <span class="ipe-1">View less</span>
+                                                <i class="feather-icon icon-md" data-feather="chevron-up"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="bg-it-white box-shadow-medium border-radius-large-xl ipx-5 ipt-6 ipb-8 imb-5 ip-xl-6 ipb-xl-8">
+                                    <div data-controller="employers--location"
+                                        data-employers--location-key-value="AIzaSyAMccvlWFDk8E9b5Bk6YdPh1ZUht-JPcqU"
+                                        data-employers--location-src-value="https://www.google.com/maps/embed/v1/place?key=AIzaSyAMccvlWFDk8E9b5Bk6YdPh1ZUht-JPcqU&amp;q=ROX+Tower%2C+54A+Nguyen+Chi+Thanh%2C+Lang+Thuong%2C+Dong+Da%2C+Ha+Noi"
+                                        data-employers--location-url-value="https://www.google.com/maps/embed/v1/place">
+                                        <h2 class="border-bottom-dashed ipb-4 imb-4">
+                                            Location
+                                        </h2>
+                                        <div class="row flex-column-reverse flex-xl-row gx-3">
+                                            <div class="col-xl-4 locations i-scrollbar">
+
+                                                @foreach (var province in locations)
+                                                {
+
+                                                    <h3 class="ipb-3">
+                                                        @province.Key (@province.Value.Count)
+                                                    </h3>
+                                                    @foreach (var address in province.Value)
+                                                    {
+                                                        var mapUrl =
+                                                        "https://www.google.com/maps/embed/v1/place?key=AIzaSyAOVYRIgupAurZup5y1PRh8Ismb1A3lLao&q="
+                                                        + System.Net.WebUtility.UrlEncode(address.City.Name);
+
+                                                        <div class="location box-shadow-normal border-radius-normal cursor-pointer ip-3 imb-3"
+                                                            data-map-url="@mapUrl">
+
+                                                            <div class="d-flex igap-2">
+                                                                <span class="map-pin ipt-1"
+                                                                    data-employers--location-target="mapPin">
+                                                                    <i data-feather="map-pin" class="feather-icon icon-sm"></i>
+                                                                </span>
+                                                                <span class="text-break">
+                                                                    @address.FullAddress
+                                                                </span>
+                                                            </div>
+                                                        </div>
+
+                                                    }
+                                                }
+
+
+                                            </div>
+                                            <div class="col-xl-8 imb-6 imb-xl-0">
+                                                <div>
+                                                    <iframe id="googleMap"
+                                                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAOVYRIgupAurZup5y1PRh8Ismb1A3lLao&q=T%C3%B2a+nh%C3%A0+MB%2C+s%E1%BB%91+18+L%C3%AA+V%C4%83n+L%C6%B0%C6%A1ng%2C+Cau+Giay%2C+Ha+Noi"
+                                                        allowfullscreen="" class="google-map border-radius-large"
+                                                        frameborder="0" height="100%" style="border: 0;"
+                                                        width="100%"></iframe>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- / Job Listing -->
+                    <div class="col-xl-4 job-listing-wrapper job-listing-wrapper ipx-5 ips-xl-7">
+                        <h2 class="ipb-6">
+                            @company.Posts.Count việc làm đang tuyển dụng
+                        </h2>
+                        <div class="row gx-0 i-scrollbar official-jobs-scroll">
+                            @foreach (var post in company.Posts)
+                            {
+
+                                <div class="col-xl-12 item-card">
+                                    <div
+                                        class="job-card ipt-4 h-100 d-flex flex-column box-shadow-medium border-radius-large position-relative cursor-pointer transition-duration-300 bg-light-warning-color super-hot">
+                                        <div class="ipx-4 ipx-xl-3 flex-grow-1">
+                                            <div class="ilabel position-absolute ilabel-danger end-0">
+                                                <svg fill="none" height="15" viewBox="0 0 12 15" width="12"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path clip-rule="evenodd"
+                                                        d="M8.35103 7.22088C8.77945 5.51855 9.97941 4.56322 11.074 4.45661C9.84457 6.98536 12.8712 8.79743 11.1649 11.8192C10.2049 13.5193 8.33941 14.4836 6.25533 14.4997C0.303047 14.5458 -0.829202 8.4487 1.27822 4.29598C0.712659 8.76776 4.77576 8.50349 3.49039 5.62166C2.56746 3.55246 4.57378 0.432578 7.73614 0.50111C5.5579 3.61357 8.78633 4.4127 8.35103 7.22088Z"
+                                                        fill-rule="evenodd" fill="#FFDD85"></path>
+                                                </svg>
+
+                                                SUPER HOT
+                                            </div>
+
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <span class="small-text text-dark-grey">
+                                                    Posted 1 day ago
+                                                </span>
+                                            </div>
+                                            <h3 class="imt-3 text-it-black text-break text-clamp-2">
+                                                <a class="text-reset text-hover-red transition-duration-300 stretched-link"
+                                                    target="_blank" data-controller="utm-tracking"
+                                                    href="/it-jobs/starcamp-fresher-quality-engineers-hanoi-nab-innovation-centre-vietnam-1539?lab_feature=employer_job">
+                                                    @post.Title
+                                                </a>
+                                            </h3>
+                                            <div class="imy-2 d-flex align-items-center"
+                                                data-recommended-impressions-target="jobImpression">
+                                                <a data-controller="utm-tracking"
+                                                    class="job-card-logo border-solid box-shadow-normal border-radius-normal bg-white stretched-link position-relative"
+                                                    href="/companies/nab-innovation-centre-vietnam?lab_feature=employer_job">
+                                                    <picture>
+                                                        <source
+                                                            data-srcset="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeFQvU3c9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--59b72c9b8c38d3b3cd69edd784051a8691672f00/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBPZ2wzWldKd09oSnlaWE5wZW1WZmRHOWZabWwwV3dkcGFXbHAiLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--20b0435834affc851fb8b496383cefc8135158a8/NAB_Logo_RGB_1x1.png"
+                                                            srcset="
+                                                                                                        https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeFQvU3c9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--59b72c9b8c38d3b3cd69edd784051a8691672f00/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBPZ2wzWldKd09oSnlaWE5wZW1WZmRHOWZabWwwV3dkcGFXbHAiLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--20b0435834affc851fb8b496383cefc8135158a8/NAB_Logo_RGB_1x1.png
+                                                                                                        " />
+                                                        <img alt="NAB Innovation Centre Vietnam Vietnam Small Logo"
+                                                            class="h-100 lazyloaded" data-controller="lazyload"
+                                                            data-src="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeFQvU3c9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--59b72c9b8c38d3b3cd69edd784051a8691672f00/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RW5KbGMybDZaVjkwYjE5bWFYUmJCMmxwYVdrPSIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--c8c20c63b868249effdba9ba4f05aa0c5b77cab3/NAB_Logo_RGB_1x1.png"
+                                                            width="48"
+                                                            src="https://itviec.com/rails/active_storage/representations/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeFQvU3c9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--59b72c9b8c38d3b3cd69edd784051a8691672f00/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJY0c1bkJqb0dSVlE2RW5KbGMybDZaVjkwYjE5bWFYUmJCMmxwYVdrPSIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--c8c20c63b868249effdba9ba4f05aa0c5b77cab3/NAB_Logo_RGB_1x1.png" />
+                                                    </picture>
+                                                </a>
+                                                <span class="ims-2 small-text">
+                                                    <a data-controller="utm-tracking"
+                                                        class="text-rich-grey text-clamp-2 text-hover-underline stretched-link position-relative"
+                                                        href="/companies/nab-innovation-centre-vietnam?lab_feature=employer_job">
+                                                        @company.FullName
+                                                    </a>
+                                                </span>
+                                            </div>
+                                            <div class="fw-500">
+                                                <div class="d-flex align-items-center salary text-success-color">
+                                                    <svg fill="none" height="16" stroke="currentColor" viewBox="0 0 24 24"
+                                                        width="16" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M12.0044 6V18" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"></path>
+                                                        <path
+                                                            d="M14.9287 7.90332H10.5395C9.99625 7.90332 9.47527 8.11912 9.09114 8.50325C8.70701 8.88738 8.49121 9.40836 8.49121 9.9516C8.49121 10.4948 8.70701 11.0158 9.09114 11.4C9.47527 11.7841 9.99625 11.9999 10.5395 11.9999H13.4656C14.0088 11.9999 14.5298 12.2157 14.914 12.5998C15.2981 12.9839 15.5139 13.5049 15.5139 14.0482C15.5139 14.5914 15.2981 15.1124 14.914 15.4965C14.5298 15.8806 14.0088 16.0964 13.4656 16.0964H8.49121"
+                                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                            stroke="currentColor"></path>
+                                                        <circle cx="12.0002" cy="12.0002" r="9.3" stroke-width="2"
+                                                            stroke="currentColor"></circle>
+                                                    </svg>
+
+                                                    <span class="ips-2">You'll love it</span>
+                                                </div>
+                                            </div>
+                                            <div class="border-top-dashed imy-3"></div>
+                                            <div class="d-flex align-items-end">
+                                                <span class="text-dark-grey lh-1">
+                                                    <svg class="feather-icon icon-sm">
+                                                        <use
+                                                            href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#check-square">
+                                                        </use>
+                                                    </svg>
+                                                </span>
+                                                <span class="ips-2 small-text text-rich-grey text-decoration-underline">
+                                                    <a class="text-reset stretched-link position-relative"
+                                                        data-controller="utm-tracking"
+                                                        href="/it-jobs/fresher-accepted?click_source=Skill+tag">Fresher
+                                                        Accepted</a>
+                                                </span>
+                                            </div>
+                                            <div class="d-flex align-items-end imb-1">
+                                                <span class="text-dark-grey lh-1">
+                                                    <svg fill="none" height="16" viewBox="0 0 24 25" width="16"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <g clip-path="url(#clip0_947_6633)">
+                                                            <path
+                                                                d="M19 14.625C19 13.6967 18.6312 12.8065 17.9749 12.1501C17.3185 11.4937 16.4283 11.125 15.5 11.125H8.5C7.57174 11.125 6.6815 11.4937 6.02513 12.1501C5.36875 12.8065 5 13.6967 5 14.625"
+                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" stroke="currentColor"></path>
+                                                            <path
+                                                                d="M12 8.5C13.933 8.5 15.5 6.933 15.5 5C15.5 3.067 13.933 1.5 12 1.5C10.067 1.5 8.5 3.067 8.5 5C8.5 6.933 10.067 8.5 12 8.5Z"
+                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" stroke="currentColor"></path>
+                                                            <path d="M11.5 18.9375H12.5" stroke-linecap="round"
+                                                                stroke-linejoin="round" stroke-width="2"
+                                                                stroke="currentColor">
+                                                            </path>
+                                                            <path
+                                                                d="M4.56116 22.7812L2.90039 15.0938H21.0996L19.3696 22.7812"
+                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" stroke="currentColor"></path>
+                                                            <line stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" stroke="currentColor" x1="1" x2="23"
+                                                                y1="23.5" y2="23.5"></line>
+                                                        </g>
+                                                        <defs>
+                                                            <clipPath id="clip0_947_6633">
+                                                                <rect fill="white" height="24" transform="translate(0 0.5)"
+                                                                    width="24"></rect>
+                                                            </clipPath>
+                                                        </defs>
+                                                    </svg>
+                                                </span>
+                                                <span class="ips-2 small-text text-rich-grey lh-1">
+                                                    Hybrid
+                                                </span>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <span class="text-dark-grey lh-1">
+                                                    <svg class="feather-icon icon-sm">
+                                                        <use
+                                                            href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#map-pin">
+                                                        </use>
+                                                    </svg>
+                                                </span>
+                                                <span class="ips-2 small-text text-rich-grey">
+                                                    Ha Noi
+                                                </span>
+                                            </div>
+                                            <div class="d-flex flex-wrap imt-3 imb-5 igap-2">
+
+                                                @foreach (var skill in post.PostSkills.Select(ps => ps.Skill))
+                                                {
+                                                    <div class="itag itag-light itag-sm position-relative">
+                                                        <a class="text-reset stretched-link" data-controller="utm-tracking"
+                                                            href="/it-jobs/">@skill.Name</a>
+                                                    </div>
+                                                }
+                                            </div>
+                                            <div class="border-top-dashed imb-3 imt-4"></div>
+                                            <div class="small-text text-it-black fw-500">
+                                                @Html.Raw(@post.TopReason)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $(".read-more-btn").click(function () {
+            let container = $(this).closest(".read-more-container");
+            container.toggleClass("show");
+
+            container.find("[data-read-more-target='moreTextLink']").addClass("d-none");
+            container.find("[data-read-more-target='lessTextLink']").removeClass("d-none");
+        });
+
+        $(".read-less-btn").click(function () {
+            let container = $(this).closest(".read-more-container");
+            container.toggleClass("show");
+
+            container.find("[data-read-more-target='moreTextLink']").removeClass("d-none"); s
+            container.find("[data-read-more-target='lessTextLink']").addClass("d-none");
+        });
+
+        $('.location').on('click', function () {
+            var newMapUrl = $(this).data('map-url');
+            $('#googleMap').attr('src', newMapUrl);
+
+            $('.location').each(function () {
+                $(this).removeClass('active');
+            });
+
+            $(this).addClass('active');
+        });
+
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 3,
+            spaceBetween: 10,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+        });
+
+
+    });
+</script>

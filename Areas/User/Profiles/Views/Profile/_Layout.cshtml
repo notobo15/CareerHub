@@ -1,87 +1,101 @@
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	string CurrentUser = User.Identity.Name;
+
 }
 
-<div class="user-profile-container d-md-flex mx-auto w-100">
-    <div class="sidebar-wrapper">
-        <sidebar class="profile-sidebar bg-white ipx-2 ipt-6 ipb-5 text-rich-grey d-none d-xl-block box-shadow-normal border-radius-large imt-6">
-            <div class="imx-3 imb-4">
-                <div class="d-flex imb-1">
-                    <svg height="20px" width="20px">
-                        <use xlink:href="#hand-wave"></use>
-                    </svg>
-                    <div class="small-text ims-1">
-                        Welcome
-                    </div>
-                </div>
-                <div id="user-name">
-                    <h3 class="text-break">Texxt</h3>
+<main class="d-flex bg-light-grey">
+	<div class="user-profile-container d-md-flex mx-auto w-100">
+		<div class="sidebar-wrapper">
+			<sidebar class="profile-sidebar bg-white ipx-2 ipt-6 ipb-5 text-rich-grey d-none d-xl-block box-shadow-normal border-radius-large imt-6">
+				<div class="imx-3 imb-4">
+					<div class="d-flex imb-1">
+						<svg height="20px" width="20px">
+							<use xlink:href="#hand-wave"></use>
+						</svg>
+						<div class="small-text ims-1">
+							Welcome
+						</div>
+					</div>
+					<div id="user-name">
+						<h3 class="text-break">@CurrentUser</h3>
 
-                </div>
-            </div>
-            <div class="menu-items">
-                <a class="active" asp-area="User/Profiles" asp-controller="Profile" asp-action="Index">
-                    <div class="d-flex">
-                        <p class="d-flex align-items-center">
-                            <svg class="feather-icon icon-sm icon-md">
-                                <use href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#grid"></use>
-                            </svg>
-                        </p><p class="text-truncated ims-2">Dashboard</p><p></p>
-                    </div>
-                </a><a class="" href="/profile-cv/manage-cv">
-                    <div class="d-flex">
-                        <p class="d-flex align-items-center">
-                            <svg class="feather-icon icon-sm icon-md">
-                                <use href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#file-text"></use>
-                            </svg>
-                        </p><p class="text-truncated ims-2">CV Attachment</p><p></p>
-                    </div>
-                </a><a class="" href="/profile-cv">
-                    <div class="d-flex">
-                        <p class="d-flex align-items-center">
-                            <svg class="feather-icon icon-sm icon-md">
-                                <use href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#user"></use>
-                            </svg>
-                        </p><p class="text-truncated ims-2">ITviec Profile</p><p></p>
-                    </div>
-                </a><a class="" href="/my-jobs">
-                    <div class="d-flex">
-                        <p class="d-flex align-items-center">
-                            <svg class="feather-icon icon-sm icon-md">
-                                <use href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#briefcase"></use>
-                            </svg>
-                        </p><p class="text-truncated ims-2">My Jobs</p><p></p>
-                    </div>
-                </a><a class="" href="/job-invitation">
-                    <div class="d-flex">
-                        <p class="d-flex align-items-center">
-                            <svg class="feather-icon icon-sm icon-md">
-                                <use href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#inbox"></use>
-                            </svg>
-                        </p><p class="text-truncated ims-2">Job Invitation</p><p></p>
-                    </div>
-                </a><a class="" href="/subscription">
-                    <div class="d-flex">
-                        <p class="d-flex align-items-center">
-                            <svg class="feather-icon icon-sm icon-md">
-                                <use href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#mail"></use>
-                            </svg>
-                        </p><p class="text-truncated ims-2">Email Subscriptions</p><p></p>
-                    </div>
-                </a><a class="" href="/settings">
-                    <div class="d-flex">
-                        <p class="d-flex align-items-center">
-                            <svg class="feather-icon icon-sm icon-md">
-                                <use href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#settings"></use>
-                            </svg>
-                        </p><p class="text-truncated ims-2">Settings</p><p></p>
-                    </div>
-                </a>
-            </div>
-        </sidebar>
+					</div>
+				</div>
+				<div class="menu-items">
+					<a class="active" asp-area="User/Profiles" asp-controller="Profile" asp-action="Index">
+						<div class="d-flex">
+							<p class="d-flex align-items-center">
+								<i class="feather-icon icon-sm icon-md" data-feather="grid"></i>
+							</p>
+							<p class="text-truncated ims-2">Dashboard</p>
+							<p></p>
+						</div>
+					</a>
+					<a class="" asp-area="User/Profiles" asp-controller="Profile" asp-action="ManageCV">
+						<div class="d-flex">
+							<p class="d-flex align-items-center">
+								<i class="feather-icon icon-sm icon-md" data-feather="file-text"></i>
+							</p>
+							<p class="text-truncated ims-2">CV Attachment</p>
+							<p></p>
+						</div>
+					</a>
+					<a class="" asp-area="User/Profiles" asp-controller="Profile" asp-action="ProfileCV">
+						<div class="d-flex">
+							<p class="d-flex align-items-center">
+								<i class="feather-icon icon-sm icon-md" data-feather="user"></i>
+							</p>
+							<p class="text-truncated ims-2">Profile</p>
+							<p></p>
+						</div>
+					</a>
+					<a class="" asp-area="User/Profiles" asp-controller="Profile" asp-action="MyJobs">
+						<div class="d-flex">
+							<p class="d-flex align-items-center">
+								<i class="feather-icon icon-sm icon-md" data-feather="briefcase"></i>
+							</p>
+							<p class="text-truncated ims-2">My Jobs</p>
+							<p></p>
+						</div>
+					</a>
+					<a class="" asp-area="User/Profiles" asp-controller="Profile" asp-action="JobInvitation">
+						<div class="d-flex">
+							<p class="d-flex align-items-center">
+								<i class="feather-icon icon-sm icon-md" data-feather="inbox"></i>
+							</p>
+							<p class="text-truncated ims-2">Job Invitation</p>
+							<p></p>
+						</div>
+					</a>
+					<a class="" asp-area="User/Profiles" asp-controller="Profile" asp-action="ESubscriptions">
+						<div class="d-flex">
+							<p class="d-flex align-items-center">
+								<i class="feather-icon icon-sm icon-md" data-feather="mail"></i>
+							</p>
+							<p class="text-truncated ims-2">Email Subscriptions</p>
+							<p></p>
+						</div>
+					</a>
+					<a class="" asp-area="User/Profiles" asp-controller="Profile" asp-action="Settings">
+						<div class="d-flex">
+							<p class="d-flex align-items-center">
+								<i class="feather-icon icon-sm icon-md" data-feather="settings"></i>
+							</p>
+							<p class="text-truncated ims-2">Settings</p>
+							<p></p>
+						</div>
+					</a>
+				</div>
+			</sidebar>
 
-    </div>
-    <div class="manage-profile min-vh-100 flex-1">
-        @RenderBody()
-    </div>
-</div>
+		</div>
+		<div class="manage-profile min-vh-100 flex-1">
+			@RenderBody()
+		</div>
+	</div>
+</main>
+
+@section Scripts {
+	@RenderSection("Scripts", required: false)
+}

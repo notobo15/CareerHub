@@ -1,0 +1,192 @@
+﻿@using System.Text.Json
+@model RecruitmentApp.Models.Province
+@{
+    var districtArray = Model.Districts.Select(d => new
+    {
+        Code = Int32.Parse(d.Code),
+        d.Name,
+        d.FullName,
+        d.NameEn,
+        d.FullNameEn,
+        d.CodeName,
+        Wards = d.Wards?.Select(w => new
+        {
+            Code = Int32.Parse(w.Code),
+            w.Name,
+            w.FullName,
+            w.NameEn,
+            w.FullNameEn,
+            w.CodeName,
+        })
+    });
+
+    var jsonDistricts = JsonSerializer.Serialize(districtArray);
+}
+
+<!-- Breadcrumb -->
+<nav class="page-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Tỉnh/Thành</li>
+        <li class="breadcrumb-item active" aria-current="page">
+            <a asp-action="Details" asp-route-code="@Model.Code">Chi tiết</a>
+        </li>
+    </ol>
+</nav>
+
+<!-- Tiêu đề -->
+<div class="row">
+    <div class="col-md-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="font-weight-bold mb-0">
+                    Chi tiết Tỉnh/Thành
+                    <span class="text-muted">#@Model.Code</span>
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Thông tin Province -->
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Code)</dt>
+                    <dd class="col-sm-9">@Model.Code</dd>
+
+                    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Name)</dt>
+                    <dd class="col-sm-9">@Model.Name</dd>
+
+                    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.FullName)</dt>
+                    <dd class="col-sm-9">@Model.FullName</dd>
+
+                    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.NameEn)</dt>
+                    <dd class="col-sm-9">@Model.NameEn</dd>
+
+                    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.FullNameEn)</dt>
+                    <dd class="col-sm-9">@Model.FullNameEn</dd>
+
+                    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.CodeName)</dt>
+                    <dd class="col-sm-9">@Model.CodeName</dd>
+
+                    <dt class="col-sm-3">Slug</dt>
+                    <dd class="col-sm-9">@Model.Slug</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Danh sách Quận/Huyện -->
+<div class="card mt-4">
+    <div class="card-body">
+        <h5 class="font-weight-bold mb-3">Danh sách Quận/Huyện</h5>
+        <table id="district-table" class="table table-bordered table-hover w-100">
+            <thead class="table-light">
+                <tr>
+                    <th>#</th>
+                    <th>Mã</th>
+                    <th>Tên</th>
+                    <th>Tên đầy đủ</th>
+                    <th class="text-center">Hành động</th> <!-- icon chuyển vào đây -->
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Districts.Count; i++)
+                {
+                    var d = Model.Districts[i];
+                    <tr data-code="@d.Code">
+                        <td>@(i + 1)</td>
+                        <td>@d.Code</td>
+                        <td>@d.Name</td>
+                        <td>@d.FullName</td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-outline-primary toggle-wards" data-code="@d.Code">
+                                <i data-feather="plus-circle" class="icon-sm"></i> Xem xã
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Actions -->
+<div class="mt-4">
+    <a asp-action="Index" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center">
+        <i data-feather="arrow-left" class="me-1 icon-md"></i> Quay lại
+    </a>
+    <a asp-action="Edit" asp-route-code="@Model.Code" class="btn btn-sm btn-outline-warning d-inline-flex align-items-center mx-2">
+        <i data-feather="edit" class="me-1 icon-md"></i> Sửa
+    </a>
+</div>
+
+
+@section Scripts {
+    <script>
+        const districts = @Html.Raw(jsonDistricts);
+
+        function formatWardsTable(districtCode) {
+            const district = districts.find(x => x.Code === districtCode);
+            if (!district || !district.Wards.length) return '<div class="text-muted ps-3 pb-2">Không có xã/phường.</div>';
+
+            let html = `
+                <div class="border rounded p-3 bg-light-subtle">
+                    <h6 class="fw-bold mb-3 text-primary">Danh sách xã/phường của ${district.Name}</h6>
+                    <table class="table table-bordered table-sm table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 40px;">#</th>
+                                <th style="width: 120px;">Mã</th>
+                                <th>Tên</th>
+                                <th>Tên đầy đủ</th>
+                            </tr>
+                        </thead>
+                        <tbody>`;
+
+            district.Wards.forEach((w, idx) => {
+                html += `
+                    <tr>
+                        <td>${idx + 1}</td>
+                        <td><code>${w.Code}</code></td>
+                        <td>${w.Name}</td>
+                        <td>${w.FullName}</td>
+                    </tr>`;
+            });
+
+            html += `</tbody></table></div>`;
+            return html;
+        }
+        $(document).ready(function () {
+            const table = $('#district-table').DataTable({
+                ordering: false,
+                pageLength: 10,
+            });
+
+            // Toggle child row
+            $('#district-table tbody').on('click', '.toggle-wards', function () {
+                const btn = $(this);
+                const tr = btn.closest('tr');
+                const row = table.row(tr);
+                const districtCode = btn.data('code');
+
+                if (row.child.isShown()) {
+                    row.child.hide();
+                    tr.removeClass('shown');
+                    btn.find('i').attr('data-feather', 'plus-circle');
+                    btn.contents().last().replaceWith(' Xem xã');
+                } else {
+                    row.child(formatWardsTable(districtCode)).show();
+                    tr.addClass('shown');
+                    btn.find('i').attr('data-feather', 'minus-circle');
+                    btn.contents().last().replaceWith(' Ẩn xã');
+                }
+
+                feather.replace();
+            });
+        });
+    </script>
+}

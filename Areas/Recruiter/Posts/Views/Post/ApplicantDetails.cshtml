@@ -1,0 +1,57 @@
+﻿@model RecruitmentApp.Models.ApplyPost
+
+@{
+    ViewData["Title"] = "Chi tiết bài đăng";
+}
+
+<nav class="page-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Ứng viên</li>
+        <li class="breadcrumb-item active">Chi tiết</li>
+    </ol>
+</nav>
+<div class="row">
+    <div class="col-md-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4>Thông tin ứng viên cho bài: <strong>@Model.Post?.Title</strong></h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <dl class="row mt-4">
+                    <dt class="col-sm-3">Họ tên</dt>
+                    <dd class="col-sm-9">@Model.Name</dd>
+
+                    <dt class="col-sm-3">Số điện thoại</dt>
+                    <dd class="col-sm-9">@Model.Phone</dd>
+
+                    <dt class="col-sm-3">Email</dt>
+                    <dd class="col-sm-9">@Model.User?.Email</dd>
+
+                    <dt class="col-sm-3">Ngày nộp</dt>
+                    <dd class="col-sm-9">@Model.ApplyDate.ToString("dd/MM/yyyy")</dd>
+
+                    <dt class="col-sm-3">Thư giới thiệu</dt>
+                    <dd class="col-sm-9">@Model.Description</dd>
+
+                    <dt class="col-sm-3">CV đính kèm</dt>
+                    <dd class="col-sm-9">
+                        <a href="@Model.FilePath" target="_blank">@Model.OriginFileName</a>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a asp-action="Applicants" asp-route-id="@Model.PostID" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center mr-2">
+        <i data-feather="chevron-left" class="mr-1 icon-md"></i> Quay lại
+    </a>
+</div>

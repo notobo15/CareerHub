@@ -1,0 +1,56 @@
+@{
+	Layout = null;
+	var resume = ViewData["resume"] as ResumeFile;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>CV của tôi | CareerHub</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="shortcut icon" href="~/images/network.ico" />
+
+	<script src="https://documentcloud.adobe.com/view-sdk/viewer.js"></script>
+	<style>
+		html, body {
+			margin: 0;
+			height: 100%;
+			overflow: hidden;
+		}
+
+		#adobe-dc-view {
+			height: 100%;
+			width: 100%;
+		}
+	</style>
+</head>
+<body>
+	<div id="adobe-dc-view"></div>
+
+	<script>
+		document.addEventListener("adobe_dc_view_sdk.ready", function () {
+			var adobeDCView = new AdobeDC.View({
+				clientId: "6a27eba8f9c14b5b8d1d8735f53c0c6d",
+				divId: "adobe-dc-view"
+			});
+
+			adobeDCView.previewFile({
+				content: {
+					location: {
+						url: "@Html.Raw(resume.FilePath)"
+					}
+				},
+				metaData: { fileName: "@Html.Raw(resume.OrigialFileName)" }
+			}, {
+				embedMode: "FULL_WINDOW", // <-- thanh công cụ bên phải
+				defaultViewMode: "FIT_WIDTH", // scroll theo chiều dọc
+				showDownloadPDF: true,
+				showPrintPDF: true,
+				showAnnotationTools: true,
+				showPageControls: true
+			});
+		});
+	</script>
+</body>
+</html>

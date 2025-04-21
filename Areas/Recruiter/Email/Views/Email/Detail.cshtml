@@ -1,0 +1,180 @@
+﻿@using RecruitmentApp.Models.Email
+
+@model Mail
+
+@{
+    var attachments = Model?.Attachments ?? new List<Attachment>();
+    var totalSize = attachments.Sum(a => a.FileSize);
+    string FormatBytes(long bytes)
+    {
+        string[] sizes = { "Bytes", "KB", "MB", "GB" };
+        if (bytes == 0) return "0 Bytes";
+        var i = (int)Math.Floor(Math.Log(bytes) / Math.Log(1024));
+        return $"{(bytes / Math.Pow(1024, i)):0.##} {sizes[i]}";
+    }
+
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+}
+<div class="email-head">
+    <div class="email-head-subject">
+        <div class="title d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center">
+                <div class="@(Model.IsStarred ? "active" : "")">
+                    <form method="post" asp-action="ToggleFavorite" asp-controller="Email" class="d-inline">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="MailId" value="@Model.Id" value="@(Model.IsStarred ? "false" : "true")" />
+
+                        <button type="submit" class="btn btn-link p-0" title="Star/Unstar" style="margin-left: -2px;">
+                            <i data-feather="star" class="icon @(Model.IsStarred ? "text-warning" : "text-muted")"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <span>@Model.Subject</span>
+            </div>
+            <div class="icons">
+                <a href="#" class="icon">
+                    <i data-feather="share" class="text-muted hover-primary-muted"
+                       data-toggle="tooltip" title="Forward"></i>
+                </a>
+                <a href="#" class="icon">
+                    <i data-feather="printer" class="text-muted" data-toggle="tooltip"
+                       title="Print"></i>
+                </a>
+                
+                @if (currentAction == "Inbox")
+                {
+                <form method="post" asp-action="Delete" style="display:inline;">
+                        <input type="hidden" name="id" value="@Model.Id" />
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-link p-0 icon" title="Delete" onclick="return confirm('Move to Trash?')">
+                        <i data-feather="trash" class="text-muted"></i>
+                    </button>
+                </form>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="email-head-sender d-flex align-items-center justify-content-between flex-wrap">
+        <div class="d-flex align-items-center">
+            <div class="avatar">
+                <img src="@Model.Sender.Avatar" alt="Avatar" class="rounded-circle user-avatar-md">
+            </div>
+            <div class="sender d-flex align-items-center">
+                <a href="#">@Model.Sender.Email</a> <span>to</span><a href="#">me</a>
+                <div class="actions dropdown">
+                    <a class="icon" href="#" data-toggle="dropdown"><i data-feather="chevron-down"></i></a>
+                    <div class="dropdown-menu" role="menu">
+                        <a class="dropdown-item" href="#">Mark as read</a>
+                        <a class="dropdown-item" href="#">Mark as unread</a>
+                        <a class="dropdown-item" href="#">Spam</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item text-danger" href="#">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="date">Nov 20, 11:20</div>
+    </div>
+</div>
+<div class="email-body">
+    @Html.Raw(Model.Body)
+</div>
+@if (attachments.Any())
+{
+    <div class="email-attachments mt-3">
+        <div class="title">
+            Attachments <span>(@attachments.Count file@(attachments.Count > 1 ? "s" : ""), @FormatBytes(totalSize))</span>
+        </div>
+        <ul>
+            @foreach (var file in attachments)
+            {
+                <li>
+                    <a href="@file.FilePath" target="_blank" class="d-flex align-items-center">
+                        <i class="icon-md" data-feather="file"></i>
+                        <span>@file.FileName</span>
+                        <span class="text-muted tx-11">(@FormatBytes(file.FileSize))</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+}
+@if (ViewData["replies"] is List<Mail> replies && replies.Any())
+{
+    <div class="email-thread mt-4">
+        @foreach (var reply in replies.OrderBy(m => m.SentAt))
+        {
+            <div class="reply-item border-top pt-3 mt-3">
+                <div class="d-flex justify-content-between">
+                    <strong>@reply.Sender.Email</strong>
+                    <small class="text-muted">@reply.SentAt.ToString("hh:mm tt (MMM dd)")</small>
+                </div>
+                <div class="text-muted small mb-1">
+                    to @string.Join(", ", reply.Recipients.Select(r => r.User.Email))
+                </div>
+                <div class="reply-body">
+                    @Html.Raw(reply.Body)
+                </div>
+            </div>
+        }
+    </div>
+}
+<div id="replyForm" class="mt-3 d-none">
+    <form asp-action="Send" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+
+        <!-- Hidden binding values -->
+        <input type="hidden" asp-for="ReplyToMailId" value="@Model.Id" />
+        <input type="hidden" name="ToUserIds" value="@Model.SenderId" />
+        <input type="hidden" name="Subject" value="@(Model.Subject.StartsWith("Re:") ? Model.Subject : "Re: " + Model.Subject)" />
+
+        <!-- Textarea -->
+        <div class="form-group">
+            <label>Reply to: <strong>@Model.Sender.Email</strong></label>
+            <textarea asp-for="Body" class="form-control summernote-reply" rows="5"></textarea>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="form-group d-flex justify-content-between align-items-center">
+            <button type="submit" class="btn btn-primary btn-sm">
+                <i class="icon-sm" data-feather="send"></i> Send
+            </button>
+            <button type="button" id="cancelReplyBtn" class="btn btn-sm btn-outline-danger" title="Cancel">
+                <i class="icon-sm" data-feather="x"></i>
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            feather.replace();
+
+            $('#toggleReplyBtn').on('click', function () {
+                $('#replyForm').removeClass('d-none');
+                $(this).addClass('d-none');
+                $(this).removeClass('d-flex');
+            });
+
+            $('#cancelReplyBtn').on('click', function () {
+                $('#replyForm').addClass('d-none');
+                $(this).addClass('d-flex');
+                $('#toggleReplyBtn').removeClass('d-none');
+                 feather.replace();
+            });
+
+            // Summernote cho reply
+            $('.summernote-reply').summernote({
+                height: 150,
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['para', ['ul', 'ol']],
+                    ['insert', ['link']],
+                    ['view', ['codeview']]
+                ]
+            });
+        });
+    </script>
+}

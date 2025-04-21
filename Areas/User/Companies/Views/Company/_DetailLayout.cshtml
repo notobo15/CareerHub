@@ -1,0 +1,401 @@
+@using RecruitmentApp.Models
+
+@{
+
+	var company = ViewData["company"] as Company;
+	Layout = "_Layout";
+	var isFollowing = ViewData["isFollowing"] as bool? ?? false;
+	var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+}
+
+<div class="flex-grow-1">
+	<main class="employer-page">
+		<div class="main bg-gradient-search text-white ipt-6 ipb-8 ipy-xl-8">
+			<div class="icontainer">
+				<div class="row gx-0 igx-xl-7">
+					<div class="col-xl-8">
+						<div class="d-flex flex-xl-row flex-column">
+							<div class="d-flex justify-content-center">
+								<div class="logo border-radius-normal text-center ime-xl-6">
+									<img alt="" class="mw-100 object-fit-contain border-radius-normal lazyloaded" src="~/images/companies/@company.LogoImage" />
+								</div>
+							</div>
+							<div>
+								<h1 class="text-center text-xl-start ipt-4 ipb-2 ipt-xl-0">
+									@company.FullName
+								</h1>
+								<div class="d-flex flex-xl-row flex-column">
+									<div class="d-flex igap-2 justify-content-center ipb-2 ipb-xl-0 ipe-xl-6">
+										<span>
+											<i class="feather-icon icon-sm text-dark-grey" data-feather="map-pin"></i>
+
+										</span>
+										<div class="small-text">
+											@string.Join(" - ", company.Locations.Select(c => c.Address.City.Name))
+										</div>
+									</div>
+									<div class="d-flex igap-2 justify-content-center cursor-pointer"
+										 data-action="click->employers--scroll#goToJobListing">
+										<span>
+											<i class="feather-icon icon-sm text-dark-grey" data-feather="briefcase"></i>
+										</span>
+										<div class="small-text text-decoration-underline text-nowrap">
+											@company.Posts.Where(c => !c.IsClose).ToList().Count() job openings
+										</div>
+									</div>
+								</div>
+								<div class="d-flex igap-3 ipt-6 ipb-xl-0">
+									<a class="ibtn ibtn-md ibtn-primary ibtn-md-phone w-50 w-xl-auto" rel="nofollow"
+									   asp-area="User/companies" asp-controller="Company" asp-action="New"
+									   asp-route-slug="@company.Slug">
+										Write review
+									</a>
+
+									@* @if (isFollowing == true) *@
+									@* { *@
+
+									@* 	<form asp-action="UnFollow" asp-route-slug="@company.Slug" method="post" class="ibtn ibtn-md ibtn-secondary ibtn-md-phone w-xl-auto w-50 d-none ibutton-following"> *@
+									@* 		<div class="positive"> *@
+									@* 			<div class="d-flex igap-2 align-items-center text-nowrap"> *@
+									@* 				<i class="feather-icon icon-md" data-feather="check"></i> *@
+									@* 				Following *@
+									@* 			</div> *@
+									@* 		</div> *@
+									@* 		<div class="negative"> *@
+									@* 			<div class="d-flex igap-2 align-items-center text-nowrap"> *@
+									@* 				<i class="feather-icon icon-md" data-feather="x"></i> *@
+									@* 				Unfollow *@
+									@* 			</div> *@
+									@* 		</div> *@
+									@* 	</form> *@
+									@* } *@
+									@* else *@
+									@* { *@
+									@* 	<form class="ibtn ibtn-md ibtn-secondary ibtn-md-phone w-xl-auto w-50" asp-action="UnFollow" asp-route-slug="@company.Slug" method="post"> *@
+									@* 		Follow *@
+									@* 	</form> *@
+									@* } *@
+
+									@if (isFollowing)
+									{
+
+										<form asp-action="UnFollow" asp-route-slug="@company.Slug" method="post" class="">
+											<button type="submit" class="ibtn ibtn-md ibtn-secondary ibtn-md-phone w-xl-auto w-50">
+												<i class="feather-icon icon-md" data-feather="x"></i>
+												Unfollow
+											</button>
+										</form>
+									}
+									else
+									{
+										<form asp-action="Follow" asp-route-slug="@company.Slug" method="post" class="">
+											<button type="submit" class="ibtn ibtn-md ibtn-secondary ibtn-md-phone w-xl-auto w-50">
+												<i class="feather-icon icon-md" data-feather="check"></i>
+												Follow
+											</button>
+										</form>
+									}
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+					@if (false)
+					{
+						<div class="col-xl-4">
+							<a class="d-flex gx-0 bg-rating-reviews text-white border-radius-normal ip-4 imt-6 imt-xl-0" href="">
+								<div class="d-flex align-items-center ipe-3 ipe-xl-4 w-50 justify-content-center">
+									<div class="h1 ipe-2 ipe-xl-3">
+										4.7
+									</div>
+									<div class="flex-column">
+										<div class="box-star-icons text-silver-grey position-relative box-icon-sm">
+											<div class="star-icons position-absolute">
+												<i class="feather-icon icon-sm" data-feather="star"></i>
+												<i class="feather-icon icon-sm" data-feather="star"></i>
+												<i class="feather-icon icon-sm" data-feather="star"></i>
+												<i class="feather-icon icon-sm" data-feather="star"></i>
+												<i class="feather-icon icon-sm" data-feather="star"></i>
+											</div>
+											<div class="d-flex align-items-center overflow-hidden position-absolute" style="width: 94%;">
+												<div class="star-icons text-warning-color">
+													<i class="feather-icon icon-sm fill" data-feather="star"></i>
+													<i class="feather-icon icon-sm fill" data-feather="star"></i>
+													<i class="feather-icon icon-sm fill" data-feather="star"></i>
+													<i class="feather-icon icon-sm fill" data-feather="star"></i>
+													<i class="feather-icon icon-sm fill" data-feather="star"></i>
+
+												</div>
+											</div>
+										</div>
+
+										<div class="ifs-12 ifs-xl-14 text-lowercase ipt-1">
+											@company.Reviews.Count() reviews
+										</div>
+									</div>
+								</div>
+								<div class="d-flex align-items-center w-50 justify-content-center">
+									<div class="d-flex align-items-baseline ipe-2 ipe-xl-3">
+										<div class="h1">
+											98
+										</div>
+										<div class="small-text">%</div>
+									</div>
+									<div class="ifs-12 ifs-xl-14">
+										Recommend working here to a friend
+									</div>
+								</div>
+							</a>
+							<div class="ipt-6 ipt-xl-5 text-center">
+								<a target="_blank" rel="nofollow">
+									<img width="240" height="auto" src="~/images/Logo_VBIT_2024-04.png" />
+								</a>
+							</div>
+						</div>
+					}
+
+				</div>
+			</div>
+		</div>
+		<div class="main bg-gradient-search text-white ipy-xl-4 ipb-3 header-sticky d-none">
+			<div class="icontainer">
+				<hr class="text-silver-grey m-0 imb-3 d-xl-none" />
+				<div class="row">
+					<div class="col-xl-8 d-none d-xl-flex">
+						<div class="d-inline-flex align-items-center">
+							<h3>@company.FullName</h3>
+						</div>
+					</div>
+					<div class="col-xl-4">
+						<div class="d-flex igap-3 justify-content-xl-end">
+							<a class="ibtn ibtn-sm ibtn-primary ibtn-md-phone w-50 w-xl-auto" asp-action="Review" asp-route-slug="@company.Slug">
+								Write review
+							</a>
+
+							@* @if (isFollowing) *@
+							@* { *@
+							@* 	<form asp-action="UnFollow" asp-route-slug="@Model.Slug" method="post" *@
+							@* 		  class="ibtn ibtn-md ibtn-secondary ibtn-md-phone w-xl-auto w-50 d-none ibutton-following"> *@
+							@* 		<div class="positive"> *@
+							@* 			<div class="d-flex igap-2 align-items-center text-nowrap"> *@
+							@* 				<i class="feather-icon icon-md" data-feather="check"></i> *@
+							@* 				Following *@
+							@* 			</div> *@
+							@* 		</div> *@
+							@* 		<div class="negative"> *@
+							@* 			<div class="d-flex igap-2 align-items-center text-nowrap"> *@
+							@* 				<i class="feather-icon icon-md" data-feather="x"></i> *@
+							@* 				Unfollow *@
+							@* 			</div> *@
+							@* 		</div> *@
+							@* 	</form> *@
+							@* } *@
+							@* else *@
+							@* { *@
+							@* 	<form asp-action="Follow" asp-route-slug="@Model.Slug" method="post" class="ibtn ibtn-md ibtn-secondary ibtn-md-phone w-xl-auto w-50"> *@
+							@* 		Follow *@
+							@* 	</form> *@
+							@* } *@
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="bg-light-grey ipt-xl-8 ipt-0">
+			<div class="icontainer ips-xl-7">
+				<div class="row gx-0 igx-xl-7">
+					<div class="col-xl-8">
+						<!-- / Tabs Navigation -->
+						<div class="bg-it-white box-shadow-medium border-radius-large-xl imb-5 tabs">
+							<ul class="itabs ips-xl-6 justify-content-around justify-content-xl-start">
+								<li class="item">
+									<a class="tab-link @(currentAction == "Detail" ? "active" : "")" asp-action="Detail" asp-route-slug="@company.Slug">
+										Overview
+									</a>
+								</li>
+								<li class="item">
+									<a class="tab-link @(currentAction == "Review" ? "active" : "")" asp-action="Review" asp-route-slug="@company.Slug">
+										Reviews
+										<div class="badge-counter ims-2">@company.Reviews.Count()</div>
+									</a>
+								</li>
+							</ul>
+						</div>
+						<!-- / Sections -->
+						@RenderBody()
+					</div>
+					<!-- / Job Listing -->
+					<div class="col-xl-4 job-listing-wrapper job-listing-wrapper ipx-5 ips-xl-7">
+						<h2 class="ipb-6">
+							@company.Posts.Count việc làm đang tuyển dụng
+						</h2>
+						<div class="row gx-0 i-scrollbar official-jobs-scroll">
+							@foreach (var post in company.Posts)
+							{
+
+								<div class="col-xl-12 item-card">
+									<div class="job-card ipt-4 h-100 d-flex flex-column box-shadow-medium border-radius-large position-relative cursor-pointer transition-duration-300 bg-light-warning-color super-hot">
+										<div class="ipx-4 ipx-xl-3 flex-grow-1">
+											@if (post.IsHot)
+											{
+												<div class="ilabel position-absolute ilabel-danger end-0">
+													<svg fill="none" height="15" viewBox="0 0 12 15" width="12"
+														 xmlns="http://www.w3.org/2000/svg">
+														<path clip-rule="evenodd"
+															  d="M8.35103 7.22088C8.77945 5.51855 9.97941 4.56322 11.074 4.45661C9.84457 6.98536 12.8712 8.79743 11.1649 11.8192C10.2049 13.5193 8.33941 14.4836 6.25533 14.4997C0.303047 14.5458 -0.829202 8.4487 1.27822 4.29598C0.712659 8.76776 4.77576 8.50349 3.49039 5.62166C2.56746 3.55246 4.57378 0.432578 7.73614 0.50111C5.5579 3.61357 8.78633 4.4127 8.35103 7.22088Z"
+															  fill-rule="evenodd" fill="#FFDD85"></path>
+													</svg>
+													HOT
+												</div>
+											}
+
+											<div class="d-flex align-items-center justify-content-between">
+												<span class="small-text text-dark-grey">
+													Posted @TimeFormatter.GetTimeAgo(post.PostDate)
+												</span>
+											</div>
+											<h3 class="imt-3 text-it-black text-break text-clamp-2">
+												<a class="text-reset text-hover-red transition-duration-300 stretched-link" asp-action="Detail" asp-controller="Job" asp-area="User/Jobs" asp-route-slug="@post.Slug">
+													@post.Title
+												</a>
+											</h3>
+											<div class="imy-2 d-flex align-items-center jobImpression">
+												<a class="job-card-logo border-solid box-shadow-normal border-radius-normal bg-white stretched-link position-relative">
+													<img alt="NAB Innovation Centre Vietnam Vietnam Small Logo"
+														 class="h-100 lazyloaded" width="48" src="@post.Company.LogoFullPath" />
+												</a>
+												<span class="ims-2 small-text">
+													<a class="text-rich-grey text-clamp-2 text-hover-underline stretched-link position-relative" asp-action="Detail" asp-controller="Company" asp-route-slug="@company.Slug">
+														@company.FullName
+													</a>
+												</span>
+											</div>
+											<div class="fw-500">
+												<div class="d-flex align-items-center salary text-success-color">
+													<svg fill="none" height="16" stroke="currentColor" viewBox="0 0 24 24"
+														 width="16" xmlns="http://www.w3.org/2000/svg">
+														<path d="M12.0044 6V18" stroke-linecap="round"
+															  stroke-linejoin="round" stroke-width="2"></path>
+														<path d="M14.9287 7.90332H10.5395C9.99625 7.90332 9.47527 8.11912 9.09114 8.50325C8.70701 8.88738 8.49121 9.40836 8.49121 9.9516C8.49121 10.4948 8.70701 11.0158 9.09114 11.4C9.47527 11.7841 9.99625 11.9999 10.5395 11.9999H13.4656C14.0088 11.9999 14.5298 12.2157 14.914 12.5998C15.2981 12.9839 15.5139 13.5049 15.5139 14.0482C15.5139 14.5914 15.2981 15.1124 14.914 15.4965C14.5298 15.8806 14.0088 16.0964 13.4656 16.0964H8.49121"
+															  stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+															  stroke="currentColor"></path>
+														<circle cx="12.0002" cy="12.0002" r="9.3" stroke-width="2"
+																stroke="currentColor"></circle>
+													</svg>
+
+													<span class="ips-2">@post.salaryToString()</span>
+												</div>
+											</div>
+											<div class="border-top-dashed imy-3"></div>
+											@if (post.PostLevels.Any())
+											{
+												<div class="d-flex align-items-end">
+													<span class="text-dark-grey lh-1">
+														<i class="feather-icon icon-sm" data-feather="check-square"></i>
+													</span>
+													@foreach (var level in post.PostLevels.Select(p => p.Level).ToList())
+													{
+
+														<span class="ips-2 small-text text-rich-grey text-decoration-underline">
+															<a class="text-reset stretched-link position-relative">
+																@level.Name
+															</a>
+														</span>
+													}
+
+												</div>
+											}
+											@if (post.PostWorkTypes.Any())
+											{
+												<div class="d-flex align-items-end imb-1">
+													<span class="text-dark-grey lh-1">
+														<svg fill="none" height="16" viewBox="0 0 24 25" width="16"
+															 xmlns="http://www.w3.org/2000/svg">
+															<g clip-path="url(#clip0_947_6633)">
+																<path d="M19 14.625C19 13.6967 18.6312 12.8065 17.9749 12.1501C17.3185 11.4937 16.4283 11.125 15.5 11.125H8.5C7.57174 11.125 6.6815 11.4937 6.02513 12.1501C5.36875 12.8065 5 13.6967 5 14.625"
+																	  stroke-linecap="round" stroke-linejoin="round"
+																	  stroke-width="2" stroke="currentColor"></path>
+																<path d="M12 8.5C13.933 8.5 15.5 6.933 15.5 5C15.5 3.067 13.933 1.5 12 1.5C10.067 1.5 8.5 3.067 8.5 5C8.5 6.933 10.067 8.5 12 8.5Z"
+																	  stroke-linecap="round" stroke-linejoin="round"
+																	  stroke-width="2" stroke="currentColor"></path>
+																<path d="M11.5 18.9375H12.5" stroke-linecap="round"
+																	  stroke-linejoin="round" stroke-width="2"
+																	  stroke="currentColor">
+																</path>
+																<path d="M4.56116 22.7812L2.90039 15.0938H21.0996L19.3696 22.7812"
+																	  stroke-linecap="round" stroke-linejoin="round"
+																	  stroke-width="2" stroke="currentColor"></path>
+																<line stroke-linecap="round" stroke-linejoin="round"
+																	  stroke-width="2" stroke="currentColor" x1="1" x2="23"
+																	  y1="23.5" y2="23.5"></line>
+															</g>
+															<defs>
+																<clipPath id="clip0_947_6633">
+																	<rect fill="white" height="24" transform="translate(0 0.5)"
+																		  width="24"></rect>
+																</clipPath>
+															</defs>
+														</svg>
+													</span>
+
+													@foreach (var workType in post.PostWorkTypes.Select(p => p.WorkType).ToList())
+													{
+														<span class="ips-2 small-text text-rich-grey text-decoration-underline">
+															<a class="text-reset stretched-link position-relative">
+																@workType.Name
+															</a>
+														</span>
+													}
+												</div>
+											}
+											@if (post.PostLocations.Any())
+											{
+												<div class="d-flex align-items-center">
+													<span class="text-dark-grey lh-1">
+														<i class="feather-icon icon-sm" data-feather="map-pin"></i>
+													</span>
+													<span class="ips-2 small-text text-rich-grey">
+														@string.Join(", ",
+																										post.PostLocations
+																										.Select(l => l?.Location?.Address?.City?.Name)
+																										.Where(name => !string.IsNullOrEmpty(name))
+																										.Distinct()
+																										)
+													</span>
+												</div>
+											}
+											@if (post.PostSkills.Any())
+											{
+												<div class="d-flex flex-wrap imt-3 imb-5 igap-2">
+													@foreach (var skill in post.PostSkills.Select(ps => ps.Skill))
+													{
+														<div class="itag itag-light itag-sm position-relative">
+															<a class="text-reset stretched-link" action="Search" asp-controller="Job" asp-route-key="@skill.Slug">@skill.Name</a>
+														</div>
+													}
+												</div>
+											}
+
+											<div class="border-top-dashed imb-3 imt-4"></div>
+											<div class="small-text text-it-black fw-500">
+												@Html.Raw(@post.TopReason)
+											</div>
+										</div>
+									</div>
+								</div>
+
+							}
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</div>
+
+@section Scripts {
+	@RenderSection("Scripts", required: false)
+}

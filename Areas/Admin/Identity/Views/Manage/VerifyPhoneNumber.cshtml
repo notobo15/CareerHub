@@ -1,0 +1,77 @@
+﻿@model VerifyPhoneNumberViewModel
+@{
+    ViewData["Title"] = "Xác nhận số điện thoại";
+}
+
+<!-- Breadcrumb -->
+<nav class="page-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Tài khoản</li>
+        <li class="breadcrumb-item active" aria-current="page">
+            <a asp-action="VerifyPhoneNumber">Xác nhận số điện thoại</a>
+        </li>
+    </ol>
+</nav>
+
+<!-- Tiêu đề -->
+<div class="row">
+    <div class="col-md-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="font-weight-bold">@ViewData["Title"]</h4>
+                <p class="text-muted mt-2">
+                    Nhập mã xác nhận được gửi tới số điện thoại của bạn để hoàn tất xác minh.
+                </p>
+                @if (!string.IsNullOrEmpty(ViewData["Status"]?.ToString()))
+                {
+                    <div class="alert alert-info mt-3">
+                        @ViewData["Status"]
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Form xác nhận -->
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-md-6">
+                    <form asp-controller="Manage" asp-action="VerifyPhoneNumber" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                        <input asp-for="PhoneNumber" type="hidden" />
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="form-group">
+                            <label asp-for="Code" class="form-label"></label>
+                            <input asp-for="Code" class="form-control" />
+                            <span asp-validation-for="Code" class="text-danger small"></span>
+                        </div>
+
+                        <div class="form-group d-flex gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary d-inline-flex align-items-center">
+                                <i data-feather="check-circle" class="me-1 icon-md"></i> Xác nhận
+                            </button>
+                            <a asp-action="Index" asp-controller="Manage" class="btn btn-outline-secondary d-inline-flex align-items-center">
+                                <i data-feather="x" class="me-1 icon-md"></i> Huỷ
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quay lại -->
+<a asp-action="Index" asp-controller="Manage" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center mt-3">
+    <i data-feather="chevron-left" class="me-1 icon-md"></i> Quay về trang tài khoản
+</a>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script>
+        feather.replace();
+    </script>
+}

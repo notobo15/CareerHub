@@ -1,0 +1,120 @@
+﻿@using RecruitmentApp.Services
+@model UserSkillsViewModel
+
+@inject HeaderService headerService
+@{
+	var i = 0;
+}
+@{
+
+	// var skills = headerService.GetMenuSkills();
+	// var skillItems = skills.Select(s => new SelectListItem
+	// 		{
+	// 			Value = s.SkillId.ToString(),
+	// 			Text = s.Name
+	// 		}).ToList();
+
+	// var skillLevels = new List<string>() { "Beginner", "Intermediate", "Excellent" };
+
+	// var grouped = ViewData["groupedSkills"] as List<GroupedUserSkill>;
+
+
+	// Merge với skillLevels để đảm bảo đủ 3 cấp độ
+	// var groupedDict = grouped.ToDictionary(g => g.SkillLevel, g => g.Skills);
+
+	// var groupedSkills = skillLevels
+	// 	.Select(level => new GroupedUserSkill
+	// 			{
+	// 				SkillLevel = level,
+	// 				Skills = groupedDict.ContainsKey(level) ? groupedDict[level] : new List<UserSkill>()
+	// 			})
+	// 	.ToList();
+
+	var totalSkills = Model.GroupedSkills.Sum(g => g.Skills.Count);
+
+	var maxSkills = 20;
+}
+<form id="skills_card" asp-action="SaveSkills" asp-controller="Profile" class="w-100">
+
+	<div class="modal-content border-radius-normal box-shadow-dark">
+
+		<div class="modal-header ips-5 ips-xl-8 ipe-5 ipe-xl-5 ipy-4">
+			<h2 class="modal-title text-it-black">Skills</h2>
+			<button class="btn-close modal-fluid__close" data-dismiss="modal" type="button"></button>
+		</div>
+		<div class="modal-body ipt-6 ipb-8 ipx-5 ipx-xl-8">
+			<svg class='feather-icon icon-sm'></svg>
+			<div class="selectBoxes">
+				<div class="select-skill">
+					<div class="form-floating-skill">
+						<select placeholder="Chọn kỹ năng" asp-items="Model.SkillOptions"></select>
+						<div class="d-none validate error-text small-text">
+							Please select the skill
+						</div>
+						<span class="increase-counter skillCounter">
+							@totalSkills/@maxSkills
+						</span>
+						<span class="increase-counter">skills</span>
+					</div>
+				</div>
+				<div class="select-level">
+					<div class="form-floating-level">
+						<select placeholder="Chọn thành thạo" id="selectLevel" asp-items="Model.SkillLevelOptions"></select>
+					</div>
+					<div class="d-none validate error-text small-text errorLevel">
+						Please select the level
+					</div>
+				</div>
+				<div class="action-add">
+					<button name="button" type="button" class="ibtn ibtn-md ibtn-primary w-100">
+						Add
+					</button>
+				</div>
+			</div>
+			<div class="validate error-text small-text d-none errSaveNotAdd">
+				Please select your skill, its level and then click "Add"
+			</div>
+			<div class="d-none newSkillList"></div>
+			<div class="d-none deleteSkillList"></div>
+			<div class="skills-items">
+				@foreach (var group in Model.GroupedSkills)
+				{
+					<div class="ipt-6">
+						<div class="d-flex">
+							<h4 class="text-it-black">@group.SkillLevel</h4>
+						</div>
+
+						<div class="ipt-3 @group.SkillLevel.ToLower()-display d-flex flex-wrap">
+							@if (group.Skills.Any())
+							{
+								foreach (var skill in group.Skills)
+								{
+									<div class="itag itag-md itag-light ime-3 imb-3" data-skill-slug="@skill.Skill.Name">
+										<span class="skill-name normal-text text-rich-grey">@skill.Skill.Name</span>
+										<span class="skill-level d-none">@group.SkillLevel</span>
+										<span class="d-flex align-items-center delete-skill">
+											<i class="feather-icon icon-sm" data-feather="x"></i>
+										</span>
+									</div>
+								}
+							}
+							else
+							{
+								<span class="small-text text-dark-grey excellent-no-info">No skills listed</span>
+							}
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+		<div class="modal-footer justify-content-between justify-content-md-end p-0 ipx-5 ipx-xl-8 ipy-2">
+			<button class="ibtn ibtn-sm ibtn-tertiary flex-grow-1 flex-md-grow-0 imy-0 ime-4 fw-400" data-dismiss="modal" type="button">
+				Cancel
+			</button>
+			<button class="ibtn ibtn-sm ibtn-primary flex-grow-1 flex-md-grow-0 im-0" type="submit">
+				Save
+			</button>
+		</div>
+	</div>
+</form>
+

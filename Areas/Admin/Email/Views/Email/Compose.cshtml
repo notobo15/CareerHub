@@ -1,0 +1,204 @@
+﻿@model ComposeMailViewModel
+
+@{
+	ViewData["Title"] = "Compose Email";
+}
+
+<form asp-action="Send" method="post" enctype="multipart/form-data">
+	<div class="email-head">
+		<div class="email-head-title d-flex align-items-center">
+			<span data-feather="edit" class="icon-md mr-2"></span>
+			New message
+		</div>
+	</div>
+	<div class="email-compose-fields">
+		<div class="to">
+			<div class="form-group row py-0">
+				<label class="col-md-1 control-label">To:</label>
+				<div class="col-md-11">
+					<div class="form-group">
+						<select class="compose-multiple-select form-control w-100" multiple="multiple" asp-for="ToUserIds" asp-items="Model.AllUsers"></select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="to cc">
+			<div class="form-group row pt-1 pb-3">
+				<label class="col-md-1 control-label">Cc</label>
+				<div class="col-md-11">
+					<select class="compose-multiple-select form-control w-100" multiple="multiple" asp-for="CcUserIds" asp-items="Model.AllUsers">
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="subject">
+			<div class="form-group row py-0">
+				<label asp-for="Subject" class="col-md-1 control-label">Subject</label>
+				<div class="col-md-11">
+					<input asp-for="Subject" class="form-control" type="text" />
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="email editor">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label class="control-label sr-only" for="simpleMdeEditor">Descriptions </label>
+				<textarea asp-for="Body" class="form-control body-summernote" id="simpleMdeEditor" rows="5"></textarea>
+			</div>
+		</div>
+		<div class="form-group">
+			<label>Attachments:</label>
+			<input id="fileInput" type="file" asp-for="Files" multiple class="form-control d-none" />
+		</div>
+		<div class="email-attachments d-none" id="attachmentPreview">
+			<div class="title">Attachments <span id="attachmentSummary"></span></div>
+			<ul id="attachmentList"></ul>
+		</div>
+
+		<div class="email action-send">
+			<div class="col-md-12">
+				<div class="form-group mb-0">
+					<button class="btn btn-primary btn-space" type="submit">
+						<i class="icon s7-mail"></i>
+						Send
+					</button>
+					<button class="btn btn-secondary btn-space" type="button">
+						<i class="icon s7-close"></i>
+						Cancel
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+
+@section Scripts {
+	<script src="~/assets/vendors/select2/select2.min.js"></script>
+	<script src="~/assets/vendors/simplemde/simplemde.min.js"></script>
+	<script src="~/assets/js/email.js"></script>
+
+	<script>
+
+		function formatBytes(bytes) {
+			const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+			if (bytes === 0) return '0 Bytes';
+			const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+			return parseFloat((bytes / Math.pow(1024, i)).toFixed(2)) + ' ' + sizes[i];
+		}
+
+		function getFileIcon(name) {
+			const ext = name.split('.').pop().toLowerCase();
+			if (['jpg', 'jpeg', 'png', 'gif'].includes(ext)) return 'image';
+			if (['zip', 'rar'].includes(ext)) return 'file-text';
+			if (['pdf'].includes(ext)) return 'file-text';
+			if (['doc', 'docx'].includes(ext)) return 'file';
+			return '📁';
+		}
+
+		 $(document).ready(function () {
+			$('.body-summernote').summernote({
+				height: 200,
+				placeholder: 'Write your email here...',
+				toolbar: [
+					['style', ['bold', 'italic', 'underline', 'clear']],
+					['font', ['strikethrough']],
+					['para', ['ul', 'ol', 'paragraph']],
+					['insert', ['link', 'picture', 'attachment']],
+				],
+				buttons: {
+					attachment: function (context) {
+						let ui = $.summernote.ui;
+						// Tạo nút
+						let button = ui.button({
+							contents: '<i data-feather="paperclip" class="icon-md"></i>',
+							tooltip: 'Add attachment',
+							click: function () {
+								$('#fileInput').trigger('click');
+							}
+						});
+						return button.render();
+					}
+				}
+			});
+
+			feather.replace();
+
+			const input = document.getElementById('fileInput');
+			const dt = new DataTransfer();
+
+			$('#fileInput').on('change', function () {
+				const newFiles = Array.from(input.files);
+
+				// Thêm từng file mới vào danh sách tổng
+				newFiles.forEach(file => dt.items.add(file));
+
+				// Gán lại danh sách file tổng vào input
+				input.files = dt.files;
+
+				renderAttachmentList(); // cập nhật danh sách hiển thị
+			});
+
+			function renderAttachmentList() {
+				const list = $('#attachmentList');
+				list.empty();
+
+				let totalSize = 0;
+				const count = dt.files.length;
+
+				for (let i = 0; i < count; i++) {
+					const file = dt.files[i];
+					totalSize += file.size;
+
+					const icon = getFileIcon(file.name);
+					const sizeStr = formatBytes(file.size);
+
+					const listItem = $(`
+						<li class="d-flex justify-content-between align-items-center mb-1">
+							<span>
+								<span class="mr-2">
+									<i data-feather="${icon}" class="icon-lg2"></i>
+								</span> ${file.name}
+								<span class="text-muted tx-11">(${sizeStr})</span>
+							</span>
+							<button type="button" class="btn btn-sm btn-link text-danger remove-attachment" data-index="${i}">
+								<i data-feather="x" class="icon-lg2"></i>
+							</button>
+						</li>
+					`);
+
+					list.append(listItem);
+				}
+
+				$('#attachmentSummary').text(`(${count} file${count > 1 ? 's' : ''}, ${formatBytes(totalSize)})`);
+				$('#attachmentPreview').toggleClass('d-none', count === 0);
+				feather.replace(); // Re-render feather icons
+			}
+
+
+			$(document).on('click', '.remove-attachment', function () {
+				const indexToRemove = $(this).data('index');
+
+				const newDT = new DataTransfer();
+
+				for (let i = 0; i < dt.files.length; i++) {
+					if (i !== indexToRemove) {
+						newDT.items.add(dt.files[i]);
+					}
+				}
+
+				// Cập nhật lại dt và input
+				dt.items.clear();
+				for (let i = 0; i < newDT.files.length; i++) {
+					dt.items.add(newDT.files[i]);
+				}
+				input.files = dt.files;
+
+				renderAttachmentList();
+			});
+		});
+	</script>
+
+
+}

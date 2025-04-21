@@ -1,0 +1,257 @@
+@model List<Post>
+@{
+	// Lấy tên Action hiện tại
+	var currentAction = ViewContext.RouteData.Values["action"]?.ToString() ?? "";
+
+	// Tạo danh sách các menu item
+	var menuItems = new List<(string Text, string ActionName, string Url, string Count)>
+	{
+		("Đã ứng tuyển", "MyJobsApplied", Url.Action("MyJobsApplied", "Profile"),  @ViewData["totalApplyPosts"].ToString()),
+		("Đã lưu", "MyJobs", Url.Action("MyJobs", "Profile"), @ViewData["totalFavorites"].ToString()),
+		("Đã xem gần đây", "MyJobsRecentViewed", Url.Action("MyJobsRecentViewed", "Profile"), @ViewData["totalViewedPosts"].ToString()),
+	};
+
+	var favoritePostIds = ViewBag.FavoritePostIds as List<int> ?? new List<int>();
+}
+
+
+<div class="manage-profile min-vh-100 flex-1">
+	<div class="main-content">
+		<div class="bg-light-grey manage-profile mt-md-auto min-vh-main ipt-md-6">
+			<div class="bg-white box-shadow-normal border-radius-large-md ipx-md-6 ipt-md-6">
+				<div class="icontainer">
+					<div class="ipx-md-0 ipx-5 ipt-4 ipt-md-0">
+						<h2>Việc làm của tôi</h2>
+					</div>
+					<ul class="nav d-md-flex ipx-5 ipx-md-0 align-items-md-center gap-0 overflow-hidden" id="profile_nav">
+						@foreach (var item in menuItems)
+						{
+							// Nếu action hiện tại trùng với item.ActionName thì gán "active", ngược lại để trống
+							var isActive = currentAction.Equals(item.ActionName, StringComparison.OrdinalIgnoreCase)
+							? "active"
+							: "";
+
+							<li class="nav-item h-100 p-0 m-0 d-flex align-items-end">
+								<a class="ipb-4 ipt-4 ipx-0 ime-6 nav-link text-nowrap w-100 @isActive"
+								   href="@item.Url">
+									@item.Text
+									<div class="badge-counter ims-2">
+										@item.Count
+									</div>
+								</a>
+							</li>
+						}
+					</ul>
+				</div>
+			</div>
+			<div class="tab-content">
+				<div id="jobs_tab">
+					<div class="icontainer">
+						<div class="row m-0">
+							<div class="col-md-12 p-0 m-0">
+								<div class="sort-title-wrapper" id="applied_jobs">
+									<div class="border-radius-large-md box-shadow-normal">
+										<div class="d-md-flex align-items-center justify-content-between ipe-2 ips-5 ips-md-6 imt-4 ipy-3 ipy-md-4">
+											<div class="d-flex">
+												<div class="d-flex">
+													<i class="feather-icon icon-md text-dark-grey" data-feather="info"></i>
+												</div>
+												<div class="ims-1 small-text text-rich-grey">
+													@ViewBag.Message
+												</div>
+											</div>
+
+											@if (Model != null && Model.Any())
+											{
+												<form class="sort-jobs-form" method="get">
+													<div class="d-flex align-items-center ipt-md-0 ipt-3 imt-3 imt-md-0">
+														<label class="sort-label text-dark-grey small-text m-0" for="sort_by">Sort by:</label>
+														<select id="sort_by" class="small-text border-0 borderless-select bg-light-grey">
+															<option value="about_to_expire" selected="@(ViewBag.CurrentSort == "about_to_expire")">About to expire</option>
+															<option value="latest_posting" selected="@(ViewBag.CurrentSort == "latest_posting")">Latest posting</option>
+															<option value="most_recent_viewed" selected="@(ViewBag.CurrentSort == "most_recent_viewed")">Most recent viewed</option>
+														</select>
+													</div>
+												</form>
+											}
+										</div>
+										@if (Model != null && Model.Any())
+										{
+											foreach (var post in Model)
+											{
+												var isFavorited = favoritePostIds.Contains(post.PostId);
+												<div class="job-card bg-white w-100 position-relative ipt-2 ipb-6 imb-0 box cursor-pointer">
+													<div class="ipx-5 ipx-md-6 h-100">
+														<div class="job-card-content">
+															<a asp-route-slug="@post.Company?.Slug" asp-action="Detail" asp-controller="Job" asp-area="User/Jobs">
+																<div class="d-md-flex justify-content-between position-relative pt-2">
+																
+																	@*
+																	
+																		<!-- Mobile Date Info -->
+																	<div class="small-text text-rich-grey d-flex d-md-none justify-content-between">
+																		Posted @post.CreatedAt.ToString("dd MMM yyyy")
+																		<span class="text-warning-color">
+																			(Expires in @((post.Expired - DateTime.Now).Days) days)
+																		</span>
+																	</div>
+
+																	*@
+
+																	<!-- Company + Title -->
+																	<div class="d-flex">
+																		<div class="d-flex imt-1">
+																			<a class="bg-white logo-employer-card" asp-route-slug="@post.Company?.Slug" asp-action="Detail" asp-controller="Company" asp-area="User/Companies">
+																				<img alt="@post.Company?.Name Logo" class="company-logo" src="~/images/companies/@post.Company?.LogoImage" width="100%" />
+																			</a>
+																		</div>
+
+																		<div class="imx-3 ims-2 imb-1">
+																			<h4 class="imb-1 text-it-black">
+																				@post.Title
+																			</h4>
+																			<a class="text-rich-grey small-text text-hover-underline" asp-route-slug="@post.Company?.Slug" asp-action="Detail" asp-controller="Company" asp-area="User/Companies">
+																				@post.Company?.Name
+																			</a>
+																			<p class="small-text text-dark-grey mb-0">
+																				<span>
+																					@string.Join(" - ", post.PostLocations
+																																							.Select(pl => pl.Location.Address.City.Name)
+																																							.Distinct())
+																				</span>
+																				<span>•</span>
+																				<span class="text-dark-grey">@post.WorkSpace</span>
+																			</p>
+																			<div class="d-flex align-items-center salary text-success-color">
+																				<svg fill="none" height="20" width="20" viewBox="0 0 24 24" stroke="currentColor">
+																					<path d="M12.0044 6V18" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+																					<path d="M14.9287 7.90332H10.5395C9.99625 7.90332 9.47527 8.11912 9.09114 8.50325C8.70701 8.88738 8.49121 9.40836 8.49121 9.9516C8.49121 10.4948 8.70701 11.0158 9.09114 11.4C9.47527 11.7841 9.99625 11.9999 10.5395 11.9999H13.4656C14.0088 11.9999 14.5298 12.2157 14.914 12.5998C15.2981 12.9839 15.5139 13.5049 15.5139 14.0482C15.5139 14.5914 15.2981 15.1124 14.914 15.4965C14.5298 15.8806 14.0088 16.0964 13.4656 16.0964H8.49121" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+																					<circle cx="12.0002" cy="12.0002" r="9.3" stroke-width="2" stroke="currentColor"></circle>
+																				</svg>
+																				<span class="ips-2 fw-500">@post.salaryToString()</span>
+																			</div>
+																		</div>
+																	</div>
+
+																	<!-- Desktop Date + Actions -->
+																	<div class="imt-3">
+																		<div class="small-text text-rich-grey d-none d-md-block text-end mb-3">
+																			Posted @post.CreatedAt.ToString("dd MMM yyyy")
+																			<div class="large-text text-warning-color">
+																				(Expires in @((post.Expired - DateTime.Now).Days) days)
+																			</div>
+																		</div>
+																		<div class="d-flex justify-content-end igap-6">
+																			<a class="ibtn ibtn-sm ibtn-secondary text-nowrap" asp-route-slug="@post.Company?.Slug" asp-action="Apply" asp-controller="Company" asp-area="User/Companies">
+																				Apply now
+																			</a>
+																			<a class="d-flex align-items-center" asp-route-slug="@post.Company?.Slug" asp-action="Detail" asp-controller="Company" asp-area="User/Companies">
+																				<i class="feather-icon icon-xl text-it-red @(isFavorited ? "fill" : "")" data-feather="heart"></i>
+																			</a>
+																		</div>
+																	</div>
+																</div>
+															</a>
+														</div>
+													</div>
+
+												</div>
+
+											}
+										}
+										else
+										{
+											<turbo-frame id="user_applied_jobs">
+												<div class="no-jobs-wrapper text-center bg-white irounded-sm-bottom ipy-12 ipy-md-16">
+													<img width="80"
+														 src="~/images/icons/job-empty.svg">
+													<div class="no-jobs-text normal-text text-dark-grey imy-4 imy-md-6">
+														Bạn chưa ứng tuyển vào công việc nào trong 12 tháng qua.
+													</div>
+													<a class="ibtn ibtn-md ibtn-secondary w-md-auto">
+														Tìm việc ngay
+													</a>
+												</div>
+
+											</turbo-frame>
+										}
+
+									</div>
+									@if (ViewBag.TotalPages > 1)
+									{
+										<div class="pagination d-flex flex-row justify-content-center absolute imb-16">
+											<nav class="ipagination imt-10">
+
+												@* Nút Previous *@
+												@if ((int)ViewBag.CurrentPage > 1)
+												{
+													<div class="page prev">
+														<a href="@Url.Action("MyJobsRecentViewed", new { page = ViewBag.CurrentPage - 1 })"
+														   rel="prev" data-controller="auto-scroll-to-top">
+															<i class="feather-icon icon-sm" data-feather="chevron-left"></i>
+														</a>
+													</div>
+												}
+
+												@* Các trang số *@
+												@for (int i = 1; i <= (int)ViewBag.TotalPages; i++)
+												{
+													if (i == (int)ViewBag.CurrentPage)
+													{
+														<div class="page current">@i</div>
+													}
+													else
+													{
+														<div class="page">
+															<a href="@Url.Action("MyJobsRecentViewed", new { page = i })"
+															   data-controller="auto-scroll-to-top">@i</a>
+														</div>
+													}
+												}
+
+												@* Nút Next *@
+												@if ((int)ViewBag.CurrentPage < (int)ViewBag.TotalPages)
+												{
+													<div class="page next">
+														<a href="@Url.Action("MyJobsRecentViewed", new { page = ViewBag.CurrentPage + 1 })"
+														   rel="next" data-controller="auto-scroll-to-top">
+															<i class="feather-icon icon-sm" data-feather="chevron-right"></i>
+														</a>
+													</div>
+												}
+
+											</nav>
+										</div>
+									}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+@section Scripts {
+	<script>
+		$(document).ready(function() {
+			new TomSelect('#sort_by', {
+				create: false,
+				sortField: {
+					field: 'text',
+					direction: 'asc'
+				}
+			});
+
+			$('#sort_by').on('change', function () {
+				const sortBy = $(this).val();
+				const url = new URL(window.location.href);
+				url.searchParams.set('sort_by', sortBy);
+				url.searchParams.set('page', 1); // reset về trang đầu tiên
+				window.location.href = url.toString();
+			});
+		});
+	</script>
+}

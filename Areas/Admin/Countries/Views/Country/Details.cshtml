@@ -1,0 +1,65 @@
+﻿@model RecruitmentApp.Models.Country
+
+<!-- Breadcrumb -->
+<nav class="page-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Countries</li>
+        <li class="breadcrumb-item active" aria-current="page"><a href="#">Details</a></li>
+    </ol>
+</nav>
+
+<!-- Page Title -->
+<div class="row">
+    <div class="col-md-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4>
+                    Chi tiết Quốc Gia
+                    <a asp-action="Details" asp-route-id="@Model.CountryId">#@Model.CountryId</a>
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Thông tin chi tiết -->
+<div class="row">
+    <div class="col-md-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.CountryId)</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(m => m.CountryId)</dd>
+
+                    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Name)</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(m => m.Name)</dd>
+
+                    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Slug)</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(m => m.Slug)</dd>
+
+                    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.ISOCode)</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(m => m.ISOCode)</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Actions -->
+<div class="mt-4">
+    <a asp-action="Index" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center">
+        <i data-feather="arrow-left" class="me-1 icon-md"></i> Back to List
+    </a>
+    <a asp-action="Edit" asp-route-id="@Model.CountryId" class="btn btn-sm btn-outline-warning d-inline-flex align-items-center mx-2">
+        <i data-feather="edit" class="me-1 icon-md"></i> Edit
+    </a>
+    <a asp-action="Delete" asp-route-id="@Model.CountryId" class="btn btn-sm btn-outline-danger d-inline-flex align-items-center">
+        <i data-feather="trash-2" class="me-1 icon-md"></i> Delete
+    </a>
+</div>
+
+@section Scripts {
+    <script>
+        feather.replace();
+    </script>
+}

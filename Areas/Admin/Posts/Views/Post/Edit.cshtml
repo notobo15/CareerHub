@@ -1,0 +1,226 @@
+﻿@using RecruitmentApp.Areas.Admin.Posts.ViewModels
+@model CreatePostViewModel
+@{
+	ViewData["Title"] = "Chỉnh sửa bài đăng";
+
+	var TopReason = new RecruitmentApp.Models.Summernote("#TopReason");
+	var Description = new RecruitmentApp.Models.Summernote("#Description");
+	var JobRequirement = new RecruitmentApp.Models.Summernote("#JobRequirement");
+	var Benefit = new RecruitmentApp.Models.Summernote("#Benefit");
+}
+
+<nav class="page-breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">Posts</li>
+		<li class="breadcrumb-item active" aria-current="page">Chỉnh sửa</li>
+	</ol>
+</nav>
+
+<div class="row">
+	<div class="col-md-12 grid-margin">
+		<div class="card">
+			<div class="card-body">
+				<h4 class="font-weight-bold">@ViewData["Title"]</h4>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12 grid-margin stretch-card">
+		<div class="card">
+			<div class="card-body">
+				<form asp-action="Edit" method="post">
+					@Html.AntiForgeryToken()
+					@Html.HiddenFor(x => x.PostId)
+					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+					<div class="form-group">
+						<label asp-for="Title"></label>
+						<input asp-for="Title" class="form-control" />
+						<span asp-validation-for="Title" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="Slug"></label>
+						<input asp-for="Slug" class="form-control" />
+						<span asp-validation-for="Slug" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<div class="form-check form-check-flat form-check-primary">
+							<label asp-for="IsHot" class="form-check-label">
+								<input asp-for="IsHot" type="checkbox" class="form-check-input">
+								@Html.DisplayNameFor(m => m.IsHot)
+								<i class="input-frame"></i>
+							</label>
+						</div>
+						<span asp-validation-for="IsHot" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<div class="form-check form-check-flat form-check-primary">
+							<label asp-for="IsShow" class="form-check-label">
+								<input asp-for="IsShow" type="checkbox" class="form-check-input">
+								@Html.DisplayNameFor(m => m.IsShow)
+								<i class="input-frame"></i>
+							</label>
+						</div>
+						<span asp-validation-for="IsShow" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label>Kiểu lương</label>
+						@Html.DropDownListFor(model => model.SalaryType, Model.SalaryTypes, "-- Chọn --", new { @class = "form-control" })
+					</div>
+					<div class="form-row">
+						<div class="col">
+							<div class="form-group">
+								<label asp-for="MinSalary"></label>
+								<div class="d-flex">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroupPrepend">VNĐ</span>
+									</div>
+									<input asp-for="MinSalary" class="form-control" />
+								</div>
+								<span asp-validation-for="MinSalary" class="text-danger"></span>
+							</div>
+						</div>
+						<div class="col">
+							<div class="form-group">
+								<label asp-for="MaxSalary"></label>
+								<div class="d-flex">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroupPrepend">VNĐ</span>
+									</div>
+									<input asp-for="MaxSalary" class="form-control" />
+								</div>
+								<span asp-validation-for="MaxSalary" class="text-danger"></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="Expired"></label>
+						<input type="date" asp-for="Expired" class="form-control" />
+						<span asp-validation-for="Expired" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label>Người tuyển dụng</label>
+						@Html.DropDownListFor(model => model.RecruiterId, Model.Recruiters as SelectList, "-- Chọn --", new { @class = "form-control" })
+					</div>
+
+					<div class="form-group">
+						<label>Địa điểm làm việc</label>
+						<select asp-for="LocationId" id="LocationId" name="LocationId" class="form-control">
+							<option value="">-- Chọn địa điểm --</option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label>Hình thức làm việc</label>
+						@Html.ListBoxFor(model => model.WorkTypeIds, Model.WorkTypes as MultiSelectList, new { @class = "form-control", multiple = "multiple" })
+					</div>
+
+					<div class="form-group">
+						<label asp-for="SkillIds"></label>
+						<select asp-for="SkillIds" asp-items="Model.Skills" class="form-control w-100" multiple="multiple"></select>
+						<span asp-validation-for="SkillIds" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="TitleIds"></label>
+						<select asp-for="TitleIds" asp-items="Model.Titles" class="form-control w-100" multiple="multiple"></select>
+						<span asp-validation-for="TitleIds" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="IndustryIds"></label>
+						<select asp-for="IndustryIds" asp-items="Model.Industries" class="form-control w-100" multiple="multiple"></select>
+						<span asp-validation-for="IndustryIds" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="LevelIds"></label>
+						<select asp-for="LevelIds" asp-items="Model.Levels" class="form-control w-100" multiple="multiple">
+							<option value="">-- Chọn levels --</option>
+						</select>
+						<span asp-validation-for="LevelIds" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="TopReason"></label>
+						<textarea asp-for="TopReason" class="form-control"></textarea>
+						<span asp-validation-for="TopReason" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="Description"></label>
+						<textarea asp-for="Description" class="form-control"></textarea>
+						<span asp-validation-for="Description" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="JobRequirement"></label>
+						<textarea asp-for="JobRequirement" class="form-control"></textarea>
+						<span asp-validation-for="JobRequirement" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="Benefit"></label>
+						<textarea asp-for="Benefit" class="form-control"></textarea>
+						<span asp-validation-for="Benefit" class="text-danger"></span>
+					</div>
+
+					<div class="form-group d-flex gap-2 mt-4">
+						<button type="submit" class="btn btn-primary d-inline-flex align-items-center mr-2">
+							<i data-feather="save" class="mr-1 icon-md"></i> Lưu
+						</button>
+						<a asp-action="Index" class="btn btn-outline-secondary d-inline-flex align-items-center">
+							<i data-feather="x" class="mr-1 icon-md"></i> Hủy
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<script>
+
+		$(document).ready(function () {
+			$("select").select2({
+				theme: "bootstrap4",
+				allowClear: true,
+				width: "100%"
+			});
+			$('#Expired').datepicker({
+				dateFormat: "yy-mm-dd"
+			});
+
+
+			$('#RecruiterId').on('change', function () {
+				const recruiterId = $(this).val();
+
+				$('#LocationId').empty().append('<option value="">Đang tải...</option>');
+
+				if (recruiterId) {
+					$.get('/admin/post/getlocationsbyrecruiter', { recruiterId }, function (data) {
+						const $locationSelect = $('#LocationId');
+						$locationSelect.empty().append('<option value="">-- Chọn địa điểm --</option>');
+						data.forEach(loc => {
+							$locationSelect.append(`<option value="${loc.locationId}">${loc.fullAddress}</option>`);
+						});
+					});
+				} else {
+					$('#LocationId').empty().append('<option value="">-- Chọn địa điểm --</option>');
+				}
+			});
+		});
+	</script>
+	<partial name="_Summernote" model="TopReason" />
+	<partial name="_Summernote" model="Description" />
+	<partial name="_Summernote" model="JobRequirement" />
+	<partial name="_Summernote" model="Benefit" />
+}

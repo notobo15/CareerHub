@@ -1,317 +1,734 @@
-﻿<div class="flex-grow-1">
+﻿@model Review
 
-    <div class="gradient-background d-none d-md-block"></div>
-    <div class="icontainer">
-        <div class="d-flex align-items-center text-center position-relative top-branding-background">
-            <div class="position-absolute" data-controller="quit-confirmation">
-                <a class="d-flex align-items-center hyperlink text-it-white" data-action="click->quit-confirmation#showModal" href="#">
-                    <svg class="feather-icon icon-md">
-                        <use href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#chevron-left"></use>
-                    </svg>
+@{
+	var company = ViewData["company"] as Company;
+	// var star = ViewData["star"] as int? ?? 0;
+}
+<div class="flex-grow-1">
 
-                    <div class="d-none d-md-flex">
-                        Back
-                    </div>
-                </a><div aria-hidden="" class="modal fade" data-quit-confirmation-target="backModal" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered imodal-default-width">
-                        <div class="modal-content">
-                            <div class="d-flex">
-                                <div class="d-flex flex-grow-1 ipt-6 ips-6 ipe-4 ipt-md-8 ips-md-8">
-                                    <h2 class="text-it-black">Quit reviewing</h2>
-                                </div>
-                                <button aria-label="Close" class="btn-close imt-5 ime-5" data-bs-dismiss="modal" type="button"></button>
-                            </div>
-                            <div class="ipt-3 ipx-6 ipx-md-8 ipb-6 ipb-md-8">
-                                <p class="paragraph text-rich-grey text-start">
-                                    Changes you made so far will not be saved. Are you sure you want to quit this page?
-                                </p>
-                            </div>
-                            <div class="d-flex flex-column flex-md-row align-items-md-center align-items-stretch ipb-6 ipx-6 ipx-md-8 justify-content-end">
-                                <div class="d-flex flex-column-reverse flex-md-row ibtn-group-gap">
-                                    <button class="ibtn ibtn-tertiary flex-grow-1 flex-md-grow-0" data-bs-dismiss="modal" type="button">
-                                        Continue reviewing
-                                    </button>
-                                    <a class="ibtn ibtn-md ibtn-primary flex-grow-1 flex-md-grow-0" data-controller="utm-tracking" href="/companies/tymex?utm_campaign=button_feature_review&amp;utm_medium=new_review&amp;utm_source=emp_page">Confirm</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+	<div class="gradient-background d-none d-md-block"></div>
+	<div class="icontainer">
+		<div class="d-flex align-items-center text-center position-relative top-branding-background">
+			<div class="position-absolute">
+				<a class="d-flex align-items-center hyperlink text-it-white" asp-area="User/Companies" asp-controller="Company" asp-action="Detail" asp-route-slug="@company.Slug">
+					<i class="feather-icon icon-md" data-feather="chevron-left"></i>
+					Back
+				</a>
+				<div class="modal fade backModal" tabindex="-1">
+					<div class="modal-dialog modal-dialog-centered imodal-default-width">
+						<div class="modal-content">
+							<div class="d-flex">
+								<div class="d-flex flex-grow-1 ipt-6 ips-6 ipe-4 ipt-md-8 ips-md-8">
+									<h2 class="text-it-black">Quit reviewing</h2>
+								</div>
+								<button aria-label="Close" class="btn-close imt-5 ime-5" data-bs-dismiss="modal"
+										type="button"></button>
+							</div>
+							<div class="ipt-3 ipx-6 ipx-md-8 ipb-6 ipb-md-8">
+								<p class="paragraph text-rich-grey text-start">
+									Changes you made so far will not be saved. Are you sure you want to quit this page?
+								</p>
+							</div>
+							<div class="d-flex flex-column flex-md-row align-items-md-center align-items-stretch ipb-6 ipx-6 ipx-md-8 justify-content-end">
+								<div class="d-flex flex-column-reverse flex-md-row ibtn-group-gap">
+									<button class="ibtn ibtn-tertiary flex-grow-1 flex-md-grow-0"
+											data-bs-dismiss="modal" type="button">
+										Continue reviewing
+									</button>
+									<a class="ibtn ibtn-md ibtn-primary flex-grow-1 flex-md-grow-0"
+									   data-controller="utm-tracking"
+									   href="/companies/tymex?utm_campaign=button_feature_review&amp;utm_medium=new_review&amp;utm_source=emp_page">Confirm</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
-            </div>
-            <div class="imy-6 m-auto">
-                <img class="logo-itviec" alt="logo-itviec" src="https://itviec.com/assets/logo-itviec-4492a2f2577a15a0a1d55444c21c0fa55810822b3b189fc689b450fb62ce0b5b.png" width="81" height="32">
-            </div>
-        </div>
+			</div>
+			<div class="imy-6 m-auto">
+			</div>
+		</div>
 
-    </div>
-    <section class="imb-16 main">
-        <div class="icontainer">
-            <div class="review-company-content igap-7">
-                <div class="col-md-8">
-                    <div class="bg-white box-shadow-medium border-radius-large ipy-4 ipx-5 ip-md-8 ipe-md-1">
-                        <h2 class="imb-2 text-it-black">Review TymeX</h2>
-                        <p class="paragraph text-rich-grey">It only takes you 1 minute to complete this review form. Your opinion will be very helpful for the Developer community who are looking for a job.</p>
-                        <form class="review-form imt-6" data-star-hint="{&quot;1&quot;:&quot;Terrible&quot;,&quot;2&quot;:&quot;Needs improvement&quot;,&quot;3&quot;:&quot;Good&quot;,&quot;4&quot;:&quot;Really good&quot;,&quot;5&quot;:&quot;Fanstatic!&quot;}" data-controller="reviews--new" data-reviews--new-target="form" data-reviews--new-mobile-view-value="false" data-reviews--new-msg-rate-overall-value="Please give overall rating for this company" data-reviews--new-msg-rate-value="Please rate this factor" data-reviews--new-msg-check-value="Please choose an answer" action="/reviews?locale=en&amp;utm_campaign=button_feature_review&amp;utm_medium=new_review&amp;utm_source=emp_page" accept-charset="UTF-8" method="post" novalidate="novalidate">
-                            <input type="hidden" name="authenticity_token" value="n3Zc7KXVlIF4oyX4ZpQVhDulx25yCHBExKXzVMUVQBpFPsK-CxBryzOkntcEiepp87-WjIzI16oDb5KEvcisWg" autocomplete="off"><input value="1372" autocomplete="off" type="hidden" name="review[employer_id]" id="review_employer_id">
-                            <input value="423880" autocomplete="off" type="hidden" name="review[user_id]" id="review_user_id">
-                            <div class="form-group imy-6 d-md-flex justify-content-start align-items-center">
-                                <h3 class="imb-2 text-it-black">
-                                    Overall rating
-                                    <span class="irequired">*</span>
-                                </h3>
-                                <section class="star-over-all">
-                                    <div class="d-flex justify-content-start ims-md-15 over-all-rate imt-3 imt-md-0">
-                                        <div class="br-wrapper br-theme-css-stars">
-                                            <select data-reviews--new-target="overallRate" data-validation-message-selector="#overallRateError" id="jrate1" name="review[overall_rate]" style="display: none;">
-                                                <option value=""></option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                            </select><div class="br-widget"><a href="#" data-rating-value="1" data-rating-text="1"></a><a href="#" data-rating-value="2" data-rating-text="2"></a><a href="#" data-rating-value="3" data-rating-text="3"></a><a href="#" data-rating-value="4" data-rating-text="4"></a><a href="#" data-rating-value="5" data-rating-text="5"></a><div class="br-current-rating"></div></div><span id="jrate1-text" class="jrate-label"></span>
-                                        </div>
-                                    </div>
-                                    <div class="ims-md-15" id="overallRateError"></div>
-                                </section>
-                            </div>
-                            <div class="form-group imb-6">
-                                <div class="form-floating">
-                                    <input class="form-control" placeholder="Summary" required="required" data-rule-minlength="10" data-rule-maxlength="80" data-msg="Please input content to this field" data-msg-minlength="From 10 to 80 characters" data-msg-maxlength="From 10 to 80 characters" type="text" value="" name="review[title]" id="review_title">
-                                    <label>
-                                        Summary
-                                        <span class="irequired">*</span>
-                                    </label>
-                                    <div class="error-text"></div>
-                                </div>
-                            </div>
-                            <div class="form-group mb-4">
-                                <h3 class="imb-3 text-it-black">
-                                    How do you feel about the overtime policy?
-                                    <span class="irequired">*</span>
-                                </h3>
-                                <div class="overtime-recommend-wrapper">
-                                    <label class="iradio">
-                                        <input data-reviews--new-target="overtimeRecommend" data-validation-message-selector="#overtimeRecommendError" name="review[overtime_recommend]" type="radio" value="true">
-                                        <span class="normal-text">Satisfied</span>
-                                    </label>
-                                    <br>
-                                    <label class="iradio imt-4">
-                                        <input data-reviews--new-target="overtimeRecommend" data-validation-message-selector="#overtimeRecommendError" name="review[overtime_recommend]" type="radio" value="false">
-                                        <span class="normal-text">Unsatisfied</span>
-                                    </label>
-                                </div>
-                                <div id="overtimeRecommendError"></div>
-                                <div class="overtime-recommend-text mt-4" data-controller="auto-resize-textarea">
-<textarea class="form-control text-area-field" placeholder="Input your reason" rows="2" required="required" data-auto-resize-textarea-target="textArea" data-action="input->auto-resize-textarea#autoGrow" data-rule-minlength="50" data-rule-maxlength="140" data-msg="Please input content to this field" data-msg-minlength="From 50 to 140 characters" data-msg-maxlength="From 50 to 140 characters" data-reviews--new-target="otReason" name="review[happy_with_overtime_reason]" id="review_happy_with_overtime_reason" style="height: 118px; overflow: hidden;"></textarea>
-                                    <div class="small form-text small-text text-dark-grey">Limit from 50 to 140 characters</div>
-                                </div>
-                            </div>
-                            <div class="form-group mb-4" data-controller="auto-resize-textarea">
-                                <h3 class="imb-3 text-it-black">
-                                    What makes you love working here
-                                    <span class="irequired">*</span>
-                                </h3>
-<textarea class="form-control text-area-field" placeholder="Input your experiences" rows="4" required="required" data-auto-resize-textarea-target="textArea" data-action="input->auto-resize-textarea#autoGrow" data-rule-minlength="50" data-rule-maxlength="10000" data-msg="Please input content to this field" data-msg-minlength="From 50 to 10000 characters" data-msg-maxlength="From 50 to 10000 characters" name="review[what_you_like]" id="review_what_you_like" style="height: 118px; overflow: hidden;"></textarea>
-                                <div class="small form-text small-text text-dark-grey">Limit from 50 to 10000 characters</div>
-                            </div>
-                            <div class="form-group mb-4" data-controller="auto-resize-textarea">
-                                <h3 class="imb-3 text-it-black">
-                                    Suggestion for improvement
-                                    <span class="irequired">*</span>
-                                </h3>
-<textarea class="form-control text-area-field" placeholder="Input your suggestion" rows="4" required="required" data-auto-resize-textarea-target="textArea" data-action="input->auto-resize-textarea#autoGrow" data-rule-minlength="50" data-rule-maxlength="10000" data-msg="Please input content to this field" data-msg-minlength="From 50 to 10000 characters" data-msg-maxlength="From 50 to 10000 characters" name="review[feedback]" id="review_feedback" style="height: 118px; overflow: hidden;"></textarea>
-                                <div class="small form-text small-text text-dark-grey">Limit from 50 to 10000 characters</div>
-                            </div>
-                            <div class="form-group mb-4 hide-on-init">
-                                <h3 class="imb-3 text-it-black">
-                                    Rating detail
-                                    <span class="irequired">*</span>
-                                </h3>
-                                <div class="d-flex flex-column">
-                                    <div class="d-md-flex justify-content-md-between imb-4">
-                                        <div class="col-12 col-md-4 normal-text text-it-black">Salary &amp; benefits</div>
-                                        <div class="col-12 col-md-8 ims-md-4 imt-3 imt-md-0">
-                                            <div class="d-flex justify-content-start align-items-center">
-                                                <div class="br-wrapper br-theme-css-stars">
-                                                    <select data-reviews--new-target="rate" data-validation-message-selector="#salaryRateError" id="jrate2" name="review[salary_benefit_rate]" style="display: none;">
-                                                        <option value=""></option>
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                        <option value="4">4</option>
-                                                        <option value="5">5</option>
-                                                    </select><div class="br-widget"><a href="#" data-rating-value="1" data-rating-text="1"></a><a href="#" data-rating-value="2" data-rating-text="2"></a><a href="#" data-rating-value="3" data-rating-text="3"></a><a href="#" data-rating-value="4" data-rating-text="4"></a><a href="#" data-rating-value="5" data-rating-text="5"></a><div class="br-current-rating"></div></div><span id="jrate2-text" class="jrate-label"></span>
-                                                </div>
-                                            </div>
-                                            <div id="salaryRateError"></div>
-                                        </div>
-                                    </div>
-                                    <div class="d-md-flex justify-content-md-between imb-4">
-                                        <div class="col-12 col-md-4 normal-text text-it-black">Training &amp; learning</div>
-                                        <div class="col-12 col-md-8 ims-md-4 imt-3 imt-md-0">
-                                            <div class="d-flex justify-content-start align-items-center">
-                                                <div class="br-wrapper br-theme-css-stars">
-                                                    <select data-reviews--new-target="rate" data-validation-message-selector="#trainingRateError" id="jrate3" name="review[training_learning_rate]" style="display: none;">
-                                                        <option value=""></option>
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                        <option value="4">4</option>
-                                                        <option value="5">5</option>
-                                                    </select><div class="br-widget"><a href="#" data-rating-value="1" data-rating-text="1"></a><a href="#" data-rating-value="2" data-rating-text="2"></a><a href="#" data-rating-value="3" data-rating-text="3"></a><a href="#" data-rating-value="4" data-rating-text="4"></a><a href="#" data-rating-value="5" data-rating-text="5"></a><div class="br-current-rating"></div></div><span id="jrate3-text" class="jrate-label"></span>
-                                                </div>
-                                            </div>
-                                            <div id="trainingRateError"></div>
-                                        </div>
-                                    </div>
-                                    <div class="d-md-flex justify-content-md-between imb-4">
-                                        <div class="col-12 col-md-4 normal-text text-it-black">Management cares about me</div>
-                                        <div class="col-12 col-md-8 ims-md-4 imt-3 imt-md-0">
-                                            <div class="d-flex justify-content-start align-items-center">
-                                                <div class="br-wrapper br-theme-css-stars">
-                                                    <select data-reviews--new-target="rate" data-validation-message-selector="#managementRateError" id="jrate4" name="review[management_care_rate]" style="display: none;">
-                                                        <option value=""></option>
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                        <option value="4">4</option>
-                                                        <option value="5">5</option>
-                                                    </select><div class="br-widget"><a href="#" data-rating-value="1" data-rating-text="1"></a><a href="#" data-rating-value="2" data-rating-text="2"></a><a href="#" data-rating-value="3" data-rating-text="3"></a><a href="#" data-rating-value="4" data-rating-text="4"></a><a href="#" data-rating-value="5" data-rating-text="5"></a><div class="br-current-rating"></div></div><span id="jrate4-text" class="jrate-label"></span>
-                                                </div>
-                                            </div>
-                                            <div id="managementRateError"></div>
-                                        </div>
-                                    </div>
-                                    <div class="d-md-flex justify-content-md-between imb-4">
-                                        <div class="col-12 col-md-4 normal-text text-it-black">Culture &amp; fun</div>
-                                        <div class="col-12 col-md-8 ims-md-4 imt-3 imt-md-0">
-                                            <div class="d-flex justify-content-start align-items-center">
-                                                <div class="br-wrapper br-theme-css-stars">
-                                                    <select data-reviews--new-target="rate" data-validation-message-selector="#cultureRateError" id="jrate5" name="review[culture_fun_rate]" style="display: none;">
-                                                        <option value=""></option>
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                        <option value="4">4</option>
-                                                        <option value="5">5</option>
-                                                    </select><div class="br-widget"><a href="#" data-rating-value="1" data-rating-text="1"></a><a href="#" data-rating-value="2" data-rating-text="2"></a><a href="#" data-rating-value="3" data-rating-text="3"></a><a href="#" data-rating-value="4" data-rating-text="4"></a><a href="#" data-rating-value="5" data-rating-text="5"></a><div class="br-current-rating"></div></div><span id="jrate5-text" class="jrate-label"></span>
-                                                </div>
-                                            </div>
-                                            <div id="cultureRateError"></div>
-                                        </div>
-                                    </div>
-                                    <div class="d-md-flex justify-content-md-between">
-                                        <div class="col-12 col-md-4 normal-text text-it-black">Office &amp; workspace</div>
-                                        <div class="col-12 col-md-8 ims-md-4 imt-3 imt-md-0">
-                                            <div class="d-flex justify-content-start align-items-center">
-                                                <div class="br-wrapper br-theme-css-stars">
-                                                    <select data-reviews--new-target="rate" data-validation-message-selector="#officeRateError" id="jrate6" name="review[office_workspace_rate]" style="display: none;">
-                                                        <option value=""></option>
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                        <option value="4">4</option>
-                                                        <option value="5">5</option>
-                                                    </select><div class="br-widget"><a href="#" data-rating-value="1" data-rating-text="1"></a><a href="#" data-rating-value="2" data-rating-text="2"></a><a href="#" data-rating-value="3" data-rating-text="3"></a><a href="#" data-rating-value="4" data-rating-text="4"></a><a href="#" data-rating-value="5" data-rating-text="5"></a><div class="br-current-rating"></div></div><span id="jrate6-text" class="jrate-label"></span>
-                                                </div>
-                                            </div>
-                                            <div id="officeRateError"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group mb-4 horizontal hide-on-init">
-                                <h3 class="imb-3 text-it-black">
-                                    Do you want to recommend this company to your friends?
-                                    <span class="irequired">*</span>
-                                </h3>
-                                <div class="recommend-to-friend-wrapper">
-                                    <label class="iradio">
-                                        <input data-reviews--new-target="recommend" data-validation-message-selector="#recommendError" name="review[recommend]" type="radio" value="true">
-                                        <span class="normal-text">Yes</span>
-                                    </label>
-                                    <br>
-                                    <label class="iradio imt-4">
-                                        <input data-reviews--new-target="recommend" data-validation-message-selector="#recommendError" name="review[recommend]" type="radio" value="false">
-                                        <span class="normal-text">No</span>
-                                    </label>
-                                    <div id="recommendError"></div>
-                                </div>
-                            </div>
-                            <button class="ibtn ibtn-lg ibtn-primary w-100" data-action="reviews--new#submit" data-disable-with="Saving...">
-                                Send Review
-                            </button>
-                        </form>
-                    </div>
+	</div>
+	<section class="imb-16 main">
+		<div class="icontainer">
+			<div class="review-company-content igap-7">
+				<div class="col-md-8">
+					<div class="bg-white box-shadow-medium border-radius-large ipy-4 ipx-5 ip-md-8 ipe-md-1">
+						@* <h2 class="imb-2 text-it-black">Review @company.FullName</h2> *@
+						<div asp-validation-summary="All" class="text-danger"></div>
+						<p class="paragraph text-rich-grey">
+							It only takes you 1 minute to complete this review form.
+							Your opinion will be very helpful for the Developer community who are looking for a job.
+						</p>
+						<form class="review-form imt-6" accept-charset="UTF-8" id="reviewForm" method="post" asp-action="New">
 
-                </div>
-                <div class="col-md-4">
-                    <div class="bg-white box-shadow-medium border-radius-large ipy-4 ipx-5 ip-md-8 review-company-policy">
-                        <div class="panel-heading imb-md-4">
-                            <h2 aria-controls="review-policies" class="panel-title bg-transparent accordion-button panel-title-accordion collapsed text-it-black" data-bs-target="#review-policies" data-bs-toggle="collapse">
-                                Review Guidelines &amp; Conditions
-                            </h2>
-                        </div>
-                        <div class="panel-body imb-4 accordion-collapse collapse" id="review-policies">
-                            <p class="imb-4 paragraph text-it-black">
-                                In order for a review to be displayed on the website, it must adhere to the Guidelines &amp; Conditions for reviews.
-                            </p>
-                            <p class="imb-4 paragraph text-it-black">
-                                Please ensure that:
-                            </p><ul class="ips-4">
-                                <li class="imb-2 paragraph text-it-black">Do not use offensive or derogatory language</li>
-                                <li class="imb-2 paragraph text-it-black">Do not provide personal information</li>
-                                <li class="paragraph text-it-black">Do not provide confidential or proprietary business information</li>
-                            </ul>
-                            <p></p>
-                            <p class="imb-6 paragraph text-it-black">
-                                Thank you for providing the most honest reviews. For more detailed information on the Guidelines &amp; Conditions for reviews, please visit the link provided.
-                            </p>
-                            <div class="text-center">
-                                <a class="hyperlink d-flex justify-content-center align-items-center normal-text" target="_blank" data-controller="utm-tracking" rel="canonical" href="/reviewpolicy?utm_campaign=button_feature_review&amp;utm_medium=new_review&amp;utm_source=emp_page">
-                                    View detail
-                                    <span class="lh-1 ips-2">
-                                        <svg class="feather-icon icon-md">
-                                            <use href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#external-link"></use>
-                                        </svg>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+							<input asp-for="UserId" type="hidden" id="review_user_id" />
+							<input asp-for="CompanyId" type="hidden" id="company_id" />
+							<div class="form-group imy-6 d-md-flex justify-content-start align-items-center">
+								<h3 class="imb-2 text-it-black">
+									Overall rating
+									<span class="irequired">*</span>
+								</h3>
+								<section class="star-over-all">
+									<div class="d-flex justify-content-start ims-md-15 over-all-rate imt-3 imt-md-0">
+										<div class="br-wrapper br-theme-css-stars">
+											<select id="jrate1"
+												asp-for="OverallRating">
+												<option value="">-- Select Rating --</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+											</select>
+											<div class="br-widget">
+												<a href="#" data-rating-value="1" data-rating-text="1"></a>
+												<a href="#" data-rating-value="2" data-rating-text="2"></a>
+												<a href="#" data-rating-value="3" data-rating-text="3"></a>
+												<a href="#" data-rating-value="4" data-rating-text="4"></a>
+												<a href="#" data-rating-value="5" data-rating-text="5"></a>
+												<div class="br-current-ra dting"></div>
+											</div><span id="jrate1-text" class="jrate-label"></span>
+										</div>
+									</div>
+									<div class="ims-md-15" id="overallRateError">
+										@Html.ValidationMessageFor(m => m.OverallRating, "", new { @class = "error-text imt-1", @id = "jrate1-error" })
+									</div>
+								</section>
+								
+							</div>
+							<div class="form-group imb-6">
+								<div class="form-floating">
+									<input class="form-control" placeholder="Summary" type="text" asp-for="Summary" id="review_title" />
+									<span id="review_title-error" asp-validation-for="Summary" class="error-text imt-1"></span>
+									<label asp-for="Summary">
+										Summary
+										<span class="irequired">*</span>
+									</label>
+									<div class="error-text"></div>
+								</div>
+							</div>
+							<div class="form-group mb-4">
+								<h3 class="imb-3 text-it-black">
+									How do you feel about the overtime policy?
+									<span class="irequired">*</span>
+								</h3>
+								<div class="overtime-recommend-wrapper">
+								
 
-                </div>
-            </div>
-        </div>
-    </section>
-    <div aria-hidden="true" class="modal fade" id="form-errors-modal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered imodal-default-width">
-            <div class="modal-content text-center">
-                <div class="d-flex">
-                    <div class="flex-grow-1 ipb-5 ipt-md-8 ipt-6 ips-10">
-                        <img class="imodal-photo-size border-radius-large" src="https://itviec.com/assets/robby/robby-oops-cd13e61e958cb387feae4f2276e78d19f123768a672880dca236bc611c591ca9.svg">
-                    </div>
-                    <button aria-label="Close" class="btn-close imt-5 ime-5" data-bs-dismiss="modal" type="button"></button>
-                </div>
-                <div class="ipx-6 ipx-md-8">
-                    <h2 class="text-it-black">
-                        Oops! Please check required fields.
-                    </h2>
-                </div>
-                <div class="ipt-3 ipx-6 ipx-md-8 ipb-6 ipb-md-8">
-                    <p class="paragraph text-rich-grey">
-                        Required fields are missing.
-                    </p>
-                </div>
-                <div class="d-flex justify-content-center ipb-10 ipb-md-12 ipx-6 ipx-md-8">
-                    <button class="ibtn ibtn-md ibtn-primary flex-grow-1 flex-md-grow-0" data-bs-dismiss="modal" type="button">
-                        <span>Back</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+									<label class="iradio">
+										@Html.RadioButtonFor(m => m.IsOvertimeSatisfied, true)
+										<span class="normal-text">Satisfied</span>
+									</label>
+									<br>
+									<label class="iradio imt-4">
+										@Html.RadioButtonFor(m => m.IsOvertimeSatisfied, false)
+										<span class="normal-text">Unsatisfied</span>
+									</label>
+								</div>
+								<div id="overtimeRecommendError">
+									@Html.ValidationMessageFor(m => m.IsOvertimeSatisfied, "", new
+										{
+											@class = "error-text imt-1",
+										})
+								</div>
+
+								<div class="overtime-recommend-text mt-4" data-controller="auto-resize-textarea">
+									<textarea class="form-control text-area-field" placeholder="Input your reason"
+											  rows="2" required="required"
+											  id="review_happy_with_overtime_reason"
+											  style="height: 118px; overflow: hidden;"
+											  asp-for="OvertimeReason"></textarea>
+
+									<div asp-validation-for="OvertimeReason"
+										 id="review_happy_with_overtime_reason-error">
+										@Html.ValidationMessageFor(m => m.OvertimeReason, "", new
+											{
+												@class = "error-text imt-1",
+											})
+									</div>
+									<div class="small form-text small-text text-dark-grey">
+										Limit from 50 to 140
+										characters
+									</div>
+								</div>
+							</div>
+							<div class="form-group mb-4" data-controller="auto-resize-textarea">
+								<h3 class="imb-3 text-it-black">
+									What makes you love working here
+									<span class="irequired">*</span>
+								</h3>
+								<textarea class="form-control text-area-field" placeholder="Input your experiences"
+										  rows="4" required="required" asp-for="Experience"
+										  id="review_what_you_like" style="height: 118px; overflow: hidden;"></textarea>
+								<div id="review_what_you_like-error"
+									 class="error-text imt-1">
+									@Html.ValidationMessageFor(m => m.Experience, "", new
+										{
+											@class = "error-text imt-1",
+										})
+								</div>
+								<div class="small form-text small-text text-dark-grey">
+									Limit from 50 to 10000 characters
+								</div>
+							</div>
+							<div class="form-group mb-4" data-controller="auto-resize-textarea">
+								<h3 class="imb-3 text-it-black">
+									Suggestion for improvement
+									<span class="irequired">*</span>
+								</h3>
+								<textarea class="form-control text-area-field" placeholder="Input your suggestion"
+										  rows="4" required="required" asp-for="Suggestion"
+										  id="review_feedback" style="height: 118px; overflow: hidden;"></textarea>
+
+								<div id="review_feedback-error"
+									 class="error-text imt-1">
+
+									@Html.ValidationMessageFor(m => m.Suggestion, "", new
+										{
+											@class = "error-text imt-1",
+										})
+									 
+								</div>
+								<div class="small form-text small-text text-dark-grey">
+									Limit from 50 to 10000 characters
+								</div>
+							</div>
+							<div class="form-group mb-4 hide-on-init">
+								<h3 class="imb-3 text-it-black">
+									Rating detail
+									<span class="irequired">*</span>
+								</h3>
+								<div class="d-flex flex-column">
+									<div class="d-md-flex justify-content-md-between imb-4">
+										<div class="col-12 col-md-4 normal-text text-it-black">
+											Salary &amp; benefits
+										</div>
+										<div class="col-12 col-md-8 ims-md-4 imt-3 imt-md-0">
+											<div class="d-flex justify-content-start align-items-center">
+												<div class="br-wrapper br-theme-css-stars">
+													<select data-reviews--new-target="rate"
+															data-validation-message-selector="#salaryRateError" id="jrate2"
+															asp-for="SalaryRating" style="display: block;">
+														<option value=""></option>
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="4">4</option>
+														<option value="5">5</option>
+													</select>
+													<div class="br-widget">
+														<a href="#" data-rating-value="1" data-rating-text="1"></a>
+														<a href="#" data-rating-value="2" data-rating-text="2"></a>
+														<a href="#" data-rating-value="3" data-rating-text="3"></a>
+														<a href="#" data-rating-value="4" data-rating-text="4"></a>
+														<a href="#" data-rating-value="5" data-rating-text="5"></a>
+														<div class="br-current-rating"></div>
+													</div><span id="jrate2-text" class="jrate-label"></span>
+												</div>
+											</div>
+											<div id="salaryRateError">
+												<div id="jrate2-error"
+													 class="error-text imt-1">
+													@Html.ValidationMessageFor(m => m.SalaryRating, "", new
+														{
+															@class = "error-text imt-1",
+														})
+													 
+													 </div>
+											</div>
+										</div>
+									</div>
+									<div class="d-md-flex justify-content-md-between imb-4">
+										<div class="col-12 col-md-4 normal-text text-it-black">
+											Training &amp; learning
+										</div>
+										<div class="col-12 col-md-8 ims-md-4 imt-3 imt-md-0">
+											<div class="d-flex justify-content-start align-items-center">
+												<div class="br-wrapper br-theme-css-stars">
+													<select id="jrate3" asp-for="TrainingRating" style="display: block;">
+														<option value=""></option>
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="4">4</option>
+														<option value="5">5</option>
+													</select>
+													<div class="br-widget">
+														<a href="#" data-rating-value="1" data-rating-text="1"></a>
+														<a href="#" data-rating-value="2" data-rating-text="2"></a>
+														<a href="#" data-rating-value="3" data-rating-text="3"></a>
+														<a href="#" data-rating-value="4" data-rating-text="4"></a>
+														<a href="#" data-rating-value="5" data-rating-text="5"></a>
+														<div class="br-current-rating"></div>
+													</div><span id="jrate3-text" class="jrate-label"></span>
+												</div>
+											</div>
+											<div id="trainingRateError">
+												<div asp-validation-for="TrainingRating" id="jrate3-error"
+													 class="error-text imt-1">
+													@Html.ValidationMessageFor(m => m.TrainingRating, "", new
+														{
+															@class = "error-text imt-1",
+														})
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="d-md-flex justify-content-md-between imb-4">
+										<div class="col-12 col-md-4 normal-text text-it-black">
+											Management cares about me
+										</div>
+										<div class="col-12 col-md-8 ims-md-4 imt-3 imt-md-0">
+											<div class="d-flex justify-content-start align-items-center">
+												<div class="br-wrapper br-theme-css-stars">
+													<select id="jrate4" name="ManagementRating" style="display: block;">
+														<option value=""></option>
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="4">4</option>
+														<option value="5">5</option>
+													</select>
+													<div class="br-widget">
+														<a href="#" data-rating-value="1" data-rating-text="1"></a>
+														<a href="#" data-rating-value="2" data-rating-text="2"></a>
+														<a href="#" data-rating-value="3" data-rating-text="3"></a>
+														<a href="#" data-rating-value="4" data-rating-text="4"></a>
+														<a href="#" data-rating-value="5" data-rating-text="5"></a>
+														<div class="br-current-rating"></div>
+													</div><span id="jrate4-text" class="jrate-label"></span>
+												</div>
+											</div>
+											<div id="managementRateError">
+											
+												@Html.ValidationMessageFor(m => m.ManagementRating, "", new
+													{
+														@class = "error-text jrate4-error",
+													})
+											</div>
+										</div>
+									</div>
+									<div class="d-md-flex justify-content-md-between imb-4">
+										<div class="col-12 col-md-4 normal-text text-it-black">Culture &amp; fun</div>
+										<div class="col-12 col-md-8 ims-md-4 imt-3 imt-md-0">
+											<div class="d-flex justify-content-start align-items-center">
+												<div class="br-wrapper br-theme-css-stars">
+													<select data-reviews--new-target="rate"
+															data-validation-message-selector="#cultureRateError" id="jrate5"
+															asp-for="CultureRating" style="display: block;">
+														<option value=""></option>
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="4">4</option>
+														<option value="5">5</option>
+													</select>
+													<div class="br-widget">
+														<a href="#" data-rating-value="1" data-rating-text="1"></a>
+														<a href="#" data-rating-value="2" data-rating-text="2"></a>
+														<a href="#" data-rating-value="3" data-rating-text="3"></a>
+														<a href="#" data-rating-value="4" data-rating-text="4"></a>
+														<a href="#" data-rating-value="5" data-rating-text="5"></a>
+														<div class="br-current-rating"></div>
+													</div><span id="jrate5-text" class="jrate-label"></span>
+												</div>
+											</div>
+											<div id="cultureRateError">
+												<div asp-validation-for="CultureRating" id="jrate5-error"
+													 class="error-text imt-1">
+
+													@Html.ValidationMessageFor(m => m.CultureRating, "", new
+														{
+															@class = "error-text jrate4-error",
+														})
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="d-md-flex justify-content-md-between">
+										<div class="col-12 col-md-4 normal-text text-it-black">
+											Office &amp; workspace
+										</div>
+										<div class="col-12 col-md-8 ims-md-4 imt-3 imt-md-0">
+											<div class="d-flex justify-content-start align-items-center">
+												<div class="br-wrapper br-theme-css-stars">
+													<select  id="jrate6"
+															asp-for="OfficeRating" style="display: block;">
+														<option value=""></option>
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="4">4</option>
+														<option value="5">5</option>
+													</select>
+													<div class="br-widget">
+														<a href="#" data-rating-value="1" data-rating-text="1"></a>
+														<a href="#" data-rating-value="2" data-rating-text="2"></a>
+														<a href="#" data-rating-value="3" data-rating-text="3"></a>
+														<a href="#" data-rating-value="4" data-rating-text="4"></a>
+														<a href="#" data-rating-value="5" data-rating-text="5"></a>
+														<div class="br-current-rating"></div>
+													</div><span id="jrate6-text" class="jrate-label"></span>
+												</div>
+											</div>
+											<div id="officeRateError">
+
+												@Html.ValidationMessageFor(m => m.CultureRating, "", new
+													{
+														@class = "error-text jrate6-error",
+													})
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-group mb-4 horizontal hide-on-init">
+								<h3 class="imb-3 text-it-black">
+									Do you want to recommend this company to your friends?
+									<span class="irequired">*</span>
+								</h3>
+								<div class="recommend-to-friend-wrapper">
+									@*<label class="iradio" asp-for="Suggestion">
+										<input data-reviews--new-target="recommend"
+											   data-validation-message-selector="#recommendError" asp-for="Suggestion"
+											   type="radio" value="true">
+										<span class="normal-text">Yes</span>
+									</label>
+
+									<label class="iradio imt-4">
+										<input data-reviews--new-target="recommend"
+											   data-validation-message-selector="#recommendError" name="Recommend"
+											   type="radio" value="false">
+										<span class="normal-text">No</span>
+									</label>
+									*@
+									<label class="iradio">
+										@Html.RadioButtonFor(m => m.RecommendToFriends, false)
+										<span class="normal-text">Yes</span>
+									</label>
+
+									<br>
+									
+									<label class="iradio">
+										@Html.RadioButtonFor(m => m.RecommendToFriends, false)
+										<span class="normal-text">No</span>
+									</label>
+									
+									<div id="recommendError">
+										@Html.ValidationMessageFor(m => m.RecommendToFriends, "", new
+											{
+												@class = "error-text  imt-1",
+											})
+										  
+									</div>
+								</div>
+							</div>
+							<button class="ibtn ibtn-lg ibtn-primary w-100" type="submit">
+								Send Review
+							</button>
+						</form>
+
+					</div>
+
+				</div>
+				<div class="col-md-4">
+					<div class="bg-white box-shadow-medium border-radius-large ipy-4 ipx-5 ip-md-8 review-company-policy">
+						<div class="panel-heading imb-md-4">
+							<h2 aria-controls="review-policies"
+								class="panel-title bg-transparent accordion-button panel-title-accordion collapsed text-it-black">
+								Review Guidelines &amp; Conditions
+							</h2>
+						</div>
+						<div class="panel-body imb-4 accordion-collapse collapse" id="review-policies">
+							<p class="imb-4 paragraph text-it-black">
+								In order for a review to be displayed on the website, it must adhere to the Guidelines
+								&amp; Conditions for reviews.
+							</p>
+							<p class="imb-4 paragraph text-it-black">
+								Please ensure that:
+							</p>
+							<ul class="ips-4">
+								<li class="imb-2 paragraph text-it-black">
+									Do not use offensive or derogatory language
+								</li>
+								<li class="imb-2 paragraph text-it-black">Do not provide personal information</li>
+								<li class="paragraph text-it-black">
+									Do not provide confidential or proprietary business
+									information
+								</li>
+							</ul>
+							<p></p>
+							<p class="imb-6 paragraph text-it-black">
+								Thank you for providing the most honest reviews. For more detailed information on the
+								Guidelines &amp; Conditions for reviews, please visit the link provided.
+							</p>
+							<div class="text-center">
+								<a class="hyperlink d-flex justify-content-center align-items-center normal-text"
+								   target="_blank" data-controller="utm-tracking" rel="canonical"
+								   href="/reviewpolicy?utm_campaign=button_feature_review&amp;utm_medium=new_review&amp;utm_source=emp_page">
+									View detail
+									<span class="lh-1 ips-2">
+										<i class="feather-icon icon-md" data-feather="external-link">
+										</i>
+									</span>
+								</a>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</section>
+	<div aria-hidden="true" class="modal fade" id="form-errors-modal" tabindex="-1">
+		<div class="modal-dialog modal-dialog-centered imodal-default-width">
+			<div class="modal-content text-center">
+				<div class="d-flex">
+					<div class="flex-grow-1 ipb-5 ipt-md-8 ipt-6 ips-10">
+						<img class="imodal-photo-size border-radius-large"
+							 src="https://itviec.com/assets/robby/robby-oops-cd13e61e958cb387feae4f2276e78d19f123768a672880dca236bc611c591ca9.svg">
+					</div>
+					<button aria-label="Close" class="btn-close imt-5 ime-5" data-bs-dismiss="modal"
+							type="button"></button>
+				</div>
+				<div class="ipx-6 ipx-md-8">
+					<h2 class="text-it-black">
+						Oops! Please check required fields.
+					</h2>
+				</div>
+				<div class="ipt-3 ipx-6 ipx-md-8 ipb-6 ipb-md-8">
+					<p class="paragraph text-rich-grey">
+						Required fields are missing.
+					</p>
+				</div>
+				<div class="d-flex justify-content-center ipb-10 ipb-md-12 ipx-6 ipx-md-8">
+					<button class="ibtn ibtn-md ibtn-primary flex-grow-1 flex-md-grow-0" data-bs-dismiss="modal"
+							type="button">
+						<span>Back</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </div>
+
+@section Scripts {
+
+	<script>
+			$(document).ready(function () {
+				// console.log($("input:radio"))
+				// $("input:radio").attr("checked", false);
+				const labels = {
+					1: "Rất tệ",
+					2: "Không cải thiện nhiều",
+					3: "Tốt",
+					4: "Rất tốt",
+					5: "Tuyệt vời"
+				};
+
+				const $select = $('#jrate1');
+				const selectedValue = parseInt($select.val());
+
+				if (selectedValue && selectedValue > 0) {
+					$('.br-widget a').each(function () {
+						const value = parseInt($(this).data('rating-value'));
+						if (value <= selectedValue) {
+							$(this).addClass('br-selected');
+						} else {
+							$(this).removeClass('br-selected');
+						}
+					});
+				}
+
+				$('.br-wrapper').each(function () {
+					const $wrapper = $(this); // Component hiện tại
+					const $stars = $wrapper.find('.br-widget a'); // Các sao trong component này
+					const $label = $wrapper.find('.jrate-label'); // Label hiển thị
+					const $select = $wrapper.find('select'); // Select ẩn
+
+					let selectedRating = 0; // Giá trị sao được chọn (click)
+
+					// Hover sao
+					$stars.hover(
+						function () {
+							let value = $(this).data('rating-value');
+
+							// Xóa hết br-selected
+							$stars.removeClass('br-selected');
+
+							// Thêm br-selected cho các sao <= sao hover
+							$stars.each(function () {
+								if ($(this).data('rating-value') <= value) {
+									$(this).addClass('br-selected');
+								}
+							});
+
+							// Hiển thị label
+							$label.text(labels[value]);
+						},
+						function () {
+							// Khi rời chuột, reset về trạng thái đã chọn
+							$stars.removeClass('br-selected');
+							if (selectedRating > 0) {
+								$stars.each(function () {
+									if ($(this).data('rating-value') <= selectedRating) {
+										$(this).addClass('br-selected');
+									}
+								});
+								$label.text(labels[selectedRating]);
+							} else {
+								$label.text('');
+							}
+						}
+					);
+
+					// Click sao
+					$stars.click(function (e) {
+						e.preventDefault(); // Ngăn click mặc định
+
+						selectedRating = $(this).data('rating-value');
+
+						// Set giá trị cho select ẩn
+						$select.val(selectedRating).trigger('change');
+
+						// Cập nhật br-selected cố định
+						$stars.removeClass('br-selected');
+						$stars.each(function () {
+							if ($(this).data('rating-value') <= selectedRating) {
+								$(this).addClass('br-selected');
+							}
+						});
+						console.log($select)
+						// Cập nhật label
+						$label.text(labels[selectedRating]);
+					});
+				});
+
+				// $('#reviewForm').validate({
+				//     rules: {
+				//         OverallRating: {
+				//             required: true,
+				//             number: true,
+				//             min: 1,
+				//             max: 5
+				//         },
+				//         Summary: {
+				//             required: true,
+				//             maxlength: 500
+				//         },
+				//         OvertimeReason: {
+				//             minlength: 50,
+				//             maxlength: 140
+				//         },
+				//         Experience: {
+				//             required: true,
+				//             minlength: 50,
+				//             maxlength: 10000
+				//         },
+				//         Suggestion: {
+				//             required: true,
+				//             minlength: 50,
+				//             maxlength: 10000
+				//         },
+				//         SalaryRating: {
+				//             required: true,
+				//             number: true,
+				//             min: 1,
+				//             max: 5
+				//         },
+				//         TrainingRating: {
+				//             required: true,
+				//             number: true,
+				//             min: 1,
+				//             max: 5
+				//         },
+				//         ManagementRating: {
+				//             required: true,
+				//             number: true,
+				//             min: 1,
+				//             max: 5
+				//         },
+				//         CultureRating: {
+				//             required: true,
+				//             number: true,
+				//             min: 1,
+				//             max: 5
+				//         },
+				//         OfficeRating: {
+				//             required: true,
+				//             number: true,
+				//             min: 1,
+				//             max: 5
+				//         }
+				//     },
+				//     messages: {
+				//         OverallRating: {
+				//             required: "Vui lòng nhập Overall Rating.",
+				//             min: "Giá trị tối thiểu là 1.",
+				//             max: "Giá trị tối đa là 5."
+				//         },
+				//         Summary: {
+				//             required: "Vui lòng nhập Summary.",
+				//             maxlength: "Tối đa 500 ký tự."
+				//         },
+				//         OvertimeReason: {
+				//             minlength: "Ít nhất 50 ký tự.",
+				//             maxlength: "Không quá 140 ký tự."
+				//         },
+				//         Experience: {
+				//             required: "Vui lòng nhập Experience.",
+				//             minlength: "Ít nhất 50 ký tự.",
+				//             maxlength: "Không quá 10000 ký tự."
+				//         },
+				//         Suggestion: {
+				//             required: "Vui lòng nhập Suggestion.",
+				//             minlength: "Ít nhất 50 ký tự.",
+				//             maxlength: "Không quá 10000 ký tự."
+				//         },
+				//         SalaryRating: {
+				//             required: "Vui lòng nhập Salary Rating.",
+				//             min: "Giá trị tối thiểu là 1.",
+				//             max: "Giá trị tối đa là 5."
+				//         },
+				//         TrainingRating: {
+				//             required: "Vui lòng nhập Training Rating.",
+				//             min: "Giá trị tối thiểu là 1.",
+				//             max: "Giá trị tối đa là 5."
+				//         },
+				//         ManagementRating: {
+				//             required: "Vui lòng nhập Management Rating.",
+				//             min: "Giá trị tối thiểu là 1.",
+				//             max: "Giá trị tối đa là 5."
+				//         },
+				//         CultureRating: {
+				//             required: "Vui lòng nhập Culture Rating.",
+				//             min: "Giá trị tối thiểu là 1.",
+				//             max: "Giá trị tối đa là 5."
+				//         },
+				//         OfficeRating: {
+				//             required: "Vui lòng nhập Office Rating.",
+				//             min: "Giá trị tối thiểu là 1.",
+				//             max: "Giá trị tối đa là 5."
+				//         }
+				//     },
+				//     errorPlacement: function (error, element) {
+				//         console.log(element)
+				//         console.log(error)
+				//         Tìm div.custom-error trong cùng form-group và inject lỗi vào
+				//         element.closest('.form-group').find('.custom-error').html(error);
+				//     },
+				//     submitHandler: function (form) {
+				//         console.log(form)
+				//         alert('Dữ liệu hợp lệ! Đang gửi...');
+						// Bạn có thể thay thế alert bằng ajax nếu muốn
+		@* form.submit(); // Hoặc dùng ajax để gửi *@
+				// }
+			// });
+		});
+		console.log(@Html.Raw(Model))
+	</script>
+
+}

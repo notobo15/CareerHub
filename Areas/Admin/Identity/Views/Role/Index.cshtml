@@ -1,0 +1,82 @@
+@model List<RoleModel>
+@{
+	ViewData["Title"] = "Danh sách các vai trò (Role)";
+}
+
+<nav class="page-breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">Roles</li>
+		<li class="breadcrumb-item active">Danh sách</li>
+	</ol>
+</nav>
+
+<partial name="_StatusMessage" />
+
+<div class="row">
+	<div class="col-md-12 grid-margin stretch-card">
+		<div class="card">
+			<div class="card-body d-flex justify-content-between align-items-center">
+				<h4 class="font-weight-bold">@ViewData["Title"]</h4>
+				<div>
+					<a class="btn btn-sm btn-success px-3 d-inline-flex align-items-center" asp-action="Create">
+						<i data-feather="plus" class="mr-1 icon-md"></i> Tạo mới
+					</a>
+					<a class="btn btn-sm btn-outline-secondary ml-2" asp-action="Index" asp-controller="User">
+						<i data-feather="users" class="mr-1 icon-md"></i> Quản lý thành viên
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12 grid-margin stretch-card">
+		<div class="card">
+			<div class="card-body">
+				<table class="table table-bordered table-hover">
+					<thead>
+						<tr>
+							<th>Tên Role</th>
+							<th>Claim</th>
+							<th class="text-center">Tác vụ</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var role in Model)
+						{
+							<tr>
+								<td>@role.Name</td>
+								<td>
+									@foreach (var claim in role.Claims)
+									{
+										<small>@claim</small>
+
+										<br />
+									}
+								</td>
+								<td class="text-center">
+									<a class="btn btn-xs border-warning" asp-action="Edit" asp-route-roleid="@role.Id">
+										<i data-feather="edit" class="icon-sm text-warning"></i>
+									</a>
+									<a class="btn btn-xs border-danger" asp-action="Delete" asp-route-roleid="@role.Id">
+										<i data-feather="trash-2" class="icon-sm text-danger"></i>
+									</a>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<script>
+		$(document).ready(function () {
+			new DataTable('.table').dataTable();
+			feather.replace();
+		});
+	</script>
+}

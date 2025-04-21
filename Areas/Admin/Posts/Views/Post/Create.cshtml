@@ -1,0 +1,146 @@
+﻿@model RecruitmentApp.Models.Post
+@{
+	ViewData["Title"] = "Tạo bài đăng mới";
+	var list = ViewData["list"] as MultiSelectList;
+	var listLevel = ViewData["listLevel"] as MultiSelectList;
+	var summernoteDescription = new RecruitmentApp.Models.Summernote("#Description");
+	var summernoteRequirement = new RecruitmentApp.Models.Summernote("#JobRequirement");
+	var summernoteBenifit = new RecruitmentApp.Models.Summernote("#Benifit");
+}
+
+<nav class="page-breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">Posts</li>
+		<li class="breadcrumb-item active" aria-current="page">Create</li>
+	</ol>
+</nav>
+
+<div class="row">
+	<div class="col-md-12 grid-margin">
+		<div class="card">
+			<div class="card-body">
+				<h4 class="font-weight-bold">@ViewData["Title"]</h4>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12 grid-margin stretch-card">
+		<div class="card">
+			<div class="card-body">
+				<form asp-action="Create" method="post">
+					@Html.AntiForgeryToken()
+					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+					<div class="form-group">
+						<label asp-for="Title"></label>
+						<input asp-for="Title" class="form-control" />
+						<span asp-validation-for="Title" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="SkillIds"></label>
+						<select asp-for="SkillIds" asp-items="list" class="form-control w-100" multiple="multiple"></select>
+						<span asp-validation-for="SkillIds" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="LevelIds"></label>
+						<select asp-for="LevelIds" asp-items="listLevel" class="form-control w-100" multiple="multiple"></select>
+						<span asp-validation-for="LevelIds" class="text-danger"></span>
+					</div>
+
+					<div class="form-check form-check-flat form-check-primary">
+						<label asp-for="IsHot" class="form-check-label">
+							<input asp-for="IsHot" type="checkbox" class="form-check-input">
+							@Html.DisplayNameFor(m => m.IsHot)
+							<i class="input-frame"></i>
+						</label>
+					</div>
+					<div class="form-group">
+						<label asp-for="Salary"></label>
+						<input asp-for="Salary" class="form-control" data-inputmask="'alias': 'currency'" />
+						<span asp-validation-for="Salary" class="text-danger"></span>
+					</div>
+
+
+
+					<div class="form-group">
+						<label asp-for="Expired"></label>
+						<div class="input-group date datepicker">
+							<input asp-for="Expired" type="text" class="form-control" autocomplete="off" />
+							<span class="input-group-addon bg-transparent">
+								<i data-feather="calendar"
+								   class=" text-primary"></i>
+							</span>
+						</div>
+						<span asp-validation-for="Expired" class="text-danger"></span>
+					</div>
+
+
+					<div class="form-group">
+						<label asp-for="WorkSpace"></label>
+						<input asp-for="WorkSpace" class="form-control" />
+						<span asp-validation-for="WorkSpace" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="Description"></label>
+						<textarea asp-for="Description" class="form-control"></textarea>
+						<span asp-validation-for="Description" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="JobRequirement"></label>
+						<textarea asp-for="JobRequirement" class="form-control"></textarea>
+						<span asp-validation-for="JobRequirement" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="Benefit"></label>
+						<textarea asp-for="Benefit" class="form-control"></textarea>
+						<span asp-validation-for="Benefit" class="text-danger"></span>
+					</div>
+
+					<div class="form-group d-flex gap-2 mt-4">
+						<button type="submit" class="btn btn-primary d-inline-flex align-items-center mr-2">
+							<i data-feather="plus" class="mr-1 icon-md"></i> Tạo
+						</button>
+						<a asp-action="Index" class="btn btn-outline-secondary d-inline-flex align-items-center">
+							<i data-feather="x" class="mr-1 icon-md"></i> Hủy
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<script src="~/assets/vendors/inputmask/jquery.inputmask.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			$("#SkillIds, #LevelIds").select2({
+				placeholder: "Chọn nhiều mục...",
+				theme: "bootstrap4",
+				allowClear: true
+			});
+
+			 if ($('.datepicker').length) {
+				var today = new Date();
+				$('.datepicker').datepicker({
+					format: "mm/dd/yyyy",
+					todayHighlight: true,
+					autoclose: true
+				});
+			}
+
+			$(":input").inputmask();
+		});
+	</script>
+
+	<partial name="_Summernote" model="summernoteDescription" />
+	<partial name="_Summernote" model="summernoteRequirement" />
+	<partial name="_Summernote" model="summernoteBenifit" />
+}

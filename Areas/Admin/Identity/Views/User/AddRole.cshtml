@@ -1,0 +1,137 @@
+@model AddUserRoleModel
+
+@{
+    ViewData["Title"] = "Thiết lập Role cho User";
+}
+
+<nav class="page-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Users</li>
+        <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
+    </ol>
+</nav>
+
+<partial name="_StatusMessage" />
+
+<div class="row">
+    <div class="col-md-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="font-weight-bold">@ViewData["Title"]: <span class="text-primary">@Model.user.UserName</span></h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <form method="post">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="RoleNames" class="control-label">Danh sách Role</label>
+                        @Html.ListBoxFor(m => m.RoleNames, (IEnumerable<SelectListItem>)ViewBag.allRoles, new
+                            {
+                                id = "id-select-roles",
+                                @class = "form-control w-100"
+                            })
+                        <span asp-validation-for="RoleNames" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group d-flex gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary d-inline-flex align-items-center">
+                            <i data-feather="save" class="mr-1 icon-md"></i> Cập nhật
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary d-inline-flex align-items-center">
+                            <i data-feather="arrow-left" class="mr-1 icon-md"></i> Quay lại danh sách
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.claimsInRole.Count > 0)
+{
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="font-weight-bold mb-3">Claims từ các Role</h5>
+                    <ul class="list-group">
+                        @foreach (var claim in Model.claimsInRole)
+                        {
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span><strong>@claim.ClaimType</strong>: @claim.ClaimValue</span>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model.claimsInUserClaim.Count > 0)
+{
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="font-weight-bold mb-3">
+                        Claim riêng của User
+                        <a asp-action="AddClaim" asp-route-userid="@Model.user.Id"
+                           class="btn btn-sm btn-outline-success ml-2 d-inline-flex align-items-center">
+                            <i data-feather="plus" class="mr-1 icon-sm"></i> Thêm
+                        </a>
+                    </h5>
+
+                    <ul class="list-group">
+                        @foreach (var claim in Model.claimsInUserClaim)
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>
+                                    <strong>@claim.ClaimType</strong>: @claim.ClaimValue
+                                </span>
+                                <a asp-action="EditClaim" asp-route-claimid="@claim.Id" class="btn btn-sm btn-link text-warning">
+                                    <i data-feather="edit" class="icon-sm"></i>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-12">
+            <p class="text-muted mt-2">Người dùng này chưa có claim riêng.</p>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script src="~/lib/multiple-select/multiple-select.min.js"></script>
+    <link rel="stylesheet" href="~/lib/multiple-select/multiple-select.min.css" />
+
+    <script>
+        $("#id-select-roles").multipleSelect({
+            selectAll: false,
+            keepOpen: false,
+            isOpen: false,
+            placeholder: "Chọn roles...",
+            filter: true
+        });
+
+        feather.replace();
+    </script>
+
+    <partial name="_ValidationScriptsPartial" />
+}

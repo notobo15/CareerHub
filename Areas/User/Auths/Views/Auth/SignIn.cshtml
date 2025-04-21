@@ -10,21 +10,44 @@
                         <div class="d-flex align-items-center">
                             <h3 class="fs-5 mb-0 text-it-black">
                                 Chào mừng bạn đến với
-                                <img class="px-1" src="https://itviec.com/assets/logo_black_text-04776232a37ae9091cddb3df1973277252b12ad19a16715f4486e603ade3b6a4.png" width="80" height="30">
+                                <img class="px-1" src="~/images/logo.png" width="180" />
                             </h3>
                         </div>
                     </div>
                     <div class="leftside">
                         <div class="mb-4 text-rich-grey">
-                            Bằng việc đăng nhập, bạn đồng ý với các <a href="https://itviec.com/blog/terms-conditions-vn/" target="_blank" class="hyperlink">Điều khoản dịch vụ</a> và <a href="https://itviec.com/blog/quy-dinh-bao-mat/" target="_blank" class="hyperlink">Chính sách quyền riêng tư</a> của ITviec liên quan đến thông tin riêng tư của bạn.
+                            Bằng việc đăng nhập, bạn đồng ý với các
+                            <a asp-area="Users/Home" asp-controller="Home" asp-action="Condition" target="_blank"
+                                class="hyperlink">Điều khoản dịch vụ
+                            </a> và
+                            <a asp-area="Users/Home" asp-controller="Home" asp-action="Privacy" target="_blank"
+                                class="hyperlink">Chính
+                                sách quyền riêng tư
+                            </a>
+                            của CareerHub liên quan đến thông tin riêng tư của bạn.
                         </div>
                         <div class="form-group">
-                            <form class="button_to" method="post" action="/users/auth/google_oauth2?action_type=sign_in&amp;origin=%2Fvi">
-                                <button data-turbo="false" data-agreement-target="submitBtn" id="gplus-signin" rel="nofollow" class="d-flex justify-content-center ibtn ibtn-md ibtn-secondary w-100 igap-0 ipy-2 " type="submit">
-                                    <img data-controller="lazyload" src="https://itviec.com/assets/google_logo-af373a5e64715e7d4fcdea711f96995f7fd7a49725b3dd8910d4749b74742cb2.svg" width="30" height="30" class=" ls-is-cached lazyloaded">
+                            <form class="button_to" method="post" asp-area="Users/Auth" asp-controller="Auth"
+                                asp-action="ExternalLogin" asp-route-returnurl="@ViewData["ReturnUrl"]">
+                                <button name="provider" id="gplus-signin" rel="nofollow"
+                                    class="d-flex justify-content-center ibtn ibtn-md ibtn-secondary w-100 igap-0 ipy-2"
+                                    type="submit" value="Google">
+                                    <img data-controller="lazyload" src="~/images/icons/google.svg" width="30"
+                                        height="30" class=" ls-is-cached lazyloaded">
                                     <span class="ps-2">Đăng nhập bằng Google</span>
                                 </button>
-                                <input type="hidden" name="authenticity_token" value="pTqYaEKD0vaP1e0tluK5xqx10IG5z4MfybFF945L8aO_ykdPRwGsnEXiWceX-XKVcMmtUlIgo8HtxsRqZotmNg" autocomplete="off">
+                            </form>
+                        </div>
+                        <div class="form-group">
+                            <form class="button_to" method="post" asp-area="Users/Auth" asp-controller="Auth"
+                                asp-action="ExternalLogin" asp-route-returnurl="@ViewData["ReturnUrl"]">
+                                <button name="provider" id="gplus-signin" rel="nofollow"
+                                    class="d-flex justify-content-center ibtn ibtn-md  w-100 igap-0 ipy-2 bg-it-white"
+                                    style="border: 1px solid #039be5; color: #039be5;" type="submit" value="Facebook">
+                                    <img data-controller="lazyload" src="~/images/icons/facebook.svg" width="30"
+                                        width="30" height="30" class=" ls-is-cached lazyloaded">
+                                    <span class="ps-2">Đăng nhập bằng Facebook</span>
+                                </button>
                             </form>
                         </div>
                         <div class="d-flex align-items-center py-3">
@@ -34,16 +57,18 @@
                             </div>
                             <div class="border-top-solid flex-grow-1"></div>
                         </div>
-                        <form role="form" method="post" asp-area="User/Auths" asp-controller="Auth" asp-action="SignIn" asp-route-returnurl="@ViewData["ReturnUrl"]">
+                        <form role="form" method="post" asp-area="User/Auths" asp-controller="Auth" asp-action="SignIn"
+                            asp-route-returnurl="@ViewData["ReturnUrl"]">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <input type="hidden" name="authenticity_token" value="pTqYaEKD0vaP1e0tluK5xqx10IG5z4MfybFF945L8aO_ykdPRwGsnEXiWceX-XKVcMmtUlIgo8HtxsRqZotmNg" autocomplete="off" />
+
                             <div class="mb-3">
                                 <label class="mb-1" for="user_email" asp-for="Email">
                                     <span class="text-it-black">Email</span>
                                     <abbr class="text-danger">*</abbr>
                                 </label>
                                 <span asp-validation-for="Email" class="text-danger"></span>
-                                <input asp-for="Email" class="form-control" placeholder="Email" type="email" name="Email" id="Email">
+                                <input asp-for="Email" class="form-control" placeholder="Email" type="email"
+                                    name="Email" id="Email">
                             </div>
                             <div class="mb-3">
                                 <div class="mb-1 d-flex justify-content-between">
@@ -51,10 +76,13 @@
                                         <span class="text-it-black">Mật khẩu</span>
                                         <abbr class="text-danger">*</abbr>
                                     </label>
-                                    <a class="normal-text hyperlink" asp-area="User/Auths" asp-controller="Auth" asp-action="ForgotPassword">Quên mật khẩu?</a>
+                                    <a class="normal-text hyperlink" asp-area="User/Auths" asp-controller="Auth"
+                                        asp-action="ForgotPassword">Quên mật khẩu?</a>
                                 </div>
                                 <div class="password-field position-relative">
-                                    <button class="eye-icon-password border-0 bg-transparent ipx-3 ignore position-absolute end-0 imt-6 translate-middle-y" type="button">
+                                    <button
+                                        class="eye-icon-password border-0 bg-transparent ipx-3 ignore position-absolute end-0 imt-6 translate-middle-y"
+                                        type="button">
                                         <div class="lh-1 d-none icon-show">
                                             <i class="feather-icon icon-md text-it-black" data-feather="eye"></i>
 
@@ -65,13 +93,15 @@
                                         </div>
                                     </button>
                                     <span asp-validation-for="Password" class="text-danger"></span>
-                                    <input asp-for="Password" class="form-control" placeholder="Mật khẩu" type="password" name="Password" id="Password" />
+                                    <input asp-for="Password" class="form-control" placeholder="Mật khẩu"
+                                        type="password" name="Password" id="Password" />
                                 </div>
-                          
+
                             </div>
                             <div class="mb-3">
                                 <div class="form-check">
-                                    <input asp-for="RememberMe" class="form-check-input" type="checkbox" name="RememberMe" id="RememberMe" />
+                                    <input asp-for="RememberMe" class="form-check-input" type="checkbox"
+                                        name="RememberMe" id="RememberMe" />
                                     <label asp-for="RememberMe" class="form-check-label">RememberMe</label>
                                 </div>
                             </div>
@@ -79,7 +109,8 @@
                             <div class="mb-3">
                                 <input type="hidden" name="locale" id="locale" value="vi" autocomplete="off">
                                 <div class="text-center">
-                                    <button class="ibtn ibtn-md ibtn-primary w-100" data-disable-with="Đang đăng nhập…" type="submit">
+                                    <button class="ibtn ibtn-md ibtn-primary w-100" data-disable-with="Đang đăng nhập…"
+                                        type="submit">
                                         <span class="text-it-white">Đăng nhập bằng Email</span>
                                     </button>
                                 </div>
@@ -87,7 +118,8 @@
                             <div class="mb-3">
                                 <div class="normal-text text-it-black text-center">
                                     Bạn chưa có tài khoản?
-                                    <a class="normal-text hyperlink" data-controller="utm-tracking" href="/dang-ky-tai-khoan">Đăng ký ngay</a>
+                                    <a class="normal-text hyperlink" data-controller="utm-tracking"
+                                        href="/dang-ky-tai-khoan">Đăng ký ngay</a>
                                 </div>
                             </div>
                         </form>
@@ -98,7 +130,8 @@
                         </h2>
                         <ul class="list-unstyled">
                             <li class="d-flex align-items-start pb-3">
-                                <i class="feather-icon icon-md text-success-color imt-1 flex-shrink-0" data-feather="check">
+                                <i class="feather-icon icon-md text-success-color imt-1 flex-shrink-0"
+                                    data-feather="check">
                                 </i>
 
                                 <div class="ms-1 normal-text text-it-black">
@@ -106,7 +139,8 @@
                                 </div>
                             </li>
                             <li class="d-flex align-items-start pb-3">
-                                <i class="feather-icon icon-md text-success-color imt-1 flex-shrink-0" data-feather="check">
+                                <i class="feather-icon icon-md text-success-color imt-1 flex-shrink-0"
+                                    data-feather="check">
                                 </i>
 
                                 <div class="ms-1 normal-text text-it-black">
@@ -114,7 +148,8 @@
                                 </div>
                             </li>
                             <li class="d-flex align-items-start pb-3">
-                                <i class="feather-icon icon-md text-success-color imt-1 flex-shrink-0" data-feather="check">
+                                <i class="feather-icon icon-md text-success-color imt-1 flex-shrink-0"
+                                    data-feather="check">
                                 </i>
 
                                 <div class="ms-1 normal-text text-it-black">
@@ -122,7 +157,8 @@
                                 </div>
                             </li>
                             <li class="d-flex align-items-start pb-3">
-                                <i class="feather-icon icon-md text-success-color imt-1 flex-shrink-0" data-feather="check">
+                                <i class="feather-icon icon-md text-success-color imt-1 flex-shrink-0"
+                                    data-feather="check">
                                 </i>
 
                                 <div class="ms-1 normal-text text-it-black">
@@ -139,21 +175,21 @@
 </div>
 <script>
 
- $(document).ready(function(){
+    $(document).ready(function () {
         $(".eye-icon-password").on("click", function () {
-           let passwordInput = $("#Password");
-              let showIcon = $(this).find(".icon-show");
-              let hideIcon = $(this).find(".icon-hidden");
+            let passwordInput = $("#Password");
+            let showIcon = $(this).find(".icon-show");
+            let hideIcon = $(this).find(".icon-hidden");
 
-           if (passwordInput.attr("type") === "password") {
-               passwordInput.attr("type", "text");
-                  showIcon.removeClass("d-none");
-               hideIcon.addClass("d-none");
-           } else {
-               passwordInput.attr("type", "password");
-               showIcon.addClass("d-none");
-               hideIcon.removeClass("d-none");
-           }
-       });
- })
+            if (passwordInput.attr("type") === "password") {
+                passwordInput.attr("type", "text");
+                showIcon.removeClass("d-none");
+                hideIcon.addClass("d-none");
+            } else {
+                passwordInput.attr("type", "password");
+                showIcon.addClass("d-none");
+                hideIcon.removeClass("d-none");
+            }
+        });
+    })
 </script>

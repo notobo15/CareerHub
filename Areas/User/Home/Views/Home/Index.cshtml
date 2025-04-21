@@ -1,90 +1,105 @@
+@inject IViewLocalizer Localizer
+
+
 <partial name="_SearchForm" />
 
 <div class="main bg-light-grey border-bottom campaign_highlight">
-    <div class="icontainer">
-        <div class="d-flex justify-content-center align-items-center ipy-4 ipy-xl-6">
-            <img alt="campaign-icon" class="ime-4" src="https://itviec.com/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBejJCVlE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--c6168911534f6d2a4007b638b748ab3a443c5c9e/hot%201.png" width="24" height="24">
-            <a data-controller="utm-tracking" target="_blank" rel="canonical" href="https://itviec.com/job-invitation-feature?gclid=Cj0KCQiA_NC9BhCkARIsABSnSTaNQWZsqHBLb_oMOdQ5to53Ntj7eT1iE1zMmuhueuXCMUedbVO83jMaAuU-EALw_wcB&amp;utm_campaign=gsn_brand_hcm_mc&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec&amp;utm_source=mainsite_home&amp;utm_medium=campaign_highlight_2&amp;utm_campaign=loi_moi_cong_viec&amp;utm_term=vn">
-                <div class="d-flex align-items-center">
-                    <div class="d-xl-flex text-it-black normal-text ime-4 ime-xl-6">
-                        <div class="fw-bold">
-                            Khám phá Lời mời công việc
-                        </div>
-                        <div class="ims-xl-4">
-                            x2 tốc độ tìm việc và có cơ hội nhận lịch ITviec độc quyền!
-                        </div>
-                    </div>
-                    <svg class="feather-icon icon-md text-it-red">
-                        <use href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#arrow-right-circle"></use>
-                    </svg>
+	<div class="icontainer">
+		<div class="d-flex justify-content-center align-items-center ipy-4 ipy-xl-6">
+			<img alt="campaign-icon" class="ime-4" src="~/images/icons/hot1.png"  width="24" height="24">
+			<a data-controller="utm-tracking" target="_blank" rel="canonical" >
+				<div class="d-flex align-items-center">
+					<div class="d-xl-flex text-it-black normal-text ime-4 ime-xl-6">
+						<div class="fw-bold">
+							Khám phá Lời mời công việc
+						</div>
+						<div class="ims-xl-4">
+							x2 tốc độ tìm việc và có cơ hội nhận lịch ITviec độc quyền!
+						</div>
+					</div>
+					<i class="feather-icon icon-md text-it-red" data-feather="arrow-right-circle"></i>
 
-                </div>
-            </a>
-        </div>
-    </div>
+				</div>
+			</a>
+		</div>
+	</div>
 </div>
 <div class="main">
-    <div class="icontainer">
-        <section class="home-introduction-container imt-16 imb-20 imb-md-30 text-center">
-            <div class="header-container mx-auto">
-                <div class="h1">Công cụ tốt nhất cho hành trang ứng tuyển của bạn</div>
-            </div>
-            <div class="mx-auto body-container imt-12">
-                <div class="order-xl-2 item-box-wrapper position-relative ipb-5 ipt-3 ipy-xl-0">
-                    <div class="d-flex flex-column flex-xl-row justify-content-center justify-content-xl-between align-items-center align-items-xl-start">
-                        <div class="d-flex align-items-start item-box-img-wrapper imb-3 imb-xl-0 mx-auto">
-                            <img alt="cv-template" src="https://itviec.com/assets/homepage/cv-template-c6f6a4b0c4211ea345421e77c4e1ce22c2392cfebee8993324eee7015ea44d89.svg">
-                        </div>
-                        <div class="user-benefit-content-wrapper text-center text-xl-start ims-xl-4">
-                            <div class="d-inline-flex justify-content-center align-items-center">
-                                <h3>
-                                    Mẫu CV
-                                </h3>
-                                <div class="ipx-2 ipy-1 bg-success-color text-white tiny-text irounded-sm ims-2">
-                                    MỚI
-                                </div>
-                            </div>
-                            <p class="normal-text item-box-info text-rich-grey lh-18 imt-2">
-                                Nâng cấp CV với các mẫu CV IT chuyên nghiệp - được nhà tuyển dụng đề xuất
-                            </p>
-                            <form class="button_to" method="post" action="/tracking_mixpanel?event=view_template&amp;gclid=Cj0KCQiA_NC9BhCkARIsABSnSTaNQWZsqHBLb_oMOdQ5to53Ntj7eT1iE1zMmuhueuXCMUedbVO83jMaAuU-EALw_wcB&amp;locale=vi&amp;url=%2Fho-so-cv%2Fmau-cv%3Fgclid%3DCj0KCQiA_NC9BhCkARIsABSnSTaNQWZsqHBLb_oMOdQ5to53Ntj7eT1iE1zMmuhueuXCMUedbVO83jMaAuU-EALw_wcB%26locale%3Dvi%26utm_campaign%3Dgsn_brand_hcm_mc%26utm_medium%3Dcpc%26utm_source%3Dgoogle%26utm_term%3Ditviec&amp;utm_campaign=gsn_brand_hcm_mc&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec"><button class="ibtn ibtn-sm ibtn-primary imt-6" type="submit">Xem mẫu CV</button><input type="hidden" name="authenticity_token" value="BB6StY8JghbMG6FWHcCpK6Ejw7lNCW80w6jshICEMeVqdyA3pD2w3g2JGZ832lp_N6w389K6r8mFzmSjpOkH5w" autocomplete="off"></form>
-                        </div>
-                    </div>
-                    <div class="radial-gradient-box radial-gradient-box-left mx-auto"></div>
-                </div>
-                <div class="order-xl-1 item-box-wrapper position-relative ipb-4 ipt-3 ipy-xl-0">
-                    <div class="d-flex flex-column flex-xl-row justify-content-center justify-content-xl-between align-items-center align-items-xl-start">
-                        <div class="d-flex align-items-star item-box-img-wrapper imb-3 imb-xl-0 mx-auto">
-                            <img alt="user-profile" src="https://itviec.com/assets/homepage/user-profile-704fabd6761d6f9a4efc54371bc6cc0bef771ff9ae1dce97b2cb137aa74732d6.svg">
-                        </div>
-                        <div class="user-benefit-content-wrapper text-center text-xl-start ims-xl-4">
-                            <h3>Hồ sơ cá nhân</h3>
-                            <p class="normal-text item-box-info text-rich-grey lh-18 imt-2">
-                                Kiến tạo hồ sơ ITviec với cấu trúc chuẩn mực cùng các gợi ý chi tiết
-                            </p>
-                            <form class="button_to" method="post" action="/tracking_mixpanel?event=update_profile&amp;gclid=Cj0KCQiA_NC9BhCkARIsABSnSTaNQWZsqHBLb_oMOdQ5to53Ntj7eT1iE1zMmuhueuXCMUedbVO83jMaAuU-EALw_wcB&amp;locale=vi&amp;url=%2Fho-so-cv%3Fgclid%3DCj0KCQiA_NC9BhCkARIsABSnSTaNQWZsqHBLb_oMOdQ5to53Ntj7eT1iE1zMmuhueuXCMUedbVO83jMaAuU-EALw_wcB%26locale%3Dvi%26utm_campaign%3Dgsn_brand_hcm_mc%26utm_medium%3Dcpc%26utm_source%3Dgoogle%26utm_term%3Ditviec&amp;utm_campaign=gsn_brand_hcm_mc&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec"><button class="ibtn ibtn-sm ibtn-secondary imt-6" type="submit">Cập nhật hồ sơ</button><input type="hidden" name="authenticity_token" value="8psGeCqqA5it3uYyDuQpPGRL9DSNJdqp_fIUzDxvJI-c8rT6AZ4xUGxMXvsk_tpo8sQAfhKWGlS7lJzrGAISjQ" autocomplete="off"></form>
-                        </div>
-                    </div>
-                    <div class="radial-gradient-box radial-gradient-box-right mx-auto"></div>
-                </div>
-                <div class="order-xl-3 ipt-3 ipt-xl-0">
-                    <div class="d-flex flex-column flex-xl-row justify-content-center justify-content-xl-between align-items-center align-items-xl-start">
-                        <div class="d-flex align-items-start item-box-img-wrapper imb-3 imb-xl-0 mx-auto">
-                            <img alt="blog" src="https://itviec.com/assets/homepage/blog-a0cee7c69f270172e8c4470bde32d5c15e0a113cb4c3aa92f9d8bfc9ab92c8c7.svg">
-                        </div>
-                        <div class="user-benefit-content-wrapper text-center text-xl-start ims-xl-4">
-                            <h3>Blog về IT</h3>
-                            <p class="normal-text item-box-info text-rich-grey lh-18 imt-2">
-                                Cập nhật thông tin lương thưởng, nghề nghiệp và kiến thức ngành IT
-                            </p>
-                            <form class="button_to" method="post" action="/tracking_mixpanel?event=explore_blog&amp;gclid=Cj0KCQiA_NC9BhCkARIsABSnSTaNQWZsqHBLb_oMOdQ5to53Ntj7eT1iE1zMmuhueuXCMUedbVO83jMaAuU-EALw_wcB&amp;locale=vi&amp;url=https%3A%2F%2Fitviec.com%2Fblog%2F%3Fgclid%3DCj0KCQiA_NC9BhCkARIsABSnSTaNQWZsqHBLb_oMOdQ5to53Ntj7eT1iE1zMmuhueuXCMUedbVO83jMaAuU-EALw_wcB%26locale%3Dvi%26utm_campaign%3Dgsn_brand_hcm_mc%26utm_medium%3Dcpc%26utm_source%3Dgoogle%26utm_term%3Ditviec&amp;utm_campaign=gsn_brand_hcm_mc&amp;utm_medium=cpc&amp;utm_source=google&amp;utm_term=itviec"><button class="ibtn ibtn-sm ibtn-secondary imt-6" type="submit">Khám phá blog</button><input type="hidden" name="authenticity_token" value="pS0ASvkrbqA5GwerJH14PLl7vdPbNANopwDnceF4AT_LRLLI0h9caPiJv2IOZ4toL_RJmUSHw5XhZm9WxRU3PQ" autocomplete="off"></form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+	<div class="icontainer">
+		<section class="home-introduction-container imt-16 imb-20 imb-md-30 text-center">
+			<div class="header-container mx-auto">
+				<div class="h1">Công cụ tốt nhất cho hành trang ứng tuyển của bạn</div>
+			</div>
+			<div class="mx-auto body-container imt-12">
+				<div class="order-xl-2 item-box-wrapper position-relative ipb-5 ipt-3 ipy-xl-0">
+					<div class="d-flex flex-column flex-xl-row justify-content-center justify-content-xl-between align-items-center align-items-xl-start">
+						<div class="d-flex align-items-start item-box-img-wrapper imb-3 imb-xl-0 mx-auto">
+							<img alt="cv-template" src="~/images/icons/cv-template.svg" />
+						</div>
+						<div class="user-benefit-content-wrapper text-center text-xl-start ims-xl-4">
+							<div class="d-inline-flex justify-content-center align-items-center">
+								<h3>
+									Mẫu CV
+								</h3>
+								<div class="ipx-2 ipy-1 bg-success-color text-white tiny-text irounded-sm ims-2">
+									MỚI
+								</div>
+							</div>
+							<p class="normal-text item-box-info text-rich-grey lh-18 imt-2">
+								Nâng cấp CV với các mẫu CV IT chuyên nghiệp - được nhà tuyển dụng đề xuất
+							</p>
+							<form class="button_to" method="post">
+								<button class="ibtn ibtn-sm ibtn-primary imt-6" type="submit">Xem mẫu CV</button>
+								<input type="hidden" />
+							</form>
+						</div>
+					</div>
+					<div class="radial-gradient-box radial-gradient-box-left mx-auto"></div>
+				</div>
+				<div class="order-xl-1 item-box-wrapper position-relative ipb-4 ipt-3 ipy-xl-0">
+					<div class="d-flex flex-column flex-xl-row justify-content-center justify-content-xl-between align-items-center align-items-xl-start">
+						<div class="d-flex align-items-star item-box-img-wrapper imb-3 imb-xl-0 mx-auto">
+							<img alt="user-profile" src="~/images/icons/user-profile.svg" />
+						</div>
+						<div class="user-benefit-content-wrapper text-center text-xl-start ims-xl-4">
+							<h3>Hồ sơ cá nhân</h3>
+							<p class="normal-text item-box-info text-rich-grey lh-18 imt-2">
+								Kiến tạo hồ sơ ITviec với cấu trúc chuẩn mực cùng các gợi ý chi tiết
+							</p>
+							<form class="button_to" method="post">
+								<button class="ibtn ibtn-sm ibtn-outline-primary imt-6" type="submit">
+									Cập nhật hồ
+									sơ
+								</button>
+								<input type="hidden" />
+							</form>
+						</div>
+					</div>
+					<div class="radial-gradient-box radial-gradient-box-right mx-auto"></div>
+				</div>
+				<div class="order-xl-3 ipt-3 ipt-xl-0">
+					<div class="d-flex flex-column flex-xl-row justify-content-center justify-content-xl-between align-items-center align-items-xl-start">
+						<div class="d-flex align-items-start item-box-img-wrapper imb-3 imb-xl-0 mx-auto">
+							<img alt="blog" src="~/images/icons/blog.svg" />
+						</div>
+						<div class="user-benefit-content-wrapper text-center text-xl-start ims-xl-4">
+							<h3>Blog về IT</h3>
+							<p class="normal-text item-box-info text-rich-grey lh-18 imt-2">
+								Cập nhật thông tin lương thưởng, nghề nghiệp và kiến thức ngành IT
+							</p>
+							<form class="button_to" method="post">
+								<button class="ibtn ibtn-sm ibtn-outline-primary imt-6" type="submit">
+									Khám phá blog
+								</button>
+								<input type="hidden" />
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 
-    </div>
+	</div>
 </div>
 
 <partial name="_Recruitment" />

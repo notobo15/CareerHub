@@ -1,0 +1,59 @@
+﻿@model RecruitmentApp.ModelViews.PersonalInfoViewModel
+
+<div class="modal-content border-radius-normal box-shadow-dark">
+	<form asp-action="SavePersonalInfo" asp-controller="Profile" method="post" id="GeneralInfoForm">
+		<div class="modal-header ips-5 ips-xl-8 ipe-5 ipe-xl-5 ipy-4">
+			<h2 class="modal-title text-it-black">Complete personal information</h2>
+			<button data-action="close" class="btn-close modal-fluid__close" data-dismiss="modal" type="button"></button>
+		</div>
+
+		<div class="modal-body ipt-6 ipb-8 ipx-5 ipx-xl-8">
+
+			<div class="general-information d-flex flex-column">
+				
+				<div class="form-floating col-12 ipx-0">
+					<input placeholder="Full name" class="form-control" required="required" asp-for="FullName" type="text" id="profile_name">
+					<label asp-for="FullName">
+						Full name
+						<span class="irequired">*</span>
+					</label>
+				</div>
+				<span asp-validation-for="PhoneNumber" class="text-danger"></span>
+				<div class="form-floating imt-6 col-12 ipx-0">
+					<input placeholder="Phone number" class="form-control" required="required" asp-for="PhoneNumber" type="text" id="profile_phone_number">
+					<label asp-for="PhoneNumber">
+						Phone number
+						<span class="irequired">*</span>
+					</label>
+				</div>
+				<span asp-validation-for="PhoneNumber" class="text-danger"></span>
+				<div class="form-floating imt-6 col-12 ipx-0" data-controller="selections" data-selections-max-items-value="3">
+
+
+					<select multiple asp-for="PreferredLocations" asp-items="Model.Provinces">
+						<option value="">Select location</option>
+					</select>
+
+					<label asp-for="PreferredLocations" style="z-index: 9999">
+						Preferred work location
+						<span class="irequired">*</span>
+					</label>
+					<div class="increase-counter">
+						<span class="counter"></span>
+						<span>locations</span>
+					</div>
+					<div id="preferredWorkLocationsError"></div>
+				</div>
+			</div>
+
+		</div>
+		<div class="modal-footer justify-content-between justify-content-md-end p-0 ipx-5 ipx-xl-8 ipy-2">
+			<button data-dismiss="modal" class="ibtn ibtn-sm ibtn-tertiary flex-grow-1 flex-md-grow-0 imy-0 ime-4 fw-400" type="button">
+				Cancel
+			</button>
+			<button class="ibtn ibtn-sm ibtn-primary flex-grow-1 flex-md-grow-0 im-0" type="submit">
+				Save
+			</button>
+		</div>
+	</form>
+</div>

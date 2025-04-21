@@ -1,0 +1,18 @@
+﻿@model CreateRoleModel
+
+<form method="post">
+	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+	<div class="form-group">
+		<label asp-for="Name" class="control-label"></label>
+		<input asp-for="Name" class="form-control" />
+		<span asp-validation-for="Name" class="text-danger"></span>
+	</div>
+	<div class="form-group d-flex gap-2 mt-3">
+		<button type="submit" class="btn btn-primary align-items-center">
+			<i data-feather="save" class="mr-1 icon-md"></i> Lưu
+		</button>
+		<a class="btn btn-outline-secondary" asp-action="Index">
+			<i data-feather="arrow-left" class="mr-1 icon-md"></i> Quay lại
+		</a>
+	</div>
+</form>

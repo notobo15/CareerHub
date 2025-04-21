@@ -1,0 +1,452 @@
+@using RecruitmentApp.ModelViews
+@inject RecruitmentApp.Services.HeaderService headerService
+
+@model ResumeUploadViewModel
+
+@{
+	var resumes = ViewBag.Resumes as List<ResumeFile> ?? new List<ResumeFile>();
+	var MaxFiles = ViewData["MaxFiles"] as int? ?? 5;
+	var user = ViewData["user"] as AppUser;
+
+	var yearsOfExperience = headerService.GetMenuYearsOfExperience().FirstOrDefault(y => y.Key == user.YearsOfExperience);
+
+	var personalInfoViewModel = ViewData["personalInfoViewModel"] as PersonalInfoViewModel;
+	var generalInfoViewModel = ViewData["generalInfoViewModel"] as GeneralInfoViewModel;
+	var coverLetterViewModel = ViewData["coverLetterViewModel"] as CoverLetterViewModel;
+}
+
+<div class="modal fade" id="modal" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-lg d-flex justify-content-center">
+	</div>
+</div>
+<div class="main-content ipt-6 ipb-12">
+	<div class="bg-white ipx-5 ipy-6 ip-xl-6 border-radius-large-xl box-shadow-normal">
+		<h2 class="imb-2">
+			Quản lý CV
+		</h2>
+		@if (!string.IsNullOrEmpty(Model.Message))
+		{
+			<div class="alert @(Model.IsSuccess ? "alert-success" : "alert-danger")">
+				@Model.Message
+			</div>
+		}
+		<p class="imb-6 text-dark-grey">
+			Tải CV của bạn bên dưới để có thể sử dụng xuyên suốt quá trình tìm việc
+		</p>
+		<div class="bg-white ip-4 border-dark-grey border-radius-large">
+			<div class="position-relative" data-controller="users--manage-cv">
+				<h3 class="imb-3">CV của bạn (@resumes.Count/@MaxFiles)</h3>
+				<div class="w-100">
+					<div id="manage-cv-link">
+						@if (resumes.Any())
+						{
+							@foreach (var resume in resumes)
+							{
+								<div class="d-flex align-items-center justify-content-between">
+
+									<div class="d-flex flex-row border-top-dotted align-items-start ipy-3">
+										<img alt="uploaded-resume-icon"
+											 src="~/images/icons/resume.svg"
+											 width="32" height="32">
+										<div class="ims-2">
+											<div id="manage-cv-link">
+												<u><a class="text-rich-grey" target="_blank" asp-controller="Profile" asp-action="ViewPDF" asp-route-filename="@resume.FileName">@resume.OrigialFileName</a></u>
+											</div>
+											<div class="imt-1 small-text text-dark-grey">
+												<span>Cập nhật lần cuối: </span>
+												<span>@DateTimeUtils.ToVietnameseDateTime(resume.UpdatedAt)</span>
+											</div>
+										</div>
+									</div>
+
+									<div class="d-flex align-items-center">
+										@if (!resume.IsPrimary)
+										{
+											<form asp-action="Delete" asp-controller="Profile" asp-route-id="@resume.ResumeFileId" method="post" class="me-2">
+												<button type="submit" class="btn btn-sm btn-outline-danger">
+													xóa
+												</button>
+											</form>
+
+											<form asp-action="SetPrimary" asp-controller="Profile" asp-route-id="@resume.ResumeFileId" method="post">
+												<button type="submit" class="btn btn-sm btn-warning">Làm mặc định</button>
+											</form>
+										}
+										else
+										{
+											<button disabled class="btn btn-sm btn-secondary">Đã Mặc định</button>
+										}
+									</div>
+								</div>
+
+							}
+
+						}
+						else
+						{
+							<div class="d-flex justify-content-center">
+								<div class="d-flex justify-content-center align-items-center flex-column text-center">
+									<img alt="default-resume" class="imb-3" src="https://itviec.com/assets/profile/default-resume-3073bf96029d6ec8e228cb80dd4037b57efc5977a5fe2f52a5b7eef3e3c805ab.svg">
+									<p class="imb-2 text-rich-grey">
+										You have not attached a CV yet. Please upload your CV for quick
+										application.
+									</p>
+								</div>
+							</div>
+						}
+
+
+					</div>
+					@if (resumes.Count < 5)
+					{
+						<div class="d-flex flex-column imt-4">
+							<form id="uploadCvForm" enctype="multipart/form-data" asp-action="UploadCv" asp-controller="Profile" accept-charset="UTF-8"
+								  method="post">
+								<label class="cursor-pointer ibtn ibtn-sm ibtn-outline-primary" asp-for="CvFile">
+									<div class="d-flex">
+										<p class="d-flex align-items-center">
+											<i class="feather-icon icon-sm icon-md" data-feather="upload">
+											</i>
+										</p>
+										<p class="text-truncated ims-2">Tải CV lên</p>
+										<p></p>
+									</div>
+									<input class="d-none" asp-for="CvFile" type="file" accept=".pdf,.doc,.docx">
+								</label>
+								<div id="uploadCvError" asp-validation-for="CvFile"></div>
+							</form>
+							<div class="imt-2 imt-xl-4 small-text text-rich-grey">
+								Hỗ trợ định dạng .doc, .docx hoặc .pdf, dưới 3MB và không chứa mật khẩu bảo vệ
+							</div>
+						</div>
+					}
+				</div>
+			</div>
+
+		</div>
+		<div class="bg-white ip-4 imt-4 border-dark-grey border-radius-large">
+			<turbo-frame locale="vi" id="application_information">
+				<div class="position-relative">
+					<h3>Thông tin cơ bản</h3>
+					<div class="imt-4">
+						<div class="row d-flex flex-column flex-xl-row">
+							<div class="col-xl-3 text-rich-grey">Họ và Tên</div>
+							<div class="col-xl-8">
+
+								@if (string.IsNullOrWhiteSpace(user.FullName))
+								{
+									<div class="text-warning-color d-flex align-items-center gap-1">
+										<i class="feather-icon icon-sm" data-feather="alert-circle">
+										</i>
+
+										<div class="span">Thêm thông tin</div>
+									</div>
+								}
+								else
+								{
+									<div class="h4">@user.FullName</div>
+								}
+
+							</div>
+						</div>
+						<div class="row imt-4 d-flex flex-column flex-xl-row">
+							<div class="col-xl-3 text-rich-grey">Số điện thoại</div>
+							<div class="col-xl-8">
+								@if (string.IsNullOrWhiteSpace(user.PhoneNumber))
+								{
+									<div class="text-warning-color d-flex align-items-center gap-1">
+										<i class="feather-icon icon-sm" data-feather="alert-circle">
+										</i>
+
+										<div class="span">Thêm thông tin</div>
+									</div>
+								}
+								else
+								{
+									<div class="h4">@user.PhoneNumber</div>
+								}
+							</div>
+						</div>
+						<div class="row imt-4 d-flex flex-column flex-xl-row">
+							<div class="col-xl-3 text-rich-grey">Nơi làm việc mong muốn</div>
+							<div class="col-xl-8">
+								@if (user.PreferredLocations.Any())
+								{
+									<div class="h4">@string.Join(", ", user.PreferredLocations.Select(p => p.Province.FullName).ToList())</div>
+								}
+								else
+								{
+									<div class="text-warning-color d-flex align-items-center gap-1">
+										<i class="feather-icon icon-sm" data-feather="alert-circle">
+										</i>
+
+										<div class="span">Thêm thông tin</div>
+									</div>
+								}
+
+							</div>
+						</div>
+					</div>
+					<div class="position-absolute end-0 top-0" id="btnShowPersonalInfoForm">
+						<div class="cursor-pointer text-it-red">
+							<i class="feather-icon icon-sm" data-feather="edit"></i>
+						</div>
+					</div>
+				</div>
+			</turbo-frame>
+		</div>
+	</div>
+	<div class="bg-white imt-5 ipx-5 ipy-6 ip-xl-6 border-radius-large-xl box-shadow-normal" id="general_information">
+		<div class="d-flex justify-center position-relative">
+			<h2 class="imb-4">Thông tin chung</h2>
+			<div class="cursor-pointer edit-button" id="btnShowGeneralInfoForm">
+				<i class="feather-icon text-it-red icon-md" data-feather="edit"></i>
+			</div>
+		</div>
+
+		<table class="w-100">
+			<tbody>
+				<tr class="d-flex flex-column flex-xl-row justify-content-between imb-4">
+					<td class="col-xl-3 flex-grow-1 imb-1 imb-xl-0 ime-xl-6 text-rich-grey">Tổng số năm kinh nghiệm</td>
+					<td class="col-xl-9">
+						@if (string.IsNullOrEmpty(user.YearsOfExperience))
+						{
+							<span class="text-dark-grey">Thêm thông tin</span>
+						}
+						else
+						{
+							<span class="text-it-black fw-600">@yearsOfExperience.Value</span>
+						}
+					</td>
+				</tr>
+				<tr class="d-flex flex-column flex-xl-row justify-content-between imb-4">
+					<td class="col-xl-3 flex-grow-1 imb-1 imb-xl-0 ime-xl-6 text-rich-grey">Cấp bậc hiện tại</td>
+					<td class="col-xl-9">
+						@if (user.LevelId == null)
+						{
+							<span class="text-dark-grey">Thêm thông tin</span>
+						}
+						else
+						{
+							<span class="text-it-black fw-600">@user.CurrentLevel.Name</span>
+						}
+					</td>
+				</tr>
+				<tr class="d-flex flex-column flex-xl-row justify-content-between imb-4">
+					<td class="col-xl-3 flex-grow-1 imb-1 imb-xl-0 ime-xl-6 text-rich-grey">
+						Hình thức làm việc mong muốn
+					</td>
+					<td class="col-xl-9">
+						@if (user.WorkTypeId == null)
+						{
+							<span class="text-dark-grey">Thêm thông tin</span>
+						}
+						else
+						{
+							<div class="ibadge-pill-light text-rich-grey bg-light-grey ime-3 imb-4">
+								<span class="itag-lg">@user.WorkType.Name</span>
+							</div>
+						}
+					</td>
+				</tr>
+				@if (user.UserIndustries.Any())
+				{
+					<tr class="d-flex flex-column flex-xl-row justify-content-between">
+						<td class="col-xl-3 flex-grow-1 imb-1 imb-xl-0 ime-xl-6 text-rich-grey">Lĩnh vực đã làm việc</td>
+						<td class="col-xl-9">
+
+							@foreach (var industry in user.UserIndustries.Select(u => u.Industry.Name))
+							{
+								<div class="ibadge-pill-light text-rich-grey bg-light-grey ime-3 imb-4">
+									<span class="itag-lg">@industry</span>
+								</div>
+							}
+
+						</td>
+					</tr>
+				}
+				@if (user.MinExpectedSalary != null && user.MaxExpectedSalary != null)
+				{
+
+					<tr class="d-flex flex-column flex-xl-row justify-content-between imb-4">
+						<td class="col-xl-3 flex-grow-1 imb-1 imb-xl-0 ime-xl-6 text-rich-grey">Mức lương mong muốn</td>
+						<td class="col-xl-9">
+							<span class="text-it-black fw-600">
+								@AppUtilities.FormatCurrency(user.MinExpectedSalary.ToString()) - @AppUtilities.FormatCurrency(user.MaxExpectedSalary.ToString()) VNĐ/tháng
+							</span>
+						</td>
+					</tr>
+				}
+				@if (user.UserIndustries.Any())
+				{
+
+					<tr class="d-flex flex-column flex-xl-row justify-content-between">
+						<td class="col-xl-3 flex-grow-1 imb-1 imb-xl-0 ime-xl-6 text-rich-grey">Mức lương hiện tại</td>
+						<td class="col-xl-9">
+							<span class="text-it-black fw-600">
+								@AppUtilities.FormatCurrency(user.CurrentSalary.ToString()) VNĐ/tháng
+							</span>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+
+	</div>
+	<partial name="ManageCV/_CoverLetterForm" model="coverLetterViewModel" />
+</div>
+
+@section Scripts {
+	<script>
+		$(document).ready(function () {
+			$('#CvFile').on('change', function () {
+				if (this.files.length > 0) {
+					$('#uploadCvForm').submit();
+				}
+			});
+
+			const $textarea = $('#CoverLetter');
+			const $counterTextarea = $('.increase-counter');
+			const maxLength = 500;
+
+			// Khi gõ
+			$textarea.on('input', function () {
+			const length = $(this).val().length;
+			$counterTextarea.text(`${length}/${maxLength} characters`);
+
+			// Optional: cảnh báo nếu vượt
+			if (length > maxLength) {
+				$counterTextarea.addClass('text-danger');
+			} else {
+				$counterTextarea.removeClass('text-danger');
+			}
+			});
+
+			// Khởi tạo nếu đã có dữ liệu sẵn
+			$textarea.trigger('input');
+
+			$(document).on('click', '.edit-button', function () {
+				const $container = $(this).closest('#cover_letter');
+				$container.find('.cover-letter-edit').removeClass('d-none').addClass('d-block');
+				$container.find('.cover-letter-display, .cover-letter-view').removeClass('d-block').addClass('d-none');
+			});
+
+			$(document).on('click', '.cancel-button', function () {
+				const $container = $(this).closest('#cover_letter');
+				$container.find('.cover-letter-edit').removeClass('d-block').addClass('d-none');
+
+				// Nếu có nội dung cover letter, show phần hiển thị lại
+				if ($container.find('.cover-letter-display .paragraph').length > 0) {
+					$container.find('.cover-letter-display').removeClass('d-none').addClass('d-block');
+				} else {
+					$container.find('.cover-letter-view').removeClass('d-none').addClass('d-block');
+				}
+			});
+
+				// const maxItems = 3;
+				// const $counter = $('.increase-counter span');
+
+				// const tom = new TomSelect('#work-locations', {
+				//   maxItems: maxItems,
+				//   onChange: function () {
+				// 	const count = tom.getValue().length;
+				// 	$counter.text(`${count}/${maxItems}`);
+				//   }
+				// });
+
+				// const initialCount = tom.getValue().length;
+				// $counter.text(`${initialCount}/${maxItems}`);
+
+				// new TomSelect('#YearsOfExperience', {
+				// });
+
+				// new TomSelect('#LevelId', {
+				// });
+
+				// new TomSelect('#WorkTypeId', {
+				// });
+
+				// new TomSelect('#SelectedIndustryIds', {
+				// 	 maxItems: 5,
+				// });
+
+
+			initModalForm({
+				modalSelector: '#modal',
+				triggerSelector: '#btnShowPersonalInfoForm',
+				formUrl: '/profile/GetPersonalInfoForm',
+				onSuccess: () => {
+					window.location.reload()
+				},
+				onFormLoaded: (form, modal) => {
+					const $select = form.find('#PreferredLocations');
+					const maxItems = 3;
+					const $quantityDisplay = form.find('.counter');
+					if ($select.length) {
+						new TomSelect('#PreferredLocations', {
+							maxItems: maxItems,
+							closeAfterSelect: false,
+							create: false,
+							plugins: ['remove_button'],
+							render: {
+								no_results: function(data, escape) {
+									return `<div class="no-results">Không tìm thấy kết quả</div>`;
+								}
+							},
+							onInitialize: function () {
+								// Cập nhật số lượng ban đầu nếu có sẵn
+								const current = this.getValue().length;
+								$quantityDisplay.text(`${current}/${maxItems}`);
+							},
+							onChange: function () {
+								const current = this.getValue().length;
+								$quantityDisplay.text(`${current}/${maxItems}`);
+							}
+						});
+					}
+				}
+			});
+
+
+			// ----------- General Info -----------
+
+			initModalForm({
+				modalSelector: '#modal',
+				triggerSelector: '#btnShowGeneralInfoForm',
+				formUrl: '/profile/GetGeneralInfoForm',
+				onSuccess: () => {
+					window.location.reload()
+				},
+					onFormLoaded: (form, modal) => {
+						const $select = form.find('#SelectedIndustryIds');
+						const maxItems = 5;
+						const $quantityDisplay = form.find('.quantityIndustry');
+						if ($select.length) {
+							new TomSelect('#SelectedIndustryIds', {
+								placeholder: "Chọn ngành nghề",
+								maxItems: maxItems,
+								closeAfterSelect: false,
+								create: false,
+								plugins: ['remove_button'],
+								render: {
+									no_results: function(data, escape) {
+										return `<div class="no-results">Không tìm thấy kết quả</div>`;
+									}
+								},
+								onInitialize: function () {
+									// Cập nhật số lượng ban đầu nếu có sẵn
+									const current = this.getValue().length;
+									$quantityDisplay.text(`${current}/${maxItems}`);
+								},
+								onChange: function () {
+									const current = this.getValue().length;
+									$quantityDisplay.text(`${current}/${maxItems}`);
+								}
+							});
+						}
+					}
+
+			});
+		});
+	</script>
+}

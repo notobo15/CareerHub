@@ -1,0 +1,55 @@
+﻿@model RecruitmentApp.Models.CompanyType
+
+
+<nav class="page-breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">CompanyTypes</li>
+		<li class="breadcrumb-item active" aria-current="page"><a href="">Create</a></li>
+	</ol>
+</nav>
+
+<div class="row">
+	<div class="col-md-12 grid-margin">
+		<div class="card">
+			<div class="card-body">
+				<h4 class="font-weight-bold">Tạo Mới</h4>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-md-12 grid-margin stretch-card">
+		<div class="card">
+			<div class="card-body">
+
+				<div class="col-md-6">
+					<form asp-action="Create">
+						<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+						<div class="form-group">
+							<label asp-for="Name" class="control-label"></label>
+							<input asp-for="Name" class="form-control" />
+							<span asp-validation-for="Name" class="text-danger"></span>
+						</div>
+						<div class="form-group d-flex gap-2 mt-4">
+							<button type="submit" class="btn btn-primary align-items-center mr-2">
+								<i data-feather="plus" class="mr-1 icon-md"></i> Create
+							</button>
+							<a asp-action="Index" class="btn btn-outline-secondary d-inline-flex align-items-center">
+								<i data-feather="x" class="mr-1 icon-md"></i> Cancel
+							</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<a asp-action="Index" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center">
+	<i data-feather="chevron-left" class="mr-1 icon-md"></i>
+	Back to List
+</a>

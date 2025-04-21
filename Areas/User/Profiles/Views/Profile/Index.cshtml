@@ -1,118 +1,213 @@
+@{
+	var User = ViewData["User"] as AppUser ?? null;
+	var primaryResume = ViewData["primaryResume"] as ResumeFile ?? null;
+	var scoreProgress = ViewData["scoreProgress"] as int? ?? 5;
+	var progressDegree = scoreProgress * 1.8;
+}
 <div class="main-content imt-xl-6 imb-12 min-vh-100">
-    <div class="dashboard-information bg-white imb-5 ipx-5 ipy-6 ip-lg-6 box-shadow-normal border-radius-large-xl">
-        <div class="d-flex align-items-start">
-            <div class="ime-3 ime-lg-4">
-                <img class="avatar ls-is-cached lazyloaded" alt="Avatar Profile" data-controller="lazyload" data-preview-image-target="output" src="https://itviec.com/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNlh1TkE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--6e0ddf3a3881788432fe98fcf1b2518d968e2b89/AGNmyxZ2hN-mkA3UdZDCzgG7LyQDqMbEFwqU6pkZk0qZ=s96-c.jpg">
-            </div>
-            <div class="text-break">
-                <h1 class="imb-3 imb-lg-2 text-it-black">Texxt</h1>
-                <div class="info-text imb-2">
-                    <div class="d-flex">
-                        <p class="d-flex align-items-center">
-                            <svg class="feather-icon icon-sm text-dark-grey icon-md">
-                                <use href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#briefcase"></use>
-                            </svg>
-                        </p><p class="text-truncated ms-2 normal-text text-dark-grey">Update your title</p><p></p>
-                    </div>
-                </div>
-                <div class="info-text imb-4">
-                    <div class="d-flex">
-                        <p class="d-flex align-items-center">
-                            <svg class="feather-icon icon-sm text-dark-grey icon-md">
-                                <use href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#mail"></use>
-                            </svg>
-                        </p><p class="text-truncated ms-2 normal-text text-rich-grey">chrisnguyeen2000@gmail.com</p><p></p>
-                    </div>
-                </div>
-                <div class="d-flex">
-                    <a class="hyperlink ime-1" href="/profile-cv">
-                        <div class="d-flex align-items-center">
-                            <span class="ime-1">Update your profile</span>
-                            <svg class="feather-icon icon-md">
-                                <use href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#chevron-right"></use>
-                            </svg>
+	<div class="dashboard-information bg-white imb-5 ipx-5 ipy-6 ip-lg-6 box-shadow-normal border-radius-large-xl">
+		<div class="d-flex align-items-start">
+			<div class="ime-3 ime-lg-4">
+				<img class="avatar ls-is-cached lazyloaded" alt="Avatar Profile" src="@User?.Avatar" />
+			</div>
+			<div class="text-break">
+				<h1 class="imb-3 imb-lg-2 text-it-black">@User?.UserName</h1>
+				<div class="info-text imb-2">
+					<div class="d-flex">
+						<p class="d-flex align-items-center">
+							<i class="feather-icon icon-sm text-dark-grey icon-md" data-feather="briefcase"></i>
+						</p>
+						<p class="text-truncated ms-2 normal-text text-dark-grey">@(string.IsNullOrEmpty(User?.ShortName) ? "Update your title" : User.ShortName)</p>
+						<p></p>
+					</div>
+				</div>
+				<div class="info-text imb-4">
+					<div class="d-flex">
+						<p class="d-flex align-items-center">
+							<i class="feather-icon icon-sm text-dark-grey icon-md" data-feather="mail"></i>
+						</p>
+						<p class="text-truncated ms-2 normal-text text-rich-grey">@User.Email</p>
+						<p></p>
+					</div>
+				</div>
+				<div class="d-flex">
+					<a class="hyperlink ime-1" asp-area="User/Profiles" asp-controller="Profile" asp-action="ProfileCV">
+						<div class="d-flex align-items-center">
+							<span class="ime-1">Update your profile</span>
+							<i class="feather-icon icon-md" data-feather="chevron-right"></i>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
 
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="cv-attachment bg-white ipx-5 ipy-6 ip-xl-6 imb-5 border-radius-large-xl box-shadow-normal">
+		<h2 class="imb-4">Your Attached CV</h2>
+		<div class="wrapper ip-4 border-radius-large border-solid bg-light-grey">
 
-    <div class="cv-attachment bg-white ipx-5 ipy-6 ip-xl-6 imb-5 border-radius-large-xl box-shadow-normal">
-        <h2 class="imb-4">Your Attached CV</h2>
-        <div class="wrapper ip-4 border-radius-large border-solid bg-light-grey">
-            <div class="d-flex justify-content-center">
-                <div class="d-flex justify-content-center align-items-center flex-column text-center">
-                    <img alt="default-resume" class="imb-3" src="https://itviec.com/assets/profile/default-resume-3073bf96029d6ec8e228cb80dd4037b57efc5977a5fe2f52a5b7eef3e3c805ab.svg">
-                    <p class="imb-2 text-rich-grey">You have not attached a CV yet. Please upload your CV for quick application.</p>
-                    <div class="d-flex">
-                        <a class="hyperlink ime-1" href="/profile-cv/manage-cv">
-                            <div class="d-flex align-items-center">
-                                <span class="ime-1">Manage CV attachment</span>
-                                <svg class="feather-icon icon-md">
-                                    <use href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#chevron-right"></use>
-                                </svg>
+			@if (primaryResume == null)
+			{
+				<div class="d-flex justify-content-center">
+					<div class="d-flex justify-content-center align-items-center flex-column text-center">
+						<img alt="default-resume" class="imb-3"
+							 src="~/images/icons/default-resume.svg">
+						<p class="imb-2 text-rich-grey">
+							You have not attached a CV yet. Please upload your CV for quick
+							application.
+						</p>
+						<div class="d-flex">
+							<a class="hyperlink ime-1" asp-area="User/Profiles" asp-controller="Profile"
+							   asp-action="ManageCV">
+								<div class="d-flex align-items-center">
+									<span class="ime-1">Manage CV attachment</span>
+									<i class="feather-icon icon-md" data-feather="chevron-right">
+									</i>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
 
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+			}
+			else
+			{
+				<div class="d-flex justify-content-start">
+					<img alt="uploaded-resume" class="uploaded-resume ime-4" src="~/images/icons/uploaded-resume.svg">
+					<div class="d-grid">
+						<a class="cv-link fw-600 imb-2 text-rich-grey text-decoration-underline" target="_blank" href="/xem-truoc-cv">2025_117_2K25TYC_24342_0301514513.pdf</a>
+						<p class="ifs-14 text-dark-grey imb-2">
+							Cập nhật lần cuối: 11/03/2025
+						</p>
+						<div class="d-flex">
+							<a class="hyperlink ime-1" href="/ho-so-cv/quan-ly-cv">
+								<div class="d-flex align-items-center">
+									<span class="ime-1">Quản lý hồ sơ đính kèm</span>
+									<i class="feather-icon icon-md" data-feather="chevron-right"></i>
 
-    <div class="completion bg-white ipx-5 ipy-6 ip-xl-6 border-radius-large-xl box-shadow-normal">
-        <h2 class="imb-4">ITviec Profile</h2>
-        <div class="d-flex justify-content-start align-items-center flex-column flex-xl-row">
-            <div class="profile-score-progress">
-                <div class="progress-background">
-                    <div class="progress-circle" style="--progress-degree: 9.0deg"></div>
-                </div>
-                <div class="percentage-text">
-                    5%
-                    <div class="completed-text tiny-text text-rich-grey">
-                        completed
-                    </div>
-                </div>
-            </div>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			}
 
-            <div class="imt-4 imt-xl-0 ipx-xl-4">
-                <p class="imb-2">
-                    Reach <b class="text-it-red">70%</b> of your profile to start generating your IT professional CV.
-                </p>
 
-                <div class="d-flex">
-                    <a class="hyperlink ime-1" href="/profile-cv">
-                        <div class="d-flex align-items-center">
-                            <span class="ime-1">Complete your profile</span>
-                            <svg class="feather-icon icon-md">
-                                <use href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#chevron-right"></use>
-                            </svg>
 
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="completion-explore-cv d-flex justify-content-center imt-6 imt-xl-0">
-                <a class="item ime-2 border-solid" href="/profile-cv/cv-templates?template=Cubic">
-                    <img alt="Cubic" src="https://itviec.com/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBenhpUHc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--6a8ad5a11a343ffa5187c7e010762bbde4fb68d2/cubic.png">
-                </a><a class="item ime-2 border-solid" href="/profile-cv/cv-templates?template=Elegant">
-                    <img alt="Elegant" src="https://itviec.com/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBd014UGc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--12916489f357a1afda8ea1665487be89a3bd9c97/elegant.png">
-                </a><a class="item d-flex flex-column align-items-center justify-content-center text-center border-solid" href="/profile-cv/cv-templates">
-                    <svg class="feather-icon icon-sm text-it-red imb-2">
-                        <use href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#arrow-right-circle"></use>
-                    </svg>
 
-                    <p class="text-it-red ifs-12">
-                        Explore CV
-                    </p>
-                    <p class="text-it-red ifs-12">
-                        templates
-                    </p>
-                </a>
-            </div>
-        </div>
-    </div>
+		</div>
+	</div>
 
+	<div class="completion bg-white ipx-5 ipy-6 ip-xl-6 border-radius-large-xl box-shadow-normal">
+		<h2 class="imb-4">ITviec Profile</h2>
+		<div class="d-flex justify-content-start align-items-center flex-column flex-xl-row">
+			<div class="profile-score-progress">
+				<div class="progress-background">
+					<div class="progress-circle" style="--progress-degree: @(progressDegree)deg"></div>
+				</div>
+				<div class="percentage-text">
+					@scoreProgress%
+					<div class="completed-text tiny-text text-rich-grey">
+						completed
+					</div>
+				</div>
+			</div>
+
+			<div class="imt-4 imt-xl-0 ipx-xl-4">
+				<p class="imb-2">
+					Reach <b class="text-it-red">70%</b> of your profile to start generating your IT professional CV.
+				</p>
+
+				<div class="d-flex">
+					<a class="hyperlink ime-1" href="/profile-cv">
+						<div class="d-flex align-items-center">
+							<span class="ime-1">Complete your profile</span>
+							<i class="feather-icon icon-md" data-feather="chevron-right">
+							</i>
+
+						</div>
+					</a>
+				</div>
+			</div>
+			<div class="completion-explore-cv d-flex justify-content-center imt-6 imt-xl-0">
+				<a class="item ime-2 border-solid" href="/profile-cv/cv-templates?template=Cubic">
+					<img alt="Cubic"
+						 src="https://itviec.com/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBenhpUHc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--6a8ad5a11a343ffa5187c7e010762bbde4fb68d2/cubic.png">
+				</a><a class="item ime-2 border-solid" href="/profile-cv/cv-templates?template=Elegant">
+					<img alt="Elegant"
+						 src="https://itviec.com/rails/active_storage/blobs/proxy/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBd014UGc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--12916489f357a1afda8ea1665487be89a3bd9c97/elegant.png">
+				</a><a class="item d-flex flex-column align-items-center justify-content-center text-center border-solid"
+					   href="/profile-cv/cv-templates">
+					<i class="feather-icon icon-sm text-it-red imb-2" data-feather="arrow-right-circle">
+					</i>
+
+					<p class="text-it-red ifs-12">
+						Explore CV
+					</p>
+					<p class="text-it-red ifs-12">
+						templates
+					</p>
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="activities bg-white ipx-5 ipy-6 ip-xl-6 border-radius-large-xl box-shadow-normal">
+		<h2 class="imb-4">Hoạt động của bạn</h2>
+		<div class="row infos">
+			<div class="col-12 col-md-4 ipx-2 imy-2">
+				<a href="/viec-lam-cua-toi/ung-tuyen">
+					<div class="w-100 d-flex align-items-end justify-content-between border-solid transition-duration-300 border-radius-normal bg-light-info-color hover-border-info-color">
+						<div class="imx-4 imt-2">
+							<div class="ifs-16 fw-400 text-black position-absolute">
+								<p>Việc làm đã ứng tuyển</p>
+							</div>
+							<div class="ifs-36 fw-700 imt-8 mb-3 text-info-color">
+								<span>@ViewData["totalApplyPosts"]</span>
+
+							</div>
+						</div>
+						<img alt="activities" class="activities-image"
+							 src="~/images/icons/paper-plane.svg" />
+					</div>
+
+				</a>
+			</div>
+			<div class="col-12 col-md-4 ipx-2 imy-2">
+				<a href="/viec-lam-cua-toi">
+					<div class="w-100 d-flex align-items-en  d justify-content-between border-solid transition-duration-300 border-radius-normal bg-white-red hover-border-dark-red">
+						<div class="imx-4 imt-2">
+							<div class="ifs-16 fw-400 text-black position-absolute">
+								<p>Việc làm đã lưu</p>
+							</div>
+							<div class="ifs-36 fw-700 imt-8 mb-3 text-dark-red">
+								<span>@ViewData["totalFavorites"]</span>
+
+							</div>
+						</div>
+						<img alt="activities" class="activities-image"
+							 src="~/images/icons/healthcare.svg" />
+					</div>
+
+				</a>
+			</div>
+			<div class="col-12 col-md-4 ipx-2 imy-2">
+				<a href="/loi-moi-cong-viec">
+					<div class="w-100 d-flex align-items-end justify-content-between border-solid transition-duration-300 border-radius-normal bg-light-success-color hover-border-success-color">
+						<div class="imx-4 imt-2">
+							<div class="ifs-16 fw-400 text-black position-absolute">
+								<p>Lời mời công việc</p>
+							</div>
+							<div class="ifs-36 fw-700 imt-8 mb-3 text-success-color">
+								<span>0</span>
+
+							</div>
+						</div>
+						<img alt="activities" class="activities-image"
+							 src="~/images/icons/mail.svg" />
+					</div>
+
+				</a>
+			</div>
+		</div>
+	</div>
 </div>

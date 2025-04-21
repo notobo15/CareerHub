@@ -23,14 +23,14 @@
 									}
 									<div class="d-flex align-items-center justify-content-between">
 										<span class="small-text text-dark-grey">
-											Đăng 4 giờ trước
+											@TimeFormatter.GetTimeAgo(post.PostDate)
 										</span>
 									</div>
 									<h3 class="imt-3 text-it-black text-break text-clamp-2">
 										<a class="text-reset text-hover-red transition-duration-300 stretched-link" target="_blank" asp-area="User/Jobs" asp-controller="Job" asp-action="Detail" asp-route-slug="@post.Slug">@post.Title</a>
 									</h3>
-									<div class="imy-2 d-flex align-items-center" data-recommended-impressions-target="jobImpression">
-										<a data-controller="utm-tracking" class="job-card-logo border-solid box-shadow-normal border-radius-normal bg-white stretched-link position-relative" href="/nha-tuyen-dung/smg-swiss-marketplace-group?lab_feature=cookies_recommend_jobs">
+									<div class="imy-2 d-flex align-items-center">
+										<a class="job-card-logo border-solid box-shadow-normal border-radius-normal bg-white stretched-link position-relative" asp-area="User/Companies" asp-controller="Company" asp-action="Detail" asp-route-slug="@post.Company.Slug">
 											<picture>
 												<source data-srcset="~/images/companies/@post.Company.LogoImage" srcset="~/images/companies/@post.Company.LogoImage">
 												<img alt="@post.Company.Name" class="h-100 lazyloaded" data-controller="lazyload" data-src="" width="48" src="~/images/companies/@post.Company.LogoImage">
@@ -38,18 +38,27 @@
 
 										</a>
 										<span class="ims-2 small-text">
-											<a data-controller="utm-tracking" class="text-rich-grey text-clamp-2 text-hover-underline stretched-link position-relative" href="/nha-tuyen-dung/smg-swiss-marketplace-group?lab_feature=cookies_recommend_jobs">@post.Company.FullName</a>
+											<a class="text-rich-grey text-clamp-2 text-hover-underline stretched-link position-relative" asp-area="User/Companies" asp-controller="Company" asp-action="Detail" asp-route-slug="@post.Company.Slug">@post.Company.FullName</a>
 										</span>
 									</div>
 									<div class="fw-500">
-										<div class="d-flex align-items-center salary text-rich-grey">
+										<div class="d-flex align-items-center salary" style="color: #0ab305;">
 											<svg fill="none" height="16" stroke="currentColor" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
 												<path d="M12.0044 6V18" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
 												<path d="M14.9287 7.90332H10.5395C9.99625 7.90332 9.47527 8.11912 9.09114 8.50325C8.70701 8.88738 8.49121 9.40836 8.49121 9.9516C8.49121 10.4948 8.70701 11.0158 9.09114 11.4C9.47527 11.7841 9.99625 11.9999 10.5395 11.9999H13.4656C14.0088 11.9999 14.5298 12.2157 14.914 12.5998C15.2981 12.9839 15.5139 13.5049 15.5139 14.0482C15.5139 14.5914 15.2981 15.1124 14.914 15.4965C14.5298 15.8806 14.0088 16.0964 13.4656 16.0964H8.49121" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor"></path>
 												<circle cx="12.0002" cy="12.0002" r="9.3" stroke-width="2" stroke="currentColor"></circle>
 											</svg>
 
-											<a data-controller="utm-tracking" class="sign-in-view-salary text-reset ips-2 text-decoration-underline stretched-link position-relative" href="/sign_in?job=mid-senior-android-engineer-kotlin-java-english-smg-swiss-marketplace-group-3334&amp;job_index=0&amp;view_salary_source=homepage">Đăng nhập để xem mức lương</a>
+											<a class="sign-in-view-salary text-reset ips-2 text-decoration-underline stretched-link position-relative"
+											   asp-area="User/Posts"
+											   asp-controller="Post"
+											   asp-action="Detail"
+											   asp-route-slug="@post.Slug">
+												@(User.Identity.IsAuthenticated ?
+													post.salaryToString() :
+													"Đăng nhập để xem mức lương")
+											</a>
+
 										</div>
 
 									</div>
@@ -81,20 +90,17 @@
 											<i data-feather="map-pin" class="feather-icon icon-sm"></i>
 										</span>
 										<span class="ips-2 small-text text-rich-grey">
-											@if (post?.Location?.Address != null)
-											{
-												@post.Location.Address.City.Name
-											}
+											@string.Join(" - ", post?.PostLocations?.Select(x => x.Location.Address.City.Name))
 										</span>
 									</div>
 									<div class="d-flex flex-wrap imt-3 imb-5 igap-2">
 
 										@if (post.PostSkills is ICollection<PostSkills> postSkills)
 										{
-											@foreach (var k in postSkills.Select( i => i.Skill))
+											@foreach (var k in postSkills?.Select( i => i.Skill))
 											{
 												<div class="itag itag-light itag-sm position-relative">
-													<a class="text-reset stretched-link" data-controller="utm-tracking" href="/viec-lam-it/android?click_source=@k.Name">@k.Name</a>
+													<a class="text-reset stretched-link" href="/viec-lam-it/android?click_source=@k.Slug">@k.Name</a>
 												</div>
 											}
 
@@ -108,12 +114,9 @@
 				}
 			</div>
 			<div class="text-center imt-10">
-				<a class="ibtn ibtn-md ibtn-secondary" data-controller="utm-tracking" data-disable-with="loading..." href="/viec-lam-it?newest=true&amp;query=java">
+				<a class="ibtn ibtn-md ibtn-secondary" asp-area="User/Jobs" asp-controller="Job" asp-action="Search">
 					Xem thêm @(Convert.ToInt32(ViewData["totalPosts"]) - Convert.ToInt32((ViewData["posts"] as List<Post>).Count)) công việc khác
-					<svg class="feather-icon icon-sm">
-						<use href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#chevron-right"></use>
-					</svg>
-
+					<i class="feather-icon icon-sm" data-feather="chevron-right"></i>
 				</a>
 			</div>
 		</section>

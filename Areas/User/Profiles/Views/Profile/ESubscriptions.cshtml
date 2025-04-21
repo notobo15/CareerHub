@@ -1,0 +1,425 @@
+<div class="manage-profile min-vh-100 flex-1">
+    <div class="main-content imt-xl-6 imb-12 min-vh-100">
+        <div id="email_subscription">
+            <div class="text-it-black">
+                <div id="subscribed_skills">
+                    <div class="ipy-6 ipx-5 ipx-xl-6 bg-it-white box-shadow-normal border-radius-large">
+                        <h2>
+                            Kỹ năng đã đăng ký (2/5)
+                        </h2>
+                        <p class="imt-1">
+                            Đăng ký Job Robot để không bỏ lỡ việc làm phù hợp với kỹ năng của bạn.
+                        </p>
+                        <div class="imt-4">
+                            <form class="d-flex flex-column flex-xl-row" data-controller="bootstrap-validation"
+                                action="/job_robots?locale=vi" accept-charset="UTF-8" method="post"
+                                novalidate="novalidate"><input type="hidden" name="authenticity_token"
+                                    value="s2tUyLjDdyZiunO9Fub-NRJx7sLBKENXRqSla31P0A_Q3lQrL1pAyHcZoHaoXZITrlOb0P9Trf6SgGazSI3zYw"
+                                    autocomplete="off">
+                                <div class="col-12 col-xl-6 ipe-xl-4 ipb-4 ipb-xl-0 flex-shrink-1">
+                                    <div class="input-group">
+                                        <select name="query" id="query" required="required"
+                                            data-controller="tom-selection" data-tom-selection-disabled-value="false"
+                                            data-msg-required="Vui lòng chọn kỹ năng"
+                                            data-validation-message-selector="#requiredSkillError" tabindex="-1"
+                                            class="tomselected ts-hidden-accessible">
+                                            <option value="">Tìm kiếm kỹ năng, chức vụ</option>
+                                            <option value="Computer Vision">Computer Vision</option>
+                                            <option value="Python">Python</option>
+                                            <option value="Japanese">Japanese</option>
+                                            <option value="MySQL">MySQL</option>
+                                        </select>
+                                        <div class="ts-wrapper single required invalid">
+                                            <div class="ts-control"><input type="text" autocomplete="off" size="1"
+                                                    tabindex="0" role="combobox" aria-haspopup="listbox"
+                                                    aria-expanded="false" aria-controls="query-ts-dropdown"
+                                                    id="query-ts-control" placeholder="Tìm kiếm kỹ năng, chức vụ"></div>
+                                            <div class="ts-dropdown single" style="display: none;">
+                                                <div role="listbox" tabindex="-1" class="ts-dropdown-content"
+                                                    id="query-ts-dropdown"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="requiredSkillError"></div>
+                                </div>
+                                <div class="col-12 col-xl-6 ipe-xl-4 ipb-4 ipb-xl-0 flex-shrink-1">
+                                    <div class="input-group">
+                                        <select name="city" id="city" data-controller="users--city-selection"
+                                            data-users--city-selection-disabled-value="false" tabindex="-1"
+                                            class="tomselected ts-hidden-accessible">
+                                            <option value="ha-noi">Ha Noi</option>
+                                            <option value="da-nang">Da Nang</option>
+                                            <option value="ho-chi-minh-hcm">Ho Chi Minh</option>
+                                        </select>
+                                        <div class="ts-wrapper single full has-items">
+                                            <div class="ts-control" role="combobox" aria-haspopup="listbox"
+                                                aria-expanded="false" aria-controls="city-ts-dropdown"
+                                                id="city-ts-control" tabindex="0">
+                                                <div data-value="ho-chi-minh-hcm" class="item" data-ts-item="">Ho Chi
+                                                    Minh</div>
+                                            </div>
+                                            <div class="ts-dropdown single" style="display: none;">
+                                                <div role="listbox" tabindex="-1" class="ts-dropdown-content"
+                                                    id="city-ts-dropdown"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button class="ibtn ibtn-md ibtn-primary subscribe-button fs-6 fw-600 w-100"
+                                        data-disable-with="Đang lưu..." type="submit">
+                                        Đăng ký
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="subscription-list imt-5">
+                            <div class="subscription-item imb-3 ip-4 border-solid border-radius-normal d-flex align-items-center flex-column flex-md-row"
+                                id="job_mail_eyJfcmFpbHMiOnsibWVzc2FnZSI6Ik5qSXpNakl5IiwiZXhwIjpudWxsLCJwdXIiOiJqb2JfbWFpbCJ9fQ==--d9d30593ee8f11c8fdf6798cfb5913ce469f56187b1325c39407fd905783f524">
+                                <div class="col-md-8 col-12 d-md-flex d-grid job-mail-info">
+                                    <div class="ipe-2 job-mail-info-index">
+                                        <span>1.</span>
+                                    </div>
+                                    <div class="job-mail-info-query">
+                                        <a class="text-decoration-underline text-it-black text-hover-red transition-duration-300"
+                                            data-controller="utm-tracking"
+                                            href="/it-jobs/.net/ho-chi-minh-hcm?click_source=Skill+tag"><span
+                                                class="fw-700">.NET</span>
+                                            <span>tại</span>
+                                            <span>Hồ Chí Minh</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div
+                                    class="col-md-4 col-12 d-flex justify-content-between justify-content-xl-end align-items-center imt-6 imt-xl-0">
+                                    <div class="status ime-xl-8">
+                                        <div class="text-success-color">Đã đăng ký</div>
+                                    </div>
+                                    <div class="actions">
+                                        <div class="d-flex align-items-end">
+                                            <button class="border-0 bg-transparent ipe-6 ipe-xl-4 ipy-0 ips-0"
+                                                data-bs-target="#skill-pause-0" data-bs-toggle="modal" type="button">
+                                                <span data-controller="tooltip" title=""
+                                                    data-bs-original-title="Ngừng 1 năm">
+                                                    <svg class="feather-icon icon-lg text-it-red align-middle">
+                                                        <use
+                                                            href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#pause-circle">
+                                                        </use>
+                                                    </svg>
+
+                                                </span>
+                                            </button>
+                                            <div aria-hidden="true" class="modal fade" id="skill-pause-0" tabindex="-1">
+                                                <div class="modal-dialog modal-dialog-centered imodal-default-width">
+                                                    <div class="modal-content">
+                                                        <div class="d-flex">
+                                                            <div
+                                                                class="d-flex flex-grow-1 ipt-6 ips-6 ipe-4 ipt-xl-8 ips-xl-8">
+                                                                <h2>
+                                                                    Ngừng nhận thông báo 1 năm về <span
+                                                                        class="text-it-red">.NET tại Hồ Chí Minh</span>?
+                                                                </h2>
+                                                            </div>
+                                                            <button aria-label="Close" class="btn-close imt-5 ime-5"
+                                                                data-bs-dismiss="modal" type="button"></button>
+                                                        </div>
+                                                        <div class="ipt-3 ipx-6 ipx-xl-8 ipb-6 ipb-xl-8">
+                                                            <p class="paragraph text-rich-grey">
+                                                                Bạn sẽ không còn nhận được email thông báo khi có công
+                                                                việc mới đăng tuyển với kỹ năng và địa điểm này trong
+                                                                vòng 1 năm.
+                                                            </p>
+                                                        </div>
+                                                        <div
+                                                            class="d-flex flex-column flex-xl-row align-items-xl-center align-items-stretch ipb-6 ipx-6 ipx-xl-8 justify-content-xl-end">
+                                                            <div
+                                                                class="d-flex flex-column-reverse flex-xl-row ibtn-group-gap">
+                                                                <button
+                                                                    class="ibtn ibtn-tertiary flex-grow-1 flex-xl-grow-0"
+                                                                    data-bs-dismiss="modal" type="button">
+                                                                    Hủy
+                                                                </button>
+                                                                <a class="text-it-white" rel="nofollow"
+                                                                    data-method="post"
+                                                                    href="/paused_job_robot/eyJfcmFpbHMiOnsibWVzc2FnZSI6Ik5qSXpNakl5IiwiZXhwIjpudWxsLCJwdXIiOiJqb2JfbWFpbCJ9fQ==--d9d30593ee8f11c8fdf6798cfb5913ce469f56187b1325c39407fd905783f524?locale=vi&amp;row_index=0"><button
+                                                                        class="ibtn ibtn-md ibtn-primary flex-grow-1 flex-xl-grow-0 w-100"
+                                                                        data-bs-dismiss="modal" type="button">
+                                                                        Ngừng 1 năm
+                                                                    </button>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <button class="border-0 bg-transparent ipy-0 ips-0"
+                                                data-bs-target="#skill-unsub-0" data-bs-toggle="modal" type="button">
+                                                <span data-controller="tooltip" title="" data-bs-original-title="Xoá">
+                                                    <svg class="feather-icon icon-lg align-middle text-rich-grey">
+                                                        <use
+                                                            href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#trash-2">
+                                                        </use>
+                                                    </svg>
+
+                                                </span>
+                                            </button>
+                                            <div aria-hidden="true" class="modal fade" id="skill-unsub-0" tabindex="-1">
+                                                <div class="modal-dialog modal-dialog-centered imodal-default-width">
+                                                    <div class="modal-content">
+                                                        <div class="d-flex">
+                                                            <div
+                                                                class="d-flex flex-grow-1 ipt-6 ips-6 ipe-4 ipt-xl-8 ips-xl-8">
+                                                                <h2>
+                                                                    Ngừng nhận thông báo về <span <span=""
+                                                                        class="text-it-red">.NET tại Hồ Chí Minh</span>?
+                                                                </h2>
+                                                            </div>
+                                                            <button aria-label="Close" class="btn-close imt-5 ime-5"
+                                                                data-bs-dismiss="modal" type="button"></button>
+                                                        </div>
+                                                        <div class="ipt-3 ipx-6 ipx-xl-8 ipb-6 ipb-xl-8">
+                                                            <p class="paragraph text-rich-grey">
+                                                                Bạn sẽ không còn nhận được email thông báo khi một công
+                                                                việc mới với kỹ năng và địa điểm này được đăng.
+                                                            </p>
+                                                        </div>
+                                                        <div
+                                                            class="d-flex flex-column flex-xl-row align-items-xl-center align-items-stretch ipb-6 ipx-6 ipx-xl-8 justify-content-xl-end">
+                                                            <div
+                                                                class="d-flex flex-column-reverse flex-xl-row ibtn-group-gap">
+                                                                <button
+                                                                    class="ibtn ibtn-tertiary flex-grow-1 flex-xl-grow-0"
+                                                                    data-bs-dismiss="modal" type="button">
+                                                                    Hủy
+                                                                </button>
+                                                                <a class="text-it-white" rel="nofollow"
+                                                                    data-method="delete"
+                                                                    href="/job_robots/eyJfcmFpbHMiOnsibWVzc2FnZSI6Ik5qSXpNakl5IiwiZXhwIjpudWxsLCJwdXIiOiJqb2JfbWFpbCJ9fQ==--d9d30593ee8f11c8fdf6798cfb5913ce469f56187b1325c39407fd905783f524?locale=vi"><button
+                                                                        class="ibtn ibtn-md ibtn-primary flex-grow-1 flex-xl-grow-0 w-100"
+                                                                        data-bs-dismiss="modal" type="button">
+                                                                        Bỏ đăng ký
+                                                                    </button>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="subscription-item imb-3 ip-4 border-solid border-radius-normal d-flex align-items-center flex-column flex-md-row"
+                                id="job_mail_eyJfcmFpbHMiOnsibWVzc2FnZSI6Ik5qRTFPVEUwIiwiZXhwIjpudWxsLCJwdXIiOiJqb2JfbWFpbCJ9fQ==--57a1de47efb9b7b6e7accc925e3467efb3e0bf3beb6616c3596082070da4137f">
+                                <div class="col-md-8 col-12 d-md-flex d-grid job-mail-info">
+                                    <div class="ipe-2 job-mail-info-index">
+                                        <span>2.</span>
+                                    </div>
+                                    <div class="job-mail-info-query">
+                                        <a class="text-decoration-underline text-it-black text-hover-red transition-duration-300"
+                                            data-controller="utm-tracking"
+                                            href="/it-jobs/java-english-reactjs/ho-chi-minh-hcm?click_source=Skill+tag"><span
+                                                class="fw-700">java english reactjs</span>
+                                            <span>tại</span>
+                                            <span>Hồ Chí Minh</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div
+                                    class="col-md-4 col-12 d-flex justify-content-between justify-content-xl-end align-items-center imt-6 imt-xl-0">
+                                    <div class="status ime-xl-8">
+                                        <div class="text-success-color">Đã đăng ký</div>
+                                    </div>
+                                    <div class="actions">
+                                        <div class="d-flex align-items-end">
+                                            <button class="border-0 bg-transparent ipe-6 ipe-xl-4 ipy-0 ips-0"
+                                                data-bs-target="#skill-pause-1" data-bs-toggle="modal" type="button">
+                                                <span data-controller="tooltip" title=""
+                                                    data-bs-original-title="Ngừng 1 năm">
+                                                    <svg class="feather-icon icon-lg text-it-red align-middle">
+                                                        <use
+                                                            href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#pause-circle">
+                                                        </use>
+                                                    </svg>
+
+                                                </span>
+                                            </button>
+                                            <div aria-hidden="true" class="modal fade" id="skill-pause-1" tabindex="-1">
+                                                <div class="modal-dialog modal-dialog-centered imodal-default-width">
+                                                    <div class="modal-content">
+                                                        <div class="d-flex">
+                                                            <div
+                                                                class="d-flex flex-grow-1 ipt-6 ips-6 ipe-4 ipt-xl-8 ips-xl-8">
+                                                                <h2>
+                                                                    Ngừng nhận thông báo 1 năm về <span
+                                                                        class="text-it-red">java english reactjs tại Hồ
+                                                                        Chí Minh</span>?
+                                                                </h2>
+                                                            </div>
+                                                            <button aria-label="Close" class="btn-close imt-5 ime-5"
+                                                                data-bs-dismiss="modal" type="button"></button>
+                                                        </div>
+                                                        <div class="ipt-3 ipx-6 ipx-xl-8 ipb-6 ipb-xl-8">
+                                                            <p class="paragraph text-rich-grey">
+                                                                Bạn sẽ không còn nhận được email thông báo khi có công
+                                                                việc mới đăng tuyển với kỹ năng và địa điểm này trong
+                                                                vòng 1 năm.
+                                                            </p>
+                                                        </div>
+                                                        <div
+                                                            class="d-flex flex-column flex-xl-row align-items-xl-center align-items-stretch ipb-6 ipx-6 ipx-xl-8 justify-content-xl-end">
+                                                            <div
+                                                                class="d-flex flex-column-reverse flex-xl-row ibtn-group-gap">
+                                                                <button
+                                                                    class="ibtn ibtn-tertiary flex-grow-1 flex-xl-grow-0"
+                                                                    data-bs-dismiss="modal" type="button">
+                                                                    Hủy
+                                                                </button>
+                                                                <a class="text-it-white" rel="nofollow"
+                                                                    data-method="post"
+                                                                    href="/paused_job_robot/eyJfcmFpbHMiOnsibWVzc2FnZSI6Ik5qRTFPVEUwIiwiZXhwIjpudWxsLCJwdXIiOiJqb2JfbWFpbCJ9fQ==--57a1de47efb9b7b6e7accc925e3467efb3e0bf3beb6616c3596082070da4137f?locale=vi&amp;row_index=1"><button
+                                                                        class="ibtn ibtn-md ibtn-primary flex-grow-1 flex-xl-grow-0 w-100"
+                                                                        data-bs-dismiss="modal" type="button">
+                                                                        Ngừng 1 năm
+                                                                    </button>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <button class="border-0 bg-transparent ipy-0 ips-0"
+                                                data-bs-target="#skill-unsub-1" data-bs-toggle="modal" type="button">
+                                                <span data-controller="tooltip" title="" data-bs-original-title="Xoá">
+                                                    <svg class="feather-icon icon-lg align-middle text-rich-grey">
+                                                        <use
+                                                            href="https://itviec.com/assets/feather-icons-sprite-520cd3770a1002f7c87bd1ba253464228ad112abb4c34d81c8cda9f937487a49.svg#trash-2">
+                                                        </use>
+                                                    </svg>
+
+                                                </span>
+                                            </button>
+                                            <div aria-hidden="true" class="modal fade" id="skill-unsub-1" tabindex="-1">
+                                                <div class="modal-dialog modal-dialog-centered imodal-default-width">
+                                                    <div class="modal-content">
+                                                        <div class="d-flex">
+                                                            <div
+                                                                class="d-flex flex-grow-1 ipt-6 ips-6 ipe-4 ipt-xl-8 ips-xl-8">
+                                                                <h2>
+                                                                    Ngừng nhận thông báo về <span <span=""
+                                                                        class="text-it-red">java english reactjs tại Hồ
+                                                                        Chí Minh</span>?
+                                                                </h2>
+                                                            </div>
+                                                            <button aria-label="Close" class="btn-close imt-5 ime-5"
+                                                                data-bs-dismiss="modal" type="button"></button>
+                                                        </div>
+                                                        <div class="ipt-3 ipx-6 ipx-xl-8 ipb-6 ipb-xl-8">
+                                                            <p class="paragraph text-rich-grey">
+                                                                Bạn sẽ không còn nhận được email thông báo khi một công
+                                                                việc mới với kỹ năng và địa điểm này được đăng.
+                                                            </p>
+                                                        </div>
+                                                        <div
+                                                            class="d-flex flex-column flex-xl-row align-items-xl-center align-items-stretch ipb-6 ipx-6 ipx-xl-8 justify-content-xl-end">
+                                                            <div
+                                                                class="d-flex flex-column-reverse flex-xl-row ibtn-group-gap">
+                                                                <button
+                                                                    class="ibtn ibtn-tertiary flex-grow-1 flex-xl-grow-0"
+                                                                    data-bs-dismiss="modal" type="button">
+                                                                    Hủy
+                                                                </button>
+                                                                <a class="text-it-white" rel="nofollow"
+                                                                    data-method="delete"
+                                                                    href="/job_robots/eyJfcmFpbHMiOnsibWVzc2FnZSI6Ik5qRTFPVEUwIiwiZXhwIjpudWxsLCJwdXIiOiJqb2JfbWFpbCJ9fQ==--57a1de47efb9b7b6e7accc925e3467efb3e0bf3beb6616c3596082070da4137f?locale=vi"><button
+                                                                        class="ibtn ibtn-md ibtn-primary flex-grow-1 flex-xl-grow-0 w-100"
+                                                                        data-bs-dismiss="modal" type="button">
+                                                                        Bỏ đăng ký
+                                                                    </button>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div id="subscribed_companies">
+                    <div class="ipy-6 ipx-5 ipx-xl-6 bg-it-white box-shadow-normal border-radius-large imt-5">
+                        <h2>
+                            Công ty đã theo dõi (0/5)
+                        </h2>
+                        <p class="imt-1">
+                            Nhận thêm thông báo khi công ty bạn yêu thích có lượt đánh giá hoặc việc làm mới.
+                        </p>
+                        <div class="imt-4">
+                            <form class="d-flex flex-column flex-xl-row" action="/job_robots?locale=vi"
+                                accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token"
+                                    value="aVwaWSntQw8bMh0x-QHD27QMfd8TTeF8Hw7tomKy74MK6Rq6vnR04Q6RzvpHuq_9CC4IzS02D9XLKi56V3DM7w"
+                                    autocomplete="off">
+                                <div class="col-12 col-9 flex-shrink-1 ipb-4 ipb-xl-0 ipe-xl-4">
+                                    <div class="input-group">
+                                        <select name="employer_id" id="employer_id" required="required"
+                                            data-controller="tom-selection" data-tom-selection-disabled-value="false"
+                                            tabindex="-1" class="tomselected ts-hidden-accessible">
+                                            <option value="">Tìm kiếm công ty</option>
+                                            <option value="6856">CLT Vietnam</option>
+
+                                            <option value="11810">General Project</option>
+                                            <option value="11819">Công ty TNHH Cyberk</option>
+                                            <option value="6205">SB Science</option>
+                                            <option value="11629">Công ty CP DGG Network</option>
+                                            <option value="9418">Công Ty TNHH Thương Mại Dịch Vụ Mỹ Thuật Gia Hưng
+                                            </option>
+                                            <option value="9612">ITRUST</option>
+                                            <option value="6128">ASIA EXOTICA</option>
+                                        </select>
+                                        <div class="ts-wrapper single required invalid">
+                                            <div class="ts-control"><input type="text" autocomplete="off" size="1"
+                                                    tabindex="0" role="combobox" aria-haspopup="listbox"
+                                                    aria-expanded="false" aria-controls="employer_id-ts-dropdown"
+                                                    id="employer_id-ts-control" placeholder="Tìm kiếm công ty"></div>
+                                            <div class="ts-dropdown single" style="display: none;">
+                                                <div role="listbox" tabindex="-1" class="ts-dropdown-content"
+                                                    id="employer_id-ts-dropdown"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button class="d-block ibtn ibtn-md ibtn-primary subscribe-button fs-6 fw-600 w-100"
+                                        data-disable-with="Đang lưu..." type="submit">
+                                        Theo dõi
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="text-center bg-it-white irounded-lg-top imt-12 imb-6">
+                            <img src="https://itviec.com/assets/everything-empty-62c813bcb84be8a092033e40550b6fdc9f6bda05947d60c619b2a74906144f8b.svg"
+                                width="64" height="64">
+                            <div class="normal-text text-dark-grey imt-4">
+                                Bạn chưa theo dõi công ty nào.
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

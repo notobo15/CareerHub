@@ -1,0 +1,404 @@
+﻿@model AppUser
+@{
+	var isEdit = (bool)(ViewData["IsEdit"] ?? false);
+}
+<style>
+	.user-avatar-thumbnail {
+		width: 80px;
+		height: 80px;
+		border-radius: 50%;
+		object-fit: cover;
+	}
+
+	.badge-verified {
+		position: absolute;
+		right: 8px;
+	}
+
+	.user-id-code {
+		max-width: 80%;
+		overflow-x: auto;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		scrollbar-width: none;
+	}
+
+	.copy-btn {
+		position: absolute;
+		right: 8px;
+	}
+
+	.user-id-code::-webkit-scrollbar {
+		display: none; /* Chrome, Safari */
+	}
+
+	/* Optional: select full on click */
+	.user-id-code:active,
+	.user-id-code:focus {
+		user-select: all;
+	}
+
+	/* #avatarPreview { */
+	/* 	width: 100%; */
+	/* 	max-width: 100%; */
+	/* 	height: auto; */
+	/* 	display: block; */
+	/* 	margin: 0 auto; */
+	/* } */
+
+	/* Bắt cropper chiếm full vùng ảnh */
+	/* .cropper-container, */
+	/* .cropper-bg, */
+	/* .cropper-wrap-box, */
+	/* .cropper-canvas { */
+	/* 	width: 100% !important; */
+	/* 	max-width: 100% !important; */
+	/* 	height: auto !important; */
+	/* } */
+</style>
+
+
+<nav class="page-breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">Admin</li>
+		<li class="breadcrumb-item active" aria-current="page"><a href="">Profile</a></li>
+	</ol>
+</nav>
+
+
+<div class="row">
+	<div class="col-md-12 grid-margin stretch-card">
+		<div class="card">
+			<div class="card-body d-flex justify-content-between align-items-center">
+				<h4 class="font-weight-bold">User Management</h4>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+
+	<main class="col-md-12">
+		<div class="row">
+			<!-- Left Info -->
+			<div class="col-md-4">
+				<div class="card p-3 mb-3">
+					<div class="d-flex flex-column align-items-center gap-3">
+						<div class="position-relative p-3">
+							<img src="@Model.Avatar" class="user-avatar-thumbnail border-primary" />
+							<button type="button" id="change-avatar-btn" class="btn btn-xs position-absolute" style="bottom: 0; right: 0;">
+								<i data-feather="edit" class="icon-md"></i>
+							</button>
+							<input type="file" id="avatarInput" accept="image/*" class="d-none" />
+						</div>
+						<div class="text-center">
+							<h6 class="mb-1">@Model.Email</h6>
+							@* <small class="text-muted d-block mb-1">Last sign in: 4 mins ago</small> *@
+							<h5>Role: <span class="badge badge-lg text-white bg-primary"> @ViewData["UserRole"]</span></h5>
+						</div>
+					</div>
+					<hr />
+					<div class="mb-3 position-relative">
+						<label class="fw-bold d-block mb-1">User ID:</label>
+						<div class="position-relative d-flex align-items-center bg-light rounded px-2 py-1">
+							<code class="flex-grow-1 text-nowrap user-id m-0 text-black" style="overflow-x: auto; scrollbar-width: none;">
+								@Model.Id
+							</code>
+							<button class="btn btn-xs btn-primary ms-2" id="copy-btn" data-clipboard-text="@Model.Id" data-toggle="tooltip" data-placement="top" title="Copy">
+								<i data-feather="copy" class="icon-md"></i>
+							</button>
+						</div>
+					</div>
+
+					<div class="mt-3">
+						@if ((bool)ViewData["HasPassword"])
+						{
+							<a class="btn btn-outline-secondary w-100 mb-2" asp-controller="Manage" asp-action="ChangePassword">
+								<i data-feather="key" class="me-2 icon-md"></i>
+								Đổi mật khẩu
+							</a>
+						}
+						else
+						{
+							<a class="btn btn-outline-secondary w-100 mb-2" asp-controller="Manage" asp-action="SetPassword">
+								<i data-feather="key" class="me-2 icon-md"></i>
+								Tạo mật khẩu
+							</a>
+						}
+						<a class="btn btn-outline-secondary w-100 mb-2" asp-controller="Manage" asp-action="AddPhoneNumber">
+							<i data-feather="phone" class="me-2 icon-md"></i>
+							Thêm số điện thoại
+						</a>
+
+						<hr />
+
+						<form asp-action="DeleteUser" method="post" onsubmit="return confirm('Bạn có chắc chắn muốn xóa tài khoản này?');">
+							<button type="submit" class="btn btn-danger w-100">
+								<i data-feather="trash-2" class="me-2 icon-md"></i> Delete User
+							</button>
+						</form>
+
+					
+					</div>
+				</div>
+			</div>
+
+
+			<!-- Modal (không đổi) -->
+			<div class="modal modal-md fade" id="avatarModal" tabindex="-1" role="dialog">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Cập nhật ảnh đại diện</h5>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body">
+							<div class="row justify-content-center">
+								<div class="col-12 d-flex justify-content-center">
+									<div id="cropperContainer" style="width: 350px; height: 350px;">
+										<img id="avatarPreview" class="img-fluid" />
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<div class="modal-footer">
+							<form id="avatarForm" asp-action="UpdateAvatar" asp-controller="Manage" method="post">
+								<input type="hidden" name="croppedImage" id="croppedImage" />
+								<button type="submit" class="btn btn-primary">Lưu ảnh</button>
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Right Info -->
+			<div class="col-md-8">
+				<div class="card p-3 mb-3">
+					<h6>Personal Information</h6>
+
+					<form class="row" asp-action="UpdateProfile" method="post">
+
+						<div class="col-md-12 mb-3">
+							<div class="form-group">
+								<label asp-for="FullName" class="form-label"></label>
+								<input asp-for="FullName" class="form-control" disabled="@(isEdit ? null : "disabled")" />
+								<span asp-validation-for="FullName" class="text-danger small"></span>
+							</div>
+						</div>
+
+						<!-- Birth Date -->
+						<div class="col-md-6 mb-3">
+							<div class="form-group">
+								<label asp-for="BirthDate" class="form-label"></label>
+								<div class="input-group date datepicker">
+									<input asp-for="BirthDate" class="form-control" type="text" disabled="@(isEdit ? null : "disabled")" />
+									<span class="input-group-addon">
+										<i class="icon-md" data-feather="calendar"></i>
+									</span>
+								</div>
+								<span asp-validation-for="BirthDate" class="text-danger small"></span>
+							</div>
+						</div>
+
+
+						<!-- Phone Number -->
+						<div class="col-md-6 mb-3">
+
+							@if (!isEdit)
+							{
+								<div class="form-group">
+									<label asp-for="PhoneNumber" class="form-label"></label>
+									<input asp-for="PhoneNumber" class="form-control phone-input" disabled="@(isEdit ? null : "disabled")" />
+									<span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+								</div>
+							}
+
+						</div>
+
+						<!-- Short Name -->
+						<div class="col-md-6 mb-3">
+							<div class="form-group">
+								<label asp-for="ShortName" class="form-label"></label>
+								<input asp-for="ShortName" class="form-control" disabled="@(isEdit ? null : "disabled")" />
+								<span asp-validation-for="ShortName" class="text-danger small"></span>
+							</div>
+						</div>
+
+						<!-- Email -->
+						<div class="col-md-6 mb-3">
+							<div class="form-group">
+								<label asp-for="Email" class="form-label"></label>
+								<input asp-for="Email" class="form-control" disabled="@(isEdit ? null : "disabled")" />
+								<span asp-validation-for="Email" class="text-danger small"></span>
+							</div>
+						</div>
+
+						<!-- Personal Link -->
+						<div class="col-md-6 mb-3">
+							<div class="form-group">
+								<label asp-for="PersonalLink" class="form-label"></label>
+								<input asp-for="PersonalLink" class="form-control" disabled="@(isEdit ? null : "disabled")" />
+								<span asp-validation-for="PersonalLink" class="text-danger small"></span>
+							</div>
+						</div>
+
+						<!-- Gender -->
+						<div class="col-md-6 mb-3">
+							<div class="form-group">
+								<label asp-for="Gender" class="form-label"></label>
+								<select asp-for="Gender" class="form-select" disabled="@(isEdit ? null : "disabled")">
+									<option value="0">Unspecified</option>
+									<option value="1">Male</option>
+									<option value="2">Female</option>
+								</select>
+								<span asp-validation-for="Gender" class="text-danger small"></span>
+							</div>
+						</div>
+
+						<!-- Sửa Thông Tin -->
+						<div class="col-12">
+							@if (!isEdit)
+							{
+								<a asp-action="Profile" asp-route-isEdit="true" class="btn btn-outline-primary w-100 p-2">
+									<i data-feather="edit-2" class="me-2 icon-md"></i> Sửa Thông Tin
+								</a>
+							}
+							else
+							{
+								<button type="submit" class="btn btn-success w-100 p-2">
+									<i data-feather="save" class="me-2 icon-md"></i> Lưu Thay Đổi
+								</button>
+							}
+						</div>
+					</form>
+				</div>
+
+				@* <div class="card p-3 mb-3"> *@
+				@* 	<h6>Social Media Account</h6> *@
+				@* 	<div class="mb-2"> *@
+				@* 		<label>Facebook</label> *@
+				@* 		<input type="url" class="form-control" value="https://facebook.com/comeronw" disabled /> *@
+				@* 	</div> *@
+				@* 	<div class="mb-2"> *@
+				@* 		<label>Instagram</label> *@
+				@* 		<input type="url" class="form-control" value="https://instagram.com/comeronw" disabled /> *@
+				@* 	</div> *@
+				@* 	<button class="btn btn-outline-primary mt-2">+ Add Social Media</button> *@
+				@* </div> *@
+
+
+			</div>
+		</div>
+	</main>
+
+</div>
+
+@section Scripts {
+
+	<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+
+	<script>
+			$(document).ready(function () {
+				const clipboard = new ClipboardJS('#copy-btn');
+
+				clipboard.on('success', function (e) {
+				  alert("Copied to clipboard!");
+				  e.clearSelection();
+				});
+
+				clipboard.on('error', function (e) {
+				  alert("Copy failed.");
+				});
+			feather.replace();
+
+			Inputmask({"mask": "(999) 999-9999"}).mask('.phone-input');
+
+			// Datepicker cho ngày sinh
+			// $('.datepicker').datepicker({
+			//   format: 'yyyy-mm-dd',
+			//   autoclose: true,
+			//   todayHighlight: true
+			// });
+
+			// (Optional) bật lại input nếu bạn có nút "Sửa"
+			$('.btn-edit-toggle').on('click', function () {
+			  $('.form-control').prop('disabled', false);
+			});
+			if ($("#Gender").length) {
+				$("#Gender").select2({
+				   width: '100%'
+				});
+			}
+
+			let cropper;
+
+		// Click edit button -> trigger hidden file input
+		$('#change-avatar-btn').on('click', function () {
+			$('#avatarInput').click();
+		});
+		const preview = document.getElementById('avatarPreview');
+		// Sau khi chọn ảnh
+		$('#avatarInput').on('change', function (e) {
+			const file = e.target.files[0];
+			if (!file) return;
+
+			const reader = new FileReader();
+			reader.onload = function (event) {
+				preview.src = event.target.result;
+
+				if (cropper) cropper.destroy();
+
+				$('#avatarModal').modal('show');
+
+				// Khi modal mở xong => khởi tạo cropper
+				$('#avatarModal').on('shown.bs.modal', function () {
+					cropper = new Cropper(preview, {
+						aspectRatio: 1,
+						viewMode: 1,
+						autoCropArea: 1,
+						background: false,
+						dragMode: 'move',
+						cropBoxResizable: true,
+						cropBoxMovable: true,
+						ready() {
+							// Đặt cropBox là hình vuông ở giữa
+							const containerData = cropper.getContainerData();
+							const boxSize = Math.min(containerData.width, containerData.height) * 0.8;
+
+							cropper.setCropBoxData({
+								left: (containerData.width - boxSize) / 2,
+								top: (containerData.height - boxSize) / 2,
+								width: boxSize,
+								height: boxSize
+							});
+						}
+					});
+				});
+			};
+			reader.readAsDataURL(file);
+		});
+
+		// Gửi ảnh đã crop
+		$('#avatarForm').on('submit', function (e) {
+			e.preventDefault();
+			if (!cropper) return;
+
+			cropper.getCroppedCanvas({
+				width: 300,
+				height: 300
+			}).toBlob(function (blob) {
+				const reader = new FileReader();
+				reader.onloadend = function () {
+					$('#croppedImage').val(reader.result);
+					e.target.submit();
+				};
+				reader.readAsDataURL(blob);
+			});
+		});
+
+
+		});
+	</script>
+}

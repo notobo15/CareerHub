@@ -1,0 +1,152 @@
+﻿@model CreateCompany
+@{
+    ViewData["Title"] = "Tạo công ty mới";
+    var list = ViewData["list"] as MultiSelectList;
+
+    var Description = new RecruitmentApp.Models.Summernote("#Description");
+    var Reason = new RecruitmentApp.Models.Summernote("#Reason");
+}
+
+<nav class="page-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Companies</li>
+        <li class="breadcrumb-item active" aria-current="page">Tạo mới</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="col-md-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="font-weight-bold">@ViewData["Title"]</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <form asp-action="Create" enctype="multipart/form-data">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="SkillIds"></label>
+                        <select asp-for="SkillIds" asp-items="list" class="form-control w-100" multiple="multiple"></select>
+                        <span asp-validation-for="SkillIds" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Slug"></label>
+                        <input asp-for="Slug" class="form-control" />
+                        <span asp-validation-for="Slug" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Size"></label>
+                        <input asp-for="Size" class="form-control" />
+                        <span asp-validation-for="Size" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Description"></label>
+                        <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Reason"></label>
+                        <textarea asp-for="Reason" class="form-control" rows="5"></textarea>
+                        <span asp-validation-for="Reason" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Phone"></label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Type"></label>
+                        <input asp-for="Type" class="form-control" />
+                        <span asp-validation-for="Type" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Nation"></label>
+                        <input asp-for="Nation" class="form-control" />
+                        <span asp-validation-for="Nation" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="OverTime"></label>
+                        <input asp-for="OverTime" class="form-control" />
+                        <span asp-validation-for="OverTime" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="WorkingTime"></label>
+                        <input asp-for="WorkingTime" class="form-control" />
+                        <span asp-validation-for="WorkingTime" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="LogoImage"></label>
+                        <input type="file" asp-for="LogoImage" class="form-control" />
+                        <span asp-validation-for="LogoImage" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="CompanyUrl"></label>
+                        <input asp-for="CompanyUrl" class="form-control" />
+                        <span asp-validation-for="CompanyUrl" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="CompanyFbUrl"></label>
+                        <input asp-for="CompanyFbUrl" class="form-control" />
+                        <span asp-validation-for="CompanyFbUrl" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group d-flex gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary d-inline-flex align-items-center mr-2">
+                            <i data-feather="plus" class="mr-1 icon-md"></i> Tạo
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary d-inline-flex align-items-center">
+                            <i data-feather="x" class="mr-1 icon-md"></i> Hủy
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#SkillIds").select2({
+                placeholder: "Tất cả kỹ năng",
+                theme: "bootstrap4",
+                allowClear: true
+            });
+            feather.replace();
+        });
+    </script>
+    <partial name="_Summernote" model="Description" />
+    <partial name="_Summernote" model="Reason" />
+}

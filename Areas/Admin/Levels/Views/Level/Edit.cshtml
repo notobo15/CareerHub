@@ -1,0 +1,52 @@
+﻿@model RecruitmentApp.Models.Level
+@{
+    ViewData["Title"] = "Chỉnh sửa Level";
+}
+
+<nav class="page-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Levels</li>
+        <li class="breadcrumb-item active" aria-current="page">Chỉnh sửa</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="col-md-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="font-weight-bold">Chỉnh sửa cấp độ</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-md-6">
+                    <form asp-action="Edit">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" asp-for="LevelId" />
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group d-flex gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary align-items-center mr-2">
+                                <i data-feather="save" class="mr-1 icon-md"></i> Lưu
+                            </button>
+                            <a asp-action="Index" class="btn btn-outline-secondary d-inline-flex align-items-center">
+                                <i data-feather="x" class="mr-1 icon-md"></i> Hủy
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

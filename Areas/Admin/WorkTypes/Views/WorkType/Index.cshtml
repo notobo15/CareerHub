@@ -1,0 +1,91 @@
+﻿@model IEnumerable<RecruitmentApp.Models.WorkType>
+
+@{
+    ViewData["Title"] = "Danh sách hình thức làm việc";
+    var stt = 0;
+}
+
+<!-- Breadcrumb -->
+<nav class="page-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Hình thức làm việc</li>
+        <li class="breadcrumb-item active" aria-current="page">Danh sách</li>
+    </ol>
+</nav>
+
+<!-- Alert -->
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @ViewBag.Message
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<!-- Header -->
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <h4 class="font-weight-bold mb-0">@ViewData["Title"]</h4>
+                <a asp-action="Create" class="btn btn-sm btn-success text-white d-inline-flex align-items-center">
+                    <i data-feather="plus" class="me-1 icon-md"></i> Tạo mới
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Table -->
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-bordered table-hover" id="worktype-table">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>ID</th>
+                            <th>Tên</th>
+                            <th>Slug</th>
+                            <th class="text-center">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@(++stt)</td>
+                                <td>@item.WorkTypeId</td>
+                                <td>@item.Name</td>
+                                <td>@item.Slug</td>
+                                <td class="text-center">
+                                    <a asp-action="Details" asp-route-id="@item.WorkTypeId" class="btn btn-sm btn-outline-primary me-1" title="Chi tiết">
+                                        <i data-feather="eye" class="icon-sm"></i>
+                                    </a>
+                                    <a asp-action="Edit" asp-route-id="@item.WorkTypeId" class="btn btn-sm btn-outline-warning me-1" title="Chỉnh sửa">
+                                        <i data-feather="edit" class="icon-sm"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.WorkTypeId" class="btn btn-sm btn-outline-danger" title="Xóa">
+                                        <i data-feather="trash-2" class="icon-sm"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        feather.replace();
+
+        $(document).ready(function () {
+            $('#worktype-table').DataTable({
+            });
+        });
+    </script>
+}

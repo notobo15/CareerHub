@@ -1,0 +1,1351 @@
+@{
+
+	var personalDetailsViewModel = ViewData["personalDetailsViewModel"] as PersonalDetailsViewModel;
+	var aboutMeViewModel = ViewData["aboutMeViewModel"] as AboutMeViewModel;
+	var educationViewModel = new EducationViewModel();
+	var user = ViewData["user"] as AppUser;
+
+	var groupedSkills = user.UserSkills
+		.GroupBy(s => s.SkillLevel)
+		.Select(g => new GroupedUserSkill
+				{
+					SkillLevel = g.Key,
+					Skills = g.ToList()
+				})
+		.ToList();
+
+	ViewData["groupedSkills"] = groupedSkills;
+
+	var gender = user.Gender == 1 ? "Name" : user.Gender == 0 ? "Nư" : "Khác";
+
+}
+
+<div class="manage-profile min-vh-100 flex-1">
+	<div class="modal fade" id="modal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-xl modal-dialog-centered d-flex justify-content-center">
+		</div>
+	</div>
+	<div class="main-content">
+		<div class="d-flex ipt-xl-6 ipb-12">
+			<div class="flex-grow-1 ime-xl-7">
+				<div class="bg-white box-shadow-normal d-xl-none" id="">
+					<div class="progress-bar-card">
+						<div class="d-flex flex-xl-column align-items-center justify-content-between ipx-5 ipy-2 ip-xl-4">
+							<h4 class="imb-xl-4">Độ hoàn thiện hồ sơ</h4>
+							<div class="profile-score-progress shrinkable">
+								<div class="progress-background">
+									<div class="progress-circle" style="--progress-degree: 14.4deg"></div>
+								</div>
+								<div class="percentage-text">
+									8%
+									<div class="completed-text tiny-text text-rich-grey">
+										hoàn thành
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<div class="border-bottom-solid d-block d-xl-none"></div>
+						<div class="ipx-5 ipy-2 ipy-xl-0 ipx-xl-4">
+							<div class="d-none d-xl-block">
+								<div class="d-flex align-items-center igap-4">
+									<div class="speech-bubble position-relative ip-2 box-shadow-normal border-radius-large">
+										<div class="small-text">
+											Nâng cấp hồ sơ của bạn lên <b class="text-it-red">70%</b> để tải mẫu CV dành
+											cho chuyên gia IT.
+										</div>
+									</div>
+									<img alt="Robby the robot" class="robby"
+										 src="https://itviec.com/assets/robby/robby-welcome-88a1fef0ec2128f54ffb2a0c49dfaebccf1a839062f13ede6178846644afd639.svg">
+								</div>
+								<div class="hyperlink cursor-pointer nowrap imt-4"
+									 data-action="click->users--cta-update#moveToAddSummary">
+									<div class="d-flex">
+										<p class="d-flex align-items-center">
+											<i class="feather-icon icon-sm icon-md" data-feather="plus-circle">
+											</i>
+										</p>
+										<p class="text-truncated ims-1">Thêm Giới thiệu bản thân</p>
+										<p></p>
+									</div>
+								</div>
+								<div class="hyperlink cursor-pointer nowrap imt-4"
+									 data-action="click->users--cta-update#moveToAddContact">
+									<div class="d-flex">
+										<p class="d-flex align-items-center">
+											<i class="feather-icon icon-sm icon-md" data-feather="plus-circle"></i>
+										</p>
+										<p class="text-truncated ims-1">Thêm Thông tin cá nhân</p>
+										<p></p>
+									</div>
+								</div>
+								<div class="hyperlink cursor-pointer nowrap imt-4"
+									 data-action="click->users--cta-update#moveToAddExperience">
+									<div class="d-flex">
+										<p class="d-flex align-items-center">
+											<i class="feather-icon icon-sm icon-md" data-feather="plus-circle">
+											</i>
+										</p>
+										<p class="text-truncated ims-1">Thêm Kinh nghiệm làm việc</p>
+										<p></p>
+									</div>
+								</div>
+
+								<div class="collapse" id="addProfileSectionDesktop">
+									<div class="hyperlink cursor-pointer nowrap imt-4">
+										<div class="d-flex">
+											<p class="d-flex align-items-center">
+												<i class="feather-icon icon-sm icon-md" data-feather="plus-circle"></i>
+											</p>
+											<p class="text-truncated ims-1">Thêm Học vấn</p>
+											<p></p>
+										</div>
+									</div>
+									<div class="hyperlink cursor-pointer nowrap imt-4"
+										 data-action="click->users--cta-update#moveToAddSkills">
+										<div class="d-flex">
+											<p class="d-flex align-items-center">
+												<i class="feather-icon icon-sm icon-md" data-feather="plus-circle"></i>
+
+											</p>
+											<p class="text-truncated ims-1">Thêm Kỹ năng</p>
+											<p></p>
+										</div>
+									</div>
+									<div class="hyperlink cursor-pointer nowrap imt-4"
+										 data-action="click->users--cta-update#moveToAddCertificate">
+										<div class="d-flex">
+											<p class="d-flex align-items-center">
+												<i class="feather-icon icon-sm icon-md" data-feather="plus-circle"></i>
+
+											</p>
+											<p class="text-truncated ims-1">Thêm Chứng chỉ</p>
+											<p></p>
+										</div>
+									</div>
+									<div class="hyperlink cursor-pointer nowrap imt-4"
+										 data-action="click->users--cta-update#moveToAddAward">
+										<div class="d-flex">
+											<p class="d-flex align-items-center">
+												<i class="feather-icon icon-sm icon-md" data-feather="plus-circle"></i>
+											</p>
+											<p class="text-truncated ims-1">Thêm giải thưởng</p>
+											<p></p>
+										</div>
+									</div>
+									<div class="hyperlink cursor-pointer nowrap imt-4"
+										 data-action="click->users--cta-update#moveToAddProject">
+										<div class="d-flex">
+											<p class="d-flex align-items-center">
+												<i class="feather-icon icon-sm icon-md" data-feather="plus-circle"></i>
+											</p>
+											<p class="text-truncated ims-1">Thêm Dự án cá nhân</p>
+											<p></p>
+										</div>
+									</div>
+
+								</div>
+								<div aria_controls="addProfileSectionDesktop" class="d-flex imt-4"
+									 data-action="click->toggle-icon#toggle" data-bs-target="#addProfileSectionDesktop"
+									 data-bs-toggle="collapse" data-controller="toggle-icon"
+									 data-toggle-icon-pair-icons-value="[&quot;#arrow_down_icon&quot;, &quot;#arrow_up_icon&quot;]"
+									 data-toggle-icon-show-less-text-value="Thu lại"
+									 data-toggle-icon-show-more-text-value="Thêm thông tin khác" type="button">
+									<div class="cursor-pointer svg-icon ime-1">
+										<svg color="#414042" height="20" width="20">
+											<use data-toggle-icon-target="icon" xlink:href="#arrow_down_icon"></use>
+										</svg>
+									</div>
+									<div class="text-rich-grey" data-toggle-icon-target="text">
+										Thêm thông tin khác
+									</div>
+								</div>
+							</div>
+							<div class="d-block d-xl-none">
+								<div aria_controls="addProfileSectionMobile"
+									 class="d-flex justify-content-between align-items-center igap-4"
+									 data-action="click->toggle-icon#toggle" data-bs-target="#addProfileSectionMobile"
+									 data-bs-toggle="collapse" data-controller="toggle-icon"
+									 data-toggle-icon-pair-icons-value="[&quot;#arrow_down_icon&quot;, &quot;#arrow_up_icon&quot;]"
+									 type="button">
+									<div class="d-block">
+										<div class="small-text">
+											Nâng cấp hồ sơ của bạn lên <b class="text-it-red">70%</b> để tải mẫu CV dành
+											cho chuyên gia IT.
+										</div>
+
+									</div>
+									<div class="cursor-pointer svg-icon">
+										<svg color="#A6A6A6" height="24" width="24">
+											<use data-toggle-icon-target="icon" xlink:href="#arrow_down_icon"></use>
+										</svg>
+									</div>
+								</div>
+								<div class="collapse ipb-2" id="addProfileSectionMobile">
+									<div class="hyperlink cursor-pointer nowrap imt-4"
+										 data-action="click->users--cta-update#moveToAddSummary">
+										<div class="d-flex">
+											<p class="d-flex align-items-center">
+												<i class="feather-icon icon-sm icon-md" data-feather="plus-circle"></i>
+											</p>
+											<p class="text-truncated ims-1">Thêm Giới thiệu bản thân</p>
+											<p></p>
+										</div>
+									</div>
+									<div class="hyperlink cursor-pointer nowrap imt-4"
+										 data-action="click->users--cta-update#moveToAddContact">
+										<div class="d-flex">
+											<p class="d-flex align-items-center">
+												<i class="feather-icon icon-sm icon-md" data-feather="plus-circle"></i>
+											</p>
+											<p class="text-truncated ims-1">Thêm Thông tin cá nhân</p>
+											<p></p>
+										</div>
+									</div>
+									<div class="hyperlink cursor-pointer nowrap imt-4"
+										 data-action="click->users--cta-update#moveToAddExperience">
+										<div class="d-flex">
+											<p class="d-flex align-items-center">
+												<i class="feather-icon icon-sm icon-md" data-feather="plus-circle"></i>
+											</p>
+											<p class="text-truncated ims-1">Thêm Kinh nghiệm làm việc</p>
+											<p></p>
+										</div>
+									</div>
+									<div class="hyperlink cursor-pointer nowrap imt-4"
+										 data-action="click->users--cta-update#moveToAddEducation">
+										<div class="d-flex">
+											<p class="d-flex align-items-center">
+												<i class="feather-icon icon-sm icon-md" data-feather="plus-circle"></i>
+											</p>
+											<p class="text-truncated ims-1">Thêm Học vấn</p>
+											<p></p>
+										</div>
+									</div>
+									<div class="hyperlink cursor-pointer nowrap imt-4"
+										 data-action="click->users--cta-update#moveToAddSkills">
+										<div class="d-flex">
+											<p class="d-flex align-items-center">
+												<i class="feather-icon icon-sm icon-md" data-feather="plus-circle"></i>
+											</p>
+											<p class="text-truncated ims-1">Thêm Kỹ năng</p>
+											<p></p>
+										</div>
+									</div>
+									<div class="hyperlink cursor-pointer nowrap imt-4"
+										 data-action="click->users--cta-update#moveToAddCertificate">
+										<div class="d-flex">
+											<p class="d-flex align-items-center">
+												<i class="feather-icon icon-sm icon-md" data-feather="plus-circle"></i>
+											</p>
+											<p class="text-truncated ims-1">Thêm Chứng chỉ</p>
+											<p></p>
+										</div>
+									</div>
+									<div class="hyperlink cursor-pointer nowrap imt-4"
+										 data-action="click->users--cta-update#moveToAddAward">
+										<div class="d-flex">
+											<p class="d-flex align-items-center">
+												<i class="feather-icon icon-sm icon-md" data-feather="plus-circle"></i>
+											</p>
+											<p class="text-truncated ims-1">Thêm giải thưởng</p>
+											<p></p>
+										</div>
+									</div>
+									<div class="hyperlink cursor-pointer nowrap imt-4"
+										 data-action="click->users--cta-update#moveToAddProject">
+										<div class="d-flex">
+											<p class="d-flex align-items-center">
+												<i class="feather-icon icon-sm icon-md" data-feather="plus-circle"></i>
+											</p>
+											<p class="text-truncated ims-1">Thêm Dự án cá nhân</p>
+											<p></p>
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+						</div>
+						<div class="d-none d-xl-block ipx-4 ipy-6">
+							<a class="ibtn ibtn-md ibtn-primary w-100" href="/ho-so-cv/mau-cv">Xem và Tải CV</a>
+						</div>
+					</div>
+
+				</div>
+				<div class="bg-white imt-5 ipx-5 ipy-6 ip-xl-4 border-radius-large-xl box-shadow-normal imt-xl-0"
+					 id="contact_info_card">
+					<div class="position-relative">
+						<div class="d-flex imb-6">
+							<div class="imt-2 imt-xl-0">
+								<img class="avatar ls-is-cached lazyloaded" alt="Avatar Profile"
+									 data-controller="lazyload" src="@user.Avatar">
+							</div>
+							<div class="ims-3 ims-xl-4 ipe-10 ipe-xl-8">
+								<div class="h1 imb-1 imb-xl-2">
+									@(!string.IsNullOrEmpty(user.FullName) ? user.FullName : "Cập nhật họ và tên")
+								</div>
+								<h3 class="text-dark-grey">
+									@(!string.IsNullOrEmpty(user.ShortName) ? user.ShortName : "Cập nhật chức danh")
+								</h3>
+							</div>
+						</div>
+						<div class="row infos">
+							<div class="col-12 col-xl-6">
+								<div class="d-flex">
+									<p class="d-flex align-items-center">
+										<i class="feather-icon icon-sm text-dark-grey" data-feather="mail"></i>
+									</p>
+									<p class="text-truncated ims-2 text-rich-grey">@(!string.IsNullOrEmpty(user.Email) ? user.Email : "Địa chỉ email")</p>
+									<p></p>
+								</div>
+							</div>
+							<div class="col-12 col-xl-6">
+								<div class="d-flex">
+									<p class="d-flex align-items-center">
+										<i class="feather-icon icon-sm text-dark-grey" data-feather="phone">
+										</i>
+									</p>
+									<p class="text-truncated ims-2 text-dark-grey">@(!string.IsNullOrEmpty(user.PhoneNumber) ? user.PhoneNumber : "Số điện thoại")</p>
+									<p></p>
+								</div>
+							</div>
+							<div class="col-12 col-xl-6">
+								<div class="d-flex">
+									<p class="d-flex align-items-center">
+										<i class="feather-icon icon-sm text-dark-grey" data-feather="gift">
+										</i>
+									</p>
+									<p class="text-truncated ims-2 text-dark-grey">@((user.BirthDate != null) ? DateTimeUtils.ToVietnameseDate(user.BirthDate) : "Ngày sinh")</p>
+									<p></p>
+								</div>
+							</div>
+							<div class="col-12 col-xl-6">
+								<div class="d-flex">
+									<p class="d-flex align-items-center">
+										<i class="feather-icon icon-sm text-dark-grey" data-feather="user">
+										</i>
+									</p>
+									<p class="text-truncated ims-2 text-dark-grey">@gender</p>
+									<p></p>
+								</div>
+							</div>
+							<div class="col-12 col-xl-6">
+								<div class="d-flex">
+									<p class="d-flex align-items-center">
+										<i class="feather-icon icon-sm text-dark-grey" data-feather="map-pin">
+										</i>
+									</p>
+									<p class="text-truncated ims-2 text-dark-grey">@(!string.IsNullOrEmpty(user.Address) ? user.PhoneNumber : "Địa chỉ hiện tại")</p>
+									<p></p>
+								</div>
+							</div>
+							<div class="col-12 col-xl-6">
+								<div class="d-flex">
+									<p class="d-flex align-items-center">
+										<i class="feather-icon icon-sm text-dark-grey" data-feather="globe">
+										</i>
+									</p>
+									<p class="text-truncated ims-2 text-dark-grey">@(!string.IsNullOrEmpty(user.PersonalLink) ? user.PersonalLink : "Link cá nhân")</p>
+									<p></p>
+								</div>
+							</div>
+						</div>
+						<div class="edit-button" data-toggle-modal="modal" id="btnShowPersonalDetailForm">
+							<i class="feather-icon text-it-red icon-md" data-feather="edit"></i>
+						</div>
+						<div class="toast-info toast-inline imt-4 imb-0 imx-0">
+							<div class="toast-icon d-flex align-items-center">
+								<svg fill="none" height="20" viewBox="0 0 20 20" width="20"
+									 xmlns="http://www.w3.org/2000/svg">
+									<g clip-path="url(#clip0_2058_1057)" id="state-info">
+										<path clip-rule="evenodd"
+											  d="M20 10C20 15.5228 15.5228 20 10 20C4.47715 20 0 15.5228 0 10C0 4.47715 4.47715 0 10 0C15.5228 0 20 4.47715 20 10ZM10.0001 8.91669C10.5984 8.91669 11.0834 9.40171 11.0834 10V14.1667C11.0834 14.765 10.5984 15.25 10.0001 15.25C9.40177 15.25 8.91675 14.765 8.91675 14.1667V10C8.91675 9.40171 9.40177 8.91669 10.0001 8.91669ZM10.0001 5.58331C9.40177 5.58331 8.91675 6.06834 8.91675 6.66665C8.91675 7.26495 9.40177 7.74998 10.0001 7.74998H10.0084C10.6067 7.74998 11.0917 7.26495 11.0917 6.66665C11.0917 6.06834 10.6067 5.58331 10.0084 5.58331H10.0001Z"
+											  fill-rule="evenodd" fill="#085BDD" id="Subtract"></path>
+									</g>
+									<defs>
+										<clipPath id="clip0_2058_1057">
+											<rect fill="white" height="20" width="20"></rect>
+										</clipPath>
+									</defs>
+								</svg>
+
+							</div>
+							<div class="toast-body">
+								<div class="toast-title">
+									<div class="ifs-14">
+										Email trong hồ sơ của bạn hiện đã được đồng bộ với email của tài
+										khoản và không thể thay đổi.
+									</div>
+								</div>
+							</div>
+							<div class="toast-close-icon" data-action="click->users--email-sync-notification#closeToast"
+								 type="button">
+								<i class="feather-icon icon-md" data-feather="x">
+								</i>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="bg-white imt-5 ipx-5 ipy-4 border-radius-large-xl box-shadow-normal d-xl-none">
+					<a class="ibtn ibtn-md ibtn-primary w-100" href="/ho-so-cv/mau-cv">Xem và Tải CV</a>
+				</div>
+				<div class="bg-white imt-5 ipx-5 ipy-6 ip-xl-4 border-radius-large-xl box-shadow-normal"
+					 id="about_me_card">
+					<div class="about-me-section position-relative">
+						<h2>Giới thiệu bản thân</h2>
+						@if (!string.IsNullOrEmpty(user.AboutMe))
+						{
+							<div class="border-bottom-solid imt-4"></div>
+							<div class="text-break imt-6">
+								<div class="trix-content">
+									@Html.Raw(user.AboutMe)
+								</div>
+
+							</div>
+							<div class="edit-button" id="btnEditAboutMe">
+								<i class="feather-icon text-it-red icon-md" data-feather="edit"></i>
+							</div>
+						}
+						else
+						{
+							<div class="postion-relative imt-2">
+								<div class="text-dark-grey">Giới thiệu điểm mạnh và số năm kinh nghiệm của bạn</div>
+								<div class="placeholder-image">
+									<img src="~/images/icons/about_me_no_info.svg" alt="about_me_no_info" />
+								</div>
+							</div>
+							<div class="add-button vertical-middle" id="btnAddAboutMe">
+								<i class="feather-icon text-it-red icon-md" data-feather="plus-circle"></i>
+							</div>
+						}
+					</div>
+
+				</div>
+				<div class="bg-white imt-5 ipx-5 ipy-6 ip-xl-4 border-radius-large-xl box-shadow-normal"
+					 id="education_card">
+					<div class="education-card position-relative">
+						<h2>Học vấn</h2>
+						@if (user.Educations.Any())
+						{
+
+							<div class="border-bottom-solid imt-4"></div>
+							<div class="education-items">
+								@foreach (var e in user.Educations)
+								{
+									<div class="education-item">
+										<div class="info">
+											<div class="major-title text-break">
+												<h3 class="text-it-black">@e.Major</h3>
+												<div class="actions align-items-baseline">
+													<button class="border-0 bg-transparent p-0 btn-edit-education education-@e.Id" data-id="@e.Id" id="btnEditEducation">
+														<i class="feather-icon text-it-red icon-md" data-feather="edit"></i>
+													</button>
+													<form class="button_to" method="post" asp-action="DeleteEducation" asp-controller="Profile">
+														<input type="hidden" name="EducationId" value="@e.Id">
+														<button class="border-0 bg-transparent p-0" type="submit">
+															<i class="feather-icon ms-1 text-rich-grey icon-md" data-feather="trash-2"></i>
+														</button>
+													</form>
+												</div>
+											</div>
+											<div class="school-name text-break normal-text text-rich-grey">
+												@e.School
+											</div>
+											<div class="ipt-1 text-rich-grey normal-text">
+												@e.FromMonth/@e.FromYear - @(e.IsStudying ? "NOW" : $"{e.ToMonth}/{e.ToYear}")
+											</div>
+										</div>
+									</div>
+
+								}
+
+							</div>
+							<div class="edit-button" id="btnAddEducation">
+								<i class="feather-icon text-it-red icon-md" data-feather="plus-circle"></i>
+							</div>
+						}
+						else
+						{
+							<div class="postion-relative imt-2">
+								<div class="text-dark-grey">Chia sẻ trình độ học vấn của bạn</div>
+								<div class="placeholder-image">
+									<img src="~/images/icons/education_no_info.svg" alt="" />
+								</div>
+							</div>
+							<div class="edit-button vertical-middle" id="btnAddEducation">
+								<i class="feather-icon text-it-red icon-md" data-feather="plus-circle">
+								</i>
+							</div>
+						}
+					</div>
+
+				</div>
+				<div class="bg-white imt-5 ipx-5 ipy-6 ip-xl-4 border-radius-large-xl box-shadow-normal"
+					 id="work_experience_card">
+					<div class="working-experience-card position-relative">
+						<h2>Kinh nghiệm làm việc</h2>
+						@if (user.WorkExperiences.Any())
+						{
+							<div class="border-bottom-solid imt-4"></div>
+							<div class="work-experience-items">
+								@foreach (var e in user.WorkExperiences)
+								{
+									<div class="work-experience-item">
+										<div class="info">
+											<div class="job-title text-break">
+												<h3 class="text-it-black">@e.JobTitle</h3>
+												<div class="actions align-items-baseline">
+													<button class="border-0 bg-transparent p-0 btn-edit-work-experience work-experience-@e.Id" data-id="@e.Id" id="btnEditWorkExperience">
+														<i class="feather-icon text-it-red icon-md" data-feather="edit"></i>
+													</button>
+													<form class="button_to" method="post" asp-action="DeleteWorkExperience" asp-controller="Profile">
+														<input type="hidden" name="Id" value="@e.Id">
+														<button class="border-0 bg-transparent p-0" type="submit">
+															<i class="feather-icon ms-1 text-rich-grey icon-md" data-feather="trash-2"></i>
+														</button>
+													</form>
+												</div>
+											</div>
+
+											<div class="school-name text-break normal-text text-rich-grey">
+												@e.Company
+											</div>
+											<div class="ipt-1 text-rich-grey normal-text">
+												@e.FromMonth/@e.FromYear - @(e.IsCurrentlyWorking ? "NOW" : $"{e.ToMonth}/{e.ToYear}")
+											</div>
+
+											@if (!string.IsNullOrWhiteSpace(e.Description))
+											{
+												<div class="text-break paragraph text-it-black ipt-1">
+													<strong>Project:</strong>
+													<div class="trix-content">
+														@Html.Raw(e.Description)
+													</div>
+												</div>
+											}
+
+											@if (!string.IsNullOrWhiteSpace(e.Project))
+											{
+												<h4 class="imy-3">
+													<strong> Project:</strong>
+												</h4>
+												<div class="text-break paragraph text-it-black">
+													<div class="trix-content">
+														@Html.Raw(e.Project)
+													</div>
+
+												</div>
+											}
+										</div>
+									</div>
+
+								}
+
+							</div>
+							<div class="add-button" id="btnAddWorkExperience">
+								<i class="feather-icon text-it-red icon-md" data-feather="plus-circle"></i>
+							</div>
+						}
+						else
+						{
+
+							<div class="postion-relative imt-2">
+								<div class="text-dark-grey">Thể hiện những thông tin chi tiết về quá trình làm việc</div>
+								<div class="placeholder-image">
+									<img src="~/images/icons/experience_no_info.svg" alt="" />
+								</div>
+							</div>
+
+							<div class="add-button vertical-middle" id="btnAddWorkExperience">
+								<i class="feather-icon text-it-red icon-md" data-feather="plus-circle"></i>
+							</div>
+						}
+					</div>
+				</div>
+				<div class="bg-white imt-5 ipx-5 ipy-6 ip-xl-4 border-radius-large-xl box-shadow-normal"
+					 id="skills_card">
+					<div class="skills-card-section position-relative">
+						<h2>Kỹ năng</h2>
+						@if (groupedSkills.Any())
+						{
+							<div class="border-bottom-solid imt-4"></div>
+
+							@foreach (var group in groupedSkills)
+							{
+								<div class="imt-3">
+									<div class="d-flex">
+										<h4 class="text-it-black">@group.SkillLevel</h4>
+										<span class="d-flex align-items-center ips-1" data-toggle="tooltip" title="1 - 3 năm kinh nghiệm">
+											<i class="feather-icon icon-sm text-dark-grey" data-feather="info"></i>
+										</span>
+									</div>
+									<div class="ipt-3 d-flex flex-wrap">
+										@foreach (var skill in group.Skills)
+										{
+											<div class="itag itag-md itag-light ime-3 imb-3 disabled">
+												<span class="normal-text text-rich-grey">@skill.Skill.Name</span>
+											</div>
+										}
+									</div>
+								</div>
+							}
+							<div class="edit-button" id="btnAddSkill">
+								<i class="feather-icon text-it-red icon-md" data-feather="edit"></i>
+							</div>
+						}
+						else
+						{
+
+							<div class="postion-relative imt-2">
+								<div class="text-dark-grey">Showcase your skills and proficiencies</div>
+								<div class="placeholder-image">
+									<img src="~/images/icons/skill_no_info.svg" alt="skill_no_info" />
+								</div>
+							</div>
+							<div class="add-button vertical-middle" id="btnAddSkill">
+								<i class="feather-icon text-it-red icon-md" data-feather="plus-circle"></i>
+							</div>
+						}
+
+					</div>
+				</div>
+				<div class="bg-white imt-5 ipx-5 ipy-6 ip-xl-4 border-radius-large-xl box-shadow-normal"
+					 id="project_card">
+					<div class="project-card position-relative">
+						<h2>Dự án cá nhân</h2>
+						@if (user.PersonalProjects.Any())
+						{
+							<div class="border-bottom-solid imt-4"></div>
+							<div class="project-items">
+								@foreach (var e in user.PersonalProjects)
+								{
+									<div class="project-item">
+										<div class="info">
+											<div class="d-flex justify-content-between text-break project-name">
+												<h3>@e.ProjectName</h3>
+												<div class="d-flex align-items-baseline actions">
+													<button class="border-0 bg-transparent p-0 btn-edit-personal-project personal-project-@e.Id" data-id="@e.Id" id="btnEditPersonalProject">
+														<i class="feather-icon text-it-red icon-md" data-feather="edit"></i>
+													</button>
+													<form class="button_to" method="post" asp-action="DeletePersonalProject" asp-controller="Profile">
+														<input type="hidden" name="Id" value="@e.Id">
+														<button class="border-0 bg-transparent p-0" type="submit">
+															<i class="feather-icon ms-1 text-rich-grey icon-md" data-feather="trash-2"></i>
+														</button>
+													</form>
+												</div>
+
+											</div>
+											<div class="ipt-1 text-rich-grey normal-text">
+												@e.StartMonth/@e.StartYear - @(e.IsOngoing ? "NOW" : $"{e.EndMonth}/{e.EndYear}")
+											</div>
+											<div class="ipt-1 text-break paragraph text-it-black">
+												<div class="trix-content">
+													@Html.Raw(e.Description)
+												</div>
+
+											</div>
+										</div>
+									</div>
+								}
+							</div>
+
+							<div class="edit-button" id="btnAddPersonalProject">
+								<i class="feather-icon text-it-red icon-md" data-feather="plus-circle"></i>
+							</div>
+						}
+						else
+						{
+							<div class="postion-relative imt-2">
+								<div class="text-dark-grey">Bổ sung chứng chỉ liên quan đến kỹ năng của bạn</div>
+								<div class="placeholder-image">
+									<img src="~/images/icons/certificate_no_info.svg" alt="" />
+								</div>
+							</div>
+
+							<div class="add-button vertical-middle" id="btnAddPersonalProject">
+								<i class="feather-icon text-it-red icon-md" data-feather="plus-circle"></i>
+
+							</div>
+						}
+					</div>
+
+				</div>
+				<div class="bg-white imt-5 ipx-5 ipy-6 ip-xl-4 border-radius-large-xl box-shadow-normal"
+					 id="certificate_card">
+					<div class="certificate-card position-relative">
+						<h2>Chứng chỉ</h2>
+						@if (user.Certificates.Any())
+						{
+							<div class="border-bottom-solid imt-4"></div>
+							<div class="certificate-items">
+								@foreach (var e in user.Certificates)
+								{
+									<div class="certificate-item" id="certificate_17580">
+										<div class="d-flex justify-content-between text-break certificate-name">
+											<h3 class="text-it-black">@e.Name</h3>
+											<div class="d-flex align-items-baseline actions">
+												<button class="border-0 bg-transparent p-0 btn-edit-certificate certificate-@e.Id" data-id="@e.Id" id="btnEditCertificate">
+													<i class="feather-icon text-it-red icon-md" data-feather="edit"></i>
+												</button>
+												<form class="button_to" method="post" asp-action="DeleteCertificate" asp-controller="Profile">
+													<input type="hidden" name="Id" value="@e.Id">
+													<button class="border-0 bg-transparent p-0" type="submit">
+														<i class="feather-icon ms-1 text-rich-grey icon-md" data-feather="trash-2"></i>
+													</button>
+												</form>
+											</div>
+
+										</div>
+										<h4 class="certificate-organization text-break normal-text text-rich-grey ipt-1">
+											@e.Organization
+										</h4>
+										<div class="ipt-1 text-rich-grey normal-text">
+											@e.IssueMonth/@e.IssueYear
+										</div>
+
+										@if (string.IsNullOrEmpty(e.Description))
+										{
+											<div class="ipt-1 text-break paragraph text-it-black">
+												<div class="trix-content">
+													@Html.Raw(e.Description)
+												</div>
+
+											</div>
+										}
+										@if (string.IsNullOrEmpty(e.Url))
+										{
+											<div class="ipt-4 cursor-pointer">
+												<a class="d-flex align-items-center" href="@e.Url">
+													<span class="ipe-1 hyperlink normal-text">View certificate</span>
+													<i class="feather-icon hyperlink align-item-center icon-md" data-feather="external-link"></i>
+
+												</a>
+											</div>
+										}
+
+									</div>
+								}
+							</div>
+							<div class="add-button" id="btnAddCertificate">
+								<i class="feather-icon text-it-red icon-md" data-feather="plus-circle"></i>
+							</div>
+						}
+						else
+						{
+							<div class="postion-relative imt-2">
+								<div class="text-dark-grey">Bổ sung chứng chỉ liên quan đến kỹ năng của bạn</div>
+								<div class="placeholder-image">
+									<img src="~/images/icons/certificate_no_info.svg" alt="" />
+								</div>
+							</div>
+
+							<div class="add-button vertical-middle" id="btnAddCertificate">
+								<i class="feather-icon text-it-red icon-md" data-feather="plus-circle"></i>
+							</div>
+						}
+
+					</div>
+
+				</div>
+				<div class="bg-white imt-5 ipx-5 ipy-6 ip-xl-4 border-radius-large-xl box-shadow-normal"
+					 id="award_card">
+					<div class="award-card position-relative content-container-mobile">
+						<h2>Giải thưởng</h2>
+						@if (user.Awards.Any())
+						{
+
+							<div class="border-bottom-solid imt-4"></div>
+
+							<div class="award-items">
+
+								@foreach (var e in user.Awards)
+								{
+									<div class="award-item">
+										<div class="d-flex justify-content-between text-break certificate-name">
+											<h3 class="text-it-black">@e.Name</h3>
+											<div class="d-flex align-items-baseline actions">
+												<button class="border-0 bg-transparent p-0 btn-edit-award award-@e.Id" data-id="@e.Id" id="btnEditAward">
+													<i class="feather-icon text-it-red icon-md" data-feather="edit"></i>
+												</button>
+												<form class="button_to" method="post" asp-action="DeleteAward" asp-controller="Profile">
+													<input type="hidden" name="Id" value="@e.Id">
+													<button class="border-0 bg-transparent p-0" type="submit">
+														<i class="feather-icon ms-1 text-rich-grey icon-md" data-feather="trash-2"></i>
+													</button>
+												</form>
+											</div>
+
+										</div>
+										<h4 class="certificate-organization text-break normal-text text-rich-grey ipt-1">
+											@e.Organization
+										</h4>
+										<div class="ipt-1 text-rich-grey normal-text">
+											@e.IssueMonth/@e.IssueYear
+										</div>
+
+										@if (string.IsNullOrEmpty(e.Description))
+										{
+											<div class="ipt-1 text-break paragraph text-it-black">
+												<div class="trix-content">
+													@Html.Raw(e.Description)
+												</div>
+
+											</div>
+										}
+									</div>
+								}
+							</div>
+							<div class="add-button" id="btnAddAward">
+								<i class="feather-icon text-it-red icon-md" data-feather="plus-circle"></i>
+							</div>
+						}
+						else
+						{
+							<div class="postion-relative imt-2">
+								<div class="text-dark-grey">Thể hiện giải thưởng hoặc thành tích mà bạn đạt được</div>
+								<div class="placeholder-image">
+									<img src="~/images/icons/award_no_info.svg" alt="" />
+								</div>
+							</div>
+
+							<div class="edit-button vertical-middle" id="btnAddAward">
+								<i class="feather-icon text-it-red icon-md" data-feather="plus-circle"></i>
+							</div>
+						}
+
+					</div>
+
+				</div>
+
+			</div>
+			<div class="bg-white border-radius-large-xl box-shadow-normal d-none d-xl-block border-solid height-fit-content"
+				 id="refresh_section">
+				<div class="progress-bar-card">
+					<div class="d-flex flex-xl-column align-items-center justify-content-between ipx-5 ipy-2 ip-xl-4">
+						<h4 class="imb-xl-4">Độ hoàn thiện hồ sơ</h4>
+						<div class="profile-score-progress shrinkable">
+							<div class="progress-background">
+								<div class="progress-circle" style="--progress-degree: 14.4deg"></div>
+							</div>
+							<div class="percentage-text">
+								8%
+								<div class="completed-text tiny-text text-rich-grey">
+									hoàn thành
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="border-bottom-solid d-block d-xl-none"></div>
+					<div class="ipx-5 ipy-2 ipy-xl-0 ipx-xl-4">
+						<div class="d-none d-xl-block">
+							<div class="d-flex align-items-center igap-4">
+								<div class="speech-bubble position-relative ip-2 box-shadow-normal border-radius-large">
+									<div class="small-text">
+										Nâng cấp hồ sơ của bạn lên <b class="text-it-red">70%</b> để tải mẫu CV dành cho
+										chuyên gia IT.
+									</div>
+
+								</div>
+								<img alt="Robby the robot" class="robby"
+									 src="https://itviec.com/assets/robby/robby-welcome-88a1fef0ec2128f54ffb2a0c49dfaebccf1a839062f13ede6178846644afd639.svg">
+							</div>
+							<div class="hyperlink cursor-pointer nowrap imt-4"
+								 data-action="click->users--cta-update#moveToAddSummary">
+								<div class="d-flex">
+									<p class="d-flex align-items-center">
+										<i class="feather-icon icon-sm icon-md" data-feather="plus-circle">
+										</i>
+									</p>
+									<p class="text-truncated ims-1">Thêm Giới thiệu bản thân</p>
+									<p></p>
+								</div>
+							</div>
+							<div class="hyperlink cursor-pointer nowrap imt-4"
+								 data-action="click->users--cta-update#moveToAddContact">
+								<div class="d-flex">
+									<p class="d-flex align-items-center">
+										<i class="feather-icon icon-sm icon-md" data-feather="plus-circle">
+										</i>
+									</p>
+									<p class="text-truncated ims-1">Thêm Thông tin cá nhân</p>
+									<p></p>
+								</div>
+							</div>
+							<div class="hyperlink cursor-pointer nowrap imt-4"
+								 data-action="click->users--cta-update#moveToAddExperience">
+								<div class="d-flex">
+									<p class="d-flex align-items-center">
+										<i class="feather-icon icon-sm icon-md" data-feather="plus-circle">
+										</i>
+									</p>
+									<p class="text-truncated ims-1">Thêm Kinh nghiệm làm việc</p>
+									<p></p>
+								</div>
+							</div>
+
+							<div class="collapse" id="addProfileSectionDesktop">
+								<div class="hyperlink cursor-pointer nowrap imt-4"
+									 data-action="click->users--cta-update#moveToAddEducation">
+									<div class="d-flex">
+										<p class="d-flex align-items-center">
+											<i class="feather-icon icon-sm icon-md" data-feather="plus-circle">
+											</i>
+										</p>
+										<p class="text-truncated ims-1">Thêm Học vấn</p>
+										<p></p>
+									</div>
+								</div>
+								<div class="hyperlink cursor-pointer nowrap imt-4"
+									 data-action="click->users--cta-update#moveToAddSkills">
+									<div class="d-flex">
+										<p class="d-flex align-items-center">
+											<i class="feather-icon icon-sm icon-md" data-feather="plus-circle">
+											</i>
+										</p>
+										<p class="text-truncated ims-1">Thêm Kỹ năng</p>
+										<p></p>
+									</div>
+								</div>
+								<div class="hyperlink cursor-pointer nowrap imt-4"
+									 data-action="click->users--cta-update#moveToAddCertificate">
+									<div class="d-flex">
+										<p class="d-flex align-items-center">
+											<i class="feather-icon icon-sm icon-md" data-feather="plus-circle">
+											</i>
+										</p>
+										<p class="text-truncated ims-1">Thêm Chứng chỉ</p>
+										<p></p>
+									</div>
+								</div>
+								<div class="hyperlink cursor-pointer nowrap imt-4"
+									 data-action="click->users--cta-update#moveToAddAward">
+									<div class="d-flex">
+										<p class="d-flex align-items-center">
+											<i class="feather-icon icon-sm icon-md" data-feather="plus-circle">
+											</i>
+										</p>
+										<p class="text-truncated ims-1">Thêm giải thưởng</p>
+										<p></p>
+									</div>
+								</div>
+								<div class="hyperlink cursor-pointer nowrap imt-4"
+									 data-action="click->users--cta-update#moveToAddProject">
+									<div class="d-flex">
+										<p class="d-flex align-items-center">
+											<i class="feather-icon icon-sm icon-md" data-feather="plus-circle">
+											</i>
+										</p>
+										<p class="text-truncated ims-1">Thêm Dự án cá nhân</p>
+										<p></p>
+									</div>
+								</div>
+
+							</div>
+							<div class="d-flex imt-4" type="button">
+								<div class="cursor-pointer svg-icon ime-1">
+									<svg color="#414042" height="20" width="20">
+										<use data-toggle-icon-target="icon" xlink:href="#arrow_down_icon"></use>
+									</svg>
+								</div>
+								<div class="text-rich-grey">
+									Thêm thông tin khác
+								</div>
+							</div>
+						</div>
+						<div class="d-block d-xl-none">
+							<div aria_controls="addProfileSectionMobile"
+								 class="d-flex justify-content-between align-items-center igap-4"
+								 data-action="click->toggle-icon#toggle" data-bs-target="#addProfileSectionMobile"
+								 data-bs-toggle="collapse" data-controller="toggle-icon"
+								 data-toggle-icon-pair-icons-value="[&quot;#arrow_down_icon&quot;, &quot;#arrow_up_icon&quot;]"
+								 type="button">
+								<div class="d-block">
+									<div class="small-text">
+										Nâng cấp hồ sơ của bạn lên <b class="text-it-red">70%</b> để tải mẫu CV dành cho
+										chuyên gia IT.
+									</div>
+
+								</div>
+								<div class="cursor-pointer svg-icon">
+									<svg color="#A6A6A6" height="24" width="24">
+										<use data-toggle-icon-target="icon" xlink:href="#arrow_down_icon"></use>
+									</svg>
+								</div>
+							</div>
+							<div class="collapse ipb-2" id="addProfileSectionMobile">
+								<div class="hyperlink cursor-pointer nowrap imt-4">
+									<div class="d-flex">
+										<p class="d-flex align-items-center">
+											<i class="feather-icon icon-sm icon-md" data-feather="plus-circle"></i>
+										</p>
+										<p class="text-truncated ims-1">Thêm Giới thiệu bản thân</p>
+										<p></p>
+									</div>
+								</div>
+								<div class="hyperlink cursor-pointer nowrap imt-4">
+									<div class="d-flex">
+										<p class="d-flex align-items-center">
+											<i class="feather-icon icon-sm icon-md" data-feather="plus-circle">
+											</i>
+										</p>
+										<p class="text-truncated ims-1">Thêm Thông tin cá nhân</p>
+										<p></p>
+									</div>
+								</div>
+								<div class="hyperlink cursor-pointer nowrap imt-4">
+									<div class="d-flex">
+										<p class="d-flex align-items-center">
+											<i class="feather-icon icon-sm icon-md" data-feather="plus-circle">
+											</i>
+										</p>
+										<p class="text-truncated ims-1">Thêm Kinh nghiệm làm việc</p>
+										<p></p>
+									</div>
+								</div>
+								<div class="hyperlink cursor-pointer nowrap imt-4">
+									<div class="d-flex">
+										<p class="d-flex align-items-center">
+											<i class="feather-icon icon-sm icon-md" data-feather="plus-circle">
+											</i>
+										</p>
+										<p class="text-truncated ims-1">Thêm Học vấn</p>
+										<p></p>
+									</div>
+								</div>
+								<div class="hyperlink cursor-pointer nowrap imt-4">
+									<div class="d-flex">
+										<p class="d-flex align-items-center">
+											<i class="feather-icon icon-sm icon-md" data-feather="plus-circle">
+											</i>
+										</p>
+										<p class="text-truncated ims-1">Thêm Kỹ năng</p>
+										<p></p>
+									</div>
+								</div>
+								<div class="hyperlink cursor-pointer nowrap imt-4">
+									<div class="d-flex">
+										<p class="d-flex align-items-center">
+											<i class="feather-icon icon-sm icon-md" data-feather="plus-circle">
+											</i>
+										</p>
+										<p class="text-truncated ims-1">Thêm Chứng chỉ</p>
+										<p></p>
+									</div>
+								</div>
+								<div class="hyperlink cursor-pointer nowrap imt-4">
+									<div class="d-flex">
+										<p class="d-flex align-items-center">
+											<i class="feather-icon icon-sm icon-md" data-feather="plus-circle">
+											</i>
+										</p>
+										<p class="text-truncated ims-1">Thêm giải thưởng</p>
+										<p></p>
+									</div>
+								</div>
+								<div class="hyperlink cursor-pointer nowrap imt-4">
+									<div class="d-flex">
+										<p class="d-flex align-items-center">
+											<i class="feather-icon icon-sm icon-md" data-feather="plus-circle">
+											</i>
+										</p>
+										<p class="text-truncated ims-1">Thêm Dự án cá nhân</p>
+										<p></p>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+					<div class="d-none d-xl-block ipx-4 ipy-6">
+						<a class="ibtn ibtn-md ibtn-primary w-100" href="/ho-so-cv/mau-cv">Xem và Tải CV</a>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	
+	</div>
+</div>
+
+
+
+@section Scripts {
+	<script>
+		$(document).ready(function() {
+			
+			// ----------- index -----------
+			$('#AvatarFile').on('change', function(e) {
+				e.preventDefault();
+				const file = e.target.files[0];
+				if (file && file.type.startsWith('image/')) {
+					const reader = new FileReader();
+					reader.onload = function(event) {
+						$('#avatarPreview').attr('src', event.target.result);
+					};
+					reader.readAsDataURL(file);
+				}
+			});
+
+
+			$(document).on('click', '#deleteAvatarBtn', function() {
+				// Reset ảnh về mặc định
+				$('#avatarPreview').attr('src', '/images/icons/avatar-default.svg');
+
+				// Xoá file đã chọn trong input
+				$('#avatarInput').val('');
+			});
+			
+
+			// ----------- personal detail -----------
+
+			initModalForm({
+				modalSelector: '#modal',
+				triggerSelector: '#btnShowPersonalDetailForm',
+				formUrl: '/profile/GetPersonalDetailForm'
+			});
+
+			// ----------- about me -----------
+
+			initModalForm({
+				modalSelector: '#modal',
+				triggerSelector: '#btnAddAboutMe',
+				formUrl: '/profile/GetAboutMe',
+			});
+
+
+			initModalForm({
+				modalSelector: '#modal',
+				triggerSelector: '#btnEditAboutMe',
+				formUrl: '/profile/EditAboutMe',
+			});
+
+
+			// ----------- educations -----------
+			initModalForm({
+				modalSelector: '#modal',
+				triggerSelector: '#btnAddEducation',
+				formUrl: '/profile/GetEducationForm'
+			});
+
+
+			$('.btn-edit-education').each(function () {
+				const id = $(this).data('id');
+				const formUrl = `/profile/EditEducation?id=${id}`;
+
+				initModalForm({
+					modalSelector: '#modal',
+					triggerSelector: `.education-${id}`,
+					formUrl: formUrl,
+				});
+			});
+
+			// ----------- Work Experience -----------
+			initModalForm({
+				modalSelector: '#modal',
+				triggerSelector: '#btnAddWorkExperience',
+				formUrl: '/profile/GetWorkExperience'
+			});
+
+			$('#btnEditWorkExperience').each(function () {
+				const id = $(this).data('id');
+				const formUrl = `/profile/EditWorkExperience?id=${id}`;
+
+				initModalForm({
+					modalSelector: '#modal',
+					triggerSelector: `.work-experience-${id}`,
+					formUrl: formUrl,
+				});
+			});
+
+			// ----------- Skills -----------
+
+			initModalForm({
+				modalSelector: '#modal',
+				triggerSelector: '#btnAddSkill',
+				formUrl: '/profile/GetSkills',
+				onFormLoaded: (form, modal) => {
+					form.find('select').each(function() {
+						const isMulti = $(this).prop('multiple');
+
+						new TomSelect(this, {
+							maxItems: isMulti ? null : 1,
+							create: false,
+							// plugins: ['remove_button'],
+							placeholder: $(this).attr('placeholder') || '',
+						});
+					});
+					let skillCount = $('#skill-edit-form .itag')?.length ?? 0;
+					feather.replace();
+
+					function updateSkillCounter() {
+						const count = $('#skill-edit-form .itag').length;
+						$('.skillCounter').text(`${count}/20`);
+						feather.replace();
+						return count;
+					}
+
+					function createSkillInputs(skillName, skillLevel) {
+						return `
+							<input type="hidden" name="profile[skills][][name]" value="${skillName}" />
+							<input type="hidden" name="profile[skills][][level]" value="${skillLevel}" />
+						`;
+					}
+
+					function createSkillDeleteInput(skillName) {
+						return `<input type="hidden" class="list-skill-delete" name="profile[skills_delete][]" value="${skillName}" />`;
+					}
+
+					$('.action-add button').on('click', function () {
+						const skillSelect = form.find('select').eq(0)[0].tomselect;
+						const skillId = skillSelect.getValue();
+						const skillText = skillSelect.getOption(skillId)?.textContent?.trim();
+						const skillLevel = $('#selectLevel').val();
+
+						if (!skillId || !skillLevel) {
+							alert("Please select both skill and level.");
+							return;
+						}
+
+						const container = $(`.skills-items .${skillLevel.toLowerCase()}-display`);
+
+						// Kiểm tra trùng
+						if (container.find(`.itag[data-skill-slug="${skillId}"]`).length > 0) {
+							alert("This skill already exists.");
+							return;
+						}
+
+						// Giới hạn
+						if ($('.skills-items .itag').length >= 20) {
+							alert("You can only select up to 20 skills.");
+							return;
+						}
+
+						// Xóa "No skills listed" nếu có
+						container.find('.excellent-no-info').remove();
+
+						// Giao diện kỹ năng mới
+						const html = `
+							<div class="itag itag-md itag-light ime-2 imb-2" data-skill-slug="${skillId}">
+								<span class="skill-name normal-text text-rich-grey">${skillText}</span>
+								<span class="skill-level d-none">${skillLevel}</span>
+								<span class="d-flex align-items-center delete-skill">
+									<i class="feather-icon icon-sm" data-feather="x"></i>
+								</span>
+							</div>
+						`;
+						container.append(html);
+						feather.replace();
+
+						// Ẩn khỏi select
+						skillSelect.removeOption(skillId);
+						skillSelect.clear();
+
+						// Thêm input ẩn
+						$('.newSkillList').append(createSkillInputs(skillText, skillLevel));
+
+						updateSkillCounter();
+					});
+
+
+					$(document).on('click', '#skills_card .delete-skill', function () {
+						const $itag = $(this).closest('.itag');
+						const skillName = $itag.find('.skill-name').text().trim();
+						const skillLevel = $itag.find('.skill-level').text().trim().toLowerCase();
+
+						// Xoá khỏi giao diện
+						const $container = $itag.closest(`.${skillLevel}-display`);
+						$itag.remove();
+
+						// Thêm lại "No skills listed" nếu container rỗng
+						if ($container.find('.itag').length === 0) {
+							$container.append(`<span class="small-text text-dark-grey excellent-no-info">No skills listed</span>`);
+						}
+
+						// Input hidden xóa
+						$('.deleteSkillList').append(createSkillDeleteInput(skillName));
+
+						updateSkillCounter();
+					});
+
+				}
+			});
+			// ----------- Personal Project -----------
+			initModalForm({
+				modalSelector: '#modal',
+				triggerSelector: '#btnAddPersonalProject',
+				formUrl: '/profile/GetProject'
+			});
+
+			$('#btnEditPersonalProject').each(function () {
+				const id = $(this).data('id');
+				const formUrl = `/profile/EditProject?id=${id}`;
+
+				initModalForm({
+					modalSelector: '#modal',
+					triggerSelector: `.personal-project-${id}`,
+					formUrl: formUrl,
+				});
+			});
+			// ----------- Certificates -----------
+			initModalForm({
+				modalSelector: '#modal',
+				triggerSelector: '#btnAddCertificate',
+				formUrl: '/profile/GetCertificateForm'
+			});
+
+			$('#btnEditCertificate').each(function () {
+				const id = $(this).data('id');
+				const formUrl = `/profile/EditCertificate?id=${id}`;
+
+				initModalForm({
+					modalSelector: '#modal',
+					triggerSelector: `.certificate-${id}`,
+					formUrl: formUrl,
+				});
+			});
+			// ----------- Awards -----------
+			initModalForm({
+				modalSelector: '#modal',
+				triggerSelector: '#btnAddAward',
+				formUrl: '/profile/GetAward'
+			});
+
+			$('#btnEditAward').each(function () {
+				const id = $(this).data('id');
+				const formUrl = `/profile/EditAward?id=${id}`;
+
+				initModalForm({
+					modalSelector: '#modal',
+					triggerSelector: `.award-${id}`,
+					formUrl: formUrl,
+				});
+			});
+		
+			// --------------------------------
+
+		});
+
+		// document.addEventListener("trix-change", function () {
+		// 		const text = document.querySelector("trix-editor").editor.getDocument().toString().trim();
+		// 		const count = text.length;
+		// 		document.getElementById("trix-char-count").textContent = `${count}/2500 characters`;
+		// 	});
+		document.addEventListener("trix-initialize", function (event) {
+			// Extend Trix to support underline
+			Trix.config.textAttributes.underline = {
+				tagName: "u", // tạo thẻ <u> thay vì dùng inline style
+				inheritable: true,
+				parser: function (element) {
+					return element.tagName === "U";
+				}
+			};
+		});
+	</script>
+}

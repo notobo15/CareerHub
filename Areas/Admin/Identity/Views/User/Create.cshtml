@@ -1,0 +1,87 @@
+﻿@using RecruitmentApp.Areas.Admin.Identity.Models.User
+@model CreateRecruiterModel
+
+<!-- Breadcrumb -->
+<nav class="page-breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">Người Dùng</li>
+		<li class="breadcrumb-item active" aria-current="page">
+			<a asp-action="Create">Tạo mới</a>
+		</li>
+	</ol>
+</nav>
+
+<!-- Page Title -->
+<div class="row">
+	<div class="col-md-12 grid-margin">
+		<div class="card">
+			<div class="card-body">
+				<h4 class="font-weight-bold">@ViewData["Title"]</h4>
+				<p class="text-muted">Nhập thông tin để tạo tài khoản mới với vai trò <strong>@Model.Role</strong>.</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Form Create -->
+<div class="row">
+	<div class="col-md-12 grid-margin stretch-card">
+		<div class="card">
+			<div class="card-body">
+				<div class="col-md-6">
+					<form asp-action="Create" method="post">
+						<div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+						<div class="form-group mb-3">
+							<label asp-for="UserName" class="form-label"></label>
+							<input asp-for="UserName" class="form-control" />
+							<span asp-validation-for="UserName" class="text-danger small"></span>
+						</div>
+
+						<div class="form-group mb-3">
+							<label asp-for="Email" class="form-label"></label>
+							<input asp-for="Email" type="email" class="form-control" />
+							<span asp-validation-for="Email" class="text-danger small"></span>
+						</div>
+
+						<div class="form-group mb-3">
+							<label asp-for="Password" class="form-label"></label>
+							<input asp-for="Password" type="password" class="form-control" />
+							<span asp-validation-for="Password" class="text-danger small"></span>
+						</div>
+
+						<div class="form-group mb-3">
+							<label asp-for="CompanyId" class="form-label"></label>
+							<select asp-for="CompanyId" asp-items="Model.Companies" class="form-control">
+								<option value="">-- Chọn công ty --</option>
+							</select>
+							<span asp-validation-for="CompanyId" class="text-danger small"></span>
+						</div>
+
+						<input type="hidden" asp-for="Role" />
+
+						<div class="form-group d-flex gap-2 mt-4">
+							<button type="submit" class="btn btn-primary d-inline-flex align-items-center">
+								<i data-feather="user-plus" class="me-1 icon-md"></i> Tạo Người Dùng
+							</button>
+							<a asp-action="Index" class="btn btn-outline-secondary d-inline-flex align-items-center">
+								<i data-feather="x" class="me-1 icon-md"></i> Huỷ
+							</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+@section Scripts {
+	<script>
+		$(function() {
+			if ($("#CompanyId").length) {
+				$("#CompanyId").select2();
+			}
+		})
+	</script>
+}

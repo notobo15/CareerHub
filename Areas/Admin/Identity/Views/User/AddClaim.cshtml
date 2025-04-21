@@ -1,0 +1,85 @@
+@model AddUserClaimModel
+
+@{
+    ViewData["Title"] = "Gán Claim cho User";
+}
+
+<nav class="page-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Người dùng</li>
+        <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
+    </ol>
+</nav>
+
+<partial name="_StatusMessage" />
+
+<div class="row">
+    <div class="col-md-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="font-weight-bold">@ViewData["Title"]: <span class="text-primary">@ViewBag.user.UserName</span></h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-md-6">
+                    <form method="post">
+                        @Html.AntiForgeryToken()
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="ClaimType" class="control-label"></label>
+                            <input asp-for="ClaimType" class="form-control" />
+                            <span asp-validation-for="ClaimType" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="ClaimValue" class="control-label"></label>
+                            <input asp-for="ClaimValue" class="form-control" />
+                            <span asp-validation-for="ClaimValue" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group d-flex gap-2 mt-4">
+                            @if (ViewBag.userclaim != null)
+                            {
+                                <button type="submit" class="btn btn-primary d-inline-flex align-items-center">
+                                    <i data-feather="save" class="mr-1 icon-md"></i> Cập nhật
+                                </button>
+
+                                <button type="submit"
+                                        asp-action="DeleteClaim"
+                                        asp-route-claimid="@ViewBag.userclaim.Id"
+                                        class="btn btn-danger d-inline-flex align-items-center">
+                                    <i data-feather="trash-2" class="mr-1 icon-md"></i> Xóa
+                                </button>
+                            }
+                            else
+                            {
+                                <button type="submit" class="btn btn-primary d-inline-flex align-items-center">
+                                    <i data-feather="plus" class="mr-1 icon-md"></i> Thêm mới
+                                </button>
+                            }
+
+                            <a class="btn btn-outline-secondary d-inline-flex align-items-center"
+                               asp-action="AddRole" asp-route-id="@ViewBag.user.Id">
+                                <i data-feather="users" class="mr-1 icon-md"></i> Phân quyền
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        feather.replace();
+    </script>
+    <partial name="_ValidationScriptsPartial" />
+}

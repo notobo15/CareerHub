@@ -1,0 +1,75 @@
+﻿@model RecruitmentApp.Models.Country
+
+<nav class="page-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Countries</li>
+        <li class="breadcrumb-item active" aria-current="page"><a href="">Delete</a></li>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="col-md-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="font-weight-bold text-danger">Xác Nhận Xóa</h4>
+                <p>Bạn có chắc chắn muốn xóa quốc gia này không?</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.CountryId)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.CountryId)
+                    </dd>
+
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
+
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.Slug)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.Slug)
+                    </dd>
+
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.ISOCode)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.ISOCode)
+                    </dd>
+                </dl>
+
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="CountryId" />
+                    <div class="form-group d-flex gap-2 mt-4">
+                        <button type="submit" class="btn btn-danger d-inline-flex align-items-center me-2">
+                            <i data-feather="trash-2" class="me-1 icon-md"></i> Delete
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary d-inline-flex align-items-center">
+                            <i data-feather="x" class="me-1 icon-md"></i> Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        feather.replace();
+    </script>
+}

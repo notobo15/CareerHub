@@ -1,0 +1,244 @@
+﻿@using RecruitmentApp.Models.Email
+@using System.Text.RegularExpressions
+
+@model List<Mail>
+
+@{
+	// var mails = ViewData["Mails"] as List<Mail> ?? new List<Mail>();
+	string currentSort = ViewData["CurrentSort"]?.ToString() ?? "Date";
+	int currentPage = Convert.ToInt32(ViewData["CurrentPage"] ?? 1);
+	int pageSize = Convert.ToInt32(ViewData["PageSize"] ?? 10);
+	int totalItems = Convert.ToInt32(ViewData["TotalItems"] ?? 0);
+
+	int fromItem = ((currentPage - 1) * pageSize) + 1;
+	int toItem = Math.Min(fromItem + pageSize - 1, totalItems);
+	bool hasPrev = currentPage > 1;
+	bool hasNext = toItem < totalItems;
+	int unreadCount = Model?.Count(m => !m.IsRead) ?? 0;
+
+	var search = @ViewData["Search"] as string;
+
+	string sortLabel = currentSort switch
+	{
+		"From" => "From",
+		"Subject" => "Subject",
+		"Size" => "Size",
+		_ => "Date"
+	};
+}
+
+@functions {
+	public static string StripHtml(string input)
+	{
+		return string.IsNullOrEmpty(input) ? "" :
+			Regex.Replace(input, "<.*?>", string.Empty);
+	}
+}
+<div class="email-inbox-header">
+	<div class="row align-items-center">
+		<div class="col-lg-6">
+			<div class="email-title mb-2 mb-md-0">
+				<span class="icon"><i data-feather="inbox"></i></span>
+				Inbox
+				<span class="new-messages">
+					@(unreadCount > 0 ? $"({unreadCount} new message{(unreadCount > 1 ? "s" : "")})" : "")
+				</span>
+			</div>
+		</div>
+		<div class="col-lg-6">
+			<form method="get" asp-action="Inbox" class="email-search">
+				<div class="input-group input-search">
+					<input name="search" value="@search" class="form-control" type="text" placeholder="Search mail...">
+					<span class="input-group-btn">
+						<button class="btn btn-outline-secondary" type="submit">
+							<i data-feather="search"></i>
+						</button>
+					</span>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div class="email-filters d-flex align-items-center justify-content-between flex-wrap">
+	<div class="email-filters-left flex-wrap d-none d-md-flex">
+		<div class="form-check form-check-flat form-check-primary">
+			<label class="form-check-label">
+				<input type="checkbox" class="form-check-input" id="selectAll">
+			</label>
+		</div>
+	
+		<div class="btn-group mb-1 mb-md-0">
+		
+			<button type="button" class="btn btn-outline-secondary mr-1" id="btnReload" title="Reload inbox">
+				<i class="icon-sm" data-feather="refresh-ccw"></i> Reload
+			</button>
+
+			<form id="bulkActionForm" asp-action="BulkDelete" method="post">
+				@Html.AntiForgeryToken()
+				<input type="hidden" name="MailIds" id="selectedMailIds" />
+
+				<button class="btn btn-outline-danger disabled" type="submit" disabled  id="btnBulkDelete">
+					<i class="icon-sm" data-feather="trash-2"></i>
+					Delete
+				</button>
+			</form>
+		</div>
+		<div class="btn-group mb-1 mb-md-0 d-none d-xl-block">
+			<button class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown" type="button">
+				<i class="icon-sm" data-feather="filter"></i>
+				Order by: @sortLabel <span class="caret"></span>
+			</button>
+			<div class="dropdown-menu dropdown-menu-right" role="menu">
+				<a class="dropdown-item @(currentSort == "Date" ? "active" : "")"
+				   asp-action="Inbox" asp-route-sortBy="Date">Date</a>
+				<a class="dropdown-item @(currentSort == "From" ? "active" : "")"
+				   asp-action="Inbox" asp-route-sortBy="From">From</a>
+				<a class="dropdown-item @(currentSort == "Subject" ? "active" : "")"
+				   asp-action="Inbox" asp-route-sortBy="Subject">Subject</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item @(currentSort == "Size" ? "active" : "")"
+				   asp-action="Inbox" asp-route-sortBy="Size">Size</a>
+			</div>
+		</div>
+	</div>
+
+	@if (totalItems > pageSize)
+	{
+		<div class="email-filters-right">
+			<span class="email-pagination-indicator">@fromItem-@toItem of @totalItems</span>
+
+			<div class="btn-group email-pagination-nav">
+				<form asp-action="Inbox" method="get">
+					<input type="hidden" name="page" value="@(currentPage - 1)" />
+					<input type="hidden" name="sortBy" value="@ViewData["CurrentSort"]" />
+					<button class="btn btn-outline-secondary btn-icon" type="submit" @(hasPrev ? "" : "disabled")>
+						<i data-feather="chevron-left"></i>
+					</button>
+				</form>
+
+				<form asp-action="Inbox" method="get">
+					<input type="hidden" name="page" value="@(currentPage + 1)" />
+					<input type="hidden" name="sortBy" value="@ViewData["CurrentSort"]" />
+					<button class="btn btn-outline-secondary btn-icon" type="submit" @(hasNext ? "" : "disabled")>
+						<i data-feather="chevron-right"></i>
+					</button>
+				</form>
+			</div>
+		</div>
+
+	}
+</div>
+<div class="email-list">
+	@foreach (var mail in Model)
+	{
+		var hasAttachment = mail.Attachments != null && mail.Attachments.Any();
+		<div class="email-list-item @(mail.IsRead ? "" : "email-list-item--unread")">
+			<div class="email-list-actions">
+				<div class="form-check form-check-flat form-check-primary">
+					<label class="form-check-label">
+						<input type="checkbox" class="form-check-input email-checkbox" value="@mail.Id" />
+						<i class="input-frame"></i>
+					</label>
+				</div>
+				<div class="favorite @(mail.IsStarred ? "active" : "")">
+					<form method="post" asp-action="ToggleFavorite" asp-controller="Email" class="d-inline">
+						@Html.AntiForgeryToken()
+						<input type="hidden" name="MailId" value="@mail.Id" value="@(mail.IsStarred ? "false" : "true")" />
+
+						<button type="submit" class="btn btn-link p-0" title="Star/Unstar" style="margin-left: -2px;">
+							<i data-feather="star" class="icon-md @(mail.IsStarred ? "text-warning" : "text-muted")"></i>
+						</button>
+					</form>
+				</div>
+			</div>
+
+			<a asp-action="Detail" asp-route-id="@mail.Id" class="email-list-detail">
+				<div>
+					<span class="from">@mail.Sender?.Email</span>
+					<p class="msg">
+						@mail.Subject - @StripHtml(mail.Body)?.Substring(0, Math.Min(80, StripHtml(mail.Body).Length))...
+					</p>
+				</div>
+				<span class="date">
+					@if (hasAttachment)
+					{
+						<span class="icon"><i data-feather="paperclip"></i></span>
+					}
+					@mail.SentAt.ToString("dd MMM")
+				</span>
+			</a>
+		</div>
+	}
+
+</div>
+
+@section Scripts {
+	<script>
+		const connection = new signalR.HubConnectionBuilder()
+			.withUrl("/mailhub")
+			.build();
+
+		connection.start().then(() => {
+			console.log("SignalR connected.");
+		});
+
+		connection.on("ReceiveMailNotification", function () {
+			// Gọi API để load lại inbox hoặc hiển thị thông báo
+			console.log("You have a new email!");
+			location.reload(); // Hoặc dùng AJAX để load phần inbox
+		});
+
+		$(document).ready(function () {
+			$('#selectAll').on('change', function () {
+				const isChecked = $(this).is(':checked');
+
+				console.log($('.email-checkbox'))
+
+				$('.email-checkbox').prop('checked', isChecked);
+
+
+
+			});
+
+			// Xử lý submit form
+			$('#bulkActionForm').on('submit', function (e) {
+				e.preventDefault();
+
+				let selectedIds = $('.email-checkbox:checked')
+					.map(function () {
+						return $(this).val();
+					}).get();
+
+				if (selectedIds.length === 0) {
+					alert("Please select at least one email.");
+					return;
+				}
+
+				// Gán vào hidden input
+				$('#selectedMailIds').val(selectedIds.join(','));
+
+				// Gửi form
+				this.submit();
+			});
+
+			$('#btnReload').on('click', function () {
+				location.reload(); // tải lại trang hiện tại
+			});
+
+
+			// xử lý  ui button delete khi selecked checkbox
+			function updateDeleteButtonState() {
+				const hasChecked = $('.email-checkbox:checked').length > 0;
+				const $deleteBtn = $('#btnBulkDelete');
+
+				$deleteBtn.prop('disabled', !hasChecked);
+				$deleteBtn.toggleClass('disabled', !hasChecked);
+			}
+			$(document).on('change', '.email-checkbox, #selectAll', function () {
+				updateDeleteButtonState();
+			});
+
+			updateDeleteButtonState();
+		});
+	</script>
+}

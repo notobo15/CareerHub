@@ -1,0 +1,70 @@
+﻿@model RecruitmentApp.Models.WorkType
+
+@{
+    ViewData["Title"] = "Tạo mới hình thức làm việc";
+}
+
+<!-- Breadcrumb -->
+<nav class="page-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Hình thức làm việc</li>
+        <li class="breadcrumb-item active" aria-current="page">Tạo mới</li>
+    </ol>
+</nav>
+
+<!-- Header -->
+<div class="row">
+    <div class="col-md-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="font-weight-bold">@ViewData["Title"]</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Form -->
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-md-6">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger small"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Slug" class="control-label"></label>
+                            <input asp-for="Slug" class="form-control" />
+                            <span asp-validation-for="Slug" class="text-danger small"></span>
+                        </div>
+
+                        <div class="form-group d-flex gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary d-inline-flex align-items-center">
+                                <i data-feather="plus" class="me-1 icon-md"></i> Tạo mới
+                            </button>
+                            <a asp-action="Index" class="btn btn-outline-secondary d-inline-flex align-items-center">
+                                <i data-feather="x" class="me-1 icon-md"></i> Huỷ
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Back link -->
+<a asp-action="Index" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center mt-3">
+    <i data-feather="chevron-left" class="me-1 icon-md"></i> Quay về danh sách
+</a>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>feather.replace();</script>
+}
