@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RecruitmentApp.Models;
+using RecruitmentApp.Models.Chat;
 using RecruitmentApp.Models.Email;
 using System.Linq;
 namespace RecruitmentApp.Models 
@@ -315,5 +316,12 @@ namespace RecruitmentApp.Models
         public DbSet<PostTitle> PostTitles { get; set; }
         public DbSet<PostIndustry> PostIndustries { get; set; }
         public DbSet<CompanyType> CompanyTypes { get; set; }
+
+        public DbSet<ChatMessage> ChatMessages { get; set; }
+        public DbSet<ChatRoom> ChatRooms { get; set; }
+        public DbSet<ChatUserRoom> ChatUserRooms { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<BlogView> BlogViews { get; set; }
+        public DbSet<BlogCategory> BlogCategories { get; set; }
     }
 }
