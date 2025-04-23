@@ -1,0 +1,62 @@
+﻿@model RecruitmentApp.Models.Blog
+
+<nav class="page-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Blogs</li>
+        <li class="breadcrumb-item active" aria-current="page"><a href="">Delete</a></li>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="col-md-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="font-weight-bold text-danger">Xác Nhận Xóa</h4>
+                <p>Bạn có chắc chắn muốn xóa bài viết này không?</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.BlogId)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.BlogId)
+                    </dd>
+
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Title)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Title)
+                    </dd>
+
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Description)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Description)
+                    </dd>
+                </dl>
+
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="BlogId" />
+                    <div class="form-group d-flex gap-2 mt-4">
+                        <button type="submit" class="btn btn-danger d-inline-flex align-items-center mr-2">
+                            <i data-feather="trash-2" class="mr-1 icon-md"></i> Xóa
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary d-inline-flex align-items-center">
+                            <i data-feather="x" class="mr-1 icon-md"></i> Hủy
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
