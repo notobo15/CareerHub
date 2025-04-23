@@ -52,6 +52,11 @@
 	  <Folder Include="wwwroot\company-logo\" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Content Include="Seed\seed.xlsx">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+	<ItemGroup>
 	  <Content Update="Areas\Admin\Identity\Views\Manage\Profile.cshtml">
 	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
