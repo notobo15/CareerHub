@@ -1,0 +1,489 @@
+﻿@{
+	Layout = "_Layout";
+	var categories = ViewBag.Categories as List<BlogCategory>;
+}
+
+<!-- start: #sub-header -->
+<div id="sub-header">
+	<!-- Home Page -->
+	<div class="bg-gradient bg-dark mb-3">
+		<div class="grid-container section">
+			<h3 class="title main-title ularge white">
+				ITviec Blog - Ý tưởng phát triển sự nghiệp IT của bạn
+			</h3>
+			<div class="no-margin no-padding grid-container grid-medium">
+				<form action="https://itviec.com/blog/" method="get" class="search-form">
+					<div class="search-input">
+						<!-- <span class="search-icon"><i class="remixicon remixicon-search-line"></i></span> -->
+						<input type="text" name="s" id="s" value="" class="search-field" placeholder="Nhập từ khóa tìm kiếm" aria-label="Nhập từ khóa tìm kiếm" required="">
+					</div>
+					<button type="submit" class="submit button" aria-label="Submit">
+						<span class="search-icon"><i class="remixicon remixicon-search-line"></i></span>
+						<span>Tìm kiếm</span>
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+
+</div>
+<!-- end: #sub-header -->
+
+<div class="elementor elementor-24411">
+	<section class="elementor-section elementor-top-section elementor-element elementor-element-11dc5a85 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="11dc5a85" data-element_type="section">
+		<div class="elementor-container elementor-column-gap-default">
+			<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-7842ed6c" data-id="7842ed6c" data-element_type="column">
+				<div class="elementor-widget-wrap">
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="elementor-section elementor-top-section elementor-element elementor-element-5aed3378 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="5aed3378" data-element_type="section">
+		<div class="elementor-container elementor-column-gap-no">
+			<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-56851ef3" data-id="56851ef3" data-element_type="column">
+				<div class="elementor-widget-wrap elementor-element-populated">
+					<div class="elementor-element elementor-element-60c2f04c elementor-widget elementor-widget-wp-widget-itviec_category_card" data-id="60c2f04c" data-element_type="widget" data-widget_type="wp-widget-itviec_category_card.default">
+						<div class="elementor-widget-container">
+							<div class="grid-container grid-parent">
+								<div class="row">
+									<div class="grid-container grid-categories grid-parent">
+										<div class="row articles eq-height nm-mobile">
+											@foreach (var cat in ViewBag.Categories as List<BlogCategory>)
+											{
+												<article class="default wrapper index-0 grid-25 tablet-grid-50 mobile-grid-100 np-mobile">
+													<div class="article-wrapper wrapper boxed movey-effect">
+														<header>
+															<h2 class="title medium">
+																<a  asp-action="Category"asp-route-slug="@cat.Slug" class="category-link-@cat.CategoryId">
+																	@cat.Name
+																</a>
+															</h2>
+														</header>
+														<div class="post-excerpt text">
+															@cat.Description ?? "Khám phá những bài viết nổi bật trong chủ đề này!"
+														</div>
+														<div class="meta textright">
+															<a href="/blogs/category/@cat.Slug" class="read-more category-link-@cat.CategoryId">
+																Xem danh sách bài viết <i class="remixicon remixicon-arrow-right-line"></i>
+															</a>
+														</div>
+													</div>
+												</article>
+											}
+										</div>
+									</div>
+									<div class="elementor-element elementor-element-49d5fc97 elementor-widget elementor-widget-wp-widget-itviec_posts_thumbs" data-id="49d5fc97" data-element_type="widget" data-widget_type="wp-widget-itviec_posts_thumbs.default">
+										<div class="elementor-widget-container">
+											<div class="grid-container grid-parent">
+												<div class="row ghead"><div class="grid-50"><h3 class="widget-title title">Mới nhất</h3></div><div class="grid-50 textright mb-1"><a class="view-all" href="/blog/recent-posts">Xem tất cả</a></div></div><div class="row articles eq-height">
+													<article class="default wrapper index-9 grid-33 tablet-grid-50 mobile-grid-100 post-86208 post type-post status-publish format-standard has-post-thumbnail hentry category-cong-ty-it-tot-nhat-viet-nam category-danh-cho-nha-tuyen-dung-it">
+														<div class="wrapper boxed hover-effect">
+															<div class="post-format-image post-format-wrapper ">
+																<div class="featured-image">
+																	<a href="https://itviec.com/blog/naver-dung-nen-thanh-tuu-tu-tinh-than-autonomy/" class="thumb hover-effect">
+																		<span class="fullimage cover" role="img" aria-label="NAVER – Dựng nên thành tựu từ tinh thần Autonomy" style="background-image: url(https://itviec.com/blog/wp-content/uploads/2025/04/1@3x_vippro-700x368.jpg);"></span>
+																	</a>
+																</div>
+															</div>
+															<div class="wrapper article-wrapper">
+																<header>
+
+																	<h3 class="title small">
+																		<a href="https://itviec.com/blog/naver-dung-nen-thanh-tuu-tu-tinh-than-autonomy/">
+																			NAVER – Dựng nên thành tựu từ tinh thần Autonomy
+																		</a>
+																	</h3>
+
+																	<div class="meta">
+																		<div class="clear"></div>
+																	</div>
+																</header>
+
+																<div class="post-excerpt text text-light">
+																	<p>Autonomy – Tự chủ, là từ khoá trọng điểm của Naver Việt Nam, nơi những lập trình viên bước từng bước vững chắc trên hành trình sự nghiệp của bản thân. Năm 2025, NAVER Việt Nam được vinh danh trong…</p>
+																	<div class="clear"></div>
+																</div>
+
+																<footer class="fs-small grid-parent no-gap">
+																	<div class="grid-100 tablet-grid-100 mobile-grid-100">
+																		<div class="tags my-1 fs-xsmall"><a href="https://itviec.com/blog/cong-ty-it-tot-nhat-viet-nam/" class="tag-link-10180">Công ty IT tốt nhất Việt Nam</a><a href="https://itviec.com/blog/danh-cho-nha-tuyen-dung-it/" class="tag-link-10197">Dành cho Nhà tuyển dụng IT</a></div>          <div class="textright">
+																			<a href="https://itviec.com/blog/naver-dung-nen-thanh-tuu-tu-tinh-than-autonomy/" class="read-more">
+																				Bắt đầu đọc (3 phút)              <i class="remixicon remixicon-arrow-right-line"></i>
+																			</a>
+																		</div>
+																	</div>
+																</footer>
+															</div>
+														</div>
+													</article>
+
+
+													<article class="default wrapper index-10 grid-33 tablet-grid-50 mobile-grid-100 post-86059 post type-post status-publish format-standard has-post-thumbnail hentry category-chuyen-mon-it category-phong-van-it">
+														<div class="wrapper boxed hover-effect">
+															<div class="post-format-image post-format-wrapper ">
+																<div class="featured-image">
+																	<a href="https://itviec.com/blog/cau-hoi-phong-van-elasticsearch/" class="thumb hover-effect">
+																		<span class="fullimage cover" role="img" aria-label="Top 45+ câu hỏi phỏng vấn Elasticsearch theo từng cấp độ" style="background-image: url(https://itviec.com/blog/wp-content/uploads/2025/04/cau-hoi-phong-van-elasticsearch-vippro-700x368.png);"></span>
+																	</a>
+																</div>
+															</div>
+															<div class="wrapper article-wrapper">
+																<header>
+
+																	<h3 class="title small">
+																		<a href="https://itviec.com/blog/cau-hoi-phong-van-elasticsearch/">
+																			Top 45+ câu hỏi phỏng vấn Elasticsearch theo từng cấp độ
+																		</a>
+																	</h3>
+
+																	<div class="meta">
+																		<div class="clear"></div>
+																	</div>
+																</header>
+
+																<div class="post-excerpt text text-light">
+																	<p>Bạn đang chuẩn bị ứng tuyển một vị trí yêu cầu kiến thức về Elasticsearch? Bài viết này chính là “tuyệt chiêu” chinh phục nhà tuyển dụng với bộ câu hỏi phỏng vấn Elasticsearch theo từng cấp độ. Từ những…</p>
+																	<div class="clear"></div>
+																</div>
+
+																<footer class="fs-small grid-parent no-gap">
+																	<div class="grid-100 tablet-grid-100 mobile-grid-100">
+																		<div class="tags my-1 fs-xsmall"><a href="https://itviec.com/blog/chuyen-mon-it/" class="tag-link-109">Chuyên môn IT</a><a href="https://itviec.com/blog/ung-tuyen-va-thang-tien/phong-van-it/" class="tag-link-105">Phỏng vấn IT</a></div>          <div class="textright">
+																			<a href="https://itviec.com/blog/cau-hoi-phong-van-elasticsearch/" class="read-more">
+																				Bắt đầu đọc (31 phút)              <i class="remixicon remixicon-arrow-right-line"></i>
+																			</a>
+																		</div>
+																	</div>
+																</footer>
+															</div>
+														</div>
+													</article>
+
+
+													<article class="default wrapper index-11 grid-33 tablet-grid-50 mobile-grid-100 post-86064 post type-post status-publish format-standard has-post-thumbnail hentry category-chuyen-mon-it">
+														<div class="wrapper boxed hover-effect">
+															<div class="post-format-image post-format-wrapper ">
+																<div class="featured-image">
+																	<a href="https://itviec.com/blog/vmware-workstation-la-gi/" class="thumb hover-effect">
+																		<span class="fullimage cover" role="img" aria-label="VMware Workstation: Hướng dẫn cài đặt và sử dụng chi tiết cho IT" style="background-image: url(https://itviec.com/blog/wp-content/uploads/2025/04/vmware-workstation-vippro-700x368.jpg);"></span>
+																	</a>
+																</div>
+															</div>
+															<div class="wrapper article-wrapper">
+																<header>
+
+																	<h3 class="title small">
+																		<a href="https://itviec.com/blog/vmware-workstation-la-gi/">
+																			VMware Workstation: Hướng dẫn cài đặt và sử dụng chi tiết cho IT
+																		</a>
+																	</h3>
+
+																	<div class="meta">
+																		<div class="clear"></div>
+																	</div>
+																</header>
+
+																<div class="post-excerpt text text-light">
+																	<p>VMware Workstation luôn là cái tên hàng đầu khi nhắc đến phần mềm ảo hóa mạnh mẽ, linh hoạt và phổ biến nhất hiện nay. Dù bạn là kỹ sư hệ thống, lập trình viên, tester hay chuyên gia bảo…</p>
+																	<div class="clear"></div>
+																</div>
+
+																<footer class="fs-small grid-parent no-gap">
+																	<div class="grid-100 tablet-grid-100 mobile-grid-100">
+																		<div class="tags my-1 fs-xsmall"><a href="https://itviec.com/blog/chuyen-mon-it/" class="tag-link-109">Chuyên môn IT</a></div>          <div class="textright">
+																			<a href="https://itviec.com/blog/vmware-workstation-la-gi/" class="read-more">
+																				Bắt đầu đọc (12 phút)              <i class="remixicon remixicon-arrow-right-line"></i>
+																			</a>
+																		</div>
+																	</div>
+																</footer>
+															</div>
+														</div>
+													</article>
+
+												</div><!-- end: .articles -->
+											</div><!-- end: .grid-container -->
+										</div>
+									</div>
+									<div class="elementor-element elementor-element-63567a9d elementor-widget elementor-widget-wp-widget-itviec_posts_thumbs" data-id="63567a9d" data-element_type="widget" data-widget_type="wp-widget-itviec_posts_thumbs.default">
+										<div class="elementor-widget-container">
+											<div class="grid-container grid-parent">
+												<div class="row ghead"><div class="grid-50"><h3 class="widget-title title">Đọc nhiều nhất</h3></div><div class="grid-50 textright mb-1"></div></div><div class="row articles eq-height">
+													<article class="default wrapper index-12 grid-33 tablet-grid-50 mobile-grid-100 post-84956 post type-post status-publish format-standard has-post-thumbnail hentry category-cong-ty-it-tot-nhat-viet-nam category-danh-cho-nha-tuyen-dung-it">
+														<div class="wrapper boxed hover-effect">
+															<div class="post-format-image post-format-wrapper ">
+																<div class="featured-image">
+																	<a href="https://itviec.com/blog/shutdown-week-absolute-software-vn/" class="thumb hover-effect">
+																		<span class="fullimage cover" role="img" aria-label="Shutdown Week tại Absolute Software (Việt Nam): Khi dân IT được “chữa lành” đúng nghĩa!" style="background-image: url(https://itviec.com/blog/wp-content/uploads/2025/03/Artboard-1@3x-vippro-700x368.jpg);"></span>
+																	</a>
+																</div>
+															</div>
+															<div class="wrapper article-wrapper">
+																<header>
+
+																	<h3 class="title small">
+																		<a href="https://itviec.com/blog/shutdown-week-absolute-software-vn/">
+																			Shutdown Week tại Absolute Software (Việt Nam): Khi dân IT được “chữa lành” đúng nghĩa!
+																		</a>
+																	</h3>
+
+																	<div class="meta">
+																		<div class="clear"></div>
+																	</div>
+																</header>
+
+																<div class="post-excerpt text text-light">
+																	<p>Trong tháng 3/2025, Absolute Software (Việt Nam) được vinh dự nhận giải thưởng Top Công ty IT Tốt Nhất Việt Nam năm 2025 trên ITviec. Một trong những bí kíp giúp chúng mình tiếp tục “chạm” đến giải thưởng danh…</p>
+																	<div class="clear"></div>
+																</div>
+
+																<footer class="fs-small grid-parent no-gap">
+																	<div class="grid-100 tablet-grid-100 mobile-grid-100">
+																		<div class="tags my-1 fs-xsmall"><a href="https://itviec.com/blog/cong-ty-it-tot-nhat-viet-nam/" class="tag-link-10180">Công ty IT tốt nhất Việt Nam</a><a href="https://itviec.com/blog/danh-cho-nha-tuyen-dung-it/" class="tag-link-10197">Dành cho Nhà tuyển dụng IT</a></div>          <div class="textright">
+																			<a href="https://itviec.com/blog/shutdown-week-absolute-software-vn/" class="read-more">
+																				Bắt đầu đọc (4 phút)              <i class="remixicon remixicon-arrow-right-line"></i>
+																			</a>
+																		</div>
+																	</div>
+																</footer>
+															</div>
+														</div>
+													</article>
+
+
+													<article class="default wrapper index-13 grid-33 tablet-grid-50 mobile-grid-100 post-84877 post type-post status-publish format-standard has-post-thumbnail hentry category-cong-ty-it-tot-nhat-viet-nam category-danh-cho-nha-tuyen-dung-it">
+														<div class="wrapper boxed hover-effect">
+															<div class="post-format-image post-format-wrapper ">
+																<div class="featured-image">
+																	<a href="https://itviec.com/blog/30-cong-ty-it-tot-nhat-vietnam-2025/" class="thumb hover-effect">
+																		<span class="fullimage cover" role="img" aria-label="Top 30 Công ty IT tốt nhất Việt Nam 2025 lộ diện" style="background-image: url(https://itviec.com/blog/wp-content/uploads/2025/03/K1_1_VN-vippro-700x366.jpg);"></span>
+																	</a>
+																</div>
+															</div>
+															<div class="wrapper article-wrapper">
+																<header>
+
+																	<h3 class="title small">
+																		<a href="https://itviec.com/blog/30-cong-ty-it-tot-nhat-vietnam-2025/">
+																			Top 30 Công ty IT tốt nhất Việt Nam 2025 lộ diện
+																		</a>
+																	</h3>
+
+																	<div class="meta">
+																		<div class="clear"></div>
+																	</div>
+																</header>
+
+																<div class="post-excerpt text text-light">
+																	<p>Chuyển dịch mạnh mẽ trong thị trường tuyển dụng IT Việt Nam Năm 2024 vừa qua, thị trường tuyển dụng IT Việt Nam đang chuyển dịch mạnh mẽ từ xu hướng chú trọng tăng trưởng nhân sự sang tối ưu…</p>
+																	<div class="clear"></div>
+																</div>
+
+																<footer class="fs-small grid-parent no-gap">
+																	<div class="grid-100 tablet-grid-100 mobile-grid-100">
+																		<div class="tags my-1 fs-xsmall"><a href="https://itviec.com/blog/cong-ty-it-tot-nhat-viet-nam/" class="tag-link-10180">Công ty IT tốt nhất Việt Nam</a><a href="https://itviec.com/blog/danh-cho-nha-tuyen-dung-it/" class="tag-link-10197">Dành cho Nhà tuyển dụng IT</a></div>          <div class="textright">
+																			<a href="https://itviec.com/blog/30-cong-ty-it-tot-nhat-vietnam-2025/" class="read-more">
+																				Bắt đầu đọc (2 phút)              <i class="remixicon remixicon-arrow-right-line"></i>
+																			</a>
+																		</div>
+																	</div>
+																</footer>
+															</div>
+														</div>
+													</article>
+
+
+													<article class="default wrapper index-14 grid-33 tablet-grid-50 mobile-grid-100 post-85080 post type-post status-publish format-standard has-post-thumbnail hentry category-cong-ty-it-tot-nhat-viet-nam category-danh-cho-nha-tuyen-dung-it">
+														<div class="wrapper boxed hover-effect">
+															<div class="post-format-image post-format-wrapper ">
+																<div class="featured-image">
+																	<a href="https://itviec.com/blog/van-hoa-lam-viec-vbit-creative-force/" class="thumb hover-effect">
+																		<span class="fullimage cover" role="img" aria-label="Work Hard, Chill Harder – Cách thu hút và giữ chân nhân tài tại Creative Force" style="background-image: url(https://itviec.com/blog/wp-content/uploads/2025/03/Thumbnail-image_vippro-700x368.jpg);"></span>
+																	</a>
+																</div>
+															</div>
+															<div class="wrapper article-wrapper">
+																<header>
+
+																	<h3 class="title small">
+																		<a href="https://itviec.com/blog/van-hoa-lam-viec-vbit-creative-force/">
+																			Work Hard, Chill Harder – Cách thu hút và giữ chân nhân tài tại Creative Force
+																		</a>
+																	</h3>
+
+																	<div class="meta">
+																		<div class="clear"></div>
+																	</div>
+																</header>
+
+																<div class="post-excerpt text text-light">
+																	<p>Làm hết sức, tận hưởng trọn vẹn – đó là cách Creative Force tạo ra một môi trường vừa thử thách, vừa cân bằng giữa “làm” và “chơi”. Hai lần liên tiếp được “xướng danh” trong danh sách Công ty…</p>
+																	<div class="clear"></div>
+																</div>
+
+																<footer class="fs-small grid-parent no-gap">
+																	<div class="grid-100 tablet-grid-100 mobile-grid-100">
+																		<div class="tags my-1 fs-xsmall"><a href="https://itviec.com/blog/cong-ty-it-tot-nhat-viet-nam/" class="tag-link-10180">Công ty IT tốt nhất Việt Nam</a><a href="https://itviec.com/blog/danh-cho-nha-tuyen-dung-it/" class="tag-link-10197">Dành cho Nhà tuyển dụng IT</a></div>          <div class="textright">
+																			<a href="https://itviec.com/blog/van-hoa-lam-viec-vbit-creative-force/" class="read-more">
+																				Bắt đầu đọc (4 phút)              <i class="remixicon remixicon-arrow-right-line"></i>
+																			</a>
+																		</div>
+																	</div>
+																</footer>
+															</div>
+														</div>
+													</article>
+
+												</div><!-- end: .articles -->
+											</div><!-- end: .grid-container -->
+										</div>
+									</div>
+									<div class="elementor-element elementor-element-28920a70 elementor-widget elementor-widget-wp-widget-itviec_posts_thumbs" data-id="28920a70" data-element_type="widget" data-widget_type="wp-widget-itviec_posts_thumbs.default">
+										<div class="elementor-widget-container">
+											<div class="grid-container grid-parent">
+												<div class="row ghead"><div class="grid-50"><h3 class="widget-title title">Bài viết chọn lọc</h3></div><div class="grid-50 textright mb-1"></div></div><div class="row articles eq-height">
+													<article class="default wrapper index-15 grid-33 tablet-grid-50 mobile-grid-100 post-26935 post type-post status-publish format-standard has-post-thumbnail hentry category-chuyen-it">
+														<div class="wrapper boxed hover-effect">
+															<div class="post-format-image post-format-wrapper ">
+																<div class="featured-image">
+																	<a href="https://itviec.com/blog/la-it-thi-minh-cu-viet-di/" class="thumb hover-effect">
+																		<span class="fullimage cover" role="img" aria-label="“Là IT Thì Mình Cứ Viết Đi” – Cuộc thi viết hấp dẫn nhất cho dân IT chính thức trở lại" style="background-image: url(https://itviec.com/blog/wp-content/uploads/2023/04/Artboard-1-700x377.jpg);"></span>
+																	</a>
+																</div>
+															</div>
+															<div class="wrapper article-wrapper">
+																<header>
+
+																	<h3 class="title small">
+																		<a href="https://itviec.com/blog/la-it-thi-minh-cu-viet-di/">
+																			“Là IT Thì Mình Cứ Viết Đi” – Cuộc thi viết hấp dẫn nhất cho dân IT chính thức trở lại
+																		</a>
+																	</h3>
+
+																	<div class="meta">
+																		<div class="clear"></div>
+																	</div>
+																</header>
+
+																<div class="post-excerpt text text-light">
+																	<p>Cuộc thi viết “Là IT Thì Mình Cứ Viết Đi” do ITviec tổ chức từ ngày 26/04/2023 đến 26/06/2023, nhân dịp kỷ niệm 10 năm thành lập. Cuộc thi là sân chơi hấp dẫn cổ vũ tất cả anh em…</p>
+																	<div class="clear"></div>
+																</div>
+
+																<footer class="fs-small grid-parent no-gap">
+																	<div class="grid-100 tablet-grid-100 mobile-grid-100">
+																		<div class="tags my-1 fs-xsmall"><a href="https://itviec.com/blog/chuyen-it/" class="tag-link-10160">Chuyện IT</a></div>          <div class="textright">
+																			<a href="https://itviec.com/blog/la-it-thi-minh-cu-viet-di/" class="read-more">
+																				Bắt đầu đọc (5 phút)              <i class="remixicon remixicon-arrow-right-line"></i>
+																			</a>
+																		</div>
+																	</div>
+																</footer>
+															</div>
+														</div>
+													</article>
+
+
+													<article class="default wrapper index-16 grid-33 tablet-grid-50 mobile-grid-100 post-23337 post type-post status-publish format-standard has-post-thumbnail hentry category-chuyen-mon-it">
+														<div class="wrapper boxed hover-effect">
+															<div class="post-format-image post-format-wrapper ">
+																<div class="featured-image">
+																	<a href="https://itviec.com/blog/framework-la-gi-top-framework-pho-bien-nhat/" class="thumb hover-effect">
+																		<span class="fullimage cover" role="img" aria-label="Top 15+ framework back-end, front-end và mobile phổ biến nhất 2024" style="background-image: url(https://itviec.com/blog/wp-content/uploads/2022/05/framework-la-gi-thumbnail-700x368.jpg);"></span>
+																	</a>
+																</div>
+															</div>
+															<div class="wrapper article-wrapper">
+																<header>
+
+																	<h3 class="title small">
+																		<a href="https://itviec.com/blog/framework-la-gi-top-framework-pho-bien-nhat/">
+																			Top 15+ framework back-end, front-end và mobile phổ biến nhất 2024
+																		</a>
+																	</h3>
+
+																	<div class="meta">
+																		<div class="clear"></div>
+																	</div>
+																</header>
+
+																<div class="post-excerpt text text-light">
+																	<p>Là một lập trình viên, bạn không cần phải phát triển mọi ứng dụng lại từ đầu bởi vì đã có các công cụ được thiết kế để hỗ trợ bạn, framework là một trong những công cụ hữu dụng…</p>
+																	<div class="clear"></div>
+																</div>
+
+																<footer class="fs-small grid-parent no-gap">
+																	<div class="grid-100 tablet-grid-100 mobile-grid-100">
+																		<div class="tags my-1 fs-xsmall"><a href="https://itviec.com/blog/chuyen-mon-it/" class="tag-link-109">Chuyên môn IT</a></div>          <div class="textright">
+																			<a href="https://itviec.com/blog/framework-la-gi-top-framework-pho-bien-nhat/" class="read-more">
+																				Bắt đầu đọc (24 phút)              <i class="remixicon remixicon-arrow-right-line"></i>
+																			</a>
+																		</div>
+																	</div>
+																</footer>
+															</div>
+														</div>
+													</article>
+
+
+													<article class="default wrapper index-17 grid-33 tablet-grid-50 mobile-grid-100 post-23817 post type-post status-publish format-standard has-post-thumbnail hentry category-chuyen-it">
+														<div class="wrapper boxed hover-effect">
+															<div class="post-format-image post-format-wrapper ">
+																<div class="featured-image">
+																	<a href="https://itviec.com/blog/tu-ao-lang-den-out-trinh/" class="thumb hover-effect">
+																		<span class="fullimage cover" role="img" aria-label="“TỪ AO LÀNG ĐẾN OUT TRÌNH” – Lần đầu tiên chuyên gia IT giãi bày bằng con chữ" style="background-image: url(https://itviec.com/blog/wp-content/uploads/2022/07/tu-ao-lang-den-out-trinh-thumbnail-700x368.jpg);"></span>
+																	</a>
+																</div>
+															</div>
+															<div class="wrapper article-wrapper">
+																<header>
+
+																	<h3 class="title small">
+																		<a href="https://itviec.com/blog/tu-ao-lang-den-out-trinh/">
+																			“TỪ AO LÀNG ĐẾN OUT TRÌNH” – Lần đầu tiên chuyên gia IT giãi bày bằng con chữ
+																		</a>
+																	</h3>
+
+																	<div class="meta">
+																		<div class="clear"></div>
+																	</div>
+																</header>
+
+																<div class="post-excerpt text text-light">
+																	<p>Nhân kỷ niệm 9 năm ngày thành lập, ITviec tổ chức cuộc thi viết “Từ Ao làng đến Out trình” nhằm mang đến một sân chơi mới dành cho “anh chị em” IT – nơi để mọi người cùng nhau…</p>
+																	<div class="clear"></div>
+																</div>
+
+																<footer class="fs-small grid-parent no-gap">
+																	<div class="grid-100 tablet-grid-100 mobile-grid-100">
+																		<div class="tags my-1 fs-xsmall"><a href="https://itviec.com/blog/chuyen-it/" class="tag-link-10160">Chuyện IT</a></div>          <div class="textright">
+																			<a href="https://itviec.com/blog/tu-ao-lang-den-out-trinh/" class="read-more">
+																				Bắt đầu đọc (6 phút)              <i class="remixicon remixicon-arrow-right-line"></i>
+																			</a>
+																		</div>
+																	</div>
+																</footer>
+															</div>
+														</div>
+													</article>
+
+												</div><!-- end: .articles -->
+											</div><!-- end: .grid-container -->
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+	</section>
+	<section data-wpr-lazyrender="1" class="elementor-section elementor-top-section elementor-element elementor-element-74e8235b elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="74e8235b" data-element_type="section">
+		<div class="elementor-container elementor-column-gap-default">
+			<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-32514cc0" data-id="32514cc0" data-element_type="column">
+				<div class="elementor-widget-wrap">
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+

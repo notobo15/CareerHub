@@ -1,0 +1,196 @@
+﻿@model Blog
+
+<div id="sub-header">
+    <div class="grid-container">
+        <div class="breadcrumb py-2">
+            <a asp-action="Index">ITviec Blog</a>
+            <a asp-action="Category" asp-route-slug="@Model.Category.Slug">@Model.Category?.Name</a>
+            <a asp-action="Detail" asp-route-category="@Model.Category.Slug" asp-route-slug="@Model.Slug" class="tag-link-10197">@Model.Title</a>
+        </div>
+    </div>
+</div>
+</div>
+
+<main id="single" class="main grid-container standard aos-init aos-animate" data-aos="fade" style="opacity: 1; transform: none;">
+
+    <!-- start: .center -->
+    <div class="center" style="transform: none;">
+
+        <!-- Fullcover Style -->
+        <!-- start: .epcl-page-wrapper -->
+        <div class="epcl-page-wrapper" style="transform: none;">
+
+            <!-- start: .content -->
+            <section class="left-content grid-66 np-mobile">
+
+                <article class="main-article boxed post-85896 post type-post status-publish format-standard has-post-thumbnail hentry category-chuyen-mon-it">
+                    <header>
+
+                        <div class="meta large italic mb-1">
+                            <p><span>Ngày cập nhật</span>: <time>@(Model.UpdatedAt?.ToString("dd/MM/yyyy") ?? Model.CreatedAt.ToString("dd/MM/yyyy"))</time></p>
+                            <p><span>Ngày xuất bản</span>: <time>@Model.CreatedAt.ToString("dd/MM/yyyy")</time></p>
+                        </div>
+
+
+                        <h1 class="title large bold text-primary">@Model.Title</h1>
+
+                        <!-- start: .meta -->
+                        <div class="meta">
+                        </div>
+                        <!-- end: .meta -->
+                        <div class="clear mt-1"></div>
+                        <div class="post-format-image post-format-wrapper ">
+                            <div class="featured-image">
+                                <div class="fullimage cover">
+                                    <img src="@Model.ThumbnailUrl" alt="@Model.Title" style="width: 100%; height: auto;" />
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+
+                    <section class="post-content">
+                        <div id="ez-toc-container" class="ez-toc-v2_0_71 counter-hierarchy ez-toc-counter ez-toc-grey ez-toc-container-direction">
+                            <div class="ez-toc-title-container">
+                                <p class="ez-toc-title" style="cursor:inherit">
+                                    Nội dung bài viết
+                                </p>
+                                <span class="ez-toc-title-toggle">
+                                    <a href="#" class="ez-toc-pull-right ez-toc-btn ez-toc-btn-xs ez-toc-btn-default ez-toc-toggle ez-toc-loaded"
+                                       aria-label="Toggle Table of Content">
+                                        <span class="ez-toc-js-icon-con">
+                                            <span class="">
+                                                <span class="eztoc-hide" style="display:none;">
+                                                    Toggle
+                                                </span>
+                                                <span class="ez-toc-icon-toggle-span">
+                                                    <svg style="fill: #999;color:#999" xmlns="http://www.w3.org/2000/svg"
+                                                         class="list-377408" width="20px" height="20px" viewBox="0 0 24 24" fill="none">
+                                                        <path d="M6 6H4v2h2V6zm14 0H8v2h12V6zM4 11h2v2H4v-2zm16 0H8v2h12v-2zM4 16h2v2H4v-2zm16 0H8v2h12v-2z"
+                                                              fill="currentColor">
+                                                        </path>
+                                                    </svg>
+                                                    <svg style="fill: #999;color:#999" class="arrow-unsorted-368013" xmlns="http://www.w3.org/2000/svg"
+                                                         width="10px" height="10px" viewBox="0 0 24 24" version="1.2" baseProfile="tiny">
+                                                        <path d="M18.2 9.3l-6.2-6.3-6.2 6.3c-.2.2-.3.4-.3.7s.1.5.3.7c.2.2.4.3.7.3h11c.3 0 .5-.1.7-.3.2-.2.3-.5.3-.7s-.1-.5-.3-.7zM5.8 14.7l6.2 6.3 6.2-6.3c.2-.2.3-.5.3-.7s-.1-.5-.3-.7c-.2-.2-.4-.3-.7-.3h-11c-.3 0-.5.1-.7.3-.2.2-.3.5-.3.7s.1.5.3.7z">
+                                                        </path>
+                                                    </svg>
+                                                </span>
+                                            </span>
+                                        </span>
+                                    </a>
+                                </span>
+                            </div>
+                            <nav id="toc">
+                            </nav>
+                        </div>
+
+                        <div class="text">
+                            @Html.Raw(Model.Content)
+
+                            <div class="post-views content-post post-86208 entry-meta load-static">
+                                <span class="post-views-icon dashicons dashicons-chart-bar">
+                                </span>
+                                <span class="post-views-label">
+                                    Post Views:
+                                </span>
+                                <span class="post-views-count">
+									@Model?.BlogViews?.Count()
+                                </span>
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <footer>
+
+                        @if (Model.Author != null)
+                        {
+                            <!-- start: .author -->
+                            <section class="author widget_itviec_user_expert  with-avatar">
+                                <div class="alignleft mb-1">
+                                    <span class="fw-bold muted">TÁC GIẢ</span>
+                                </div>
+                                <div class="alignright fs-large">
+                                    <a href="https://itviec.com/blog/author/anh-phuong/" class="muted" title="Xem tất cả bài viết từ tác giả này" target="_blank" rel="nofollow noopener"><i class="fa  fa-external-link"></i></a>
+                                </div>
+                                <div class="clear"></div>
+                                <div class="avatar">
+                                    <a href="https://itviec.com/blog/author/anh-phuong/" class="translate-effect thumb"><span class="fullimage cover" style="background-image: url('@Model.Author.Avatar')"></span></a>
+                                </div>
+                                <div class="info">
+                                    <a href="https://itviec.com/blog/author/anh-phuong/">
+                                        <h4 class="title medium bold text-dark no-margin">@Model.Author.ShortName</h4>
+                                    </a>
+                                    <p class="founder text-light italic"></p>
+                                </div>
+                                <div class="clear"></div>
+                                <div class="desc text text-light">
+                                    <p>@(string.IsNullOrWhiteSpace(Model.Author.AboutMe) ? "Tác giả chưa cập nhật mô tả." : Model.Author.AboutMe)</p>
+                                </div>
+                            </section>
+                            <!-- end: .author -->
+                            <div class="clear"></div>
+                        }
+                    </footer>
+
+
+                </article>
+            </div>
+            <!-- end: .left-content -->
+
+        </div>
+        <!-- end: .epcl-page-wrapper -->
+
+    </div>
+    <!-- end: .center -->
+
+</main>
+
+@section Scripts {
+    <script>
+
+         function createSlug(text) {
+          return text
+            .normalize("NFD").replace(/[\u0300-\u036f]/g, "")  // bỏ dấu tiếng Việt
+            .replace(/[^\w\s]/gi, '')                          // bỏ ký tự đặc biệt
+            .replace(/\s+/g, '_');                             // khoảng trắng -> _
+        }
+
+        $(document).ready(function() {
+                const $headings = $('.post-content').find('h2, h3');
+        const $toc = $('#toc');
+        const $ul = $('<ul class="ez-toc-list ez-toc-list-level-1"></ul>');
+
+        $headings.each(function (i, el) {
+          const $heading = $(el);
+          const text = $heading.text().trim();
+          const tag = el.tagName.toLowerCase(); // "h2", "h3"
+          const level = tag.replace('h', '');   // "2", "3"
+          const slug = createSlug(text);
+
+          // Thêm id cho heading để làm anchor
+          $heading.attr('id', slug);
+
+          // Tạo item mục lục
+          const $li = $('<li class="ez-toc-page-1 ez-toc-heading-level-2"></li>');
+          const $a = $(`<a></a>`)
+            .addClass(`ez-toc-link ez-toc-heading-${level}`)
+            .attr('href', `#${slug}`)
+            .attr('title', text)
+            .text(text);
+
+          $li.append($a);
+          $ul.append($li);
+        });
+
+        $toc.append($ul);
+         $('.ez-toc-js-icon-con').on('click', function (e) {
+                e.preventDefault();
+
+                $('.ez-toc-list').stop().slideToggle(200);
+                $('#ez-toc-container').toggleClass('toc_close');
+            });
+
+        })
+    </script>
+}

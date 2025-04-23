@@ -1,0 +1,141 @@
+﻿@model BlogCategory
+@{
+    int currentPage = ViewBag.CurrentPage;
+    int totalPages = ViewBag.TotalPages;
+    string slug = ViewBag.CategorySlug;
+}
+<div id="sub-header">
+
+
+    <!-- Archived Page -->
+    <div class="grid-container section">
+        <h1 class="title main-title ularge dark ">@Model.Name</h1>
+        <div class="no-margin no-padding grid-container grid-66">
+            <div class="title light medium nm-bottom">
+                <p>@Model.Description</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<main id="archives" class="main" style="transform: none;">
+
+
+    <div class="grid-container module-wrapper aos-init aos-animate" data-aos="fade" style="opacity: 1; transform: none;">
+
+        <!-- start: .content-wrapper -->
+        <div class="content-wrapper grid-posts grid-sidebar " style="transform: none;">
+            <div class="center clearfix" style="transform: none;">
+                <!-- start: .center -->
+                <div class="left-content grid-66 np-mobile">
+
+                    <!-- start: .articles -->
+                    <div class="articles row eq-height columns-3">
+                        @foreach (var blog in Model.Blogs.Where(b => b.IsPublished).OrderByDescending(b => b.CreatedAt))
+                        {
+                            <article class="default wrapper index-0 grid-50 tablet-grid-50 mobile-grid-100 post-@blog.BlogId">
+                                <div class="wrapper boxed hover-effect">
+                                    <div class="post-format-image post-format-wrapper">
+                                        <div class="featured-image">
+                                            <a asp-action="Detail" asp-route-category="@Model.Slug" asp-route-slug="@blog.Slug" class="thumb hover-effect">
+                                                <span class="fullimage cover"
+                                                      role="img"
+                                                      aria-label="@blog.Title"
+                                                      style="background-image: url(@blog.ThumbnailUrl);"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="wrapper article-wrapper">
+                                        <header>
+                                            <h2 class="title small">
+                                                <a asp-action="Detail" asp-route-category="@Model.Slug" asp-route-slug="@blog.Slug">@blog.Title</a>
+                                            </h2>
+                                            <div class="meta">
+                                                <div class="clear"></div>
+                                            </div>
+                                        </header>
+
+                                        <div class="post-excerpt text text-light">
+                                            <p>@(blog.Description?.Length > 200 ? blog.Description.Substring(0, 200) + "..." : blog.Description)</p>
+                                            <div class="clear"></div>
+                                        </div>
+
+                                        <footer class="fs-small grid-parent no-gap">
+                                            <div class="grid-100 tablet-grid-100 mobile-grid-100">
+                                                <div class="tags my-1 fs-xsmall">
+                                                    <a href="/blogs/category/@Model.Slug" class="tag-link">@Model.Name</a>
+                                                </div>
+                                                <div class="textright">
+                                                    <a href="/blogs/@blog.Slug" class="read-more">
+                                                        Bắt đầu đọc (@blog.ReadTimeMinutes phút)
+                                                        <i class="remixicon remixicon-arrow-right-line"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </footer>
+                                    </div>
+                                </div>
+                            </article>
+                        }
+                    </div>
+                    <!-- end: .articles -->
+
+                    <div class="separator last hide-on-tablet hide-on-mobile"></div>
+                    <div class="clear"></div>
+                    @if (totalPages > 1)
+                    {
+                        <div class="epcl-pagination section simple-pagination" data-pages="@totalPages" data-current="@currentPage">
+                            <ul>
+                                <li class="@(currentPage == 1 ? "disabled" : "")">
+                                    @if (currentPage == 1)
+                                    {
+                                        <span class="current prev">Previous</span>
+                                    }
+                                    else
+                                    {
+                                        <a asp-action="Category" asp-route-slug="@Model.Slug" asp-route-page="@(currentPage - 1)" class="page-link prev">Previous</a>
+                                    }
+                                </li>
+
+                                @for (int i = 1; i <= totalPages; i++)
+                                {
+                                    <li class="@(i == currentPage ? "active" : "")">
+                                        @if (i == currentPage)
+                                        {
+                                            <span class="current">@i</span>
+                                        }
+                                        else
+                                        {
+                                            <a asp-action="Category" asp-route-slug="@Model.Slug" asp-route-page="@(currentPage)" class="page-link">@i</a>
+                                        }
+                                    </li>
+                                }
+
+                                <li class="@(currentPage == totalPages ? "disabled" : "")">
+                                    @if (currentPage == totalPages)
+                                    {
+                                        <span class="current next">Next</span>
+                                    }
+                                    else
+                                    {
+                                        <a asp-action="Category" asp-route-slug="@Model.Slug" asp-route-page="@(currentPage + 1)" class="page-link next">Next</a>
+                                    }
+                                </li>
+                            </ul>
+                        </div>
+                    }
+
+
+
+                </div>
+                <!-- end: .center -->
+             
+            </div>
+
+        </div>
+        <!-- end: .content-wrapper -->
+    </div>
+
+</main>
