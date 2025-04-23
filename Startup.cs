@@ -290,6 +290,7 @@ namespace RecruitmentApp
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<MailHub>("/mailhub");
+                endpoints.MapHub<ChatHub>("/chatHub");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}"
