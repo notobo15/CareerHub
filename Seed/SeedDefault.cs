@@ -72,6 +72,9 @@ namespace RecruitmentApp.Seed
 
                     await SeedCompanyTypes(applicationDbContext, package);
 
+                    await SeedBlogCategories(applicationDbContext, package); 
+                    
+                    await SeedBlogs(applicationDbContext, package); 
                 }
             }
             catch (Exception ex)
@@ -602,6 +605,67 @@ namespace RecruitmentApp.Seed
 
                 await applicationDbContext.SaveChangesAsync();
                 Console.WriteLine("CompanyTypes seeded successfully.");
+            }
+        }
+        private static async Task SeedBlogCategories(AppDbContext applicationDbContext, ExcelPackage package)
+        {
+            var sheet = package.Workbook.Worksheets["BlogCategories"];
+            if (sheet != null && !applicationDbContext.BlogCategories.Any())
+            {
+                Console.WriteLine("Seeding BlogCategories...");
+                for (int row = 2; row <= sheet.Dimension.Rows; row++)
+                {
+                    var blogCategory = new BlogCategory
+                    {
+                        Slug = AppUtilities.GenerateSlug(sheet.Cells[row, 2].Text),
+                        Name = sheet.Cells[row, 2].Text,
+                        Description = sheet.Cells[row, 3].Text,
+
+                    };
+
+                    applicationDbContext.BlogCategories.Add(blogCategory);
+                }
+
+                await applicationDbContext.SaveChangesAsync();
+                Console.WriteLine("BlogCategories seeded successfully.");
+            }
+        }
+
+        private static async Task SeedBlogs(AppDbContext dbContext, ExcelPackage package)
+        {
+            var sheet = package.Workbook.Worksheets["Blogs"];
+            if (sheet != null && !dbContext.Blogs.Any())
+            {
+                Console.WriteLine("Seeding Blogs...");
+
+                for (int row = 2; row <= sheet.Dimension.Rows; row++)
+                {
+                    var title = sheet.Cells[row, 1].Text;
+                    var description = sheet.Cells[row, 2].Text;
+                    var content = sheet.Cells[row, 3].Text;
+                    var thumbnail = sheet.Cells[row, 4].Text;
+                    var categoryId = int.Parse(sheet.Cells[row, 5].Text);
+
+                    // Tìm category nếu có
+                    var category = dbContext.BlogCategories.FirstOrDefault(c => c.CategoryId == categoryId);
+
+                    var blog = new Blog
+                    {
+                        Title = title,
+                        Slug = AppUtilities.GenerateSlug(title),
+                        Description = description,
+                        Content = content,
+                        ThumbnailUrl = thumbnail,
+                        IsPublished = true,
+                        CreatedAt = DateTime.Now,
+                        CategoryId = category?.CategoryId
+                    };
+
+                    dbContext.Blogs.Add(blog);
+                }
+
+                await dbContext.SaveChangesAsync();
+                Console.WriteLine("Blogs seeded successfully.");
             }
         }
     }
