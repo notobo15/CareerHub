@@ -34,12 +34,19 @@ namespace RecruitmentApp.Areas.User.Home.Controllers
         [Route("")]
         public async Task<IActionResult> Index()
         {
-            var companies = await _companyService.GetTopCompaniesAsync(8);
-            var posts = await _postService.GetLatestPostsAsync(8);
+            var setting = _dbContext.Settings.FirstOrDefault();
+
+            int numberOfCompanies = setting?.NumberOfCompanies ?? 8;
+            int numberOfPosts = setting?.NumberOfPosts ?? 8;
+
+            var companies = await _companyService.GetTopCompaniesAsync(numberOfCompanies);
+            var posts = await _postService.GetLatestPostsAsync(numberOfPosts);
+
             ViewData["Title"] = "CareerHub | Việc làm IT Nhất Dành Cho Bạn";
             ViewData["companies"] = companies;
             ViewData["posts"] = posts;
             ViewData["totalPosts"] = await _dbContext.Posts.CountAsync();
+            ViewData["blogs"] = await _dbContext.Blogs.Include(b => b.Category).OrderBy(b => b.UpdatedAt).Take(5).Where(b => b.IsShowOnHome).ToListAsync();
             return View();
         }
         [HttpPost]

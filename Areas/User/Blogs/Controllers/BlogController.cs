@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RecruitmentApp.Models;
 using RecruitmentApp.Services;
+using System.Collections.Generic;
 
 namespace RecruitmentApp.Areas.User.Blogs.Controllers
 {
@@ -41,6 +42,38 @@ namespace RecruitmentApp.Areas.User.Blogs.Controllers
             ViewBag.Categories = categories;
             return View(blogs);
         }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> Search(string search, int paged = 1, int pageSize = 5)
+        {
+            ViewData["Title"] = "Tìm kiếm bài viết";
+
+            if (string.IsNullOrWhiteSpace(search))
+            {
+                return View(new List<Blog>());
+            }
+
+            var query = _dbContext.Blogs
+                .Where(b => b.IsPublished &&
+                            (b.Title.Contains(search) || b.Content.Contains(search)))
+                .OrderByDescending(b => b.CreatedAt);
+
+            var totalPosts = await query.CountAsync();
+            var totalPages = (int)Math.Ceiling((double)totalPosts / pageSize);
+
+            var blogs = await query
+                .Skip((paged - 1) * pageSize)
+                .Take(pageSize)
+                .Include(b => b.Category)
+                .ToListAsync();
+
+            ViewBag.Keyword = search;
+            ViewBag.CurrentPage = paged;
+            ViewBag.TotalPages = totalPages;
+
+            return View(blogs);
+        }
+
         [HttpGet("{slug}")]
         public async Task<IActionResult> Category(string slug, int page = 1)
         {

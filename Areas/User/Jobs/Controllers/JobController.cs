@@ -192,7 +192,6 @@ namespace RecruitmentApp.Areas.User.Jobs.Controllers
                 Slug = p.Slug,
                 IsHot = p.IsHot,
                 ViewTotal = p.ViewTotal,
-                Salary = p.Salary,
                 SalaryText = p.salaryToString(),
                 PostDate = p.PostDate,
                 Expired = p.Expired,
@@ -268,10 +267,16 @@ namespace RecruitmentApp.Areas.User.Jobs.Controllers
             ViewData["totalPosts"] = totalPosts;
             ViewData["key"] = key;
 
-            ViewData["post"] = postDTOs.FirstOrDefault();
+            ViewData["post"] = postDTOs?.FirstOrDefault();
 
             ViewData["Title"] = key == "all" ? "Việc làm IT, tuyển dụng IT tại Việt Nam" : $"Tuyển dụng {key}, việc làm IT chất nhất tại Việt Nam";
-
+            
+            ViewData["Spotlight"] = _dbContext.Companies
+                .Include(c => c.Images)
+                .Include(c => c.Locations)
+                .ThenInclude(cl => cl.Address)
+                .ThenInclude(cl => cl.City)
+                .FirstOrDefault(c => c.IsSpotlight);
 
             ViewData["filterViewModel"] = new FilterViewModel
             {
@@ -303,7 +308,7 @@ namespace RecruitmentApp.Areas.User.Jobs.Controllers
         {
             var key = filter.key;
 
-            int pageSize = 10; // Số lượng bài đăng trên mỗi trang
+            int pageSize = 10;
 
             var industries = _dbContext.Industries.ToList();
 
@@ -331,9 +336,6 @@ namespace RecruitmentApp.Areas.User.Jobs.Controllers
 
                 .AsQueryable();
 
-
-            
-
             // Chỉ lọc nếu key KHÔNG phải "all"
             if (!string.IsNullOrEmpty(key) && key != "all")
             {
@@ -349,7 +351,7 @@ namespace RecruitmentApp.Areas.User.Jobs.Controllers
             // 🔹 **Lọc theo cấp bậc công việc (jobLevels)**
             if (filter.jobLevels != null && filter.jobLevels.Any())
             {
-                query = query.Where(p => p.PostLevels.Any(pl => filter.jobLevels.Contains(pl.Level.Name)));
+                query = query.Where(p => p.PostLevels.Any(pl => filter.jobLevels.Contains(pl.Level.LevelId.ToString())));
             }
 
             // 🔹 **Lọc theo mô hình làm việc (workingModels)**
@@ -361,7 +363,7 @@ namespace RecruitmentApp.Areas.User.Jobs.Controllers
             // 🔹 **Lọc theo ngành (industries)**
             if (filter.industries != null && filter.industries.Any())
             {
-                query = query.Where(p => p.Company.CompanyIndustries.Any(ci => filter.industries.Contains(ci.Industry.Name)));
+                query = query.Where(p => p.Company.CompanyIndustries.Any(ci => filter.industries.Contains(ci.Industry.IndustryId.ToString())));
             }
 
             // 🔹 **Lọc theo loại công ty (companyTypes)**
@@ -377,10 +379,32 @@ namespace RecruitmentApp.Areas.User.Jobs.Controllers
             }
 
             // 🔹 **Lọc theo mức lương (salary)**
-            //if (filter.salary != null)
-            //{
-            //    query = query.Where(p => p.MinSalary >= filter.salary.min && p.MaxSalary <= filter.salary.max);
-            //}
+            if (filter.salary != null)
+            {
+                var minSalary = filter.salary.min;
+                var maxSalary = filter.salary.max;
+                var salaryType = filter.salary.type?.ToLower();
+
+                switch (salaryType)
+                {
+                    case "range":
+                        query = query.Where(p => p.MinSalary >= minSalary && p.MaxSalary <= maxSalary);
+                        break;
+
+                    case "under":
+                        query = query.Where(p => p.MaxSalary <= maxSalary);
+                        break;
+
+                    case "over":
+                        query = query.Where(p => p.MinSalary >= minSalary);
+                        break;
+
+                    case "any":
+                    default:
+                        // Không lọc
+                        break;
+                }
+            }
 
             int totalPosts = query.Count(); // Tổng số bài đăng tìm được
             var posts = query.Skip((filter.page - 1) * pageSize).Take(pageSize).ToList();
@@ -392,7 +416,6 @@ namespace RecruitmentApp.Areas.User.Jobs.Controllers
                 Slug = p.Slug,
                 IsHot = p.IsHot,
                 ViewTotal = p.ViewTotal,
-                Salary = p.Salary,
                 SalaryText = p.salaryToString(),
                 PostDate = p.PostDate,
                 Expired = p.Expired,

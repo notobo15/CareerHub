@@ -1,93 +1,64 @@
-﻿<!-- start: #footer -->
+﻿@inject AppDbContext _dbContext
+
+@{
+    var categories = _dbContext.BlogCategories.ToList();
+}
+
+<!-- start: #footer -->
 <footer data-wpr-lazyrender="1" id="footer" class="fullwidth bg-gradient np-mobile ">
     <div class="grid-container">
         <div class="widgets row eq-width d-block-mobile">
             <div id="text-16" class="subscribe-form grid-33 mobile-grid-100 np-mobile widget widget_text">
                 <div class="textwidget">
                     <p>
-                        <picture><source srcset="https://itviec.com/blog/wp-content/uploads/2020/12/blog_logo_retina-300x81.webp 300w,https://itviec.com/blog/wp-content/uploads/2020/12/blog_logo_retina-100x27.webp 100w,https://itviec.com/blog/wp-content/uploads/2020/12/blog_logo_retina.webp 386w" sizes="(max-width: 300px) 100vw, 300px" type="image/webp"><img src="https://itviec.com/blog/wp-content/uploads/2020/12/blog_logo_retina-300x81.png" height="81" width="300" srcset="https://itviec.com/blog/wp-content/uploads/2020/12/blog_logo_retina-300x81.png 300w, https://itviec.com/blog/wp-content/uploads/2020/12/blog_logo_retina-100x27.png 100w, https://itviec.com/blog/wp-content/uploads/2020/12/blog_logo_retina.png 386w" sizes="(max-width: 300px) 100vw, 300px" class="logo alignnone wp-image-20362 size-medium sp-no-webp" alt="" decoding="async"> </picture><br>
-
-                    </p><div class="wpcf7 js" id="wpcf7-f24418-o1" lang="en-US" dir="ltr" data-wpcf7-id="24418">
-                        <div class="screen-reader-response"><p role="status" aria-live="polite" aria-atomic="true"></p> <ul></ul></div>
-                        <form action="/blog/#wpcf7-f24418-o1" method="post" class="wpcf7-form button-fullwidth theme_0 errorMsgshow init" aria-label="Contact form" novalidate="novalidate" data-status="init">
-                            <div style="display: none;">
-                                <input type="hidden" name="_wpcf7" value="24418">
-                                <input type="hidden" name="_wpcf7_version" value="6.0.3">
-                                <input type="hidden" name="_wpcf7_locale" value="en_US">
-                                <input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f24418-o1">
-                                <input type="hidden" name="_wpcf7_container_post" value="0">
-                                <input type="hidden" name="_wpcf7_posted_data_hash" value="">
-                                <input type="hidden" name="_wpcf7cf_hidden_group_fields" value="[]">
-                                <input type="hidden" name="_wpcf7cf_hidden_groups" value="[]">
-                                <input type="hidden" name="_wpcf7cf_visible_groups" value="[]">
-                                <input type="hidden" name="_wpcf7cf_repeaters" value="[]">
-                                <input type="hidden" name="_wpcf7cf_steps" value="{}">
-                                <input type="hidden" name="_wpcf7cf_options" value="{&quot;form_id&quot;:24418,&quot;conditions&quot;:[],&quot;settings&quot;:{&quot;animation&quot;:&quot;yes&quot;,&quot;animation_intime&quot;:200,&quot;animation_outtime&quot;:200,&quot;conditions_ui&quot;:&quot;normal&quot;,&quot;notice_dismissed&quot;:false,&quot;notice_dismissed_update-cf7-5.8.3&quot;:true,&quot;notice_dismissed_rollback-cf7-5.8.3&quot;:true}}">
-                            </div>
-                            <p>
-                                <span class="wpcf7-form-control-wrap" data-name="your-email"><input size="40" maxlength="400" class="wpcf7-form-control wpcf7-email wpcf7-validates-as-required wpcf7-text wpcf7-validates-as-email required email" aria-required="true" aria-invalid="false" placeholder="Nhập email của bạn" value="" type="email" name="your-email"></span>
-                            </p>
-                            <p>
-                                <input class="wpcf7-form-control wpcf7-submit has-spinner button" type="submit" value="Đăng kí nhận tin"><span class="wpcf7-spinner"></span>
-                            </p>
-                            <p class="white">
-                                Bằng việc cung cấp địa chỉ email, bạn đồng ý với các <a class="text-underline white" href="https://itviec.com/blog/terms-conditions-vn/">Điều khoản dịch vụ</a> và <a class="text-underline white" href="https://itviec.com/blog/chinh-sach-bao-mat/">Chính sách quyền riêng tư</a> của ITviec liên quan đến thông tin riêng tư của bạn.
-                            </p><p style="display: none !important;" class="akismet-fields-container" data-prefix="_wpcf7_ak_"><label>Δ<textarea name="_wpcf7_ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="_wpcf7_ak_js" value="1745331577285"><script src="data:text/javascript;base64,ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoICJha19qc18xIiApLnNldEF0dHJpYnV0ZSggInZhbHVlIiwgKCBuZXcgRGF0ZSgpICkuZ2V0VGltZSgpICk7" data-rocket-status="executed">document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );</script></p><div class="wpcf7-response-output" aria-hidden="true"></div>
-                            <input type="hidden" name="vx_width" value="1536"><input type="hidden" name="vx_height" value="864"><input type="hidden" name="vx_url" value="https://itviec.com/blog/">
-                        </form>
+                        <img src="~/images/logo.png" height="auto" class="logo alignnone wp-image-20362 size-medium sp-no-webp w-100" alt="" decoding="async" />
+                        <br>
+                    </p>
+                    <div class="wpcf7 js" id="wpcf7-f24418-o1" lang="en-US" dir="ltr" data-wpcf7-id="24418">
+                        <div class="screen-reader-response">
+                            <p role="status" aria-live="polite" aria-atomic="true"></p>
+                            <ul></ul>
+                        </div>
                     </div>
                     <p></p>
                 </div>
                 <div class="clear"></div>
-            </div><div id="text-17" class=" widget widget_text">
+            </div>
+            <div id="text-17" class=" widget widget_text">
                 <div class="textwidget">
                     <ul>
-                        <li class="widget-title"><a href="https://itviec.com/viec-lam-it?utm_medium=blog_footer&amp;utm_source=blog_&amp;utm_campaign=viec_lam_it">Việc làm IT</a></li>
-                        <li><a href="https://itviec.com/tim-viec-lam-it?utm_medium=blog_footer&amp;utm_source=blog_&amp;utm_campaign=viec_lam_it_theo_ky_nang">Việc làm IT theo kỹ năng</a></li>
-                        <li><a href="https://itviec.com/viec-lam-it-theo-cap-bac?utm_medium=blog_footer&amp;utm_source=blog_&amp;utm_campaign=viec_lam_it_theo_vi_tri">Việc làm IT theo vị trí</a></li>
-                        <li><a href="https://itviec.com/viec-lam-it?utm_medium=blog_footer&amp;utm_source=blog_&amp;utm_campaign=viec_lam_it_theo_khu_vuc">Việc làm IT theo khu vực</a></li>
+                    <li class="widget-title"><a >Việc làm IT</a></li>
+                    <li><a asp-action="Index" asp-controller="Skill">Việc làm IT theo kỹ năng</a></li>
+                    <li><a asp-action="Index" asp-controller="Title">Việc làm IT theo vị trí</a></li>
+                    <li><a asp-action="Search" asp-controller="Job">Việc làm IT theo khu vực</a></li>
                     </ul>
-                </div>
-                <div class="clear"></div>
-            </div><div id="text-18" class=" widget widget_text">
-                <div class="textwidget">
-                    <ul>
-                        <li class="widget-title"><a href="https://itviec.com/chuyen-it">Chuyện IT</a></li>
-                        <li><a href="https://itviec.com/blog/category/chuyen-it/">Chuyện IT theo vị trí</a></li>
-                        <li><a href="https://itviec.com/blog/faq-chuyen-it/">Chia sẻ chuyện IT</a></li>
-                    </ul>
-                </div>
-                <div class="clear"></div>
-            </div><div id="text-19" class=" widget widget_text">
-                <h4 class="widget-title">Nhà tuyển dụng IT</h4>			<div class="textwidget">
-                    <ul>
-                        <li><a href="https://itviec.com/cong-ty-it-tot-nhat-vietnam?utm_medium=blog_footer&amp;utm_source=blog_&amp;utm_campaign=cong_ty_it_tot_nhat_viet_nam">Công ty IT tốt nhất Việt Nam</a></li>
-                        <li><a href="https://itviec.com/companies/review-company?utm_medium=blog_footer&amp;utm_source=blog_&amp;utm_campaign=review_cong_ty">Review công ty</a></li>
-                        <li><a href="https://itviec.com/dang_viec?utm_medium=blog_footer&amp;utm_source=blog_&amp;utm_campaign=dang_tuyen_ngay">Đăng tuyển ngay!</a></li>
-                    </ul>
-                </div>
-                <div class="clear"></div>
-            </div><div id="text-20" class=" widget widget_text">
-                <div class="textwidget">
-                    <ul>
-                        <li class="widget-title"><a href="https://itviec.com/ve-itviec">Về ITviec</a></li>
-                        <li><a href="https://itviec.com/blog/press/">Thông cáo báo chí</a></li>
-                        <li>Liên hệ: <a href="mailto:blog@itviec.com">blog@itviec.com</a></li>
-                    </ul>
-                    <p></p><ul class="footer-social">
-                        <li><a href="https://www.facebook.com/ITviec/" target="_blank" rel="nofollow" aria-label="Facebook"><i class="fa fa-facebook-official"></i></a></li>
-                        <li><a href="https://www.youtube.com/itviec" target="_blank" rel="nofollow" aria-label="Youtube"><i class="fa fa-youtube-play"></i></a></li>
-                        <li><a href="https://www.linkedin.com/company/itviec/" target="_blank" rel="nofollow" aria-label="Linkedin"><i class="fa fa-linkedin-square"></i></a></li>
-                    </ul>
-                    <div class="box widget pt-1">
-                        <div class="dmca-badge alignleft"><a href="https://www.dmca.com/Protection/Status.aspx?ID=d08d3aba-304f-4fe3-bef1-27d258922872&amp;refurl=https://itviec.com/blog/" title="Content Protection by DMCA.com" class="dmca-badge"><img decoding="async" src="https://images.dmca.com/Badges/dmca_protected_sml_120ac.png?ID=https://www.dmca.com/Protection/Status.aspx?ID=d08d3aba-304f-4fe3-bef1-27d258922872" alt="Content Protection by DMCA.com"></a> <script data-rocket-defer="" defer="" src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js" data-rocket-status="executed"> </script></div>
-                    </div><p></p>
                 </div>
                 <div class="clear"></div>
             </div>
+            <div id="text-18" class=" widget widget_text">
+                <div class="textwidget">
+                    <ul>
+                        <li class="widget-title">
+                            <a asp-action="Index" asp-controller="Blog">Blogs</a>
+                        </li>
+                        @foreach (var cate in categories)
+                        {
+                            <li>
+                                <a asp-action="Category" asp-controller="Blog" asp-route-slug="@cate.Slug">@cate.Name</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div id="text-20" class=" widget widget_text">
+                <div class="textwidget">
+                    <ul>
+                        <li class="widget-title"><a asp-action="Index" asp-controller="Home">Về CareerHub</a></li>
+                        <li>Liên hệ: <a href="mailto:">blog@itviec.com</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-
-
-    </div><!-- end: .grid-container -->
+    </div
 </footer>
-<!-- end: #footer -->

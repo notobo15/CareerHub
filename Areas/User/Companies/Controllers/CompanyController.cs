@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Http;
+using System.Security.Claims;
+using System.Text.Json;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -213,35 +217,60 @@ namespace RecruitmentApp.Areas.User.Companies.Controllers
 
         [HttpPost]
         [Route("{slug}/review/new")]
-        public IActionResult New(string slug, Review newReview)
+        public async Task<IActionResult> New(string slug, Review newReview)
         {
-            var company = _dbContext.Companies
-                .SingleOrDefault(c => c.Slug == slug);
+            var company = await _dbContext.Companies
+                .FirstOrDefaultAsync(c => c.Slug == slug);
 
             if (company == null)
-            {
-                return NotFound(); // Trả về 404 nếu không tìm thấy công ty
-            }
+                return NotFound();
 
-            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             newReview.UserId = userId;
+            newReview.CompanyId = company.CompanyId;
+
             if (ModelState.IsValid)
             {
-                // Gán thêm thông tin liên quan (nếu có trường CompanyId hoặc thông tin cần thêm)
-                // newReview.CompanyId = company.Id;
+                var (isRecommend, sentiment, modelName) = await GetSentimentFromPythonAsync(newReview.Summary);
+
+                if (isRecommend != null)
+                {
+                    newReview.RecommendToFriends = isRecommend.Value;
+                    newReview.Sentiment = sentiment;
+                    newReview.SentimentModelName = modelName;
+                }
 
                 _dbContext.Reviews.Add(newReview);
-                _dbContext.SaveChanges(); // Lưu vào database
+                await _dbContext.SaveChangesAsync();
 
-                // Chuyển về trang chi tiết công ty (hoặc danh sách review)
                 return RedirectToAction("Detail", "Company", new { area = "User/Companies", slug = slug });
             }
 
-            // Nếu ModelState sai, render lại form với dữ liệu nhập và company
             ViewData["company"] = company;
-            return View(newReview); // Giữ lại dữ liệu user đã nhập
+            return View(newReview);
         }
 
+        private async Task<(bool? isRecommend, string? sentiment, string? modelName)> GetSentimentFromPythonAsync(string summary)
+        {
+            using var client = new HttpClient();
+
+            var payload = new { summary = summary };
+            var json = JsonSerializer.Serialize(payload);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await client.PostAsync("http://localhost:8000/api/predict/", content);
+            if (!response.IsSuccessStatusCode) return (null, null, null);
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var doc = JsonDocument.Parse(responseContent);
+
+            bool isRecommend = doc.RootElement.GetProperty("is_recommend").GetBoolean();
+            string sentiment = doc.RootElement.GetProperty("sentiment").GetString();
+            string modelName = doc.RootElement.GetProperty("model_name").GetString();
+
+            return (isRecommend, sentiment, modelName);
+        }
+ 
         [HttpPost]
         [Route("{slug}/follow")]
         public IActionResult Follow(string slug)

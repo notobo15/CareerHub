@@ -1,34 +1,12 @@
 ﻿@{
 	Layout = "_Layout";
 	var categories = ViewBag.Categories as List<BlogCategory>;
+	var search = "";
 }
 
 <!-- start: #sub-header -->
-<div id="sub-header">
-	<!-- Home Page -->
-	<div class="bg-gradient bg-dark mb-3">
-		<div class="grid-container section">
-			<h3 class="title main-title ularge white">
-				ITviec Blog - Ý tưởng phát triển sự nghiệp IT của bạn
-			</h3>
-			<div class="no-margin no-padding grid-container grid-medium">
-				<form action="https://itviec.com/blog/" method="get" class="search-form">
-					<div class="search-input">
-						<!-- <span class="search-icon"><i class="remixicon remixicon-search-line"></i></span> -->
-						<input type="text" name="s" id="s" value="" class="search-field" placeholder="Nhập từ khóa tìm kiếm" aria-label="Nhập từ khóa tìm kiếm" required="">
-					</div>
-					<button type="submit" class="submit button" aria-label="Submit">
-						<span class="search-icon"><i class="remixicon remixicon-search-line"></i></span>
-						<span>Tìm kiếm</span>
-					</button>
-				</form>
-			</div>
-		</div>
-	</div>
+<partial name="_Search" model="search" />
 
-
-
-</div>
 <!-- end: #sub-header -->
 
 <div class="elementor elementor-24411">

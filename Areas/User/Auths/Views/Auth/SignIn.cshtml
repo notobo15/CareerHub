@@ -173,23 +173,27 @@
     </div>
 
 </div>
-<script>
 
-    $(document).ready(function () {
-        $(".eye-icon-password").on("click", function () {
-            let passwordInput = $("#Password");
-            let showIcon = $(this).find(".icon-show");
-            let hideIcon = $(this).find(".icon-hidden");
 
-            if (passwordInput.attr("type") === "password") {
-                passwordInput.attr("type", "text");
-                showIcon.removeClass("d-none");
-                hideIcon.addClass("d-none");
-            } else {
-                passwordInput.attr("type", "password");
-                showIcon.addClass("d-none");
-                hideIcon.removeClass("d-none");
-            }
-        });
-    })
-</script>
+@section Scripts {
+    <script>
+
+        $(document).ready(function () {
+            $(".eye-icon-password").on("click", function () {
+                let passwordInput = $("#Password");
+                let showIcon = $(this).find(".icon-show");
+                let hideIcon = $(this).find(".icon-hidden");
+
+                if (passwordInput.attr("type") === "password") {
+                    passwordInput.attr("type", "text");
+                    showIcon.removeClass("d-none");
+                    hideIcon.addClass("d-none");
+                } else {
+                    passwordInput.attr("type", "password");
+                    showIcon.addClass("d-none");
+                    hideIcon.removeClass("d-none");
+                }
+            });
+        })
+    </script>
+}

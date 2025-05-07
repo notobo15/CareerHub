@@ -1,0 +1,25 @@
+﻿@model string
+
+<div id="sub-header">
+    <!-- Home Page -->
+    <div class="bg-gradient bg-dark mb-3">
+        <div class="grid-container section">
+            <h3 class="title main-title ularge white">
+                CareerHub Blog - Ý tưởng phát triển sự nghiệp IT của bạn
+            </h3>
+            <div class="no-margin no-padding grid-container grid-medium">
+                <form asp-action="Search" asp-controller="Blog" asp-area="User/Blogs" method="get" class="search-form">
+                    <div class="search-input">
+                        <input type="text" name="search" value="@Model" class="search-field" placeholder="Nhập từ khóa tìm kiếm" aria-label="Nhập từ khóa tìm kiếm" required />
+                    </div>
+                    <button type="submit" class="submit button" aria-label="Submit">
+                        <span class="search-icon">
+                            <i class="icon-lg" data-feather="search"></i>
+                        </span>
+                        <span>Tìm kiếm</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

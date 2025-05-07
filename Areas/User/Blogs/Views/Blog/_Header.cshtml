@@ -1,50 +1,50 @@
-﻿   <!-- start: #header -->
+﻿@inject AppDbContext _dbContext
+
+@{
+	var categories = _dbContext.BlogCategories.ToList();
+}
+
+<!-- start: #header -->
 <header id="header" class="bg-gradient minimalist" style="height: 63.1px;">
 
-    <!-- menu-mobile -->
-    <!-- start: .menu-wrapper -->
-    <div class="menu-wrapper">
-        <div class="grid-container">
+	<!-- menu-mobile -->
+	<!-- start: .menu-wrapper -->
+	<div class="menu-wrapper">
+		<div class="grid-container">
 
-            <div class="logo">
-                <a href="https://itviec.com/blog/" class="use-img-background aspect-ratio-box" style="--background: url(https://itviec.com/blog/wp-content/uploads/2020/12/blog_logo_retina.png)"><picture><source srcset="https://itviec.com/blog/wp-content/uploads/2020/12/blog_logo_retina.webp " type="image/webp"><img src="https://itviec.com/blog/wp-content/uploads/2020/12/blog_logo_retina.png" height="53.333333333333" width="160" class="sitelogo sp-no-webp" alt="ITviec Blog"> </picture></a>
-            </div>
+			<div class="logo">
+				<a class="use-img-background aspect-ratio-box" asp-action="Index">
+					<img src="~/images/logo.png" height="53.333333333333" width="160" class="sitelogo sp-no-webp" alt="Blog">
+				</a>
+			</div>
 
+			<div class="navigation">
+				<!-- start: .main-nav -->
+				<nav class="main-nav">
+					<ul id="menu-header-menu-2022" class="menu">
+						
+						@foreach (var cate in categories)
+						{
+							<li id="menu-item-24525" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-24525">
+								<a asp-action="Category" asp-controller="Blog" asp-route-slug="@cate.Slug">@cate.Name</a>
+							</li>
 
+						}
+					</ul>
+				</nav>
+				<!-- end: .main-nav -->
+				<div class="menu-mobile">
+					<span class="d-block">
+						<i class="icon-lg" data-feather="menu"></i>
+					</span>
+					<span class="d-none">
+						<i class="icon-lg" data-feather="x"></i>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end: .menu-wrapper -->
 
-            <div class="navigation">
-                <!-- start: .main-nav -->
-                <nav class="main-nav">
-                    <ul id="menu-header-menu-2022" class="menu">
-                        <li id="menu-item-24430" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-24430 last-menu-item" onclick="">
-                            <a href="//itviec.com/viec-lam-it?utm_medium=blog_menu&amp;utm_source=blog&amp;utm_campaign=viec_lam_it">Việc Làm IT</a>
-                            <ul class="sub-menu">
-                                <li id="menu-item-24431" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-24431"><a href="//itviec.com/tim-viec-lam-it?utm_medium=blog_menu&amp;utm_source=blog&amp;utm_campaign=viec_lam_it_theo_ky_nang">Việc làm IT theo kỹ năng</a></li>
-                                <li id="menu-item-24465" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-24465"><a href="//itviec.com/viec-lam-it-theo-cap-bac?utm_medium=blog_menu&amp;utm_source=blog&amp;utm_campaign=viec_lam_it_theo_cap_bac">Việc làm IT theo cấp bậc</a></li>
-                                <li id="menu-item-24491" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-24491"><a href="//itviec.com/viec-lam-it-theo-ten-cong-ty?utm_medium=blog_menu&amp;utm_source=blog&amp;utm_campaign=viec_lam_it_theo_ten_cong_ty">Việc làm IT theo công ty</a></li>
-                                <li id="menu-item-24517" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-24517"><a href="//itviec.com/viec-lam-it/ho-chi-minh-hcm?utm_medium=blog_menu&amp;utm_source=blog&amp;utm_campaign=viec_lam_it_theo_thanh_pho">Việc làm IT theo thành phố</a></li>
-                            </ul>
-                        </li>
-                        <li id="menu-item-24522" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-24522"><a href="https://itviec.com/blog/su-nghiep-it/">Sự Nghiệp IT</a></li>
-                        <li id="menu-item-24523" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-24523"><a href="https://itviec.com/blog/ung-tuyen-va-thang-tien/">Ứng tuyển &amp; Thăng tiến</a></li>
-                        <li id="menu-item-24524" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-24524"><a href="https://itviec.com/blog/chuyen-mon-it/">Chuyên môn IT</a></li>
-                        <li id="menu-item-24525" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-24525"><a href="https://itviec.com/chuyen-it">Chuyện IT</a></li>
-                    </ul>
-                </nav>
-                <!-- end: .main-nav -->
-                <div class="menu-mobile">
-                    <i class="remixicon remixicon-menu-line"></i>
-                </div>
-            </div>
-
-
-            <!-- <div  class="clear"></div>
-            <div class="border hide-on-tablet hide-on-mobile"></div> -->
-        </div>
-        <!-- <div  class="clear"></div> -->
-    </div>
-    <!-- end: .menu-wrapper -->
-
-    <div class="clear"></div>
 </header>
 <!-- end: #header -->

@@ -61,12 +61,10 @@
                                             <p>@(blog.Description?.Length > 200 ? blog.Description.Substring(0, 200) + "..." : blog.Description)</p>
                                             <div class="clear"></div>
                                         </div>
+                                    </div>
 
-                                        <footer class="fs-small grid-parent no-gap">
+                                    <footer class="fs-small grid-parent no-gap">
                                             <div class="grid-100 tablet-grid-100 mobile-grid-100">
-                                                <div class="tags my-1 fs-xsmall">
-                                                    <a href="/blogs/category/@Model.Slug" class="tag-link">@Model.Name</a>
-                                                </div>
                                                 <div class="textright">
                                                     <a href="/blogs/@blog.Slug" class="read-more">
                                                         Bắt đầu đọc (@blog.ReadTimeMinutes phút)
@@ -75,7 +73,6 @@
                                                 </div>
                                             </div>
                                         </footer>
-                                    </div>
                                 </div>
                             </article>
                         }

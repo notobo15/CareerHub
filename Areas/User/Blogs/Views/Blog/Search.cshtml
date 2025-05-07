@@ -1,0 +1,139 @@
+﻿@model IEnumerable<Blog>
+
+<partial name="_Search" model="@ViewBag.Keyword" />
+
+<main id="archives" class="main">
+
+	<div class="grid-container ">
+		<!-- start: .articles -->
+		<div class="articles row eq-height columns-3">
+			@if (!Model.Any())
+			{
+				<p>Không tìm thấy bài viết nào phù hợp.</p>
+			}
+			else
+			{
+				@foreach (var blog in Model)
+				{
+					<article class="default wrapper index-0 grid-33 tablet-grid-50 mobile-grid-100 post-@blog.BlogId">
+						<div class="wrapper boxed hover-effect">
+							<div class="post-format-image post-format-wrapper">
+								<div class="featured-image">
+									<a asp-action="Details" asp-controller="Blog" asp-route-slug="@blog.Slug" class="thumb hover-effect">
+										<span class="fullimage cover" role="img" aria-label="@blog.Title"
+											  style="background-image: url('@blog.ThumbnailUrl');"></span>
+									</a>
+								</div>
+							</div>
+
+							<div class="wrapper article-wrapper">
+								<header>
+									<h2 class="title small">
+										<a asp-action="Details" asp-controller="Blog" asp-route-slug="@blog.Slug">
+											@blog.Title
+										</a>
+									</h2>
+
+									<div class="meta">
+										<div class="clear"></div>
+									</div>
+								</header>
+
+								<div class="post-excerpt text text-light">
+									<p>@blog.Description</p>
+									<div class="clear"></div>
+								</div>
+
+								<footer class="fs-small grid-parent no-gap">
+									<div class="grid-100 tablet-grid-100 mobile-grid-100">
+										<div class="tags my-1 fs-xsmall">
+											@if (blog.Category != null)
+											{
+												<a asp-action="Category" asp-controller="Blog" asp-route-slug="@blog.Category.Slug" class="tag-link">
+													@blog.Category.Name
+												</a>
+											}
+										</div>
+										<div class="textright">
+											<a asp-action="Details" asp-controller="Blog" asp-route-slug="@blog.Slug" class="read-more">
+												Bắt đầu đọc (@blog.ReadTimeMinutes phút)
+												<i class="remixicon remixicon-arrow-right-line"></i>
+											</a>
+										</div>
+									</div>
+								</footer>
+							</div>
+						</div>
+					</article>
+					
+				}
+			}
+			<!-- end: .articles -->
+			<div class="clear"></div>
+
+			<div class="separator last hide-on-tablet hide-on-mobile"></div>
+			<div class="clear"></div>
+			<!-- start: .epcl-pagination -->
+			<!-- ✅ PHÂN TRANG -->
+				@if (ViewBag.TotalPages > 1)
+				{
+				<div class="epcl-pagination section simple-pagination"
+					 data-pages="@ViewBag.TotalPages"
+					 data-current="@ViewBag.CurrentPage"
+					 data-href-prefix="@Url.Action("Search", "Blog", new { s = ViewBag.Keyword })?paged="
+					 data-prev="Previous"
+					 data-next="Next">
+					<ul>
+						<!-- Previous -->
+							@if (ViewBag.CurrentPage > 1)
+							{
+							<li>
+								<a class="page-link prev" href="@Url.Action("Search", new { s = ViewBag.Keyword, paged = ViewBag.CurrentPage - 1 })">Previous</a>
+							</li>
+							}
+							else
+							{
+							<li class="disabled"><span class="current prev">Previous</span></li>
+							}
+
+						<!-- Các trang -->
+							@for (var i = 1; i <= ViewBag.TotalPages; i++)
+							{
+								if (i == ViewBag.CurrentPage)
+								{
+								<li class="active"><span class="current">@i</span></li>
+								}
+								else if (i == 1 || i == ViewBag.TotalPages || (i >= ViewBag.CurrentPage - 1 && i <= ViewBag.CurrentPage + 1))
+								{
+								<li>
+									<a class="page-link" href="@Url.Action("Search", new { s = ViewBag.Keyword, paged = i })">@i</a>
+								</li>
+								}
+								else if (i == 2 && ViewBag.CurrentPage > 4 || i == ViewBag.TotalPages - 1 && ViewBag.CurrentPage < ViewBag.TotalPages - 3)
+								{
+								<li><span class="ellipse clickable">…</span></li>
+								}
+							}
+
+						<!-- Next -->
+							@if (ViewBag.CurrentPage < ViewBag.TotalPages)
+							{
+							<li>
+								<a class="page-link next" href="@Url.Action("Search", new { s = ViewBag.Keyword, paged = ViewBag.CurrentPage + 1 })">Next</a>
+							</li>
+							}
+							else
+							{
+							<li class="disabled"><span class="current next">Next</span></li>
+							}
+					</ul>
+				</div>
+				}
+			<!-- end: .epcl-pagination -->
+
+
+		</div>
+
+		<div class="clear"></div>
+
+	</main>

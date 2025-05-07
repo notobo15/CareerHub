@@ -69,7 +69,7 @@
 							</label>
 						</div>
 						<div class="form-floating icon-inside imt-6 col-12 col-xl-6 ipx-0 ipe-0 ipe-xl-6">
-							<input placeholder="Date of Birth" class="form-control" asp-for="BirthDate" type="text">
+							<input placeholder="Date of Birth" class="form-control" asp-for="BirthDate" type="text" />
 							<label asp-for="BirthDate">
 								Date of Birth
 								<span class="irequired">*</span>
@@ -121,3 +121,11 @@
 		</div>
 	</div>
 </form>
+
+<script>
+		flatpickr("#BirthDate", {
+			dateFormat: "Y-m-d",
+			maxDate: "today"
+		});
+	feather.replace();
+</script>

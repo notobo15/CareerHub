@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -40,6 +40,26 @@
 	<script src="~/lib/feather-icons/feather.js"></script>
 
 	<script src="~/js/_Loading.js" asp-append-version="true"></script>
+
+	<script>
+		feather.replace();
+		$(document).ready(function () {
+				 $('.menu-mobile').on('click', function () {
+			$('#header').toggleClass('menu-open');
+
+			var $spans = $(this).find('span');
+
+			if ($('#header').hasClass('menu-open')) {
+				$spans.eq(0).removeClass('d-block').addClass('d-none');
+				$spans.eq(1).removeClass('d-none').addClass('d-block');
+			} else {
+				$spans.eq(1).removeClass('d-block').addClass('d-none');
+				$spans.eq(0).removeClass('d-none').addClass('d-block'); 
+			}
+		});
+
+		});
+	</script>
 
 	@await RenderSectionAsync("Scripts", required: false)
 </body>
