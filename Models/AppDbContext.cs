@@ -323,5 +323,7 @@ namespace RecruitmentApp.Models
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<BlogView> BlogViews { get; set; }
         public DbSet<BlogCategory> BlogCategories { get; set; }
+
+        public DbSet<Setting> Settings { get; set; }
     }
 }

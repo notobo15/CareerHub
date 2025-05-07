@@ -48,7 +48,7 @@ namespace RecruitmentApp.Models
         [ForeignKey("CategoryId")]
         public BlogCategory? Category { get; set; }
 
-
         public ICollection<BlogView> BlogViews { get; set; }
+        public bool IsShowOnHome { get; set; } = false;
     }
 }

@@ -80,6 +80,8 @@ namespace RecruitmentApp.Models
         public int? CountryId { get; set; }
         public Country Country { get; set; }
 
+        public bool IsSpotlight { get; set; } = false;
         public ICollection<AppUser> Recruiters { get; set; }
+        public bool IsShowOnHome { get; set; } = false;
     }
 }

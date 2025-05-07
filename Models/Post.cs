@@ -20,7 +20,7 @@ namespace RecruitmentApp.Models
         public string Slug { get; set; }
         public bool IsHot { get; set; }
         public int ViewTotal { get; set; }
-        public string Salary { get; set; }
+        //public string Salary { get; set; }
 
         [Range(0, int.MaxValue)]
         public double MinSalary { get; set; }
@@ -87,6 +87,7 @@ namespace RecruitmentApp.Models
         public int[] LevelIds { get; set; }
 
 
+        public bool IsShowOnHome { get; set; } = false;
         public ICollection<PostTitle> PostTitles { get; set; }
 
 

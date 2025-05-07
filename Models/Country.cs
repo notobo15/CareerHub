@@ -9,6 +9,8 @@ namespace RecruitmentApp.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CountryId { get; set; }
+
+        [Display(Name = "Tên quốc gia")]
         public string Name { get; set; }
         public string Slug { get; set; }
         public string ISOCode { get; set; }

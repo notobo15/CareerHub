@@ -70,5 +70,8 @@
         public string? RepliedById { get; set; }
 
         public AppUser RepliedBy { get; set; }
+
+
+        public string? SentimentModelName { get; set; }
     }
 }
