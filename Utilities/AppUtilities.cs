@@ -6,7 +6,7 @@ namespace RecruitmentApp.Utilities
 {
     public class AppUtilities
     {
-        public static string GenerateSlug(string str, bool hierarchical = true)
+        public static string GenerateSlug(string str, bool hierarchical = true, object? id = null)
         {
             if (str == null || str.Length == 0)
                 str = string.Empty;
@@ -69,7 +69,23 @@ namespace RecruitmentApp.Utilities
                 slug = slug.Substring(0, slug.LastIndexOf("-"));
             if (slug.StartsWith("-"))
                 slug = slug.Substring(Math.Min(slug.IndexOf("-") + 1, slug.Length));
+
+            if (id != null)
+            {
+                slug += "-" + id.ToString()?.ToLower().Trim();
+            }
+
             return slug;
+        }
+
+        public static string ToSlug(string text)
+        {
+            
+            var id = Guid.NewGuid().ToString("N")[..8].ToLower();
+
+            return GenerateSlug(text, id: id);
+
+            
         }
         public static bool IsValidEmail(string email)
         {
