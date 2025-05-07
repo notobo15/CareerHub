@@ -1,13 +1,12 @@
-﻿@model IEnumerable<RecruitmentApp.Models.Industry>
+﻿@model IEnumerable<RecruitmentApp.Models.BlogCategory>
 @{
 	var stt = 0;
-
 }
 
 <nav class="page-breadcrumb">
 	<ol class="breadcrumb">
-		<li class="breadcrumb-item">Industries</li>
-		<li class="breadcrumb-item active" aria-current="page"><a href="">List</a></li>
+		<li class="breadcrumb-item">Danh mục</li>
+		<li class="breadcrumb-item active" aria-current="page"><a href="">Danh sách</a></li>
 	</ol>
 </nav>
 
@@ -30,7 +29,7 @@
 				</div>
 				<a class="btn btn-sm btn-success px-4 text-white text-decoration-none d-flex align-items-center" asp-action="Create">
 					<i class="mr-2 icon-md" data-feather="plus"></i>
-				Tạo Mới
+					Tạo Mới
 				</a>
 			</div>
 		</div>
@@ -47,15 +46,10 @@
 				<table class="table table-bordered">
 					<thead>
 						<tr>
-							<th>
-								STT
-							</th>
-							<th>
-								@Html.DisplayNameFor(model => model.IndustryId)
-							</th>
-							<th>
-								@Html.DisplayNameFor(model => model.Name)
-							</th>
+							<th>STT</th>
+							<th>@Html.DisplayNameFor(model => model.First().CategoryId)</th>
+							<th>@Html.DisplayNameFor(model => model.First().Name)</th>
+							<th>@Html.DisplayNameFor(model => model.First().Slug)</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
@@ -63,24 +57,24 @@
 						@foreach (var item in Model)
 						{
 							<tr>
+								<td>@(++stt)</td>
+								<td>@Html.DisplayFor(modelItem => item.CategoryId)</td>
 								<td>
-									@(++stt)
+									<a asp-action="Details" asp-route-id="@item.CategoryId">
+										@Html.DisplayFor(modelItem => item.Name)
+									</a>
 								</td>
-								<td>
-									@Html.DisplayFor(modelItem => item.IndustryId)
-								</td>
-								<td>
-									<a asp-action="Details" asp-route-id="@item.IndustryId">@Html.DisplayFor(modelItem => item.Name)</a>
-								</td>
+								<td>@Html.DisplayFor(modelItem => item.Slug)</td>
 								<td class="text-center">
-									<a class="btn btn-xs border-primary" asp-action="Details" asp-route-id="@item.IndustryId"><i data-feather="eye" class="icon-sm text-primary"></i></a>
-									<a class="btn btn-xs border-warning" asp-action="Edit" asp-route-id="@item.IndustryId"><i data-feather="edit" class="icon-sm text-warning"></i></a>
-									<a class="btn btn-xs border-danger" asp-action="Delete" asp-route-id="@item.IndustryId"><i data-feather="trash-2" class="icon-sm text-danger"></i></a>
+									<a class="btn btn-xs border-primary" asp-action="Details" asp-route-id="@item.CategoryId"><i data-feather="eye" class="icon-sm text-primary"></i></a>
+									<a class="btn btn-xs border-warning" asp-action="Edit" asp-route-id="@item.CategoryId"><i data-feather="edit" class="icon-sm text-warning"></i></a>
+									<a class="btn btn-xs border-danger" asp-action="Delete" asp-route-id="@item.CategoryId"><i data-feather="trash-2" class="icon-sm text-danger"></i></a>
 								</td>
 							</tr>
 						}
 					</tbody>
-				</table>	
+				</table>
+
 				<div class="mt-4">
 					<partial name="Admin/_PaginationPartial" />
 				</div>
@@ -91,7 +85,6 @@
 
 @section Scripts {
 	<script>
-		$(document).ready(function () {
 			$(document).ready(function () {
 			$('.table').DataTable({
 				paging: false,
@@ -101,7 +94,5 @@
 				ordering: true
 			});
 		});
-		})
-
 	</script>
 }

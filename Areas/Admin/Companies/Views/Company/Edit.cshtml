@@ -176,10 +176,14 @@
 				@* 	<span asp-validation-for="RecruiterId" class="text-danger"></span> *@
 				@* </div> *@
 
-
 				<div class="form-group">
-					<label asp-for="IsShowCompanyUrl"></label>
-					<input asp-for="IsShowCompanyUrl" class="form-control" />
+					<div class="form-check form-check-flat form-check-primary">
+						<label asp-for="IsShowCompanyUrl" class="form-check-label">
+							<input asp-for="IsShowCompanyUrl" type="checkbox" class="form-check-input">
+							@Html.DisplayNameFor(m => m.IsShowCompanyUrl)
+							<i class="input-frame"></i>
+						</label>
+					</div>
 					<span asp-validation-for="IsShowCompanyUrl" class="text-danger"></span>
 				</div>
 
@@ -189,9 +193,15 @@
 					<span asp-validation-for="CompanyUrl" class="text-danger"></span>
 				</div>
 
+
 				<div class="form-group">
-					<label asp-for="IsShowCompanyFbUrl"></label>
-					<input asp-for="IsShowCompanyFbUrl" class="form-control" />
+					<div class="form-check form-check-flat form-check-primary">
+						<label asp-for="IsShowCompanyFbUrl" class="form-check-label">
+							<input asp-for="IsShowCompanyFbUrl" type="checkbox" class="form-check-input">
+							@Html.DisplayNameFor(m => m.IsShowCompanyFbUrl)
+							<i class="input-frame"></i>
+						</label>
+					</div>
 					<span asp-validation-for="IsShowCompanyFbUrl" class="text-danger"></span>
 				</div>
 
@@ -436,6 +446,7 @@
 				$("#SkillIds").select2({
 					placeholder: "Tất cả kỹ năng",
 					theme: "bootstrap4",
+					width: "100%",
 					allowClear: true
 				});
 				feather.replace();
@@ -555,7 +566,7 @@
 				const districtSelect = $('#district-select');
 				districtSelect.empty().append('<option value="">-- Chọn huyện --</option>');
 				data.forEach(d => {
-					districtSelect.append(`<option value="${d.code}">${d.name}</option>`);
+					districtSelect.append(`<option value="${d.code}">${d.fullName}</option>`);
 				});
 				$('#ward-select').empty().append('<option value="">-- Chọn xã --</option>');
 			});
@@ -567,7 +578,7 @@
 				const wardSelect = $('#ward-select');
 				wardSelect.empty().append('<option value="">-- Chọn xã --</option>');
 				data.forEach(w => {
-					wardSelect.append(`<option value="${w.code}">${w.name}</option>`);
+					wardSelect.append(`<option value="${w.code}">${w.fullName}</option>`);
 				});
 			});
 		});
@@ -579,7 +590,7 @@
 			const provinceSelect = $('#edit-province');
 			provinceSelect.empty().append(`<option value="">-- Chọn tỉnh --</option>`);
 			res.forEach(p => {
-				provinceSelect.append(`<option value="${p.code}">${p.name}</option>`);
+				provinceSelect.append(`<option value="${p.code}">${p.fullName}</option>`);
 			});
 			if (selected) provinceSelect.val(selected);
 		}
@@ -589,7 +600,7 @@
 			const districtSelect = $('#edit-district');
 			districtSelect.empty().append(`<option value="">-- Chọn huyện --</option>`);
 			res.forEach(d => {
-				districtSelect.append(`<option value="${d.code}">${d.name}</option>`);
+				districtSelect.append(`<option value="${d.code}">${d.fullName}</option>`);
 			});
 			if (selected) districtSelect.val(selected);
 		}
@@ -599,7 +610,7 @@
 			const wardSelect = $('#edit-ward');
 			wardSelect.empty().append(`<option value="">-- Chọn xã --</option>`);
 			res.forEach(w => {
-				wardSelect.append(`<option value="${w.code}">${w.name}</option>`);
+				wardSelect.append(`<option value="${w.code}">${w.fullName}</option>`);
 			});
 			if (selected) wardSelect.val(selected);
 		}

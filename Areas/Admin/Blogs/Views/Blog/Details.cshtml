@@ -50,7 +50,14 @@
 						@Html.DisplayNameFor(model => model.ThumbnailUrl)
 					</dt>
 					<dd class="col-sm-10">
-						<img src="@Model.ThumbnailUrl" class="img-thumbnail" style="max-height: 100px;" alt="Thumbnail" />
+						@if (!string.IsNullOrWhiteSpace(Model.ThumbnailUrl))
+						{
+							<img src="@Model.ThumbnailUrl" class="img-thumbnail" style="max-height: 100px;" alt="Thumbnail" />
+						}
+						else
+						{
+							<span class="text-muted">Chưa có ảnh</span>
+						}
 					</dd>
 
 					<dt class="col-sm-2">
@@ -59,7 +66,12 @@
 					<dd class="col-sm-10">
 						@Html.DisplayFor(model => model.ReadTimeMinutes) phút
 					</dd>
-
+					<dt class="col-sm-2">
+						@Html.DisplayNameFor(model => model.Content)
+					</dt>
+					<dd class="col-sm-10">
+						@Html.Raw(Model.Content)
+					</dd>
 					<dt class="col-sm-2">
 						@Html.DisplayNameFor(model => model.IsPublished)
 					</dt>

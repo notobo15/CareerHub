@@ -41,6 +41,9 @@
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
+                <div>
+                    <partial name="Admin/_SearchAndPageSizePartial" />
+                </div>
                 <table class="table table-bordered table-hover" id="worktype-table">
                     <thead class="table-light">
                         <tr>
@@ -74,6 +77,9 @@
                         }
                     </tbody>
                 </table>
+                <div class="mt-4">
+                    <partial name="Admin/_PaginationPartial" />
+                </div>
             </div>
         </div>
     </div>
@@ -81,10 +87,13 @@
 
 @section Scripts {
     <script>
-        feather.replace();
-
         $(document).ready(function () {
-            $('#worktype-table').DataTable({
+            $('.table').DataTable({
+                paging: false,
+                lengthChange: false,
+                searching: false,
+                info: false,
+                ordering: true
             });
         });
     </script>

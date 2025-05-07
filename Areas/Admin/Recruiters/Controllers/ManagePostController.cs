@@ -13,7 +13,7 @@ namespace RecruitmentApp.Areas.Admin.Recruiters.Controllers
 {
     [Area("Admin/Recruiters")]
 
-    [Authorize(Roles = RoleName.Recuiter)]
+    [Authorize(Roles = RoleName.Recruiter)]
     [Route("/nha-tuyen-dung/quan-ly-bai-dang/[action]/{id?}")]
     public class ManagePostController : Controller
     {

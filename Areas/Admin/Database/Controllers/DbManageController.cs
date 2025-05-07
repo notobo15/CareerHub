@@ -108,7 +108,7 @@ namespace RecruitmentApp.Areas.Admin.Database.Controllers
                 };
 
                 await _userManager.CreateAsync(userAdmin, "123456");
-                await _userManager.AddToRoleAsync(userAdmin, RoleName.Administrator);
+                await _userManager.AddToRoleAsync(userAdmin, RoleName.Admin);
             }
            
 

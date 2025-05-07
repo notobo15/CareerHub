@@ -58,7 +58,8 @@ namespace App.Areas.Admin.Identity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/");
+            //returnUrl ??= Url.Content("~/");
+            returnUrl = Url.Action("Index", "Home", new { area = "Admin/Home" });
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {

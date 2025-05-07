@@ -21,14 +21,41 @@ namespace RecruitmentApp.Areas.Admin.Titles.Controllers
         }
 
         // GET: Title
-        public async Task<IActionResult> Index()
+        [HttpGet]
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 10, string search = null)
         {
             ViewData["Title"] = "Quản lý Industries";
-
-            // Đọc TempData nếu có thông báo
             ViewBag.Message = TempData["SuccessMessage"];
-            return View(await _context.Industries.ToListAsync());
+
+            var query = _context.Industries.AsQueryable();
+
+            // Nếu có từ khóa tìm kiếm
+            if (!string.IsNullOrEmpty(search))
+            {
+                query = query.Where(i => i.Name.Contains(search));
+            }
+
+            var totalItems = await query.CountAsync();
+            var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+            if (page < 1) page = 1;
+            if (page > totalPages) page = totalPages > 0 ? totalPages : 1;
+
+            var industries = await query
+                .OrderByDescending(i => i.IndustryId)  // Hoặc OrderBy(Name) nếu cần
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.PageSize = pageSize;
+            ViewBag.Search = search;
+            ViewBag.TotalItems = totalItems;
+
+            return View(industries);
         }
+
 
         // GET: Industries/Details/5
         public async Task<IActionResult> Details(int? id)

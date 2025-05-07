@@ -11,15 +11,6 @@
 	</ol>
 </nav>
 
-@if (ViewBag.Message != null)
-{
-	<div class="alert alert-success alert-dismissible fade show" role="alert">
-		@ViewBag.Message
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-	</div>
-}
 
 <div class="row">
 	<div class="col-md-12 grid-margin stretch-card">
@@ -30,7 +21,7 @@
 				</div>
 				<a class="btn btn-sm btn-success px-4 text-white text-decoration-none d-flex align-items-center" asp-action="Create">
 					<i class="mr-2 icon-md" data-feather="plus"></i>
-				Tạo Mới
+					Tạo Mới
 				</a>
 			</div>
 		</div>
@@ -41,6 +32,9 @@
 	<div class="col-md-12 grid-margin stretch-card">
 		<div class="card">
 			<div class="card-body">
+				<div>
+					<partial name="Admin/_SearchAndPageSizePartial" />
+				</div>
 				<table class="table table-bordered">
 					<thead>
 						<tr>
@@ -78,6 +72,10 @@
 						}
 					</tbody>
 				</table>
+
+				<div class="mt-4">
+					<partial name="Admin/_PaginationPartial" />
+				</div>
 			</div>
 		</div>
 	</div>
@@ -86,7 +84,12 @@
 @section Scripts {
 	<script>
 		$(document).ready(function () {
-			new DataTable('.table').dataTable({
+			new DataTable('.table', {
+				paging: false,
+				searching: false,
+				lengthChange: false,
+				info: false,
+				ordering: true
 			});
 		})
 

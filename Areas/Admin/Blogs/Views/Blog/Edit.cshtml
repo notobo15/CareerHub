@@ -1,5 +1,11 @@
-﻿@model RecruitmentApp.Models.Blog
+﻿@using RecruitmentApp.Areas.Admin.Blogs.ViewModels
+@model BlogViewModel
 
+
+@{
+    var Content = new RecruitmentApp.Models.Summernote("#Content");
+    Content.Height = 400;
+}
 <nav class="page-breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item">Blogs</li>
@@ -22,7 +28,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="col-md-8">
-                    <form asp-action="Edit">
+                    <form asp-action="Edit" enctype="multipart/form-data">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <input type="hidden" asp-for="BlogId" />
 
@@ -44,33 +50,44 @@
                             <span asp-validation-for="Description" class="text-danger"></span>
                         </div>
 
-                        <div class="form-group">
-                            <label asp-for="Slug" class="control-label"></label>
-                            <input asp-for="Slug" class="form-control" />
-                            <span asp-validation-for="Slug" class="text-danger"></span>
-                        </div>
+
 
                         <div class="form-group">
-                            <label asp-for="ThumbnailUrl" class="control-label"></label>
-                            <input asp-for="ThumbnailUrl" class="form-control" />
-                            <span asp-validation-for="ThumbnailUrl" class="text-danger"></span>
+                            <label asp-for="ThumbnailUrl" class="control-label">Ảnh hiện tại</label>
+
+                            @if (!string.IsNullOrWhiteSpace(Model.ThumbnailUrl))
+                            {
+                                <img src="@Model.ThumbnailUrl" class="img-thumbnail d-block mt-2" style="max-height: 100px;" alt="Thumbnail" />
+                            }
+                            else
+                            {
+                                <p class="text-muted">Chưa có ảnh</p>
+                            }
                         </div>
 
+
                         <div class="form-group">
-                            <label asp-for="ReadTimeMinutes" class="control-label"></label>
-                            <input asp-for="ReadTimeMinutes" type="number" class="form-control" />
-                            <span asp-validation-for="ReadTimeMinutes" class="text-danger"></span>
+                            <label asp-for="ThumbnailImage" class="control-label">Tải ảnh mới</label>
+                            <input asp-for="ThumbnailImage" type="file" class="form-control" accept="image/*" />
+                            <span asp-validation-for="ThumbnailImage" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
                             <label asp-for="CategoryId" class="control-label">Danh mục</label>
-                            <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-control"></select>
+                            <select asp-for="CategoryId" asp-items="Model.Categories" class="form-control"></select>
                             <span asp-validation-for="CategoryId" class="text-danger"></span>
                         </div>
 
-                        <div class="form-group form-check">
-                            <input asp-for="IsPublished" class="form-check-input" />
-                            <label asp-for="IsPublished" class="form-check-label">Xuất bản</label>
+                        <div class="form-group">
+                            <div class="form-check form-check-flat form-check-primary">
+                                <label asp-for="IsPublished" class="form-check-label">
+
+                                    <input asp-for="IsPublished" class="form-check-input" />
+                                    <i class="input-frame"></i>
+                                    @Html.DisplayNameFor(m => m.IsPublished)
+                                </label>
+                            </div>
+                            <span class="text-danger field-validation-valid" asp-validation-for="IsPublished"></span>
                         </div>
 
                         <div class="form-group d-flex gap-2 mt-4">
@@ -92,3 +109,8 @@
     <i data-feather="chevron-left" class="mr-1 icon-md"></i>
     Quay về danh sách
 </a>
+
+
+@section Scripts {
+    <partial name="_Summernote" model="Content" />
+}

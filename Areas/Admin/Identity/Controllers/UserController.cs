@@ -25,7 +25,7 @@ using RecruitmentApp.Areas.Admin.Identity.Models.User;
 namespace App.Areas.Admin.Identity.Controllers
 {
 
-    [Authorize(Roles = RoleName.Administrator)]
+    [Authorize(Roles = RoleName.Admin)]
     [Area("Admin/Identity")]
     [Route("/admin/user/[action]")]
     public class UserController : Controller
@@ -53,39 +53,53 @@ namespace App.Areas.Admin.Identity.Controllers
         //
         // GET: /ManageUser/Index
         [HttpGet]
-        public async Task<IActionResult> Index([FromQuery(Name = "p")] int currentPage)
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 10, string search = null)
         {
-            var model = new UserListModel();
-            model.currentPage = currentPage;
+            var query = _userManager.Users.OrderBy(u => u.UserName).AsQueryable();
 
-            var qr = _userManager.Users.OrderBy(u => u.UserName);
+            if (!string.IsNullOrEmpty(search))
+            {
+                query = query.Where(u => u.UserName.Contains(search));
+            }
 
-            model.totalUsers = await qr.CountAsync();
-            model.countPages = (int)Math.Ceiling((double)model.totalUsers / model.ITEMS_PER_PAGE);
+            var totalUsers = await query.CountAsync();
+            var totalPages = (int)Math.Ceiling((double)totalUsers / pageSize);
 
-            if (model.currentPage < 1)
-                model.currentPage = 1;
-            if (model.currentPage > model.countPages)
-                model.currentPage = model.countPages;
+            // Validate page
+            if (page < 1)
+                page = 1;
+            if (page > totalPages)
+                page = totalPages > 0 ? totalPages : 1;
 
-            var qr1 = qr.Skip((model.currentPage - 1) * model.ITEMS_PER_PAGE)
-                        .Take(model.ITEMS_PER_PAGE)
-                        .Select(u => new UserAndRole()
-                        {
-                            Id = u.Id,
-                            UserName = u.UserName,
-                        });
+            var usersQuery = query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .Select(u => new UserAndRole
+                {
+                    Id = u.Id,
+                    UserName = u.UserName,
+                });
 
-            model.users = await qr1.ToListAsync();
+            var users = await usersQuery.ToListAsync();
 
-            foreach (var user in model.users)
+            // Load roles cho từng user
+            foreach (var user in users)
             {
                 var roles = await _userManager.GetRolesAsync(user);
                 user.RoleNames = string.Join(",", roles);
             }
 
-            return View(model);
+            ViewBag.TotalUsers = totalUsers;
+            ViewBag.PageSize = pageSize;
+            ViewBag.Search = search;
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+
+            ViewData["Title"] = "Danh sách Users";
+
+            return View(users);
         }
+
 
         // GET: /ManageUser/AddRole/id
         [HttpGet("{id}")]

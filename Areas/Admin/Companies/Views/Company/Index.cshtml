@@ -10,17 +10,7 @@
 		<li class="breadcrumb-item active" aria-current="page"><a href="">List</a></li>
 	</ol>
 </nav>
-
-@if (ViewBag.Message != null)
-{
-	<div class="alert alert-success alert-dismissible fade show" role="alert">
-		@ViewBag.Message
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-	</div>
-}
-
+ 
 <div class="row">
 	<div class="col-md-12 grid-margin stretch-card">
 		<div class="card">
@@ -40,6 +30,9 @@
 	<div class="col-md-12 grid-margin stretch-card">
 		<div class="card">
 			<div class="card-body">
+				<div>
+					<partial name="Admin/_SearchAndPageSizePartial" />
+				</div>
 				<table class="table table-bordered table-hover">
 					<thead>
 						<tr>
@@ -88,6 +81,9 @@
 						}
 					</tbody>
 				</table>
+				<div class="mt-4">
+					<partial name="Admin/_PaginationPartial" />
+				</div>
 			</div>
 		</div>
 	</div>
@@ -96,8 +92,13 @@
 @section Scripts {
 	<script>
 		$(document).ready(function () {
-			new DataTable('.table').dataTable();
-			feather.replace(); // load feather icon sau DataTable
+			$('.table').DataTable({
+				paging: false,
+				lengthChange: false,
+				searching: false,
+				info: false,
+				ordering: true
+			});
 		});
 	</script>
 }

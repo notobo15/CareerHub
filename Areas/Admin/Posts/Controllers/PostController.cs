@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using RecruitmentApp.Areas.Admin.Posts.ViewModels;
 using RecruitmentApp.Models;
+using RecruitmentApp.Utilities;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace RecruitmentApp.Areas.Admin.Posts.Controllers
@@ -31,9 +32,38 @@ namespace RecruitmentApp.Areas.Admin.Posts.Controllers
         }
 
         // GET: Post
-        public async Task<IActionResult> Index()
+        [HttpGet]
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 10, string search = null)
         {
-            return View(await _context.Posts.ToListAsync());
+            ViewData["Title"] = "Quản lý Bài Viết";
+
+            var query = _context.Posts.AsQueryable();
+
+            // Nếu có tìm kiếm
+            if (!string.IsNullOrEmpty(search))
+            {
+                query = query.Where(p => p.Title.Contains(search) || p.Title.Contains(search));
+            }
+
+            var totalItems = await query.CountAsync();
+            var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+            if (page < 1) page = 1;
+            if (page > totalPages) page = totalPages > 0 ? totalPages : 1;
+
+            var posts = await query
+                .OrderByDescending(p => p.CreatedAt) // Nếu có trường CreatedAt để sort
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.PageSize = pageSize;
+            ViewBag.Search = search;
+            ViewBag.TotalItems = totalItems;
+
+            return View(posts);
         }
 
         // GET: Post/Details/5
@@ -72,6 +102,8 @@ namespace RecruitmentApp.Areas.Admin.Posts.Controllers
         {
             if (ModelState.IsValid)
             {
+                post.Slug = AppUtilities.ToSlug(post.Title);
+
                 _context.Add(post);
 
                 await _context.SaveChangesAsync();

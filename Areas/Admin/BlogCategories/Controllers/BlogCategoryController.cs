@@ -7,32 +7,32 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RecruitmentApp.Models;
 
-namespace RecruitmentApp.Areas.Admin.Titles.Controllers
+namespace RecruitmentApp.Areas.Admin.Categories.Controllers
 {
-    [Area("Admin/Titles")]
-    [Route("/admin/title/[action]")]
-    public class TitleController : Controller
+    [Area("Admin/BlogCategories")]
+    [Route("/admin/blog/category/[action]")]
+    public class BlogCategoryController : Controller
     {
         private readonly AppDbContext _context;
 
-        public TitleController(AppDbContext context)
+        public BlogCategoryController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: Title
+        // GET: Category
         [HttpGet]
         public async Task<IActionResult> Index(int page = 1, int pageSize = 10, string search = null)
         {
-            ViewData["Title"] = "Quản lý Title";
+            ViewData["Title"] = "Quản lý danh mục Blog";
             ViewBag.Message = TempData["SuccessMessage"];
 
-            var query = _context.Titles.AsQueryable();
+            var query = _context.BlogCategories.AsQueryable();
 
-            // Nếu có tìm kiếm theo Name
+            // Nếu có từ khóa tìm kiếm
             if (!string.IsNullOrEmpty(search))
             {
-                query = query.Where(t => t.Name.Contains(search));
+                query = query.Where(c => c.Name.Contains(search));
             }
 
             var totalItems = await query.CountAsync();
@@ -41,85 +41,87 @@ namespace RecruitmentApp.Areas.Admin.Titles.Controllers
             if (page < 1) page = 1;
             if (page > totalPages) page = totalPages > 0 ? totalPages : 1;
 
-            var titles = await query
-                .OrderBy(t => t.Id) // hoặc OrderBy(t => t.Name)
+            var categories = await query
+                .OrderByDescending(c => c.CategoryId)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
 
+            // Truyền các biến hỗ trợ cho View
             ViewBag.CurrentPage = page;
             ViewBag.TotalPages = totalPages;
             ViewBag.PageSize = pageSize;
             ViewBag.Search = search;
             ViewBag.TotalItems = totalItems;
 
-            return View(titles);
+            return View(categories);
         }
 
-        // GET: Title/Details/5
+
+        // GET: Category/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            ViewData["Title"] = "Chi tiết Title";
+            ViewData["Title"] = "Chi tiết danh mục";
 
             if (id == null)
             {
                 return NotFound();
             }
 
-            var title = await _context.Titles.FirstOrDefaultAsync(m => m.Id == id);
-            if (title == null)
+            var category = await _context.BlogCategories.FirstOrDefaultAsync(m => m.CategoryId == id);
+            if (category == null)
             {
                 return NotFound();
             }
 
-            return View(title);
+            return View(category);
         }
 
-        // GET: Title/Create
+        // GET: Category/Create
         public IActionResult Create()
         {
-            ViewData["Title"] = "Tạo mới Title";
+            ViewData["Title"] = "Tạo mới danh mục";
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Title title)
+        public async Task<IActionResult> Create([Bind("CategoryId,Name,Slug,Description")] BlogCategory category)
         {
-            ViewData["Title"] = "Tạo mới Title";
+            ViewData["Title"] = "Tạo mới danh mục";
             if (ModelState.IsValid)
             {
-                _context.Add(title);
+                _context.Add(category);
                 await _context.SaveChangesAsync();
-                TempData["SuccessMessage"] = $"Tạo mới thành công (ID: {title.Id})!";
+                TempData["SuccessMessage"] = $"Tạo mới thành công (ID: {category.CategoryId})!";
                 return RedirectToAction(nameof(Index));
             }
-            return View(title);
+            return View(category);
         }
 
-        // GET: Title/Edit/5
+        // GET: Category/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            ViewData["Title"] = "Chỉnh sửa Title";
+            ViewData["Title"] = "Chỉnh sửa danh mục";
             if (id == null)
             {
                 return NotFound();
             }
 
-            var title = await _context.Titles.FindAsync(id);
-            if (title == null)
+            var category = await _context.BlogCategories.FindAsync(id);
+            if (category == null)
             {
                 return NotFound();
             }
-            return View(title);
+            return View(category);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Title title)
+        public async Task<IActionResult> Edit(int id, [Bind("CategoryId,Name,Slug,Description")] BlogCategory category)
         {
-            ViewData["Title"] = "Chỉnh sửa Title";
-            if (id != title.Id)
+            ViewData["Title"] = "Chỉnh sửa danh mục";
+            if (id != category.CategoryId)
             {
                 return NotFound();
             }
@@ -128,15 +130,14 @@ namespace RecruitmentApp.Areas.Admin.Titles.Controllers
             {
                 try
                 {
-                    _context.Update(title);
+                    _context.Update(category);
                     await _context.SaveChangesAsync();
-                    TempData["SuccessMessage"] = $"Cập nhật thành công (ID: {title.Id})!";
-
+                    TempData["SuccessMessage"] = $"Cập nhật thành công (ID: {category.CategoryId})!";
                     return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TitleExists(title.Id))
+                    if (!CategoryExists(category.CategoryId))
                     {
                         return NotFound();
                     }
@@ -146,44 +147,44 @@ namespace RecruitmentApp.Areas.Admin.Titles.Controllers
                     }
                 }
             }
-            return View(title);
+            return View(category);
         }
 
-        // GET: Title/Delete/5
+        // GET: Category/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            ViewData["Title"] = "Xóa Title";
+            ViewData["Title"] = "Xóa danh mục";
 
             if (id == null)
             {
                 return NotFound();
             }
 
-            var title = await _context.Titles.FirstOrDefaultAsync(m => m.Id == id);
-            if (title == null)
+            var category = await _context.BlogCategories.FirstOrDefaultAsync(m => m.CategoryId == id);
+            if (category == null)
             {
                 return NotFound();
             }
 
-            return View(title);
+            return View(category);
         }
 
-        // POST: Title/Delete/5
+        // POST: Category/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var title = await _context.Titles.FindAsync(id);
-            _context.Titles.Remove(title);
+            var category = await _context.BlogCategories.FindAsync(id);
+            _context.BlogCategories.Remove(category);
             await _context.SaveChangesAsync();
             TempData["SuccessMessage"] = $"Đã xóa thành công (ID: {id})!";
 
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TitleExists(int id)
+        private bool CategoryExists(int id)
         {
-            return _context.Titles.Any(e => e.Id == id);
+            return _context.BlogCategories.Any(e => e.CategoryId == id);
         }
     }
 }

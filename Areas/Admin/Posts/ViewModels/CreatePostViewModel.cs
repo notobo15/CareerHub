@@ -27,7 +27,7 @@ namespace RecruitmentApp.Areas.Admin.Posts.ViewModels
         public string SalaryText { get; set; }
 
         public DateTime PostDate { get; set; } = DateTime.Now;
-        public DateTime Expired { get; set; }
+        public DateTime Expired { get; set; } = DateTime.Now;
 
         public string WorkSpace { get; set; }
 

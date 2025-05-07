@@ -11,7 +11,7 @@ using RecruitmentApp.Models;
 namespace RecruitmentApp.Areas.Admin.CompanyTypes.Controllers
 {
     [Area("Admin/CompanyTypes")]
-    [Route("/admin/title/[action]")]
+    [Route("/admin/company-types/[action]/{id?}")]
     public class CompanyTypeController : Controller
     {
         private readonly AppDbContext _context;
@@ -21,14 +21,32 @@ namespace RecruitmentApp.Areas.Admin.CompanyTypes.Controllers
             _context = context;
         }
 
-        // GET: Title
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 10, string search = null)
         {
             ViewData["Title"] = "Quản lý CompanyTypes";
 
-            // Đọc TempData nếu có thông báo
-            ViewBag.Message = TempData["SuccessMessage"];
-            return View(await _context.CompanyTypes.ToListAsync());
+            var query = _context.CompanyTypes.AsQueryable();
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                query = query.Where(x => x.Name.Contains(search));
+            }
+
+            var totalItems = await query.CountAsync();
+            var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+            var companyTypes = await query
+                .OrderBy(x => x.CompanyTypeId)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.PageSize = pageSize;
+            ViewBag.Search = search; // để giữ giá trị ô tìm kiếm
+
+            return View(companyTypes);
         }
 
         // GET: Title/Details/5

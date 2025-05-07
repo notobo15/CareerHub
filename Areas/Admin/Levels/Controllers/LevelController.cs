@@ -19,12 +19,42 @@ namespace RecruitmentApp.Areas.Admin.Levels.Controllers
         }
 
         // GET: Level
-        public async Task<IActionResult> Index()
+        [HttpGet]
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 10, string search = null)
         {
             ViewData["Title"] = "Quản lý Level";
             ViewBag.Message = TempData["SuccessMessage"];
-            return View(await _context.Levels.ToListAsync());
+
+            var query = _context.Levels.AsQueryable();
+
+            // Tìm kiếm theo Name
+            if (!string.IsNullOrEmpty(search))
+            {
+                query = query.Where(l => l.Name.Contains(search));
+            }
+
+            var totalItems = await query.CountAsync();
+            var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+            if (page < 1) page = 1;
+            if (page > totalPages) page = totalPages > 0 ? totalPages : 1;
+
+            var levels = await query
+                .OrderByDescending(l => l.LevelId) // Hoặc OrderBy(l => l.Name)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            // Truyền dữ liệu cho View
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.PageSize = pageSize;
+            ViewBag.Search = search;
+            ViewBag.TotalItems = totalItems;
+
+            return View(levels);
         }
+
 
         // GET: Level/Details/5
         public async Task<IActionResult> Details(int? id)

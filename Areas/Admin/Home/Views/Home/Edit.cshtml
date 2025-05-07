@@ -1,0 +1,74 @@
+﻿@model RecruitmentApp.Models.Setting
+
+<nav class="page-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Settings</li>
+        <li class="breadcrumb-item active" aria-current="page">
+            <a asp-action="Settings">Edit</a>
+        </li>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="col-md-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="font-weight-bold">Chỉnh Sửa Cấu Hình</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-md-6">
+                    <form asp-action="Edit" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="form-group">
+                            <label asp-for="NumberOfPosts" class="control-label">Số lượng bài viết hiển thị</label>
+                            <input asp-for="NumberOfPosts" class="form-control" />
+                            <span asp-validation-for="NumberOfPosts" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="NumberOfCompanies" class="control-label">Số lượng công ty hiển thị</label>
+                            <input asp-for="NumberOfCompanies" class="form-control" />
+                            <span asp-validation-for="NumberOfCompanies" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="PhoneNumber" class="control-label">Số điện thoại</label>
+                            <input asp-for="PhoneNumber" class="form-control" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label">Email</label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="TaxNumber" class="control-label">Mã số thuế</label>
+                            <input asp-for="TaxNumber" class="form-control" />
+                            <span asp-validation-for="TaxNumber" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group d-flex gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary align-items-center mr-2">
+                                <i data-feather="save" class="mr-1 icon-md"></i> Save
+                            </button>
+                            <a asp-action="Index" class="btn btn-outline-secondary d-inline-flex align-items-center">
+                                <i data-feather="x" class="mr-1 icon-md"></i> Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

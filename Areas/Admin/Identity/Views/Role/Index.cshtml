@@ -1,8 +1,5 @@
+@using RecruitmentApp.Data
 @model List<RoleModel>
-@{
-	ViewData["Title"] = "Danh sách các vai trò (Role)";
-}
-
 <nav class="page-breadcrumb">
 	<ol class="breadcrumb">
 		<li class="breadcrumb-item">Roles</li>
@@ -16,13 +13,10 @@
 	<div class="col-md-12 grid-margin stretch-card">
 		<div class="card">
 			<div class="card-body d-flex justify-content-between align-items-center">
-				<h4 class="font-weight-bold">@ViewData["Title"]</h4>
+				<h4 class="font-weight-bold">Danh sách các vai trò (Role)</h4>
 				<div>
 					<a class="btn btn-sm btn-success px-3 d-inline-flex align-items-center" asp-action="Create">
 						<i data-feather="plus" class="mr-1 icon-md"></i> Tạo mới
-					</a>
-					<a class="btn btn-sm btn-outline-secondary ml-2" asp-action="Index" asp-controller="User">
-						<i data-feather="users" class="mr-1 icon-md"></i> Quản lý thành viên
 					</a>
 				</div>
 			</div>
@@ -56,12 +50,19 @@
 									}
 								</td>
 								<td class="text-center">
-									<a class="btn btn-xs border-warning" asp-action="Edit" asp-route-roleid="@role.Id">
-										<i data-feather="edit" class="icon-sm text-warning"></i>
-									</a>
-									<a class="btn btn-xs border-danger" asp-action="Delete" asp-route-roleid="@role.Id">
-										<i data-feather="trash-2" class="icon-sm text-danger"></i>
-									</a>
+									@if (role.Name != RoleName.Admin && role.Name != RoleName.Recruiter && role.Name != RoleName.User)
+									{
+										<a class="btn btn-xs border-warning" asp-action="Edit" asp-route-roleid="@role.Id">
+											<i data-feather="edit" class="icon-sm text-warning"></i>
+										</a>
+										<a class="btn btn-xs border-danger" asp-action="Delete" asp-route-roleid="@role.Id">
+											<i data-feather="trash-2" class="icon-sm text-danger"></i>
+										</a>
+									}
+									else
+									{
+										<span class="badge badge-secondary">Mặc định</span>
+									}
 								</td>
 							</tr>
 						}
@@ -75,8 +76,7 @@
 @section Scripts {
 	<script>
 		$(document).ready(function () {
-			new DataTable('.table').dataTable();
-			feather.replace();
+			new DataTable('.table');
 		});
 	</script>
 }

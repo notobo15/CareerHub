@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,11 +19,39 @@ namespace RecruitmentApp.Areas.Admin.WorkTypes.Controllers
         }
 
         // GET: WorkType
-        public async Task<IActionResult> Index()
+        [HttpGet]
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 10, string search = null)
         {
             ViewData["Title"] = "Quản lý hình thức làm việc";
             ViewBag.Message = TempData["SuccessMessage"];
-            return View(await _context.WorkTypes.ToListAsync());
+
+            var query = _context.WorkTypes.AsQueryable();
+
+            // Tìm kiếm theo Name
+            if (!string.IsNullOrEmpty(search))
+            {
+                query = query.Where(w => w.Name.Contains(search));
+            }
+
+            var totalItems = await query.CountAsync();
+            var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+            if (page < 1) page = 1;
+            if (page > totalPages) page = totalPages > 0 ? totalPages : 1;
+
+            var workTypes = await query
+                .OrderByDescending(w => w.WorkTypeId) // Hoặc OrderBy(w => w.Name) nếu cần
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.PageSize = pageSize;
+            ViewBag.Search = search;
+            ViewBag.TotalItems = totalItems;
+
+            return View(workTypes);
         }
 
         // GET: WorkType/Details/5

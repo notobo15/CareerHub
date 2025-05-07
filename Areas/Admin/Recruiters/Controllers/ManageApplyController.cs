@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace RecruitmentApp.Areas.Admin.Recruiters.Controllers
 {
-    [Authorize(Roles = RoleName.Recuiter)]
+    [Authorize(Roles = RoleName.Recruiter)]
     [Area("Admin/Recruiters")]
     [Route("/nha-tuyen-dung/apply/[action]/{id?}")]
     public class ManageApplyController : Controller

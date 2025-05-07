@@ -33,10 +33,39 @@ namespace RecruitmentApp.Areas.Admin.Companies.Controllers
         }
 
         // GET: Company
-        public async Task<IActionResult> Index()
+        [HttpGet]
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 10, string search = null)
         {
             ViewData["Title"] = "Quản Lý Công Ty";
-            return View(await _context.Companies.OrderByDescending(c => c.UpdatedAt).ToListAsync());
+
+            var query = _context.Companies.AsQueryable();
+
+            // Tìm kiếm
+            if (!string.IsNullOrEmpty(search))
+            {
+                query = query.Where(c => c.Name.Contains(search));
+            }
+
+            var totalItems = await query.CountAsync();
+            var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+            if (page < 1) page = 1;
+            if (page > totalPages) page = totalPages > 0 ? totalPages : 1;
+
+            var companies = await query
+                .OrderByDescending(c => c.UpdatedAt)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            // Truyền các biến cần thiết cho View
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.PageSize = pageSize;
+            ViewBag.Search = search;
+            ViewBag.TotalItems = totalItems;
+
+            return View(companies);
         }
 
         // GET: Company/Details/5

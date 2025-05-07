@@ -1,14 +1,4 @@
-@model UserListModel
-@{
-    ViewData["Title"] = "Danh sách các thành viên";
-    var pagingmodel = new PagingModel()
-            {
-                currentpage = Model.currentPage,
-                countpages = Model.countPages,
-                generateUrl = (int? p) => Url.Action("Index", new { p = p })
-            };
-}
-
+@model List<UserAndRole>
 <nav class="page-breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item">Thành viên</li>
@@ -24,7 +14,7 @@
             <div class="card-body d-flex justify-content-between align-items-center">
                 <div>
                     <h4 class="font-weight-bold mb-0">@ViewData["Title"]</h4>
-                    <span class="text-muted">Tổng số thành viên: <strong>@Model.totalUsers</strong></span>
+                    <span class="text-muted">Tổng số thành viên: <strong>@ViewBag.TotalUsers</strong></span>
                 </div>
 
                 <a asp-controller="User" asp-action="Create" asp-route-role="Recruiter"
@@ -40,6 +30,9 @@
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
+                <div>
+                    <partial name="Admin/_SearchAndPageSizePartial" />
+                </div>
                 <table class="table table-bordered table-hover">
                     <thead>
                         <tr>
@@ -50,7 +43,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var user in Model.users)
+                        @foreach (var user in Model)
                         {
                             <tr>
                                 <td>@user.UserName</td>
@@ -89,8 +82,10 @@
                         }
                     </tbody>
                 </table>
-
-                <partial name="_PagingXTL" model="@pagingmodel" />
+                <div class="mt-4">
+                    <partial name="Admin/_PaginationPartial" />
+                </div>
+                @* <partial name="_PagingXTL" model="@pagingmodel" /> *@
             </div>
         </div>
     </div>
@@ -103,8 +98,10 @@
 
             $('.table').DataTable({
                 paging: false,
+                lengthChange: false,
+                searching: false,
                 info: false,
-                searching: false
+                ordering: true
             });
         });
     </script>

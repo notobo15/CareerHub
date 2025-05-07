@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,12 +20,41 @@ namespace RecruitmentApp.Areas.Admin.Skills.Controllers
         }
 
         // GET: Skill
-        public async Task<IActionResult> Index()
+        [HttpGet]
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 10, string search = null)
         {
             ViewData["Title"] = "Quản lý Skill";
             ViewBag.Message = TempData["SuccessMessage"];
-            return View(await _context.Skills.ToListAsync());
+
+            var query = _context.Skills.AsQueryable();
+
+            // Nếu có tìm kiếm
+            if (!string.IsNullOrEmpty(search))
+            {
+                query = query.Where(s => s.Name.Contains(search));
+            }
+
+            var totalItems = await query.CountAsync();
+            var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+            if (page < 1) page = 1;
+            if (page > totalPages) page = totalPages > 0 ? totalPages : 1;
+
+            var skills = await query
+                .OrderByDescending(s => s.SkillId) // Hoặc OrderBy(s => s.Name)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.PageSize = pageSize;
+            ViewBag.Search = search;
+            ViewBag.TotalItems = totalItems;
+
+            return View(skills);
         }
+
 
         // GET: Skill/Details/5
         public async Task<IActionResult> Details(int? id)
