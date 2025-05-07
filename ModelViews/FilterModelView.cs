@@ -18,6 +18,7 @@ namespace RecruitmentApp.ModelViews
         {
             public int min { set; get; } = 0;
             public int max { set; get; } = 0;
+            public string type { set; get; } = "all";
         }
     }
 

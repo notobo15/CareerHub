@@ -179,7 +179,7 @@ namespace RecruitmentApp
                     options.AddPolicy("ViewManageMenu", builder =>
                     {
                         builder.RequireAuthenticatedUser();
-                        builder.RequireRole(RoleName.Administrator);
+                        builder.RequireRole(RoleName.Admin);
                     });
                     policy.RequireClaim("permission", "manage.user");
                 });
@@ -232,6 +232,7 @@ namespace RecruitmentApp
             services.AddScoped<EmailStatsService>();
             services.AddScoped<UserService>();
             services.AddScoped<ReviewStatsService>();
+            services.AddScoped<UploadFileService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

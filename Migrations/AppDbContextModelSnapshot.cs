@@ -468,6 +468,9 @@ namespace RecruitmentApp.Migrations
                     b.Property<bool>("IsPublished")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsShowOnHome")
+                        .HasColumnType("bit");
+
                     b.Property<int>("ReadTimeMinutes")
                         .HasColumnType("int");
 
@@ -698,6 +701,12 @@ namespace RecruitmentApp.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsShowCompanyUrl")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsShowOnHome")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSpotlight")
                         .HasColumnType("bit");
 
                     b.Property<string>("LogoFullPath")
@@ -1328,6 +1337,9 @@ namespace RecruitmentApp.Migrations
                     b.Property<bool>("IsShow")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsShowOnHome")
+                        .HasColumnType("bit");
+
                     b.Property<string>("JobRequirement")
                         .HasColumnType("ntext");
 
@@ -1347,9 +1359,6 @@ namespace RecruitmentApp.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("RecruiterId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Salary")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SalaryText")
@@ -1715,6 +1724,9 @@ namespace RecruitmentApp.Migrations
                     b.Property<string>("Sentiment")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("SentimentModelName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Suggestion")
                         .IsRequired()
                         .HasMaxLength(10000)
@@ -1740,6 +1752,34 @@ namespace RecruitmentApp.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Reviews");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.Setting", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("NumberOfCompanies")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NumberOfPosts")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TaxNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Settings");
                 });
 
             modelBuilder.Entity("RecruitmentApp.Models.Skill", b =>
@@ -2207,7 +2247,7 @@ namespace RecruitmentApp.Migrations
             modelBuilder.Entity("RecruitmentApp.Models.BlogView", b =>
                 {
                     b.HasOne("RecruitmentApp.Models.Blog", "Blog")
-                        .WithMany()
+                        .WithMany("BlogViews")
                         .HasForeignKey("BlogId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2862,6 +2902,11 @@ namespace RecruitmentApp.Migrations
                     b.Navigation("UserSkills");
 
                     b.Navigation("WorkExperiences");
+                });
+
+            modelBuilder.Entity("RecruitmentApp.Models.Blog", b =>
+                {
+                    b.Navigation("BlogViews");
                 });
 
             modelBuilder.Entity("RecruitmentApp.Models.BlogCategory", b =>
