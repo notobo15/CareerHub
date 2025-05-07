@@ -51,7 +51,7 @@
                                 <td>
                                     @if (!string.IsNullOrEmpty(post.FileName))
                                     {
-                                        <a href="~/contents/file-CV/@post.FileName" class="btn btn-sm btn-outline-primary d-inline-flex align-items-center" target="_blank">
+                                        <a href="@post.FilePath" class="btn btn-sm btn-outline-primary d-inline-flex align-items-center" target="_blank">
                                             <i data-feather="file-text" class="mr-1 icon-sm"></i> Xem CV
                                         </a>
                                     }
@@ -75,18 +75,8 @@
         $(document).ready(function () {
             $('.table').DataTable({
                 pageLength: 10,
-                language: {
-                    search: "Tìm kiếm:",
-                    lengthMenu: "Hiển thị _MENU_ dòng",
-                    info: "Hiển thị _START_ đến _END_ của _TOTAL_ dòng",
-                    paginate: {
-                        previous: "Trước",
-                        next: "Sau"
-                    }
-                }
             });
 
-            feather.replace();
         });
     </script>
 }

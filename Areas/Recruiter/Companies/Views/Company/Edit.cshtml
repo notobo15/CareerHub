@@ -77,345 +77,361 @@
 
 
 
-<div id="tabs">
-	<ul class="nav nav-pills">
-		<li class="nav-item">
-			<a href="#details" class="nav-link">
-				<i data-feather="info" class="icon-md"></i>
-				Details
-			</a>
-		</li>
-		<li class="nav-item">
-			<a href="#images" class="nav-link">
-				<i data-feather="image" class="icon-md"></i>
-				Images
-			</a>
-		</li>
-		<li class="nav-item">
-			<a href="#locations" class="nav-link">
-				<i data-feather="map-pin" class="icon-md"></i>
-				Locations
-			</a>
-		</li>
-	</ul>
-	<div id="details">
-		<div id="general">
-			<form asp-action="Edit" enctype="multipart/form-data">
-				@Html.AntiForgeryToken()
-				<input type="hidden" asp-for="CompanyId" />
-				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-				<div class="form-group">
-					<label asp-for="Slug"></label>
-					<input asp-for="Slug" class="form-control" />
-					<span asp-validation-for="Slug" class="text-danger"></span>
-				</div>
-
-				<div class="form-group">
-					<label asp-for="Name"></label>
-					<input asp-for="Name" class="form-control" />
-					<span asp-validation-for="Name" class="text-danger"></span>
-				</div>
-
-				<div class="form-group">
-					<label asp-for="Size"></label>
-					<input asp-for="Size" class="form-control" />
-					<span asp-validation-for="Size" class="text-danger"></span>
-				</div>
-
-
-				<div class="form-group">
-					<label asp-for="Phone"></label>
-					<input asp-for="Phone" class="form-control" type="number" />
-					<span asp-validation-for="Phone" class="text-danger"></span>
-				</div>
-
-				<div class="form-group">
-					<label asp-for="Email"></label>
-					<input asp-for="Email" class="form-control" />
-					<span asp-validation-for="Email" class="text-danger"></span>
-				</div>
-
-				<div class="form-group">
-					<label asp-for="Type"></label>
-					<input asp-for="Type" class="form-control" />
-					<span asp-validation-for="Type" class="text-danger"></span>
-				</div>
-
-				<div class="form-group">
-					<label asp-for="Country"></label>
-					<select asp-for="Country" class="form-control" asp-items="Model.Countries" />
-					<span asp-validation-for="Country" class="text-danger"></span>
-				</div>
-
-				<div class="form-group">
-					<label asp-for="OverTime"></label>
-					<input asp-for="OverTime" class="form-control" />
-					<span asp-validation-for="OverTime" class="text-danger"></span>
-				</div>
-
-				<div class="form-group">
-					<label asp-for="WorkingTime"></label>
-					<input asp-for="WorkingTime" class="form-control" />
-					<span asp-validation-for="WorkingTime" class="text-danger"></span>
-				</div>
-
-				<div class="form-group">
-					<label asp-for="LogoImage"></label><br />
-					@if (!string.IsNullOrEmpty(Model.LogoImage))
-					{
-						<img src="~/images/companies/@Model.LogoImage" alt="Logo" class="img-thumbnail mb-2" style="max-height:100px;" />
-					}
-					<input type="file" asp-for="File" class="form-control" />
-					<span asp-validation-for="File" class="text-danger"></span>
-				</div>
-
-				@* <div class="form-group"> *@
-				@* 	<label asp-for="RecruiterId"></label> *@
-				@* 	<select asp-for="RecruiterId" class="form-control" asp-items="Model.RecruiterIds" /> *@
-				@* 	<span asp-validation-for="RecruiterId" class="text-danger"></span> *@
-				@* </div> *@
-
-
-				<div class="form-group">
-					<label asp-for="IsShowCompanyUrl"></label>
-					<input asp-for="IsShowCompanyUrl" class="form-control" />
-					<span asp-validation-for="IsShowCompanyUrl" class="text-danger"></span>
-				</div>
-
-				<div class="form-group">
-					<label asp-for="CompanyUrl"></label>
-					<input asp-for="CompanyUrl" class="form-control" />
-					<span asp-validation-for="CompanyUrl" class="text-danger"></span>
-				</div>
-
-				<div class="form-group">
-					<label asp-for="IsShowCompanyFbUrl"></label>
-					<input asp-for="IsShowCompanyFbUrl" class="form-control" />
-					<span asp-validation-for="IsShowCompanyFbUrl" class="text-danger"></span>
-				</div>
-
-				<div class="form-group">
-					<label asp-for="CompanyFbUrl"></label>
-					<input asp-for="CompanyFbUrl" class="form-control" />
-					<span asp-validation-for="CompanyFbUrl" class="text-danger"></span>
-				</div>
-
-				<div class="form-group">
-					<label asp-for="SkillIds"></label>
-					<select asp-for="SkillIds" asp-items="Model.Skills" multiple="multiple" class="form-control w-100"></select>
-					<span asp-validation-for="SkillIds" class="text-danger"></span>
-				</div>
-
-				<div class="form-group">
-					<label asp-for="TopReason"></label>
-					<textarea asp-for="TopReason" class="form-control" rows="5"></textarea>
-					<span asp-validation-for="TopReason" class="text-danger"></span>
-				</div>
-
-				<div class="form-group">
-					<label asp-for="Reason"></label>
-					<textarea asp-for="Reason" class="form-control" rows="5"></textarea>
-					<span asp-validation-for="Reason" class="text-danger"></span>
-				</div>
-
-				<div class="form-group">
-					<label asp-for="ShortDescription"></label>
-					<textarea asp-for="ShortDescription" class="form-control" rows="5"></textarea>
-					<span asp-validation-for="ShortDescription" class="text-danger"></span>
-				</div>
-
-				<div class="form-group">
-					<label asp-for="Description"></label>
-					<textarea asp-for="Description" class="form-control" rows="5"></textarea>
-					<span asp-validation-for="Description" class="text-danger"></span>
-				</div>
-
-				<div class="form-group">
-					<label asp-for="OurExpertise"></label>
-					<textarea asp-for="OurExpertise" class="form-control" rows="5"></textarea>
-					<span asp-validation-for="OurExpertise" class="text-danger"></span>
-				</div>
-
-				<div class="form-group">
-					<label asp-for="WhyJoinUs"></label>
-					<textarea asp-for="WhyJoinUs" class="form-control" rows="5"></textarea>
-					<span asp-validation-for="WhyJoinUs" class="text-danger"></span>
-				</div>
-
-
-
-				<div class="form-group d-flex gap-2 mt-4">
-					<button type="submit" class="btn btn-primary d-inline-flex align-items-center mr-2">
-						<i data-feather="save" class="mr-1 icon-md"></i> Lưu
-					</button>
-					<a asp-action="Index" class="btn btn-outline-secondary d-inline-flex align-items-center">
-						<i data-feather="x" class="mr-1 icon-md"></i> Hủy
+<div class="row">
+	<div class="col-md-12 grid-margin">
+		<div class="card">
+			<ul class="nav nav-tabs mt-3 mx-3">
+				<li class="nav-item">
+					<a class="nav-link @(ViewBag.ActiveTab == "details" ? "active" : "")" href="?tab=details">
+						<i data-feather="info" class="icon-md"></i> Details
 					</a>
-				</div>
-			</form>
-		</div>
-
-
-	</div>
-	<div id="images">
-		<div id="details">
-			<form asp-action="SaveCompanyImages" method="post" enctype="multipart/form-data">
-				@* Lưu ý: chỉ truyền những trường có trong CompanyImagesViewModel *@
-				<input type="hidden" name="CompanyId" value="@Model.CompanyId" />
-
-				<div class="d-flex justify-content-between align-items-center">
-					<div>
-						<h4 class="font-weight-bold">Danh sách ảnh</h4>
-					</div>
-					<a class="btn btn-sm btn-success px-4 text-white text-decoration-none d-flex align-items-center" href="">
-						<i class="mr-2 icon-md" data-feather="refresh-ccw"></i> Reload
+				</li>
+				<li class="nav-item">
+					<a class="nav-link @(ViewBag.ActiveTab == "images" ? "active" : "")" href="?tab=images">
+						<i data-feather="image" class="icon-md"></i> Images
 					</a>
-				</div>
-				<div id="existing-images" class="sortable-container" data-lg-container="true">
-					@foreach (var image in Model.Images.OrderBy(i => i.Order))
-					{
-						<div class="image-wrapper" data-image-id="@image.ImageId">
-							<a href="@image.FullPath" data-lg-size="1400-900">
-								<img src="@image.FullPath" />
-							</a>
-							<button type="button" class="btn btn-sm btn-outline-danger remove-image-btn" data-id="@image.ImageId">
-								<i data-feather="x" class="icon-sm"></i>
-							</button>
-						</div>
-					}
+				</li>
+				<li class="nav-item">
+					<a class="nav-link @(ViewBag.ActiveTab == "locations" ? "active" : "")" href="?tab=locations">
+						<i data-feather="map-pin" class="icon-md"></i> Locations
+					</a>
+				</li>
+			</ul>
+			<div class="card-body">
+				@if (ViewBag.ActiveTab == "details")
+				{
+					<h5 class="card-title">Thông tin chi tiết</h5>
 
-					<!-- Add Image Button -->
-					<label for="add-image-input" id="add-image-wrapper" class="image-wrapper add-wrapper">
-						<span style="font-size:36px;line-height:100px;color:#999;">
-							<i data-feather="plus" class="icon-lg"></i>
-						</span>
-						<input type="file" id="add-image-input" style="position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;cursor:pointer;" />
-					</label>
-				</div>
+					<div id="details">
+						<div id="general">
+							<form asp-action="Edit" enctype="multipart/form-data">
+								@Html.AntiForgeryToken()
+								<input type="hidden" asp-for="CompanyId" />
+								<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-				<input type="hidden" name="ImageOrder" id="ImageOrder" />
-				<input type="hidden" name="DeletedImageIds" id="DeletedImageIds" />
+								<div class="form-group">
+									<label asp-for="Slug"></label>
+									<input asp-for="Slug" class="form-control" />
+									<span asp-validation-for="Slug" class="text-danger"></span>
+								</div>
 
-				<div class="form-group mt-3">
-					<button type="submit" class="btn btn-primary">Lưu</button>
-				</div>
-			</form>
+								<div class="form-group">
+									<label asp-for="Name"></label>
+									<input asp-for="Name" class="form-control" />
+									<span asp-validation-for="Name" class="text-danger"></span>
+								</div>
 
-
-		</div>
-	</div>
-	<div id="locations">
-
-		<h4 class="my-3"></h4>
-		<div class="d-flex justify-content-between align-items-center">
-			<div>
-				<h4 class="font-weight-bold">Thêm location mới</h4>
-			</div>
-			<a class="btn btn-sm btn-success px-4 text-white text-decoration-none d-flex align-items-center" href="">
-				<i class="mr-2 icon-md" data-feather="refresh-ccw"></i> Reload
-			</a>
-		</div>
-		@Html.Partial("_CreateLocationPartial", Model.CreateLocation)
+								<div class="form-group">
+									<label asp-for="Size"></label>
+									<input asp-for="Size" class="form-control" />
+									<span asp-validation-for="Size" class="text-danger"></span>
+								</div>
 
 
-		<h4 class="my-3">Danh sách Locations</h4>
+								<div class="form-group">
+									<label asp-for="Phone"></label>
+									<input asp-for="Phone" class="form-control" type="number" />
+									<span asp-validation-for="Phone" class="text-danger"></span>
+								</div>
 
-		@if (Model.Locations != null && Model.Locations.Any())
-		{
-			<table class="table table-bordered">
-				<thead>
-					<tr>
-						<th>Địa chỉ</th>
-						<th>Phường/Xã</th>
-						<th>Quận/Huyện</th>
-						<th>Tỉnh/Thành</th>
-						<th>Địa chỉ</th>
-						<th>Hành động</th>
-					</tr>
-				</thead>
-				<tbody>
-					@foreach (var location in Model.Locations)
-					{
-						var address = location.Address;
-						<tr>
-							<td>@address.DetailPosition</td>
-							<td>@address.Ward?.Name</td>
-							<td>@address.District?.Name</td>
-							<td>@address.City?.Name</td>
-							<td>@address.FullAddress</td>
-							<td>
-								<button class="btn btn-sm btn-primary edit-location-btn"
-										data-location-id="@location.LocationId"
-										data-address-id="@address.AddressId"
-										data-province-code="@address.ProvinceCode"
-										data-district-code="@address.DistrictCode"
-										data-ward-code="@address.WardCode"
-										data-detail="@address.DetailPosition">
+								<div class="form-group">
+									<label asp-for="Email"></label>
+									<input asp-for="Email" class="form-control" />
+									<span asp-validation-for="Email" class="text-danger"></span>
+								</div>
 
-									<i data-feather="edit" class="icon-md"></i>
-									Sửa
+								<div class="form-group">
+									<label asp-for="Type"></label>
+									<input asp-for="Type" class="form-control" />
+									<span asp-validation-for="Type" class="text-danger"></span>
+								</div>
 
-								</button>
+								<div class="form-group">
+									<label asp-for="Country"></label>
+									<select asp-for="Country" class="form-control" asp-items="Model.Countries" />
+									<span asp-validation-for="Country" class="text-danger"></span>
+								</div>
 
-								<form asp-action="DeleteLocation" method="post" class="d-inline" onsubmit="return confirm('Bạn có chắc chắn muốn xóa địa chỉ này?');">
-									<input type="hidden" name="locationId" value="@location.LocationId" />
-									<input type="hidden" name="companyId" value="@Model.CompanyId" />
-									<button type="submit" class="btn btn-sm btn-danger">
-										<i data-feather="trash-2" class="icon-md"></i>
-										Xóa
+								<div class="form-group">
+									<label asp-for="OverTime"></label>
+									<input asp-for="OverTime" class="form-control" />
+									<span asp-validation-for="OverTime" class="text-danger"></span>
+								</div>
+
+								<div class="form-group">
+									<label asp-for="WorkingTime"></label>
+									<input asp-for="WorkingTime" class="form-control" />
+									<span asp-validation-for="WorkingTime" class="text-danger"></span>
+								</div>
+
+								<div class="form-group">
+									<label asp-for="LogoImage"></label><br />
+									@if (!string.IsNullOrEmpty(Model.LogoImage))
+									{
+										<img src="~/images/companies/@Model.LogoImage" alt="Logo" class="img-thumbnail mb-2" style="max-height:100px;" />
+									}
+									<input type="file" asp-for="File" class="form-control" />
+									<span asp-validation-for="File" class="text-danger"></span>
+								</div>
+
+								@* <div class="form-group"> *@
+								@* 	<label asp-for="RecruiterId"></label> *@
+								@* 	<select asp-for="RecruiterId" class="form-control" asp-items="Model.RecruiterIds" /> *@
+								@* 	<span asp-validation-for="RecruiterId" class="text-danger"></span> *@
+								@* </div> *@
+
+
+								<div class="form-group">
+									<label asp-for="IsShowCompanyUrl"></label>
+									<input asp-for="IsShowCompanyUrl" class="form-control" />
+									<span asp-validation-for="IsShowCompanyUrl" class="text-danger"></span>
+								</div>
+
+								<div class="form-group">
+									<label asp-for="CompanyUrl"></label>
+									<input asp-for="CompanyUrl" class="form-control" />
+									<span asp-validation-for="CompanyUrl" class="text-danger"></span>
+								</div>
+
+								<div class="form-group">
+									<label asp-for="IsShowCompanyFbUrl"></label>
+									<input asp-for="IsShowCompanyFbUrl" class="form-control" />
+									<span asp-validation-for="IsShowCompanyFbUrl" class="text-danger"></span>
+								</div>
+
+								<div class="form-group">
+									<label asp-for="CompanyFbUrl"></label>
+									<input asp-for="CompanyFbUrl" class="form-control" />
+									<span asp-validation-for="CompanyFbUrl" class="text-danger"></span>
+								</div>
+
+								<div class="form-group">
+									<label asp-for="SkillIds"></label>
+									<select asp-for="SkillIds" asp-items="Model.Skills" multiple="multiple" class="form-control w-100"></select>
+									<span asp-validation-for="SkillIds" class="text-danger"></span>
+								</div>
+
+								<div class="form-group">
+									<label asp-for="TopReason"></label>
+									<textarea asp-for="TopReason" class="form-control" rows="5"></textarea>
+									<span asp-validation-for="TopReason" class="text-danger"></span>
+								</div>
+
+								<div class="form-group">
+									<label asp-for="Reason"></label>
+									<textarea asp-for="Reason" class="form-control" rows="5"></textarea>
+									<span asp-validation-for="Reason" class="text-danger"></span>
+								</div>
+
+								<div class="form-group">
+									<label asp-for="ShortDescription"></label>
+									<textarea asp-for="ShortDescription" class="form-control" rows="5"></textarea>
+									<span asp-validation-for="ShortDescription" class="text-danger"></span>
+								</div>
+
+								<div class="form-group">
+									<label asp-for="Description"></label>
+									<textarea asp-for="Description" class="form-control" rows="5"></textarea>
+									<span asp-validation-for="Description" class="text-danger"></span>
+								</div>
+
+								<div class="form-group">
+									<label asp-for="OurExpertise"></label>
+									<textarea asp-for="OurExpertise" class="form-control" rows="5"></textarea>
+									<span asp-validation-for="OurExpertise" class="text-danger"></span>
+								</div>
+
+								<div class="form-group">
+									<label asp-for="WhyJoinUs"></label>
+									<textarea asp-for="WhyJoinUs" class="form-control" rows="5"></textarea>
+									<span asp-validation-for="WhyJoinUs" class="text-danger"></span>
+								</div>
+
+
+
+								<div class="form-group d-flex gap-2 mt-4">
+									<button type="submit" class="btn btn-primary d-inline-flex align-items-center mr-2">
+										<i data-feather="save" class="mr-1 icon-md"></i> Lưu
 									</button>
-								</form>
-							</td>
-						</tr>
-					}
-				</tbody>
-			</table>
-		}
-		else
-		{
-			<p class="text-muted">Chưa có địa điểm nào được thêm.</p>
-		}
-
-		<div class="modal fade" id="editLocationModal" tabindex="-1" role="dialog" aria-labelledby="editLocationLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<form method="post" asp-action="UpdateLocation">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title">Chỉnh sửa địa chỉ</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Đóng">
-								<span aria-hidden="true">&times;</span>
-							</button>
+									<a asp-action="Index" class="btn btn-outline-secondary d-inline-flex align-items-center">
+										<i data-feather="x" class="mr-1 icon-md"></i> Hủy
+									</a>
+								</div>
+							</form>
 						</div>
-						<div class="modal-body">
 
-							<input type="hidden" name="LocationId" id="edit-location-id" />
-							<input type="hidden" name="AddressId" id="edit-address-id" />
 
-							<div class="form-group">
-								<label>Tỉnh/Thành phố</label>
-								<select name="ProvinceCode" id="edit-province" class="form-control"></select>
-							</div>
-							<div class="form-group">
-								<label>Quận/Huyện</label>
-								<select name="DistrictCode" id="edit-district" class="form-control"></select>
-							</div>
-							<div class="form-group">
-								<label>Phường/Xã</label>
-								<select name="WardCode" id="edit-ward" class="form-control"></select>
-							</div>
-							<div class="form-group">
-								<label>Chi tiết</label>
-								<input type="text" name="DetailPosition" id="edit-detail" class="form-control" />
-							</div>
+					</div>
+				}
+				else if (ViewBag.ActiveTab == "images")
+				{
 
-						</div>
-						<div class="modal-footer">
-							<button type="submit" class="btn btn-success">Lưu</button>
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+					<div id="images">
+						<div id="details">
+							<form asp-action="SaveCompanyImages" method="post" enctype="multipart/form-data">
+								@* Lưu ý: chỉ truyền những trường có trong CompanyImagesViewModel *@
+								<input type="hidden" name="CompanyId" value="@Model.CompanyId" />
+
+								<div class="d-flex justify-content-between align-items-center">
+							
+									<h5 class="card-title font-weight-bold">Danh sách hình ảnh</h5>
+
+									<a class="btn btn-sm btn-success px-4 text-white text-decoration-none d-flex align-items-center" href="">
+										<i class="mr-2 icon-md" data-feather="refresh-ccw"></i> Reload
+									</a>
+								</div>
+								<div id="existing-images" class="sortable-container" data-lg-container="true">
+									@foreach (var image in Model.Images.OrderBy(i => i.Order))
+									{
+										<div class="image-wrapper" data-image-id="@image.ImageId">
+											<a href="@image.FullPath" data-lg-size="1400-900">
+												<img src="@image.FullPath" />
+											</a>
+											<button type="button" class="btn btn-sm btn-outline-danger remove-image-btn" data-id="@image.ImageId">
+												<i data-feather="x" class="icon-sm"></i>
+											</button>
+										</div>
+									}
+
+									<!-- Add Image Button -->
+									<label for="add-image-input" id="add-image-wrapper" class="image-wrapper add-wrapper">
+										<span style="font-size:36px;line-height:100px;color:#999;">
+											<i data-feather="plus" class="icon-lg"></i>
+										</span>
+										<input type="file" id="add-image-input" style="position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;cursor:pointer;" />
+									</label>
+								</div>
+
+								<input type="hidden" name="ImageOrder" id="ImageOrder" />
+								<input type="hidden" name="DeletedImageIds" id="DeletedImageIds" />
+
+								<div class="form-group mt-3">
+									<button type="submit" class="btn btn-primary">Lưu</button>
+								</div>
+							</form>
+
+
 						</div>
 					</div>
-				</form>
+				}
+				else if (ViewBag.ActiveTab == "locations")
+				{
+
+					<div id="locations">
+
+						<h4 class="my-3"></h4>
+						<div class="d-flex justify-content-between align-items-center">
+					
+							<h5 class="card-title font-weight-bold">Danh sách location</h5>
+
+							<a class="btn btn-sm btn-success px-4 text-white text-decoration-none d-flex align-items-center" href="">
+								<i class="mr-2 icon-md" data-feather="refresh-ccw"></i> Reload
+							</a>
+						</div>
+						@Html.Partial("_CreateLocationPartial", Model.CreateLocation)
+
+
+						<h4 class="my-3">Danh sách Locations</h4>
+
+						@if (Model.Locations != null && Model.Locations.Any())
+						{
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th>Địa chỉ</th>
+										<th>Phường/Xã</th>
+										<th>Quận/Huyện</th>
+										<th>Tỉnh/Thành</th>
+										<th>Địa chỉ</th>
+										<th>Hành động</th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach (var location in Model.Locations)
+									{
+										var address = location.Address;
+										<tr>
+											<td>@address.DetailPosition</td>
+											<td>@address.Ward?.Name</td>
+											<td>@address.District?.Name</td>
+											<td>@address.City?.Name</td>
+											<td>@address.FullAddress</td>
+											<td>
+												<button class="btn btn-sm btn-primary edit-location-btn"
+														data-location-id="@location.LocationId"
+														data-address-id="@address.AddressId"
+														data-province-code="@address.ProvinceCode"
+														data-district-code="@address.DistrictCode"
+														data-ward-code="@address.WardCode"
+														data-detail="@address.DetailPosition">
+
+													<i data-feather="edit" class="icon-md"></i>
+													Sửa
+
+												</button>
+
+												<form asp-action="DeleteLocation" method="post" class="d-inline" onsubmit="return confirm('Bạn có chắc chắn muốn xóa địa chỉ này?');">
+													<input type="hidden" name="locationId" value="@location.LocationId" />
+													<input type="hidden" name="companyId" value="@Model.CompanyId" />
+													<button type="submit" class="btn btn-sm btn-danger">
+														<i data-feather="trash-2" class="icon-md"></i>
+														Xóa
+													</button>
+												</form>
+											</td>
+										</tr>
+									}
+								</tbody>
+							</table>
+						}
+						else
+						{
+							<p class="text-muted">Chưa có địa điểm nào được thêm.</p>
+						}
+
+						<div class="modal fade" id="editLocationModal" tabindex="-1" role="dialog" aria-labelledby="editLocationLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<form method="post" asp-action="UpdateLocation">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title">Chỉnh sửa địa chỉ</h5>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Đóng">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+
+											<input type="hidden" name="LocationId" id="edit-location-id" />
+											<input type="hidden" name="AddressId" id="edit-address-id" />
+
+											<div class="form-group">
+												<label>Tỉnh/Thành phố</label>
+												<select name="ProvinceCode" id="edit-province" class="form-control"></select>
+											</div>
+											<div class="form-group">
+												<label>Quận/Huyện</label>
+												<select name="DistrictCode" id="edit-district" class="form-control"></select>
+											</div>
+											<div class="form-group">
+												<label>Phường/Xã</label>
+												<select name="WardCode" id="edit-ward" class="form-control"></select>
+											</div>
+											<div class="form-group">
+												<label>Chi tiết</label>
+												<input type="text" name="DetailPosition" id="edit-detail" class="form-control" />
+											</div>
+
+										</div>
+										<div class="modal-footer">
+											<button type="submit" class="btn btn-success">Lưu</button>
+											<button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				}
 			</div>
 		</div>
 	</div>
@@ -439,24 +455,6 @@
 					allowClear: true
 				});
 				feather.replace();
-
-				$("#tabs").tabs();
-
-				// Nếu URL có hash (vd: #locations) thì chuyển đến tab đó
-				const hash = window.location.hash;
-				if (hash && $(hash).length) {
-					const index = $(hash).index();
-					$("#tabs").tabs("option", "active", $("#tabs > div").index($(hash)));
-				}
-
-				// Khi click chuyển tab → cập nhật hash trên URL
-				$("#tabs").on("tabsactivate", function (event, ui) {
-					const newTabId = ui.newPanel.attr("id"); // ex: "locations"
-					if (newTabId) {
-						history.replaceState(null, null, "#" + newTabId);
-					}
-				});
-
 
 				let deletedImages = [];
 

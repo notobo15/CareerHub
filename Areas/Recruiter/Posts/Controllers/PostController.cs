@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using RecruitmentApp.Areas.Admin.Posts.ViewModels;
 using RecruitmentApp.Models;
+using RecruitmentApp.Services;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace RecruitmentApp.Areas.Recruiter.Posts.Controllers
@@ -64,12 +65,29 @@ namespace RecruitmentApp.Areas.Recruiter.Posts.Controllers
         }
 
         // GET: Post/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
 
             var listSkill = _context.Skills.ToList();
-            ViewData["list"] = new MultiSelectList(listSkill, "SkillId", "Name");
-            return View();
+
+            ViewData["Title"] = "Tạo bài đăng";
+
+            var user = await _userManager.GetUserAsync(User);
+
+            var vm = new CreatePostViewModel()
+            {
+                CompanyId = user.CompanyId,
+                LocationIds = _context.Locations
+                    .Where(l => l.CompanyId == user.CompanyId)
+                    .Select(l => l.LocationId)
+                    .ToArray(),
+            };
+
+
+            // Dữ liệu dropdown 
+            await LoadDropdownsAsync(vm);
+
+            return View(vm);
         }
 
         // POST: Post/Create
@@ -147,6 +165,20 @@ namespace RecruitmentApp.Areas.Recruiter.Posts.Controllers
 
         async Task LoadDropdownsAsync(CreatePostViewModel model)
         {
+            model.Locations = new MultiSelectList(
+                _context.Locations
+                    .Where(l => l.CompanyId == model.CompanyId)
+                    .Include(l => l.Address) // đảm bảo Address được load
+                    .Select(l => new
+                    {
+                        Id = l.LocationId,
+                        Name = l.Address.FullAddress
+                    })
+                    .ToList(),
+                "Id",
+                "Name",
+                model.LocationIds
+            );
             model.Skills = new MultiSelectList(_context.Skills, "SkillId", "Name", model.SkillIds);
             model.Levels = new MultiSelectList(_context.Levels, "LevelId", "Name", model.LevelIds);
             model.Titles = new MultiSelectList(_context.Titles, "Id", "Name", model.TitleIds);

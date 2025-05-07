@@ -1,60 +1,105 @@
 ﻿@model RecruitmentApp.Models.AppUser
 
 @{
-    ViewData["Title"] = "Chi tiết người dùng";
+	ViewData["Title"] = "Chi tiết người dùng";
 }
 
 <nav class="page-breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">Người dùng</li>
-        <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
-    </ol>
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">Người dùng</li>
+		<li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
+	</ol>
 </nav>
 
 <div class="row">
-    <div class="col-md-12 grid-margin">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="font-weight-bold">@ViewData["Title"]</h4>
-            </div>
-        </div>
-    </div>
+	<div class="col-md-12 grid-margin">
+		<div class="card">
+			<div class="card-body">
+				<h4 class="font-weight-bold">@ViewData["Title"]</h4>
+			</div>
+		</div>
+	</div>
 </div>
 
 <div class="row">
-    <div class="col-md-12 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
+	<div class="col-md-12 grid-margin stretch-card">
+		<div class="card">
+			<div class="card-body">
                 <dl class="row">
-                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Id)</dt>
-                    <dd class="col-sm-10">@Html.DisplayFor(model => model.Id)</dd>
+                    <dt class="col-sm-2">@Html.DisplayNameFor(m => m.FullName)</dt>
+                    <dd class="col-sm-10">@Html.DisplayFor(m => m.FullName)</dd>
 
-                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Email)</dt>
-                    <dd class="col-sm-10">@Html.DisplayFor(model => model.Email)</dd>
+                    <dt class="col-sm-2">@Html.DisplayNameFor(m => m.ShortName)</dt>
+                    <dd class="col-sm-10">@Html.DisplayFor(m => m.ShortName)</dd>
 
-                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.PhoneNumber)</dt>
-                    <dd class="col-sm-10">@Html.DisplayFor(model => model.PhoneNumber)</dd>
+                    <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Gender)</dt>
+                    <dd class="col-sm-10">
+                        @ViewHelpers.GetGenderText(Model.Gender)
+                    </dd>
 
-                    @* <dt class="col-sm-2">@Html.DisplayNameFor(model => model.HomeAddress)</dt> *@
-                    @* <dd class="col-sm-10">@Html.DisplayFor(model => model.HomeAddress)</dd> *@
+                    <dt class="col-sm-2">@Html.DisplayNameFor(m => m.BirthDate)</dt>
+                    <dd class="col-sm-10">@Model.BirthDate?.ToString("dd/MM/yyyy")</dd>
 
-                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.BirthDate)</dt>
-                    <dd class="col-sm-10">@Html.DisplayFor(model => model.BirthDate)</dd>
+                    <dt class="col-sm-2">@Html.DisplayNameFor(m => m.PersonalLink)</dt>
+                    <dd class="col-sm-10">
+                        @if (!string.IsNullOrEmpty(Model.PersonalLink))
+                        {
+                            <a href="@Model.PersonalLink" target="_blank">@Model.PersonalLink</a>
+                        }
+                        else
+                        {
+                            <span class="text-muted">Không có</span>
+                        }
+                    </dd>
+
+                    <dt class="col-sm-2">Trình độ học vấn</dt>
+                    <dd class="col-sm-10">@Model.AcademicLevel</dd>
+
+                    <dt class="col-sm-2">Kinh nghiệm</dt>
+                    <dd class="col-sm-10">@Model.YearsOfExperience năm</dd>
+
+                    <dt class="col-sm-2">Địa chỉ</dt>
+                    <dd class="col-sm-10">@Model.Address</dd>
+
+                    <dt class="col-sm-2">Tỉnh / Thành</dt>
+                    <dd class="col-sm-10">@Model.Province?.FullName</dd>
+
+                    <dt class="col-sm-2">Mức lương mong muốn</dt>
+                    <dd class="col-sm-10">
+                        @{
+                            var min = Model.MinExpectedSalary?.ToString("N0") ?? "0";
+                            var max = Model.MaxExpectedSalary?.ToString("N0") ?? "0";
+                        }
+                        @min - @max VNĐ
+                    </dd>
+
+                    <dt class="col-sm-2">Cho phép mời việc?</dt>
+                    <dd class="col-sm-10">@((Model.AllowJobInvitations ? "Có" : "Không"))</dd>
+
+                    <dt class="col-sm-2">Ảnh đại diện</dt>
+                    <dd class="col-sm-10">
+                        @if (!string.IsNullOrEmpty(Model.Avatar))
+                        {
+                            <img src="@Url.Content(Model.Avatar)" class="img-thumbnail" style="max-width: 100px;" />
+                        }
+                        else
+                        {
+                            <span class="text-muted">Chưa có</span>
+                        }
+                    </dd>
                 </dl>
-            </div>
-        </div>
-    </div>
+
+			</div>
+		</div>
+	</div>
 </div>
 
 <div class="mt-4">
-    <a asp-action="Index" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center">
-        <i data-feather="chevron-left" class="mr-1 icon-md"></i> Trở về danh sách
-    </a>
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-outline-primary d-inline-flex align-items-center ml-2">
-        <i data-feather="edit" class="mr-1 icon-md"></i> Chỉnh sửa
-    </a>
+	<a asp-action="Index" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center">
+		<i data-feather="chevron-left" class="mr-1 icon-md"></i> Trở về danh sách
+	</a>
+	<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-outline-primary d-inline-flex align-items-center ml-2">
+		<i data-feather="edit" class="mr-1 icon-md"></i> Chỉnh sửa
+	</a>
 </div>
 
-@section Scripts {
-    <script> feather.replace(); </script>
-}

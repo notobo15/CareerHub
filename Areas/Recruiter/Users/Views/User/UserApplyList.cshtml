@@ -1,0 +1,38 @@
+﻿@model List<RecruitmentApp.Models.ApplyPost>
+@{
+    ViewData["Title"] = "Danh sách bài viết đã ứng tuyển";
+}
+
+<h3>@ViewData["Title"]</h3>
+<p><strong>Ứng viên:</strong> @ViewBag.UserName (@ViewBag.UserEmail)</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Vị trí ứng tuyển</th>
+            <th>Ngày nộp</th>
+            <th>CV</th>
+            <th>Ghi chú</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var apply in Model)
+        {
+            <tr>
+                <td>@apply.Post?.Title</td>
+                <td>@apply.ApplyDate.ToString("dd/MM/yyyy")</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(apply.FilePath))
+                    {
+                        <a href="@Url.Content(apply.FilePath)" target="_blank">Xem CV</a>
+                    }
+                    else
+                    {
+                        <span class="text-muted">Không có</span>
+                    }
+                </td>
+                <td>@apply.Description</td>
+            </tr>
+        }
+    </tbody>
+</table>

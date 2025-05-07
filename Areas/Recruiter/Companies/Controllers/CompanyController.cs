@@ -46,62 +46,115 @@ namespace RecruitmentApp.Areas.Recruiter.Companies.Controllers
         }
 
         // GET: Company/Details/5
-        public async Task<IActionResult> Details()
+        public async Task<IActionResult> Details(string tab = "details")
         {
             var companyId = await GetCompanyId();
-
             if (companyId == null)
-            {
                 return NotFound();
+
+            IQueryable<Company> query = _context.Companies.Where(c => c.CompanyId == companyId);
+
+            switch (tab.ToLower())
+            {
+                case "images":
+                    query = query.Include(c => c.Images);
+                    break;
+
+                case "locations":
+                    query = query.Include(c => c.Locations);
+                    break;
+
+                case "reviews":
+                    query = query
+                        .Include(c => c.Reviews)
+                            .ThenInclude(r => r.User);
+                    break;
+
+                default: // "details"
+                    query = query
+                        .Include(c => c.CompanyType)
+                        .Include(c => c.Country);
+                    break;
             }
 
-            var company = await _context.Companies
-                 .Include(c => c.Images)
-                  .Where(u => u.CompanyId == companyId)
-                  .Include(c => c.Images)
-                  .FirstOrDefaultAsync();
+            var company = await query.FirstOrDefaultAsync();
 
             if (company == null)
-            {
                 return NotFound();
-            }
 
-         
+            ViewBag.ActiveTab = tab.ToLower();
             return View(company);
         }
 
-      
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ReplyReview(int ReviewId, string CompanyReply)
+        {
+            if (string.IsNullOrWhiteSpace(CompanyReply))
+            {
+                TempData["Error"] = "Reply content cannot be empty.";
+                return RedirectToAction("Edit", new { tab = "reviews" });
+            }
+
+            var review = await _context.Reviews.FindAsync(ReviewId);
+            if (review == null)
+            {
+                return NotFound();
+            }
+
+            review.CompanyReply = CompanyReply;
+            review.RepliedAt = DateTime.UtcNow;
+            review.RepliedById = _userManager.GetUserId(User);
+
+            _context.Update(review);
+            await _context.SaveChangesAsync();
+
+            TempData["Success"] = "Reply has been saved successfully.";
+            return RedirectToAction("Edit", new { tab = "reviews" });
+        }
+
 
         // GET: Company/Edit/5
-        public async Task<IActionResult> Edit()
+        public async Task<IActionResult> Edit(string tab = "details")
         {
             var companyId = await GetCompanyId();
-
             if (companyId == null)
-            {
                 return NotFound();
+
+            IQueryable<Company> query = _context.Companies.Where(c => c.CompanyId == companyId);
+
+            // Include chung (dùng cho nhiều tab)
+            query = query.Include(c => c.CompanySkills);
+
+            switch (tab.ToLower())
+            {
+                case "images":
+                    query = query.Include(c => c.Images);
+                    break;
+
+                case "locations":
+                    query = query
+                        .Include(c => c.Locations)
+                            .ThenInclude(l => l.Address)
+                                .ThenInclude(a => a.City)
+                                    .ThenInclude(c => c.Districts)
+                                        .ThenInclude(d => d.Wards);
+                    break;
+
+                case "reviews":
+                    query = query
+                        .Include(c => c.Reviews)
+                            .ThenInclude(r => r.User);
+                    break;
             }
 
-            var company = await _context.Companies
-                .Include(c => c.CompanySkills)
-                .Include(c => c.Images)
-                .Include(c => c.Locations)
-                .ThenInclude(c => c.Address)
-                .ThenInclude(c => c.City)
-                .ThenInclude(c => c.Districts)
-                .ThenInclude(c => c.Wards)
-                .FirstOrDefaultAsync(c => c.CompanyId == companyId);
-
+            var company = await query.FirstOrDefaultAsync();
             if (company == null)
-            {
                 return NotFound();
-            }
 
             var recruiter = await _userManager.GetUsersInRoleAsync("Recruiter");
 
-           
-
-            var CreateCompany = new CreateCompany()
+            var CreateCompany = new CreateCompany
             {
                 CompanyId = company.CompanyId,
                 Name = company.Name,
@@ -123,7 +176,8 @@ namespace RecruitmentApp.Areas.Recruiter.Companies.Controllers
                 LogoImage = company.LogoImage,
                 SkillIds = company.CompanySkills.Select(e => e.SkillID).ToArray(),
                 Countries = _context.Countries
-                    .Select(c => new SelectListItem {
+                    .Select(c => new SelectListItem
+                    {
                         Value = c.CountryId.ToString(),
                         Text = c.Name
                     }).ToList(),
@@ -133,23 +187,22 @@ namespace RecruitmentApp.Areas.Recruiter.Companies.Controllers
                     Text = e.FullName
                 }).ToList(),
                 Skills = new MultiSelectList(_context.Skills.ToList(), "SkillId", "Name"),
-
-                Images = company.Images,
+                Images = tab == "images" ? company.Images : new List<Image>(),
                 CreateLocation = new CreateLocationViewModel
                 {
                     CompanyId = company.CompanyId,
-                    Provinces = _context.Provinces
-                        .Select(p => new SelectListItem
-                        {
-                            Value = p.Code,
-                            Text = p.FullName
-                        }).ToList(),
+                    Provinces = _context.Provinces.Select(p => new SelectListItem
+                    {
+                        Value = p.Code,
+                        Text = p.FullName
+                    }).ToList(),
                     Districts = new List<SelectListItem>(),
                     Wards = new List<SelectListItem>()
                 },
-                Locations = company.Locations.ToList(),
+                Locations = tab == "locations" ? company.Locations.ToList() : new List<Location>()
             };
 
+            ViewBag.ActiveTab = tab.ToLower();      
             return View(CreateCompany);
         }
 

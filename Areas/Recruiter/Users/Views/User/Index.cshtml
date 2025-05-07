@@ -1,18 +1,15 @@
-@model UserListModel
+@model List<AppUser>
 @{
-    ViewData["Title"] = "Danh sách các thành viên";
-    var pagingmodel = new PagingModel()
-            {
-                currentpage = Model.currentPage,
-                countpages = Model.countPages,
-                generateUrl = (int? p) => Url.Action("Index", new { p = p })
-            };
+    var referenceUser = Model.FirstOrDefault() ?? new RecruitmentApp.Models.AppUser();
 }
 
 <nav class="page-breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item">Thành viên</li>
-        <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
+        <li class="breadcrumb-item">Recuiter</li>
+        <li class="breadcrumb-item">Candidates</li>
+        <li class="breadcrumb-item active">
+            <a href="">List</a>
+        </li>
     </ol>
 </nav>
 
@@ -24,73 +21,62 @@
             <div class="card-body d-flex justify-content-between align-items-center">
                 <div>
                     <h4 class="font-weight-bold mb-0">@ViewData["Title"]</h4>
-                    <span class="text-muted">Tổng số thành viên: <strong>@Model.totalUsers</strong></span>
+                    <span class="text-muted">Tổng Users: <strong>@ViewBag.TotalUsers</strong></span>
                 </div>
-
-                <a asp-controller="User" asp-action="Create" asp-route-role="Recruiter"
-                   class="btn btn-sm btn-primary d-inline-flex align-items-center">
-                    <i data-feather="user-plus" class="me-1 icon-md"></i> Tạo Recruiter
-                </a>
             </div>
         </div>
     </div>
-</div>  
+</div>
 
 <div class="row">
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
+                <div>
+                    <partial name="Admin/_SearchAndPageSizePartial" />
+                </div>
                 <table class="table table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th>Tên User</th>
-                            <th>Vai trò</th>
-                            <th class="text-center">Quản lý Apply</th>
+                            <th>@Html.DisplayNameFor(m => referenceUser.Email)</th>
+                            <th>@Html.DisplayNameFor(m => referenceUser.FullName)</th>
+                            <th>@Html.DisplayNameFor(m => referenceUser.PhoneNumber)</th>
+                            <th>@Html.DisplayNameFor(m => referenceUser.Avatar)</th>
+                            <th>@Html.DisplayNameFor(m => referenceUser.Gender)</th>
+                            <th>@Html.DisplayNameFor(m => referenceUser.BirthDate)</th>
                             <th class="text-center">Tác vụ</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var user in Model.users)
+                        @foreach (var user in Model)
                         {
                             <tr>
-                                <td>@user.UserName</td>
+                                <td>@user.Email</td>
+                                <td>@user.FullName</td>
+                                <td>@user.PhoneNumber</td>
                                 <td>
-                                    @if (string.IsNullOrEmpty(user.RoleNames))
-                                    {
-                                        <a class="text-dark" asp-action="AddRole" asp-route-id="@user.Id">
-                                            <i data-feather="plus" class="icon-sm text-primary mr-1"></i> Thêm roles
-                                        </a>
-                                    }
-                                    else
-                                    {
-                                        <a asp-action="AddRole" asp-route-id="@user.Id">
-                                            <i data-feather="shield" class="icon-sm text-success mr-1"></i> @user.RoleNames
-                                        </a>
-                                    }
+                                    <img src="@user.Avatar" style="width: 40px; height: 40px;" alt="@user.UserName" />
                                 </td>
+                                <td>@ViewHelpers.GetGenderText(user.Gender)</td>
+                                <td>@user.BirthDate</td>
+                               
                                 <td class="text-center">
                                     <a class="btn btn-outline-info btn-sm d-inline-flex align-items-center" asp-action="ManageApplyJob" asp-route-id="@user.Id">
-                                        <i data-feather="file-text" class="mr-1 icon-sm"></i> Xem chi tiết
+                                        <i data-feather="file-text" class="mr-1 icon-sm"></i> Applies
                                     </a>
-                                </td>
-                                <td class="text-center">
-                                    <a class="btn btn-sm btn-outline-secondary" asp-action="SetPassword" asp-route-id="@user.Id">
-                                        <i data-feather="lock" class="icon-sm mr-1"></i> Mật khẩu
-                                    </a>
+                               
                                     <a class="btn btn-sm btn-outline-primary" asp-action="Details" asp-route-id="@user.Id">
                                         <i data-feather="eye" class="icon-sm mr-1"></i> Xem
-                                    </a>
-                                    <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@user.Id"
-                                       onclick="return confirm('Bạn có chắc muốn xoá user này không?');">
-                                        <i data-feather="trash-2" class="icon-sm mr-1"></i> Xoá
                                     </a>
                                 </td>
                             </tr>
                         }
                     </tbody>
                 </table>
-
-                <partial name="_PagingXTL" model="@pagingmodel" />
+                <div class="mt-4">
+                    <partial name="Admin/_PaginationPartial" />
+                </div>
+                @* <partial name="_PagingXTL" model="@pagingmodel" /> *@
             </div>
         </div>
     </div>
@@ -99,12 +85,12 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
-            feather.replace();
-
             $('.table').DataTable({
                 paging: false,
+                lengthChange: false,
+                searching: false,
                 info: false,
-                searching: false
+                ordering: true
             });
         });
     </script>

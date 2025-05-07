@@ -1,96 +1,349 @@
 ﻿@model RecruitmentApp.Models.Company
 
 @{
-    ViewData["Title"] = "Chi tiết công ty";
+	ViewData["Title"] = "Chi tiết công ty";
 }
+<style>
+	.sortable-container {
+	display: flex;
+	flex-wrap: wrap;
+	}
+
+	.image-wrapper {
+	width: 100px;
+	height: 100px;
+	border: 1px solid #ccc;
+	margin: 10px;
+	position: relative;
+	text-align: center;
+	}
+
+	.image-wrapper img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	}
+
+</style>
 
 <nav class="page-breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">Companies</li>
-        <li class="breadcrumb-item active">Chi tiết</li>
-    </ol>
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">Companies</li>
+		<li class="breadcrumb-item active">Chi tiết</li>
+	</ol>
 </nav>
 
 <div class="row">
-    <div class="col-md-12 grid-margin">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="font-weight-bold">@ViewData["Title"]</h4>
-            </div>
-        </div>
-    </div>
+	<div class="col-md-12 grid-margin">
+		<div class="card">
+			<div class="card-body">
+				<h4 class="font-weight-bold">@ViewData["Title"]</h4>
+			</div>
+		</div>
+	</div>
 </div>
 
+
 <div class="row">
-    <div class="col-md-12 grid-margin">
-        <div class="card">
-            <div class="card-body">
-                <dl class="row">
-                    <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Slug)</dt>
-                    <dd class="col-sm-10">@Html.DisplayFor(m => m.Slug)</dd>
+	<div class="col-md-12 grid-margin">
 
-                    <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Name)</dt>
-                    <dd class="col-sm-10">@Html.DisplayFor(m => m.Name)</dd>
+		<div class="card">
 
-                    <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Size)</dt>
-                    <dd class="col-sm-10">@Html.DisplayFor(m => m.Size)</dd>
+			<ul class="nav nav-tabs mt-3 mx-3">
+				<li class="nav-item">
+					<a class="nav-link @(ViewBag.ActiveTab == "details" ? "active" : "")" href="?tab=details">
+						<i data-feather="info" class="icon-md"></i> Details
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link @(ViewBag.ActiveTab == "images" ? "active" : "")" href="?tab=images">
+						<i data-feather="image" class="icon-md"></i> Images
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link @(ViewBag.ActiveTab == "locations" ? "active" : "")" href="?tab=locations">
+						<i data-feather="map-pin" class="icon-md"></i> Locations
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link @(ViewBag.ActiveTab == "reviews" ? "active" : "")" href="?tab=reviews">
+						<i data-feather="star" class="icon-md"></i> Reviews
+					</a>
+				</li>
+			</ul>
 
-                    <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Description)</dt>
-                    <dd class="col-sm-10">@Html.Raw(Model.Description)</dd>
+			@if (ViewBag.ActiveTab == "details")
+			{
+				<div class="card-body">
+					<h5 class="card-title">Thông tin chi tiết</h5>
 
-                    <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Reason)</dt>
-                    <dd class="col-sm-10">@Html.Raw(Model.Reason)</dd>
 
-                    <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Phone)</dt>
-                    <dd class="col-sm-10">@Html.DisplayFor(m => m.Phone)</dd>
+					<dl class="row">
+						<dt class="col-sm-2">@Html.DisplayNameFor(m => m.Slug)</dt>
+						<dd class="col-sm-10">@Html.DisplayFor(m => m.Slug)</dd>
+					</dl>
+					<dl class="row">
+						<dt class="col-sm-2">@Html.DisplayNameFor(m => m.Name)</dt>
+						<dd class="col-sm-10">@Html.DisplayFor(m => m.Name)</dd>
+					</dl>
+					<dl class="row">
+						<dt class="col-sm-2">@Html.DisplayNameFor(m => m.FullName)</dt>
+						<dd class="col-sm-10">@Html.DisplayFor(m => m.FullName)</dd>
+					</dl>
+					<dl class="row">
+						<dt class="col-sm-2">@Html.DisplayNameFor(m => m.Size)</dt>
+						<dd class="col-sm-10">@Html.DisplayFor(m => m.Size)</dd>
 
-                    <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Email)</dt>
-                    <dd class="col-sm-10">@Html.DisplayFor(m => m.Email)</dd>
+					</dl>
+					<dl class="row">
+						<dt class="col-sm-2">@Html.DisplayNameFor(m => m.Phone)</dt>
+						<dd class="col-sm-10">@Html.DisplayFor(m => m.Phone)</dd>
+					</dl>
+					<dl class="row">
+						<dt class="col-sm-2">@Html.DisplayNameFor(m => m.Email)</dt>
+						<dd class="col-sm-10">@Html.DisplayFor(m => m.Email)</dd>
+					</dl>
+					<dl class="row">
+						<dt class="col-sm-2">@Html.DisplayNameFor(m => m.WorkType.Name)</dt>
+						<dd class="col-sm-10">@Html.DisplayFor(m => m.WorkType.Name)</dd>
+					</dl>
+					<dl class="row">
+						<dt class="col-sm-2">@Html.DisplayNameFor(m => m.Country.Name)</dt>
+						<dd class="col-sm-10">@Html.DisplayFor(m => m.Country.Name)</dd>
+					</dl>
+					<dl class="row">
+						<dt class="col-sm-2">@Html.DisplayNameFor(m => m.OverTime)</dt>
+						<dd class="col-sm-10">@Html.DisplayFor(m => m.OverTime)</dd>
+					</dl>
+					<dl class="row">
+						<dt class="col-sm-2">@Html.DisplayNameFor(m => m.WorkingTime)</dt>
+						<dd class="col-sm-10">@Html.DisplayFor(m => m.WorkingTime)</dd>
+					</dl>
+					<dl class="row">
+						<dt class="col-sm-2">@Html.DisplayNameFor(m => m.LogoImage)</dt>
+						<dd class="col-sm-10">
+							@if (!string.IsNullOrEmpty(Model.LogoImage))
+							{
+								<img src="@Model.LogoFullPath" class="img-thumbnail" style="max-height:100px;" alt="Logo" />
+							}
+							else
+							{
+								<span class="text-muted">Chưa có logo</span>
+							}
+						</dd>
+					</dl>
+					<dl class="row">
+						<dt class="col-sm-2">@Html.DisplayNameFor(m => m.IsShowCompanyUrl)</dt>
+						<dd class="col-sm-10">@Html.DisplayFor(m => m.IsShowCompanyUrl)</dd>
+					</dl>
+					<dl class="row">
+						<dt class="col-sm-2">@Html.DisplayNameFor(m => m.CompanyUrl)</dt>
+						<dd class="col-sm-10">
+							<a href="@Model.CompanyUrl" target="_blank">@Model.CompanyUrl</a>
+						</dd>
+					</dl>
+					<dl class="row">
+						<dt class="col-sm-2">@Html.DisplayNameFor(m => m.IsShowCompanyFbUrl)</dt>
+						<dd class="col-sm-10">@Html.DisplayFor(m => m.IsShowCompanyFbUrl)</dd>
+					</dl>
+					<dl class="row">
+						<dt class="col-sm-2">@Html.DisplayNameFor(m => m.CompanyFbUrl)</dt>
+						<dd class="col-sm-10">
+							<a href="@Model.CompanyFbUrl" target="_blank">@Model.CompanyFbUrl</a>
+						</dd>
+					</dl>
+					<dl class="row">
+						<dt class="col-sm-2">@Html.DisplayNameFor(m => m.ShortDescription)</dt>
+						<dd class="col-sm-10">@Html.Raw(Model.ShortDescription)</dd>
 
-                    <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Type)</dt>
-                    <dd class="col-sm-10">@Html.DisplayFor(m => m.Type)</dd>
+					</dl>
+					<dl class="row">
 
-                    <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Nation)</dt>
-                    <dd class="col-sm-10">@Html.DisplayFor(m => m.Nation)</dd>
+						<dt class="col-sm-2">@Html.DisplayNameFor(m => m.Description)</dt>
+						<dd class="col-sm-10">@Html.Raw(Model.Description)</dd>
 
-                    <dt class="col-sm-2">@Html.DisplayNameFor(m => m.OverTime)</dt>
-                    <dd class="col-sm-10">@Html.DisplayFor(m => m.OverTime)</dd>
+					</dl>
+					<dl class="row">
 
-                    <dt class="col-sm-2">@Html.DisplayNameFor(m => m.WorkingTime)</dt>
-                    <dd class="col-sm-10">@Html.DisplayFor(m => m.WorkingTime)</dd>
+						<dt class="col-sm-2">@Html.DisplayNameFor(m => m.Description)</dt>
+						<dd class="col-sm-10">@Html.Raw(Model.Description)</dd>
 
-                    <dt class="col-sm-2">@Html.DisplayNameFor(m => m.LogoImage)</dt>
-                    <dd class="col-sm-10">
-                        @if (!string.IsNullOrEmpty(Model.LogoImage))
-                        {
-                            <img src="~/company-logo/@Model.LogoImage" class="img-thumbnail" style="max-height:100px;" alt="Logo" />
-                        }
-                        else
-                        {
-                            <span class="text-muted">Chưa có logo</span>
-                        }
-                    </dd>
+					</dl>
+					<dl class="row">
+						<dt class="col-sm-2">@Html.DisplayNameFor(m => m.TopReason)</dt>
+						<dd class="col-sm-10">@Html.Raw(Model.TopReason)</dd>
 
-                    <dt class="col-sm-2">@Html.DisplayNameFor(m => m.CompanyUrl)</dt>
-                    <dd class="col-sm-10">
-                        <a href="@Model.CompanyUrl" target="_blank">@Model.CompanyUrl</a>
-                    </dd>
 
-                    <dt class="col-sm-2">@Html.DisplayNameFor(m => m.CompanyFbUrl)</dt>
-                    <dd class="col-sm-10">
-                        <a href="@Model.CompanyFbUrl" target="_blank">@Model.CompanyFbUrl</a>
-                    </dd>
-                </dl>
-            </div>
-        </div>
-    </div>
+					</dl>
+					<dl class="row">
+
+						<dt class="col-sm-2">@Html.DisplayNameFor(m => m.Reason)</dt>
+						<dd class="col-sm-10">@Html.Raw(Model.Reason)</dd>
+
+					</dl>
+					<dl class="row">
+
+						<dt class="col-sm-2">@Html.DisplayNameFor(m => m.OurExpertise)</dt>
+						<dd class="col-sm-10">@Html.Raw(Model.OurExpertise)</dd>
+
+					</dl>
+					<dl class="row">
+						<dt class="col-sm-2">@Html.DisplayNameFor(m => m.WhyJoinUs)</dt>
+						<dd class="col-sm-10">@Html.Raw(Model.WhyJoinUs)</dd>
+					</dl>
+				</div>
+			}
+			else if (ViewBag.ActiveTab == "images")
+			{
+				<div class="card-body">
+					<div id="details">
+						<h5 class="card-title">Danh sách ảnh</h5>
+						<div id="existing-images" class="sortable-container" data-lg-container="true">
+							@foreach (var image in Model.Images.OrderBy(i => i.Order))
+							{
+								<div class="image-wrapper" data-image-id="@image.ImageId">
+									<a href="@image.FullPath" data-lg-size="1400-900">
+										<img src="@image.FullPath" />
+									</a>
+								</div>
+							}
+						</div>
+					</div>
+				</div>
+
+			}
+			else if (ViewBag.ActiveTab == "locations")
+			{
+				<div class="card-body">
+					<h5 class="card-title">Danh sách locations</h5>
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>Địa chỉ</th>
+								<th>Phường/Xã</th>
+								<th>Quận/Huyện</th>
+								<th>Tỉnh/Thành</th>
+								<th>Địa chỉ</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var location in Model.Locations)
+							{
+								var address = location?.Address;
+								<tr>
+									<td>@address?.DetailPosition</td>
+									<td>@address?.Ward?.Name</td>
+									<td>@address?.District?.Name</td>
+									<td>@address?.City?.Name</td>
+									<td>@address?.FullAddress</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			}
+
+			else if (ViewBag.ActiveTab == "reviews")
+			{
+				<div class="card-body">
+					<h5 class="card-title">Danh sách Reviews</h5>
+					@if (Model.Reviews == null || !Model.Reviews.Any())
+					{
+						<div class="alert alert-info">This company has not received any reviews yet.</div>
+					}
+					else
+					{
+						<div class="list-group">
+							@foreach (var review in Model.Reviews)
+							{
+								<div class="list-group-item mb-3">
+									<i data-feather="star" class="icon-md fill text-warning"></i>
+									<h5 class="mb-1">
+										@review.OverallRating / 5
+									</h5>
+									<p class="mb-1"><strong>Summary:</strong> @review.Summary</p>
+									<p><strong>Experience:</strong> @review.Experience</p>
+									<p><strong>Suggestion:</strong> @review.Suggestion</p>
+
+									<ul class="list-unstyled mb-2">
+										<li><strong>Salary:</strong> @review.SalaryRating / 5</li>
+										<li><strong>Training:</strong> @review.TrainingRating / 5</li>
+										<li><strong>Management:</strong> @review.ManagementRating / 5</li>
+										<li><strong>Culture:</strong> @review.CultureRating / 5</li>
+										<li><strong>Office:</strong> @review.OfficeRating / 5</li>
+									</ul>
+
+									<p><strong>Would Recommend:</strong> @(review.RecommendToFriends ? "Yes" : "No")</p>
+
+									<small class="text-muted">Submitted by: @review.User?.FullName on @review.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy")</small>
+									@if (!string.IsNullOrEmpty(review.CompanyReply))
+									{
+										<div class="bg-light border rounded p-3 mb-3">
+											<div class="d-flex justify-content-between align-items-start">
+												<div>
+													<strong>Company Reply:</strong>
+													<p class="mb-1">@review.CompanyReply</p>
+													<small class="text-muted">
+														Replied on: @review.RepliedAt?.ToLocalTime().ToString("dd/MM/yyyy")
+													</small>
+												</div>
+												<button type="button" class="btn btn-sm btn-outline-warning ml-3" data-toggle="modal" data-target="#replyModal-@review.Id">
+													Edit Reply
+												</button>
+											</div>
+										</div>
+									}
+									else
+									{
+										<button type="button" class="btn btn-sm btn-outline-primary mt-2 mb-3" data-toggle="modal" data-target="#replyModal-@review.Id">
+											Reply
+										</button>
+									}
+								</div>
+								<!-- Modal form dùng chung cho Reply hoặc Edit Reply -->
+								<div class="modal fade" id="replyModal-@review.Id" tabindex="-1" role="dialog" aria-labelledby="replyModalLabel-@review.Id" aria-hidden="true">
+									<div class="modal-dialog modal-lg" role="document">
+										<div class="modal-content">
+											<form asp-action="ReplyReview" method="post">
+												<div class="modal-header">
+													<h5 class="modal-title" id="replyModalLabel-@review.Id">@(string.IsNullOrEmpty(review.CompanyReply) ? "Reply to Review" : "Edit Reply")</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<input type="hidden" name="ReviewId" value="@review.Id" />
+													<div class="form-group">
+														<label for="CompanyReply-@review.Id">Your Reply</label>
+														<textarea class="form-control" id="CompanyReply-@review.Id" name="CompanyReply"
+																  rows="4" required>@review.CompanyReply</textarea>
+													</div>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+													<button type="submit" class="btn btn-success">Save Reply</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							}
+						</div>
+					}
+				</div>
+			}
+
+		</div>
+	</div>
 </div>
 
 <div class="mt-4">
-    <a asp-action="Index" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center mr-2">
-        <i data-feather="chevron-left" class="mr-1 icon-md"></i> Quay lại danh sách
-    </a>
-    <a asp-action="Edit" asp-route-id="@Model.CompanyId" class="btn btn-sm btn-outline-warning d-inline-flex align-items-center">
-        <i data-feather="edit" class="mr-1 icon-md"></i> Chỉnh sửa
-    </a>
+	<a asp-action="Index" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center mr-2">
+		<i data-feather="chevron-left" class="mr-1 icon-md"></i> Quay lại danh sách
+	</a>
+	<a asp-action="Edit" asp-route-id="@Model.CompanyId" class="btn btn-sm btn-outline-warning d-inline-flex align-items-center">
+		<i data-feather="edit" class="mr-1 icon-md"></i> Chỉnh sửa
+	</a>
 </div>
+
+
