@@ -74,7 +74,9 @@ namespace RecruitmentApp.Seed
 
                     await SeedBlogCategories(applicationDbContext, package); 
                     
-                    await SeedBlogs(applicationDbContext, package); 
+                    await SeedBlogs(applicationDbContext, package);
+
+                    await SeedSettings(applicationDbContext);
                 }
             }
             catch (Exception ex)
@@ -206,6 +208,7 @@ namespace RecruitmentApp.Seed
                         UpdatedAt = DateTime.Now,
                         IsShowCompanyFbUrl = true,
                         IsShowCompanyUrl = true,
+                        IsShowOnHome = (row - 2) < 8,
                         //IsDeleted = sheet.Cells[row, 18].Text == "1", // Column 18: IsDeleted
                         //CreatedAt = DateTime.Parse(sheet.Cells[row, 19].Text), // Column 19: CreatedAt
                         //UpdatedAt = DateTime.Parse(sheet.Cells[row, 20].Text), // Column 20: UpdatedAt
@@ -279,6 +282,7 @@ namespace RecruitmentApp.Seed
                         // IsDeleted = sheet.Cells[row, 22].Text == "1",
                         // CreatedAt = DateTime.Parse(sheet.Cells[row, 23].Text),
                         // UpdatedAt = DateTime.Parse(sheet.Cells[row, 24].Text)
+                        IsShowOnHome = (row - 2) < 8,
                     };
 
                     applicationDbContext.Posts.Add(post);
@@ -658,7 +662,8 @@ namespace RecruitmentApp.Seed
                         ThumbnailUrl = thumbnail,
                         IsPublished = true,
                         CreatedAt = DateTime.Now,
-                        CategoryId = category?.CategoryId
+                        CategoryId = category?.CategoryId,
+                        IsShowOnHome = (row - 0) < 5,
                     };
 
                     dbContext.Blogs.Add(blog);
@@ -666,6 +671,30 @@ namespace RecruitmentApp.Seed
 
                 await dbContext.SaveChangesAsync();
                 Console.WriteLine("Blogs seeded successfully.");
+            }
+        }
+        private static async Task SeedSettings(AppDbContext dbContext)
+        {
+            if (!dbContext.Settings.Any())
+            {
+                Console.WriteLine("Seeding Settings...");
+
+                var settings = new List<Setting>
+        {
+            new Setting
+            {
+                NumberOfPosts = 6,
+                NumberOfCompanies = 10,
+                PhoneNumber = "0123456789",
+                Email = "admin@example.com",
+                TaxNumber = "1234567890"
+            }
+        };
+
+                dbContext.Settings.AddRange(settings);
+                await dbContext.SaveChangesAsync();
+
+                Console.WriteLine("Settings seeded successfully.");
             }
         }
     }
