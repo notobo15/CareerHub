@@ -48,7 +48,7 @@ public class PostService
             Slug = p.Slug,
             IsHot = p.IsHot,
             ViewTotal = p.ViewTotal,
-            Salary = p.Salary,
+            //Salary = p.Salary,
             SalaryText = p.salaryToString(),
             PostDate = p.PostDate,
             Expired = p.Expired,
@@ -116,6 +116,7 @@ public class PostService
                         .ThenInclude(pla => pla.City)
             .OrderByDescending(p => p.PostDate)
             .Take(take)
+            .Where(c => c.IsShowOnHome)
             .ToListAsync();
     }
 }

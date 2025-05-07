@@ -27,6 +27,7 @@ namespace RecruitmentApp.Services.Users
                 .Distinct()
                 .OrderBy(c => c.CompanyId) // đảm bảo thứ tự để phân trang chính xác
                 .Take(take)
+                .Where(c => c.IsShowOnHome)
                 .ToListAsync();
         }
     }
