@@ -1756,7 +1756,7 @@ a.hover-effect {
 
 .button, .epcl-button {
     display: inline-block;
-    background-color: #f60d00;
+    background-color: #007bff;
     color: #fff;
     font-size: 16px;
     padding: 12px 24px;
@@ -3525,7 +3525,7 @@ hr {
 }
 
 .bg-gradient {
-    background: linear-gradient(259.13deg,#54151c 0%,#121212 49.74%)
+    background: linear-gradient(277.42deg, #185e95 0%, #121212 54.89%);
 }
 
 .bg-dark {
@@ -4650,8 +4650,8 @@ div.text .wp-block-table {
         }
 
             #header .logo .use-img-background img {
-                opacity: 0;
-                visibility: hidden
+/*                opacity: 0;
+                visibility: hidden*/
             }
 
         #header .logo a {
@@ -5270,8 +5270,8 @@ div.text .wp-block-table {
 }
 
 #footer .subscribe-form .logo {
-    height: 32px;
-    width: auto
+/*    height: 32px;
+    width: auto*/
 }
 
 div.articles {
@@ -5699,11 +5699,11 @@ div.left-content {
     padding-right: 5px
 }
 
-    div.left-content .main-article {
-        background: #fff;
-        border-radius: 8px;
-        padding: 32px 60px
-    }
+div.left-content .main-article {
+    background: #fff;
+    border-radius: 8px;
+    padding: 32px 60px
+}
 
 .classic div.left-content {
     padding-top: 0;
@@ -6876,8 +6876,8 @@ div.epcl-share {
                 }
 
     #header div.menu-wrapper {
-        padding-bottom: 10px;
-        padding-top: 15px
+/*        padding-bottom: 10px;
+        padding-top: 15px*/
     }
 
     #header.advertising .logo {
@@ -8492,4 +8492,18 @@ div#ez-toc-container {
     flex-shrink: 0;
     margin-right: .2em;
     float: left;
+}
+
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999999999;
 }

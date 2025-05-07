@@ -9219,6 +9219,18 @@
     --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
+body.dark-theme {
+    --background: #1f1f1f;
+    --text-color: #ffffff;
+    --primary: #727cf5;
+    --secondary: #aab2bd;
+    --success: #46c35f;
+    --danger: #f96868;
+    --warning: #f6e84e;
+    --info: #57c7d4;
+    --white: #282f3a;
+}
+
 *,
 *::before,
 *::after {
@@ -29732,6 +29744,7 @@ body {
     background-color: #f9fafb;
     height: 100%;
 }
+    
 
 *:-moz-full-screen,
 *:-webkit-full-screen,
@@ -31033,7 +31046,7 @@ address p {
 .navbar {
     width: calc(100% - 240px);
     height: 60px;
-    background: #ffffff;
+    background: var(--white);
     border-bottom: 1px solid #f2f4f9;
     display: -webkit-flex;
     display: flex;
