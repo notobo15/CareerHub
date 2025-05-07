@@ -101,12 +101,12 @@
                     <ul class="list-group">
                         <li class="btn-group w-100">
                         <div class="list-group-item py-2 text-center mb-3 w-100 rounded-lg " style="background: #5046e5;">
-                            @if(User.IsInRole(RoleName.Administrator))
+                            @if (User.IsInRole(RoleName.Admin))
                             {
                                 <a class="text-light" style="font-size: 1.2rem" asp-area="Admin" asp-controller="Home" asp-action="Index"><i class="fas fa-home mr-2"></i>Trang Chủ</a>
 
                             }
-                            @if (User.IsInRole(RoleName.Recuiter))
+                            @if (User.IsInRole(RoleName.Recruiter))
                             {
                                 <a class="text-light" style="font-size: 1.2rem" asp-area="Recruiters" asp-controller="ManageInfo" asp-action="Index"><i class="fas fa-home mr-2"></i>Trang Chủ</a>
 
@@ -114,7 +114,7 @@
                         </div>
                         </li>
                         <li class="dropdown-divider"></li>
-                    @if(User.IsInRole(RoleName.Administrator))
+                    @if (User.IsInRole(RoleName.Admin))
                     {
                         
                   
@@ -265,7 +265,7 @@
                         </div>
                     </li>
                     }
-                    @if (User.IsInRole(RoleName.Recuiter))
+                    @if (User.IsInRole(RoleName.Recruiter))
                     {
                           
                         

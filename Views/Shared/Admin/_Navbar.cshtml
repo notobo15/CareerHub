@@ -36,8 +36,8 @@
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="languageDropdown" role="button"
 				   data-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
-					<i class="flag-icon flag-icon-@(currentCulture == "vi" ? "vn" : "us") me-1"></i>
-					<span class="font-weight-medium me-1">
+					<i class="flag-icon flag-icon-@(currentCulture == "vi" ? "vn" : "us")"></i>
+					<span class="font-weight-medium ml-1">	
 						@(currentCulture == "vi" ? "Tiếng Việt" : "English")
 					</span>
 				</a>
@@ -45,13 +45,13 @@
 					<form asp-controller="Home" asp-action="SetLanguage" asp-route-returnUrl="@returnUrl" method="post">
 						<input type="hidden" name="culture" value="en-US" />
 						<button type="submit" class="dropdown-item d-flex align-items-center">
-							<i class="flag-icon flag-icon-us me-2"></i> English
+							<i class="flag-icon flag-icon-us mr-2"></i> English
 						</button>
 					</form>
 					<form asp-controller="Home" asp-action="SetLanguage" asp-route-returnUrl="@returnUrl" method="post">
 						<input type="hidden" name="culture" value="vi" />
 						<button type="submit" class="dropdown-item d-flex align-items-center">
-							<i class="flag-icon flag-icon-vn me-2"></i> Tiếng Việt
+							<i class="flag-icon flag-icon-vn mr-2"></i> Tiếng Việt
 						</button>
 					</form>
 				</div>
@@ -120,7 +120,7 @@
 							</div>
 							<div class="content">
 								<div class="d-flex justify-content-between align-items-center">
-									<p>@currentUser.FullName</p>
+									<p>@currentUser?.FullName</p>
 									<p class="sub-text text-muted">30 min ago</p>
 								</div>
 								<p class="sub-text text-muted">Client meeting</p>
@@ -140,11 +140,13 @@
 						</a>
 						<a href="javascript:;" class="dropdown-item">
 							<div class="figure">
-								<img src="@currentUser.Avatar" alt="userr">
+								<img src="@(string.IsNullOrEmpty(currentUser?.Avatar) ? "/images/icons/avatar-default.svg" : currentUser.Avatar)" alt="user" />
+
 							</div>
 							<div class="content">
 								<div class="d-flex justify-content-between align-items-center">
-									<p>@currentUser.FullName</p>
+									<p>@(string.IsNullOrEmpty(currentUser?.FullName) ? "Chưa có fullName" : currentUser.FullName)</p>
+
 									<p class="sub-text text-muted">2 hrs ago</p>
 								</div>
 								<p class="sub-text text-muted">Project deadline</p>
@@ -234,45 +236,38 @@
 				</div>
 			</li>
 			<li class="nav-item dropdown nav-profile">
-				<a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-toggle="dropdown"
-				   aria-haspopup="true" aria-expanded="false">
-					<img src="@currentUser.Avatar" alt="profile">
+				<a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<img src="@(currentUser?.Avatar ?? "/images/icons/avatar-default.svg")" alt="profile" />
 				</a>
 				<div class="dropdown-menu" aria-labelledby="profileDropdown">
 					<div class="dropdown-header d-flex flex-column align-items-center">
 						<div class="figure mb-3">
-							<img src="@currentUser.Avatar" alt="">
+							<img src="@(currentUser?.Avatar ?? "/images/icons/avatar-default.svg")" alt="" />
 						</div>
 						<div class="info text-center">
-							<p class="name font-weight-bold mb-0">@currentUser.FullName</p>
-							<p class="email text-muted mb-3">@currentUser.Email</p>
+							<p class="name font-weight-bold mb-0">@((currentUser?.FullName) ?? "Chưa có FullName")</p>
+							<p class="email text-muted mb-3">@((currentUser?.Email) ?? "Chưa có Email")</p>
 						</div>
 					</div>
 					<div class="dropdown-body">
 						<ul class="profile-nav p-0 pt-3">
 							<li class="nav-item">
-								<a asp-controller="Manage" asp-action="Profile" class="nav-link">
+								<a  asp-controller="Manage" asp-action="Profile" class="nav-link">
 									<i data-feather="user"></i>
 									<span>Profile</span>
 								</a>
 							</li>
 							<li class="nav-item">
-								<a asp-controller="Manage" asp-action="Profile" asp-route-isEdit="true" class="nav-link">
+								<a asp-area="Admin/Identity" asp-controller="Manage" asp-action="Profile" asp-route-isEdit="true" class="nav-link">
 									<i data-feather="edit"></i>
 									<span>Edit Profile</span>
 								</a>
 							</li>
 							<li class="nav-item">
-								<a href="javascript:;" class="nav-link">
-									<i data-feather="repeat"></i>
-									<span>Switch User</span>
-								</a>
-							</li>
-							<li class="nav-item">
-								<a asp-controller="Account" asp-action="LogOff" class="nav-link">
+								<form asp-area="Admin/Identity" asp-controller="Account" asp-action="LogOff" method="post" class="nav-link" onclick="this.submit();">
 									<i data-feather="log-out"></i>
 									<span>Log Out</span>
-								</a>
+								</form>
 							</li>
 						</ul>
 					</div>

@@ -1,4 +1,5 @@
-﻿@using RecruitmentApp.ModelViews
+﻿@using RecruitmentApp.DTOs
+@using RecruitmentApp.ModelViews
 @using RecruitmentApp.Services
 
 @model FilterViewModel
@@ -21,6 +22,19 @@
 	// 		{ "Service", "Dịch vụ và Tư vấn giải pháp" },
 	// 		{ "Non-IT", "Không thuộc lĩnh vực IT" }
 	// 	};
+
+	var salaryOptions = new List<SalaryOption>
+			{
+				new SalaryOption { Id = "salary_option_all", Value = "all", Text = "Tất cả" },
+				new SalaryOption { Id = "salary_option_under_10", Value = "under-10", Text = "Dưới 10 triệu" },
+				new SalaryOption { Id = "salary_option_10_15", Value = "10-15", Text = "10 - 15 triệu" },
+				new SalaryOption { Id = "salary_option_15_20", Value = "15-20", Text = "15 - 20 triệu" },
+				new SalaryOption { Id = "salary_option_20_25", Value = "20-25", Text = "20 - 25 triệu" },
+				new SalaryOption { Id = "salary_option_25_30", Value = "25-30", Text = "25 - 30 triệu" },
+				new SalaryOption { Id = "salary_option_30_50", Value = "30-50", Text = "30 - 50 triệu" },
+				new SalaryOption { Id = "salary_option_above_50", Value = "above-50", Text = "Trên 50 triệu" },
+				new SalaryOption { Id = "salary_option_agree", Value = "agree", Text = "Thỏa thuận" }
+			};
 }
 
 <div class="bg-it-white box-shadow-normal irounded-lg ip-4 imy-4 d-none d-xl-flex align-items-center justify-content-center filter-wrapper">
@@ -43,7 +57,7 @@
 						@foreach (var level in Model.Levels)
 						{
 							<label class="icheckbox imt-3 d-block">
-								<input name="job_level_names[]" type="checkbox" value="@level.Name" />
+								<input name="job_level_names[]" type="checkbox" value="@level.LevelId" />
 								<span>@level.Name</span>
 							</label>
 						}
@@ -53,7 +67,7 @@
 			<section class="inlineWorking">
 				<div class="working-model dropdown" style="min-height: auto;">
 					<div aria-expanded="false" class="itag itag-lg itag-light dropdown-model"
-						 id="dropdown-working-model">
+					id="dropdown-working-model">
 						<span class="labelText">
 							Hình thức làm việc
 						</span>
@@ -90,89 +104,19 @@
 							<i class="feather-icon icon-md" data-feather="x"></i>
 					</div>
 					<div class="dropdown-menu mw-320 ipx-4 ipt-1 ipb-4 irounded-lg box-shadow-medium dropDownMenu" style="max-height: none;">
-						<!-- Tất cả -->
-						<div class="imy-3">
-							<div class="form-check imb-3">
-								<input checked class="form-check-input" type="radio" name="salaryOption" id="salary-all">
-								<label class="form-check-label" for="salary-all">
-									Tất cả
-								</label>
-							</div>
-						</div>
 
-						<!-- Dưới 10 triệu -->
-						<div class="imy-3">
-							<div class="form-check imb-3">
-								<input class="form-check-input" type="radio" name="salaryOption" id="salary-under-10">
-								<label class="form-check-label" for="salary-under-10">
-									Dưới 10 triệu
-								</label>
+						@foreach (var salary in salaryOptions)
+						{
+							<div class="imy-3">
+								<div class="form-check imb-3">
+									<input checked class="form-check-input" type="radio" name="salaryOption" id="@salary.Id" value="@salary.Value">
+									<label class="form-check-label" for="@salary.Id">
+										@salary.Text
+									</label>
+								</div>
 							</div>
-						</div>
-
-						<!-- Các mức tiếp theo -->
-						<div class="imy-3">
-							<div class="form-check imb-3">
-								<input class="form-check-input" type="radio" name="salaryOption" id="salary-10-15">
-								<label class="form-check-label" for="salary-10-15">
-									10 - 15 triệu
-								</label>
-							</div>
-						</div>
-
-						<div class="imy-3">
-							<div class="form-check imb-3">
-								<input class="form-check-input" type="radio" name="salaryOption" id="salary-15-20">
-								<label class="form-check-label" for="salary-15-20">
-									15 - 20 triệu
-								</label>
-							</div>
-						</div>
-
-						<div class="imy-3">
-							<div class="form-check imb-3">
-								<input class="form-check-input" type="radio" name="salaryOption" id="salary-20-25">
-								<label class="form-check-label" for="salary-20-25">
-									20 - 25 triệu
-								</label>
-							</div>
-						</div>
-
-						<div class="imy-3">
-							<div class="form-check imb-3">
-								<input class="form-check-input" type="radio" name="salaryOption" id="salary-25-30">
-								<label class="form-check-label" for="salary-25-30">
-									25 - 30 triệu
-								</label>
-							</div>
-						</div>
-
-						<div class="imy-3">
-							<div class="form-check imb-3">
-								<input class="form-check-input" type="radio" name="salaryOption" id="salary-30-50">
-								<label class="form-check-label" for="salary-30-50">
-									30 - 50 triệu
-								</label>
-							</div>
-						</div>
-
-						<div class="imy-3">
-							<div class="form-check imb-3">
-								<input class="form-check-input" type="radio" name="salaryOption" id="salary-50-plus">
-								<label class="form-check-label" for="salary-50-plus">
-									Trên 50 triệu
-								</label>
-							</div>
-						</div>
-
-						<div class="imy-3">
-							<div class="form-check imb-3">
-								<input class="form-check-input" type="radio" name="salaryOption" id="salary-agree">
-								<label class="form-check-label" for="salary-agree">
-									Thỏa thuận
-								</label>
-							</div>
-						</div>
+							
+						}
 						<div class="imy-3">
 							<div class="d-flex align-items-center gap-2">
 								<input type="number" class="form-control form-control-sm" placeholder="Từ" min="0" max="9999" id="salary-min" />
@@ -227,7 +171,7 @@
 			</section>
 			<section></section>
 			<section class="clear-inline-filter clearInlineFilter d-none">
-				<a class="text-rich-grey text-clear-underline ips-2 clearAll" href="/viec-lam-it">Xoá</a>
+				<span class="text-rich-grey text-clear-underline ips-2 clearAll">Xoá</span>
 			</section>
 		</form>
 	</div>
@@ -259,10 +203,10 @@
 							<div class="d-block text-start">
 								@foreach (var level in Model.Levels)
 								{
-									<label class="itag itag-lg itag-light imy-2 ime-2 normal-text job-level-modal input-checkbox-unchecked"
+									<label class="itag itag-lg itag-light imy-2 ime-2 normal-text job-level-modal"
 										   for="job_level_names_@level.Name">
 										<input class="btn-check" id="job_level_names_@level.Name" name="job_level_names[]"
-											   type="checkbox" value="@level.Name" />
+											   type="checkbox" value="@level.LevelId" />
 										<span>@level.Name</span>
 										<span class="d-flex align-items-center plus-icon">
 											<i class="feather-icon icon-md text-dark-grey" data-feather="plus"></i>
@@ -305,50 +249,14 @@
 								Mức lương
 							</h4>
 							<div class="d-block text-start">
-								<label for="salary_option_all" class="itag itag-lg itag-light imy-2 ime-2 normal-text job-level-modal input-checkbox-unchecked">
-									<input id="salary_option_all" name="salary" class="btn-check" type="radio" />
-									<span>Tất cả</span>
-								</label>
 
-								<label for="salary_option_under_10" class="itag itag-lg itag-light imy-2 ime-2 normal-text job-level-modal input-checkbox-unchecked">
-									<input id="salary_option_under_10" name="salary" class="btn-check" type="radio" />
-									<span>Dưới 10 triệu</span>
-								</label>
-
-								<label for="salary_option_10_15" class="itag itag-lg itag-light imy-2 ime-2 normal-text job-level-modal input-checkbox-unchecked">
-									<input id="salary_option_10_15" name="salary" class="btn-check" type="radio" />
-									<span>10 - 15 triệu</span>
-								</label>
-
-								<label for="salary_option_15_20" class="itag itag-lg itag-light imy-2 ime-2 normal-text job-level-modal input-checkbox-unchecked">
-									<input id="salary_option_15_20" name="salary" class="btn-check" type="radio" />
-									<span>15 - 20 triệu</span>
-								</label>
-
-								<label for="salary_option_20_25" class="itag itag-lg itag-light imy-2 ime-2 normal-text job-level-modal input-checkbox-unchecked">
-									<input id="salary_option_20_25" name="salary" class="btn-check" type="radio" />
-									<span>20 - 25 triệu</span>
-								</label>
-
-								<label for="salary_option_25_30" class="itag itag-lg itag-light imy-2 ime-2 normal-text job-level-modal input-checkbox-unchecked">
-									<input id="salary_option_25_30" name="salary" class="btn-check" type="radio" />
-									<span>25 - 30 triệu</span>
-								</label>
-
-								<label for="salary_option_30_50" class="itag itag-lg itag-light imy-2 ime-2 normal-text job-level-modal input-checkbox-unchecked">
-									<input id="salary_option_30_50" name="salary" class="btn-check" type="radio" />
-									<span>30 - 50 triệu</span>
-								</label>
-
-								<label for="salary_option_above_50" class="itag itag-lg itag-light imy-2 ime-2 normal-text job-level-modal input-checkbox-unchecked">
-									<input id="salary_option_above_50" name="salary" class="btn-check" type="radio" />
-									<span>Trên 50 triệu</span>
-								</label>
-
-								<label for="salary_option_agree" class="itag itag-lg itag-light imy-2 ime-2 normal-text job-level-modal input-checkbox-unchecked">
-									<input id="salary_option_agree" name="salary" class="btn-check" type="radio" />
-									<span>Thỏa thuận</span>
-								</label>
+								@foreach (var salary in salaryOptions)
+								{
+									<label for="modal_@salary.Id" class="itag itag-lg itag-light imy-2 ime-2 normal-text job-level-modal input-checkbox-unchecked">
+										<input id="modal_@salary.Id" value="@salary.Value" name="salary" class="btn-check" type="radio" />
+										<span>@salary.Text</span>
+									</label>
+								}
 							</div>
 							<div class="imy-3">
 								<div class="d-flex align-items-center justify-content-start gap-2">

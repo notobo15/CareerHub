@@ -28,7 +28,6 @@
           asp-controller="Job"
           asp-action="Search"
           asp-route-key=""
-          accept-charset="UTF-8"
           method="get">
         <div class="d-flex flex-column flex-xl-row">
             <!-- / City -->
@@ -36,30 +35,17 @@
                 <select name="province"
                         id="city"
                         tabindex="-1"
-                        class="tomselected ts-hidden-accessible" asp-items="@provinceSelectList">
+                        class="" asp-items="@provinceSelectList">
                 </select>
-                <div class="ts-wrapper single full has-items">
-                    <div class="ts-control" role="combobox" id="city-ts-control" tabindex="0">
-                        <div data-value="@provinceSelected.Value" class="item" data-ts-item="">@provinceSelected.Text</div>
-                    </div>
-                    <div class="ts-dropdown single" style="display: none;">
-                        <div role="listbox" tabindex="-1" class="ts-dropdown-content" id="city-ts-dropdown">
-                            @foreach (var item in provinceSelectList)
-                            {
-                                <div class="option text-it-black@(item.Selected ? " selected" : "")" role="option" data-value="@item.Value">
-                                    <span>@item.Text</span>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="map-pin-box position-absolute top-50 translate-middle-y z-1 pe-none">
                     <i data-feather="map-pin" class="feather-icon map-pin-icon"></i>
                 </div>
+				
                 @*
                 <div class="arrow-down-box position-absolute top-50 translate-middle-y z-1 pe-none">
-                    <i data-feather="chevron-down" class="feather-icon icon-lg"></i>
-                </div>
+					<i data-feather="chevron-down" class="feather-icon icon-lg"></i>
+				</div>
                 *@
             </div>
             <!-- / Keyword and Button -->

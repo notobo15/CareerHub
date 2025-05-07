@@ -27,11 +27,8 @@
 	<link rel="stylesheet" href="~/lib/select2/css/select2.css" />
 	<link rel="stylesheet" href="~/lib/select2/css/select2-bootstrap4.min.css" />
 	<link rel="stylesheet" href="~/assets/vendors/jquery-steps/jquery.steps.css">
-	<link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
 	<link href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" rel="stylesheet" />
 
-	<link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
-	<link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css" rel="stylesheet" />
 	<!-- endinject -->
 	<!-- Layout styles -->
@@ -42,6 +39,7 @@
 
 
 <body>
+	<partial name="_Loading" />
 
 	<div class="main-wrapper">
 
@@ -105,7 +103,6 @@
 
 	<script src="~/lib/select2/js/select2.js"></script>
 	<script src="~/assets/vendors/jquery-steps/jquery.steps.min.js"></script>
-
 	<!-- end plugin js for this page -->
 	<!-- inject:js -->
 	<script src="~/assets/vendors/feather-icons/feather.min.js"></script>
@@ -121,7 +118,7 @@
 	<!-- custom js for this page -->
 	<script src="~/assets/js/dashboard.js"></script>
 	<script src="~/assets/js/datepicker.js"></script>
-
+	<script src="~/js/_Loading.js" asp-append-version="true"></script>
 	<!-- end custom js for this page -->
 	@await RenderSectionAsync("Scripts", required: false)
 </body>

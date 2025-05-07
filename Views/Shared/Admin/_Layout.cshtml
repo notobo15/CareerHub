@@ -42,8 +42,10 @@
 
 
 <body>
+	<partial name="_Loading" />
 
 	<div class="main-wrapper">
+
 
 		<!-- partial:partials/_sidebar.html -->
 		<partial name="Admin/_Sidebar" />
@@ -108,7 +110,7 @@
 
 	<!-- end plugin js for this page -->
 	<!-- inject:js -->
-	<script src="~/assets/vendors/feather-icons/feather.min.js"></script>
+	<script src="~/assets/vendors/feather-icons/feather.js"></script>
 	<script src="~/assets/vendors/cropperjs/cropper.min.js"></script>
 
 	<script src="https://unpkg.com/filepond/dist/filepond.js"></script>
@@ -120,7 +122,41 @@
 	<!-- endinject -->
 	<!-- custom js for this page -->
 	<script src="~/assets/js/dashboard.js"></script>
-	<script src="~/assets/js/datepicker.js"></script>
+	<script src="~/js/_Loading.js"></script>
+
+	<script>
+		feather.replace();
+
+		function changeTheme(theme) {
+			$('body').removeClass('light-theme dark-theme settings-open');
+			$('body').addClass(theme + '-theme');
+			
+			// Lưu lại vào localStorage
+			localStorage.setItem('theme', theme);
+
+		}
+
+		$(document).ready(function () {
+			var savedTheme = localStorage.getItem('theme');
+
+			if (!savedTheme) {
+				// Nếu chưa có, tự detect hệ thống
+				if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+					savedTheme = 'dark';
+				} else {
+					savedTheme = 'light';
+				}
+			}
+
+			// Apply theme cho body
+			$('body').removeClass('light-theme dark-theme');
+			$('body').addClass(savedTheme + '-theme');
+
+			// Set active class cho theme-item
+			$('.theme-item').removeClass('active'); // bỏ active cũ
+			$('.theme-item[data-theme="' + savedTheme + '"]').addClass('active');
+		});
+	</script>
 
 	<!-- end custom js for this page -->
 	@await RenderSectionAsync("Scripts", required: false)
